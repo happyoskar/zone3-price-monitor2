@@ -1,1 +1,42 @@
+name: Zone3 Price Monitor (2x Daily)
 
+on:
+  schedule:
+    # 06:30 UTC = 07:30 CET (Matí)
+    - cron: '30 6 * * *'
+    # 18:30 UTC = 19:30 CET (Vespre)
+    - cron: '30 18 * * *'
+  workflow_dispatch: # Permet executar-lo manualment amb 1 clic
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  scrape-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Playwright & Chromium
+        run: |
+          pip install playwright
+          playwright install --with-deps chromium
+
+      - name: Execute Real Price Scraper (108 URLs)
+        run: python scraper.py
+
+      - name: Commit and Push Updated Prices & HTML Dashboard
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add data/tracking.json data/history.json index.html
+          git diff --staged --quiet || git commit -m "Auto-update Zone3 verified prices $(date +'%Y-%m-%d %H:%M')"
+          git push
