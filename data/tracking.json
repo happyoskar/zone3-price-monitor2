@@ -7,12 +7,14 @@
     "code": "WS22MVAN101",
     "model": "Men's Vanquish-X Wetsuit",
     "pvp": 859.0,
-    "price": 664.49,
-    "disc_imp": 194.51,
-    "disc_pct": 22.6,
+    "price": 654.99,
+    "disc_imp": 204.01,
+    "disc_pct": 23.8,
     "url": "https://www.tradeinn.com/swiminn/es/zone3-traje-de-neopreno-de-manga-larga-vanquish-x/138472238/p?country=es",
     "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "last_read": "2026-11-17",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "ES-DEP-WS22MVAN101",
@@ -27,7 +29,9 @@
     "disc_pct": 29.3,
     "url": "https://www.deporvillage.net/zone3-vanquish-x-wetsuit-black-orange",
     "status": "VERIFIED",
-    "last_read": "2026-11-17"
+    "last_read": "2026-11-17",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "ES-BIK-WS22MVAN101",
@@ -37,12 +41,14 @@
     "code": "WS22MVAN101",
     "model": "Men's Vanquish-X Wetsuit",
     "pvp": 859.0,
-    "price": null,
-    "disc_imp": null,
-    "disc_pct": null,
+    "price": 631.99,
+    "disc_imp": 227.01,
+    "disc_pct": 26.4,
     "url": "https://www.bike24.es/productos/575211",
-    "status": "PENDING_URL",
-    "last_read": ""
+    "status": "VERIFIED",
+    "last_read": "2026-11-15",
+    "out_of_stock": false,
+    "is_from": true
   },
   {
     "id": "ES-SPO-WS22MVAN101",
@@ -52,12 +58,14 @@
     "code": "WS22MVAN101",
     "model": "Men's Vanquish-X Wetsuit",
     "pvp": 859.0,
-    "price": 598.49,
-    "disc_imp": 260.51,
-    "disc_pct": 30.3,
+    "price": 629.99,
+    "disc_imp": 229.01,
+    "disc_pct": 26.7,
     "url": "https://sportano.com/p/118161/zone3-vanquish-x-men-s-triathlon-wetsuit-black-ws22mvan101",
     "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "last_read": "2026-11-17",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "ES-WET-WS22MVAN101",
@@ -72,7 +80,9 @@
     "disc_pct": null,
     "url": "",
     "status": "NO_STOCK",
-    "last_read": ""
+    "last_read": "",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "ES-TRI-WS22MVAN101",
@@ -87,7 +97,9 @@
     "disc_pct": null,
     "url": "",
     "status": "NO_STOCK",
-    "last_read": ""
+    "last_read": "",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "ES-ALL-WS22MVAN101",
@@ -102,7 +114,9 @@
     "disc_pct": null,
     "url": "",
     "status": "NO_STOCK",
-    "last_read": ""
+    "last_read": "",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "ES-TRA-WS22WVAN101",
@@ -112,12 +126,14 @@
     "code": "WS22WVAN101",
     "model": "Women's Vanquish-X Wetsuit",
     "pvp": 859.0,
-    "price": 670.99,
-    "disc_imp": 188.01,
-    "disc_pct": 21.9,
+    "price": 679.99,
+    "disc_imp": 179.01,
+    "disc_pct": 20.8,
     "url": "https://www.tradeinn.com/swiminn/es/zone3-traje-de-neopreno-de-manga-larga-para-mujer-vanquish-x/138472237/p?country=es",
     "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "last_read": "2026-11-17",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "ES-DEP-WS22WVAN101",
@@ -127,12 +143,14 @@
     "code": "WS22WVAN101",
     "model": "Women's Vanquish-X Wetsuit",
     "pvp": 859.0,
-    "price": null,
-    "disc_imp": null,
-    "disc_pct": null,
-    "url": "",
-    "status": "NO_STOCK",
-    "last_read": ""
+    "price": 647.7,
+    "disc_imp": 211.3,
+    "disc_pct": 24.6,
+    "url": "https://www.deporvillage.com/traje-neopreno-zone3-vanquish-x-mujer",
+    "status": "VERIFIED",
+    "last_read": "2026-11-15",
+    "out_of_stock": false,
+    "is_from": true
   },
   {
     "id": "ES-BIK-WS22WVAN101",
@@ -142,12 +160,14 @@
     "code": "WS22WVAN101",
     "model": "Women's Vanquish-X Wetsuit",
     "pvp": 859.0,
-    "price": null,
-    "disc_imp": null,
-    "disc_pct": null,
+    "price": 619.99,
+    "disc_imp": 239.01,
+    "disc_pct": 27.8,
     "url": "https://www.bike24.es/productos/575232",
-    "status": "PENDING_URL",
-    "last_read": ""
+    "status": "VERIFIED",
+    "last_read": "2026-11-15",
+    "out_of_stock": false,
+    "is_from": true
   },
   {
     "id": "ES-SPO-WS22WVAN101",
@@ -162,7 +182,9 @@
     "disc_pct": null,
     "url": "",
     "status": "NO_STOCK",
-    "last_read": ""
+    "last_read": "",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "ES-WET-WS22WVAN101",
@@ -177,7 +199,9 @@
     "disc_pct": null,
     "url": "",
     "status": "NO_STOCK",
-    "last_read": ""
+    "last_read": "",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "ES-TRI-WS22WVAN101",
@@ -192,7 +216,9 @@
     "disc_pct": null,
     "url": "",
     "status": "NO_STOCK",
-    "last_read": ""
+    "last_read": "",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "ES-ALL-WS22WVAN101",
@@ -207,7 +233,9 @@
     "disc_pct": null,
     "url": "",
     "status": "NO_STOCK",
-    "last_read": ""
+    "last_read": "",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "ES-TRA-WS25MASP101",
@@ -222,7 +250,9 @@
     "disc_pct": 23.5,
     "url": "https://www.tradeinn.com/swiminn/es/zone3-traje-de-neopreno-de-manga-larga-aspire/137048627/p?country=es",
     "status": "VERIFIED",
-    "last_read": "2026-11-17"
+    "last_read": "2026-11-17",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "ES-DEP-WS25MASP101",
@@ -237,7 +267,9 @@
     "disc_pct": 27.4,
     "url": "https://www.deporvillage.es/natacion-zone3",
     "status": "VERIFIED",
-    "last_read": "2026-11-17"
+    "last_read": "2026-11-17",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "ES-BIK-WS25MASP101",
@@ -247,12 +279,14 @@
     "code": "WS25MASP101",
     "model": "Men's Aspire Wetsuit",
     "pvp": 689.0,
-    "price": null,
-    "disc_imp": null,
-    "disc_pct": null,
+    "price": 481.99,
+    "disc_imp": 207.01,
+    "disc_pct": 30.0,
     "url": "https://www.bike24.es/productos/905637",
-    "status": "PENDING_URL",
-    "last_read": ""
+    "status": "VERIFIED",
+    "last_read": "2026-11-15",
+    "out_of_stock": false,
+    "is_from": true
   },
   {
     "id": "ES-SPO-WS25MASP101",
@@ -262,12 +296,14 @@
     "code": "WS25MASP101",
     "model": "Men's Aspire Wetsuit",
     "pvp": 689.0,
-    "price": 465.49,
-    "disc_imp": 223.51,
-    "disc_pct": 32.4,
+    "price": null,
+    "disc_imp": null,
+    "disc_pct": null,
     "url": "https://sportano.com/p/610052/men-s-triathlon-wetsuit-zone3-aspire-black-chalk",
-    "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "status": "PENDING_URL",
+    "last_read": "",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "ES-WET-WS25MASP101",
@@ -277,12 +313,14 @@
     "code": "WS25MASP101",
     "model": "Men's Aspire Wetsuit",
     "pvp": 689.0,
-    "price": 649.99,
-    "disc_imp": 39.01,
-    "disc_pct": 5.7,
+    "price": null,
+    "disc_imp": null,
+    "disc_pct": null,
     "url": "https://www.wetsuitoutlet.es/2026-zone3-hombres-aspire-neopreno-ws25masp-black-chalk-p-53917.html?currency=EUR",
-    "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "status": "PENDING_URL",
+    "last_read": "",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "ES-TRI-WS25MASP101",
@@ -292,12 +330,14 @@
     "code": "WS25MASP101",
     "model": "Men's Aspire Wetsuit",
     "pvp": 689.0,
-    "price": 180.0,
-    "disc_imp": 509.0,
-    "disc_pct": 73.9,
+    "price": 429.95,
+    "disc_imp": 259.05,
+    "disc_pct": 37.6,
     "url": "https://www.triathlon24.nl/wetsuits/zone3/",
     "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "last_read": "2026-11-17",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "ES-ALL-WS25MASP101",
@@ -309,10 +349,12 @@
     "pvp": 689.0,
     "price": 512.99,
     "disc_imp": 176.01,
-    "disc_pct": 25.5,
+    "disc_pct": 25.6,
     "url": "https://www.alltricks.es/F-46286-combinaisons-_-maillots-de-bain/P-3277845-traje_de_neopreno_zone3_aspire_negro_gris_para_hombre",
     "status": "VERIFIED",
-    "last_read": "2026-11-17"
+    "last_read": "2026-11-17",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "ES-TRA-WS25WASP101",
@@ -322,12 +364,14 @@
     "code": "WS25WASP101",
     "model": "Women's Aspire Wetsuit",
     "pvp": 689.0,
-    "price": null,
-    "disc_imp": null,
-    "disc_pct": null,
-    "url": "",
-    "status": "NO_STOCK",
-    "last_read": ""
+    "price": 534.99,
+    "disc_imp": 154.01,
+    "disc_pct": 22.4,
+    "url": "https://www.tradeinn.com/swiminn/es/zone3-traje-de-neopreno-de-manga-larga-para-mujer-aspire/141564550/p?country=es",
+    "status": "VERIFIED",
+    "last_read": "2026-11-11",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "ES-DEP-WS25WASP101",
@@ -337,12 +381,14 @@
     "code": "WS25WASP101",
     "model": "Women's Aspire Wetsuit",
     "pvp": 689.0,
-    "price": null,
-    "disc_imp": null,
-    "disc_pct": null,
-    "url": "",
-    "status": "NO_STOCK",
-    "last_read": ""
+    "price": 497.0,
+    "disc_imp": 192.0,
+    "disc_pct": 27.9,
+    "url": "https://www.deporvillage.com/traje-neopreno-zone3-aspire-mujer-2",
+    "status": "VERIFIED",
+    "last_read": "2026-11-15",
+    "out_of_stock": false,
+    "is_from": true
   },
   {
     "id": "ES-BIK-WS25WASP101",
@@ -352,12 +398,14 @@
     "code": "WS25WASP101",
     "model": "Women's Aspire Wetsuit",
     "pvp": 689.0,
-    "price": null,
-    "disc_imp": null,
-    "disc_pct": null,
-    "url": "",
-    "status": "NO_STOCK",
-    "last_read": ""
+    "price": 510.99,
+    "disc_imp": 178.01,
+    "disc_pct": 25.8,
+    "url": "https://www.bike24.es/productos/1004856",
+    "status": "VERIFIED",
+    "last_read": "2026-11-15",
+    "out_of_stock": false,
+    "is_from": true
   },
   {
     "id": "ES-SPO-WS25WASP101",
@@ -372,7 +420,9 @@
     "disc_pct": null,
     "url": "",
     "status": "NO_STOCK",
-    "last_read": ""
+    "last_read": "",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "ES-WET-WS25WASP101",
@@ -387,7 +437,9 @@
     "disc_pct": null,
     "url": "",
     "status": "NO_STOCK",
-    "last_read": ""
+    "last_read": "",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "ES-TRI-WS25WASP101",
@@ -397,12 +449,14 @@
     "code": "WS25WASP101",
     "model": "Women's Aspire Wetsuit",
     "pvp": 689.0,
-    "price": 180.0,
-    "disc_imp": 509.0,
-    "disc_pct": 73.9,
+    "price": 429.95,
+    "disc_imp": 259.05,
+    "disc_pct": 37.6,
     "url": "https://www.triathlon24.nl/wetsuits/zone3/",
     "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "last_read": "2026-11-17",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "ES-ALL-WS25WASP101",
@@ -417,7 +471,9 @@
     "disc_pct": null,
     "url": "",
     "status": "NO_STOCK",
-    "last_read": ""
+    "last_read": "",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "ES-TRA-WS24MVIS101",
@@ -432,7 +488,9 @@
     "disc_pct": 22.4,
     "url": "https://www.tradeinn.com/swiminn/es/zone3-traje-de-neopreno-de-manga-larga-terraprene-vision/140374093/p?country=es",
     "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "last_read": "2026-11-17",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "ES-DEP-WS24MVIS101",
@@ -447,7 +505,9 @@
     "disc_pct": 13.4,
     "url": "https://www.deporvillage.net/zone3-terraprene-vision-wetsuit-black-green",
     "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "last_read": "2026-11-17",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "ES-BIK-WS24MVIS101",
@@ -457,12 +517,14 @@
     "code": "WS24MVIS101",
     "model": "Men's Vision Wetsuit",
     "pvp": 499.0,
-    "price": null,
-    "disc_imp": null,
-    "disc_pct": null,
-    "url": "",
-    "status": "NO_STOCK",
-    "last_read": ""
+    "price": 401.99,
+    "disc_imp": 97.01,
+    "disc_pct": 19.4,
+    "url": "https://www.bike24.es/productos/795725",
+    "status": "VERIFIED",
+    "last_read": "2026-11-15",
+    "out_of_stock": false,
+    "is_from": true
   },
   {
     "id": "ES-SPO-WS24MVIS101",
@@ -477,7 +539,9 @@
     "disc_pct": null,
     "url": "",
     "status": "NO_STOCK",
-    "last_read": ""
+    "last_read": "",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "ES-WET-WS24MVIS101",
@@ -492,7 +556,9 @@
     "disc_pct": 5.8,
     "url": "https://www.wetsuitoutlet.es/2026-zone3-hombres-terraprene-vision-back-zip-swim-neopreno-ws24mvis101-black-forest-green-p-48572.html?currency=EUR",
     "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "last_read": "2026-11-15",
+    "out_of_stock": false,
+    "is_from": true
   },
   {
     "id": "ES-TRI-WS24MVIS101",
@@ -502,12 +568,14 @@
     "code": "WS24MVIS101",
     "model": "Men's Vision Wetsuit",
     "pvp": 499.0,
-    "price": 169.0,
-    "disc_imp": 330.0,
-    "disc_pct": 66.1,
+    "price": 349.95,
+    "disc_imp": 149.05,
+    "disc_pct": 29.9,
     "url": "https://www.triathlon24.nl/wetsuits/zone3/",
     "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "last_read": "2026-11-17",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "ES-ALL-WS24MVIS101",
@@ -517,12 +585,14 @@
     "code": "WS24MVIS101",
     "model": "Men's Vision Wetsuit",
     "pvp": 499.0,
-    "price": null,
-    "disc_imp": null,
-    "disc_pct": null,
-    "url": "",
-    "status": "NO_STOCK",
-    "last_read": ""
+    "price": 353.99,
+    "disc_imp": 145.01,
+    "disc_pct": 29.1,
+    "url": "https://www.alltricks.es/F-46286-combinaisons-_-maillots-de-bain/P-3249848-traje_de_neopreno_zone3_vision_negro_verde_para_hombre",
+    "status": "VERIFIED",
+    "last_read": "2026-11-15",
+    "out_of_stock": false,
+    "is_from": true
   },
   {
     "id": "ES-TRA-WS24WVIS101",
@@ -537,7 +607,9 @@
     "disc_pct": 22.4,
     "url": "https://www.tradeinn.com/swiminn/es/zone3-traje-de-neopreno-de-manga-larga-para-mujer-terraprene-vision/140374092/p?country=es",
     "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "last_read": "2026-11-11",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "ES-DEP-WS24WVIS101",
@@ -547,12 +619,14 @@
     "code": "WS24WVIS101",
     "model": "Women's Vision Wetsuit",
     "pvp": 499.0,
-    "price": null,
-    "disc_imp": null,
-    "disc_pct": null,
-    "url": "",
-    "status": "NO_STOCK",
-    "last_read": ""
+    "price": 377.23,
+    "disc_imp": 121.77,
+    "disc_pct": 24.4,
+    "url": "https://www.deporvillage.com/traje-de-neopreno-zone3-terraprene-vision-mujer",
+    "status": "VERIFIED",
+    "last_read": "2026-11-15",
+    "out_of_stock": false,
+    "is_from": true
   },
   {
     "id": "ES-BIK-WS24WVIS101",
@@ -562,12 +636,14 @@
     "code": "WS24WVIS101",
     "model": "Women's Vision Wetsuit",
     "pvp": 499.0,
-    "price": null,
-    "disc_imp": null,
-    "disc_pct": null,
-    "url": "",
-    "status": "NO_STOCK",
-    "last_read": ""
+    "price": 374.99,
+    "disc_imp": 124.01,
+    "disc_pct": 24.9,
+    "url": "https://www.bike24.es/productos/795724",
+    "status": "VERIFIED",
+    "last_read": "2026-11-15",
+    "out_of_stock": false,
+    "is_from": true
   },
   {
     "id": "ES-SPO-WS24WVIS101",
@@ -582,7 +658,9 @@
     "disc_pct": null,
     "url": "",
     "status": "NO_STOCK",
-    "last_read": ""
+    "last_read": "",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "ES-WET-WS24WVIS101",
@@ -597,7 +675,9 @@
     "disc_pct": 5.8,
     "url": "https://www.wetsuitoutlet.es/2026-zone3-mujer-terraprene-vision-back-zip-swim-neopreno-ws24wvis101-black-eucalyptus-green-p-48600.html?currency=EUR",
     "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "last_read": "2026-11-15",
+    "out_of_stock": false,
+    "is_from": true
   },
   {
     "id": "ES-TRI-WS24WVIS101",
@@ -607,12 +687,14 @@
     "code": "WS24WVIS101",
     "model": "Women's Vision Wetsuit",
     "pvp": 499.0,
-    "price": 169.0,
-    "disc_imp": 330.0,
-    "disc_pct": 66.1,
+    "price": 349.95,
+    "disc_imp": 149.05,
+    "disc_pct": 29.9,
     "url": "https://www.triathlon24.nl/wetsuits/zone3/",
     "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "last_read": "2026-11-17",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "ES-ALL-WS24WVIS101",
@@ -627,7 +709,9 @@
     "disc_pct": null,
     "url": "",
     "status": "NO_STOCK",
-    "last_read": ""
+    "last_read": "",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "ES-TRA-WS21MADV101",
@@ -637,12 +721,14 @@
     "code": "WS21MADV101",
     "model": "Men's Advance Wetsuit",
     "pvp": 369.0,
-    "price": 291.99,
-    "disc_imp": 77.01,
-    "disc_pct": 20.9,
+    "price": 287.99,
+    "disc_imp": 81.01,
+    "disc_pct": 21.9,
     "url": "https://www.tradeinn.com/swiminn/es/zone3-traje-de-neopreno-de-manga-larga-advance/137937160/p?country=es",
     "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "last_read": "2026-11-17",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "ES-DEP-WS21MADV101",
@@ -657,7 +743,9 @@
     "disc_pct": 24.1,
     "url": "https://www.deporvillage.es/natacion-zone3",
     "status": "VERIFIED",
-    "last_read": "2026-11-17"
+    "last_read": "2026-11-17",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "ES-BIK-WS21MADV101",
@@ -667,12 +755,14 @@
     "code": "WS21MADV101",
     "model": "Men's Advance Wetsuit",
     "pvp": 369.0,
-    "price": null,
-    "disc_imp": null,
-    "disc_pct": null,
-    "url": "",
-    "status": "NO_STOCK",
-    "last_read": ""
+    "price": 279.99,
+    "disc_imp": 89.01,
+    "disc_pct": 24.1,
+    "url": "https://www.bike24.es/productos/449867",
+    "status": "VERIFIED",
+    "last_read": "2026-11-15",
+    "out_of_stock": false,
+    "is_from": true
   },
   {
     "id": "ES-SPO-WS21MADV101",
@@ -682,12 +772,14 @@
     "code": "WS21MADV101",
     "model": "Men's Advance Wetsuit",
     "pvp": 369.0,
-    "price": 259.99,
-    "disc_imp": 109.01,
-    "disc_pct": 29.5,
+    "price": null,
+    "disc_imp": null,
+    "disc_pct": null,
     "url": "https://sportano.com/p/118144/zone3-advence-men-s-triathlon-wetsuit-black-ws21madv101",
-    "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "status": "PENDING_URL",
+    "last_read": "",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "ES-WET-WS21MADV101",
@@ -702,7 +794,9 @@
     "disc_pct": 0.0,
     "url": "https://www.wetsuitoutlet.es/2026-zone3-mens-advance-svommedragt-ws21madv-sortbla-p-38382.html?currency=EUR&geo=es-es",
     "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "last_read": "2026-11-17",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "ES-TRI-WS21MADV101",
@@ -712,12 +806,14 @@
     "code": "WS21MADV101",
     "model": "Men's Advance Wetsuit",
     "pvp": 369.0,
-    "price": 95.0,
-    "disc_imp": 274.0,
-    "disc_pct": 74.3,
+    "price": 289.95,
+    "disc_imp": 79.05,
+    "disc_pct": 21.4,
     "url": "https://www.triathlon24.nl/wetsuits/zone3/",
     "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "last_read": "2026-11-17",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "ES-ALL-WS21MADV101",
@@ -727,12 +823,14 @@
     "code": "WS21MADV101",
     "model": "Men's Advance Wetsuit",
     "pvp": 369.0,
-    "price": 269.99,
-    "disc_imp": 99.01,
-    "disc_pct": 26.8,
+    "price": 286.99,
+    "disc_imp": 82.01,
+    "disc_pct": 22.2,
     "url": "https://www.alltricks.es/F-46286-combinaisons-_-maillots-de-bain/P-3121130-traje_de_neopreno_para_triatlon_zone3_advance_negro_azul",
     "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "last_read": "2026-11-15",
+    "out_of_stock": false,
+    "is_from": true
   },
   {
     "id": "ES-TRA-WS21WADV101",
@@ -747,7 +845,9 @@
     "disc_pct": 23.0,
     "url": "https://www.tradeinn.com/swiminn/es/zone3-traje-de-neopreno-de-manga-larga-para-mujer-advance/137937161/p?country=es",
     "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "last_read": "2026-11-17",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "ES-DEP-WS21WADV101",
@@ -757,12 +857,14 @@
     "code": "WS21WADV101",
     "model": "Women's Advance Wetsuit",
     "pvp": 369.0,
-    "price": null,
-    "disc_imp": null,
-    "disc_pct": null,
-    "url": "",
-    "status": "NO_STOCK",
-    "last_read": ""
+    "price": 270.95,
+    "disc_imp": 98.05,
+    "disc_pct": 26.6,
+    "url": "https://www.deporvillage.com/traje-de-neopreno-zone3-advance-mujer",
+    "status": "VERIFIED",
+    "last_read": "2026-11-15",
+    "out_of_stock": false,
+    "is_from": true
   },
   {
     "id": "ES-BIK-WS21WADV101",
@@ -772,12 +874,14 @@
     "code": "WS21WADV101",
     "model": "Women's Advance Wetsuit",
     "pvp": 369.0,
-    "price": null,
-    "disc_imp": null,
-    "disc_pct": null,
-    "url": "",
-    "status": "NO_STOCK",
-    "last_read": ""
+    "price": 270.99,
+    "disc_imp": 98.01,
+    "disc_pct": 26.6,
+    "url": "https://www.bike24.es/productos/449872",
+    "status": "VERIFIED",
+    "last_read": "2026-11-15",
+    "out_of_stock": false,
+    "is_from": true
   },
   {
     "id": "ES-SPO-WS21WADV101",
@@ -787,12 +891,14 @@
     "code": "WS21WADV101",
     "model": "Women's Advance Wetsuit",
     "pvp": 369.0,
-    "price": 256.49,
-    "disc_imp": 112.51,
-    "disc_pct": 30.5,
+    "price": null,
+    "disc_imp": null,
+    "disc_pct": null,
     "url": "https://sportano.com/p/118145/women-s-zone3-advence-triathlon-wetsuit-ws21wadv101",
-    "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "status": "PENDING_URL",
+    "last_read": "",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "ES-WET-WS21WADV101",
@@ -807,7 +913,9 @@
     "disc_pct": 11.9,
     "url": "https://www.wetsuitoutlet.es/2026-zone3-mujer-advance-swim-neopreno-ws21wadv-black-turquoise-p-38383.html?currency=EUR",
     "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "last_read": "2026-11-15",
+    "out_of_stock": false,
+    "is_from": true
   },
   {
     "id": "ES-TRI-WS21WADV101",
@@ -817,12 +925,14 @@
     "code": "WS21WADV101",
     "model": "Women's Advance Wetsuit",
     "pvp": 369.0,
-    "price": 95.0,
-    "disc_imp": 274.0,
-    "disc_pct": 74.3,
+    "price": 249.95,
+    "disc_imp": 119.05,
+    "disc_pct": 32.3,
     "url": "https://www.triathlon24.nl/zone3-advance-wetsuit-lange-mouw-dames/",
     "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "last_read": "2026-11-17",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "ES-ALL-WS21WADV101",
@@ -832,12 +942,14 @@
     "code": "WS21WADV101",
     "model": "Women's Advance Wetsuit",
     "pvp": 369.0,
-    "price": 306.99,
-    "disc_imp": 62.01,
-    "disc_pct": 16.8,
+    "price": 317.99,
+    "disc_imp": 51.01,
+    "disc_pct": 13.8,
     "url": "https://www.alltricks.es/F-46286-combinaisons-_-maillots-de-bain/P-2754766-traje_de_neopreno_zone3_advance_para_triatlon_de_mujer_negro_azul",
     "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "last_read": "2026-11-17",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "ES-TRA-WS21MAGI116",
@@ -847,12 +959,14 @@
     "code": "WS21MAGI116",
     "model": "Men's Agile Wetsuit",
     "pvp": 259.0,
-    "price": 228.99,
-    "disc_imp": 30.01,
-    "disc_pct": 11.6,
+    "price": 213.99,
+    "disc_imp": 45.01,
+    "disc_pct": 17.4,
     "url": "https://www.tradeinn.com/swiminn/es/zone3-traje-de-neopreno-de-manga-larga-agile/137937162/p?country=es",
     "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "last_read": "2026-11-17",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "ES-DEP-WS21MAGI116",
@@ -867,7 +981,9 @@
     "disc_pct": 26.7,
     "url": "https://www.deporvillage.es/natacion-zone3",
     "status": "VERIFIED",
-    "last_read": "2026-11-17"
+    "last_read": "2026-11-17",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "ES-BIK-WS21MAGI116",
@@ -877,12 +993,14 @@
     "code": "WS21MAGI116",
     "model": "Men's Agile Wetsuit",
     "pvp": 259.0,
-    "price": null,
-    "disc_imp": null,
-    "disc_pct": null,
-    "url": "",
-    "status": "NO_STOCK",
-    "last_read": ""
+    "price": 200.99,
+    "disc_imp": 58.01,
+    "disc_pct": 22.4,
+    "url": "https://www.bike24.es/productos/449868",
+    "status": "VERIFIED",
+    "last_read": "2026-11-15",
+    "out_of_stock": false,
+    "is_from": true
   },
   {
     "id": "ES-SPO-WS21MAGI116",
@@ -892,12 +1010,14 @@
     "code": "WS21MAGI116",
     "model": "Men's Agile Wetsuit",
     "pvp": 259.0,
-    "price": 178.49,
-    "disc_imp": 80.51,
-    "disc_pct": 31.1,
+    "price": 209.99,
+    "disc_imp": 49.01,
+    "disc_pct": 18.9,
     "url": "https://sportano.com/p/118163/men-s-zone3-agile-triathlon-wetsuit-black-ws21magi116",
     "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "last_read": "2026-11-17",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "ES-WET-WS21MAGI116",
@@ -912,7 +1032,9 @@
     "disc_pct": 24.3,
     "url": "https://www.wetsuitoutlet.es/2026-zone3-hombres-agile-swim-neopreno-ws21magi116-black-silver-gunmetal-p-40555.html?currency=EUR",
     "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "last_read": "2026-11-15",
+    "out_of_stock": false,
+    "is_from": true
   },
   {
     "id": "ES-TRI-WS21MAGI116",
@@ -922,12 +1044,14 @@
     "code": "WS21MAGI116",
     "model": "Men's Agile Wetsuit",
     "pvp": 259.0,
-    "price": 64.95,
-    "disc_imp": 194.05,
-    "disc_pct": 74.9,
+    "price": 206.95,
+    "disc_imp": 52.05,
+    "disc_pct": 20.1,
     "url": "https://www.triathlon24.nl/wetsuits/zone3/",
     "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "last_read": "2026-11-17",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "ES-ALL-WS21MAGI116",
@@ -937,12 +1061,14 @@
     "code": "WS21MAGI116",
     "model": "Men's Agile Wetsuit",
     "pvp": 259.0,
-    "price": 219.99,
-    "disc_imp": 39.01,
-    "disc_pct": 15.1,
+    "price": 231.99,
+    "disc_imp": 27.01,
+    "disc_pct": 10.4,
     "url": "https://www.alltricks.es/F-46286-combinaisons-_-maillots-de-bain/P-2240827-traje_de_neopreno_zone3__agiletriathlon_negro_plata",
     "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "last_read": "2026-10-23",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "ES-TRA-WS21WAGI114",
@@ -952,12 +1078,14 @@
     "code": "WS21WAGI114",
     "model": "Women's Agile Wetsuit",
     "pvp": 259.0,
-    "price": 228.99,
-    "disc_imp": 30.01,
-    "disc_pct": 11.6,
+    "price": 229.99,
+    "disc_imp": 29.01,
+    "disc_pct": 11.2,
     "url": "https://www.tradeinn.com/swiminn/es/zone3-traje-de-neopreno-de-manga-larga-para-mujer-agile/137937163/p?country=es",
     "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "last_read": "2026-11-17",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "ES-DEP-WS21WAGI114",
@@ -967,12 +1095,14 @@
     "code": "WS21WAGI114",
     "model": "Women's Agile Wetsuit",
     "pvp": 259.0,
-    "price": null,
-    "disc_imp": null,
-    "disc_pct": null,
-    "url": "",
-    "status": "NO_STOCK",
-    "last_read": ""
+    "price": 221.95,
+    "disc_imp": 37.05,
+    "disc_pct": 14.3,
+    "url": "https://www.deporvillage.com/traje-de-neopreno-zone3-agile-mujer",
+    "status": "VERIFIED",
+    "last_read": "2026-11-15",
+    "out_of_stock": false,
+    "is_from": true
   },
   {
     "id": "ES-BIK-WS21WAGI114",
@@ -982,12 +1112,14 @@
     "code": "WS21WAGI114",
     "model": "Women's Agile Wetsuit",
     "pvp": 259.0,
-    "price": null,
-    "disc_imp": null,
-    "disc_pct": null,
-    "url": "",
-    "status": "NO_STOCK",
-    "last_read": ""
+    "price": 199.99,
+    "disc_imp": 59.01,
+    "disc_pct": 22.8,
+    "url": "https://www.bike24.es/productos/466636",
+    "status": "VERIFIED",
+    "last_read": "2026-11-15",
+    "out_of_stock": false,
+    "is_from": true
   },
   {
     "id": "ES-SPO-WS21WAGI114",
@@ -997,12 +1129,14 @@
     "code": "WS21WAGI114",
     "model": "Women's Agile Wetsuit",
     "pvp": 259.0,
-    "price": 199.49,
-    "disc_imp": 59.51,
-    "disc_pct": 23.0,
+    "price": null,
+    "disc_imp": null,
+    "disc_pct": null,
     "url": "https://sportano.com/p/56809/women-s-zone3-agile-triathlon-wetsuit-black-ws21wagi114",
-    "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "status": "PENDING_URL",
+    "last_read": "",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "ES-WET-WS21WAGI114",
@@ -1017,7 +1151,9 @@
     "disc_pct": 1.5,
     "url": "https://www.wetsuitoutlet.es/2026-zone3-mujer-agile-swim-neopreno-ws21wagi114-black-pink-turquoise-p-40559.html?currency=EUR",
     "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "last_read": "2026-11-15",
+    "out_of_stock": false,
+    "is_from": true
   },
   {
     "id": "ES-TRI-WS21WAGI114",
@@ -1027,12 +1163,14 @@
     "code": "WS21WAGI114",
     "model": "Women's Agile Wetsuit",
     "pvp": 259.0,
-    "price": 64.95,
-    "disc_imp": 194.05,
-    "disc_pct": 74.9,
+    "price": 206.95,
+    "disc_imp": 52.05,
+    "disc_pct": 20.1,
     "url": "https://www.triathlon24.nl/wetsuits/zone3/",
     "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "last_read": "2026-11-17",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "ES-ALL-WS21WAGI114",
@@ -1042,12 +1180,14 @@
     "code": "WS21WAGI114",
     "model": "Women's Agile Wetsuit",
     "pvp": 259.0,
-    "price": null,
-    "disc_imp": null,
-    "disc_pct": null,
-    "url": "",
-    "status": "NO_STOCK",
-    "last_read": ""
+    "price": 183.99,
+    "disc_imp": 75.01,
+    "disc_pct": 29.0,
+    "url": "https://www.alltricks.es/F-46286-combinaisons-_-maillots-de-bain/P-3121131-traje_de_neopreno_para_triatlon_zone3_agile_para_mujer_negro_rosa",
+    "status": "VERIFIED",
+    "last_read": "2026-11-15",
+    "out_of_stock": false,
+    "is_from": true
   },
   {
     "id": "ES-TRA-WS26MGLISL101",
@@ -1057,12 +1197,14 @@
     "code": "WS26MGLISL101",
     "model": "Men's Ascend Sleeveless Wetsuit",
     "pvp": 179.0,
-    "price": 144.99,
-    "disc_imp": 34.01,
-    "disc_pct": 19.0,
+    "price": 150.99,
+    "disc_imp": 28.01,
+    "disc_pct": 15.7,
     "url": "https://www.tradeinn.com/swiminn/es/zone3-traje-de-neopreno-sin-mangas-ascend/142771415/p?country=es",
     "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "last_read": "2026-11-17",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "ES-DEP-WS26MGLISL101",
@@ -1077,7 +1219,9 @@
     "disc_pct": null,
     "url": "",
     "status": "NO_STOCK",
-    "last_read": ""
+    "last_read": "",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "ES-BIK-WS26MGLISL101",
@@ -1087,12 +1231,14 @@
     "code": "WS26MGLISL101",
     "model": "Men's Ascend Sleeveless Wetsuit",
     "pvp": 179.0,
-    "price": null,
-    "disc_imp": null,
-    "disc_pct": null,
+    "price": 144.99,
+    "disc_imp": 34.01,
+    "disc_pct": 19.0,
     "url": "https://www.bike24.es/productos/1004857",
-    "status": "PENDING_URL",
-    "last_read": ""
+    "status": "VERIFIED",
+    "last_read": "2026-10-11",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "ES-SPO-WS26MGLISL101",
@@ -1102,12 +1248,14 @@
     "code": "WS26MGLISL101",
     "model": "Men's Ascend Sleeveless Wetsuit",
     "pvp": 179.0,
-    "price": 143.99,
-    "disc_imp": 35.01,
-    "disc_pct": 19.6,
+    "price": null,
+    "disc_imp": null,
+    "disc_pct": null,
     "url": "https://sportano.com/p/940553/men-s-triathlon-wetsuit-zone3-glide-sleeveless-wetsuit-black-grey",
-    "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "status": "PENDING_URL",
+    "last_read": "",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "ES-WET-WS26MGLISL101",
@@ -1122,7 +1270,9 @@
     "disc_pct": 11.2,
     "url": "https://www.wetsuitoutlet.es/2026-zone3-hombres-traje-neopreno-sin-mangas-ascend-ws26mglisl101-black-grey-p-56135.html?currency=EUR",
     "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "last_read": "2026-11-15",
+    "out_of_stock": false,
+    "is_from": true
   },
   {
     "id": "ES-TRI-WS26MGLISL101",
@@ -1137,7 +1287,9 @@
     "disc_pct": null,
     "url": "",
     "status": "NO_STOCK",
-    "last_read": ""
+    "last_read": "",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "ES-ALL-WS26MGLISL101",
@@ -1152,7 +1304,9 @@
     "disc_pct": null,
     "url": "",
     "status": "NO_STOCK",
-    "last_read": ""
+    "last_read": "",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "ES-TRA-WS26WGLISL101",
@@ -1167,7 +1321,9 @@
     "disc_pct": 9.8,
     "url": "https://www.tradeinn.com/swiminn/es/zone3-traje-de-neopreno-sin-mangas-para-mujer-ascend/142771416/p?country=es",
     "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "last_read": "2026-11-11",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "ES-DEP-WS26WGLISL101",
@@ -1182,7 +1338,9 @@
     "disc_pct": null,
     "url": "",
     "status": "NO_STOCK",
-    "last_read": ""
+    "last_read": "",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "ES-BIK-WS26WGLISL101",
@@ -1192,12 +1350,14 @@
     "code": "WS26WGLISL101",
     "model": "Women's Ascend Sleeveless Wetsuit",
     "pvp": 179.0,
-    "price": null,
-    "disc_imp": null,
-    "disc_pct": null,
-    "url": "",
-    "status": "NO_STOCK",
-    "last_read": ""
+    "price": 147.99,
+    "disc_imp": 31.01,
+    "disc_pct": 17.3,
+    "url": "https://www.bike24.es/productos/1004858",
+    "status": "VERIFIED",
+    "last_read": "2026-10-11",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "ES-SPO-WS26WGLISL101",
@@ -1212,7 +1372,9 @@
     "disc_pct": null,
     "url": "",
     "status": "NO_STOCK",
-    "last_read": ""
+    "last_read": "",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "ES-WET-WS26WGLISL101",
@@ -1227,7 +1389,9 @@
     "disc_pct": -0.6,
     "url": "https://www.wetsuitoutlet.es/2026-zone3-mujer-traje-neopreno-sin-mangas-ascend-ws26wglisl101-black-grey-p-56136.html?currency=EUR",
     "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "last_read": "2026-11-15",
+    "out_of_stock": false,
+    "is_from": true
   },
   {
     "id": "ES-TRI-WS26WGLISL101",
@@ -1242,7 +1406,9 @@
     "disc_pct": null,
     "url": "",
     "status": "NO_STOCK",
-    "last_read": ""
+    "last_read": "",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "ES-ALL-WS26WGLISL101",
@@ -1257,7 +1423,9 @@
     "disc_pct": null,
     "url": "",
     "status": "NO_STOCK",
-    "last_read": ""
+    "last_read": "",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "ES-TRA-WS25MACTF101",
@@ -1272,7 +1440,9 @@
     "disc_pct": 11.8,
     "url": "https://www.tradeinn.com/swiminn/es/zone3-traje-de-neopreno-de-manga-larga-active-flex/141564541/p?country=es",
     "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "last_read": "2026-11-17",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "ES-DEP-WS25MACTF101",
@@ -1287,7 +1457,9 @@
     "disc_pct": 16.6,
     "url": "https://www.deporvillage.net/zone3-active-flex-wetsuit-black-orange",
     "status": "VERIFIED",
-    "last_read": "2026-11-17"
+    "last_read": "2026-11-17",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "ES-BIK-WS25MACTF101",
@@ -1297,12 +1469,14 @@
     "code": "WS25MACTF101",
     "model": "Men's Active-Flex Wetsuit",
     "pvp": 229.0,
-    "price": null,
-    "disc_imp": null,
-    "disc_pct": null,
-    "url": "",
-    "status": "NO_STOCK",
-    "last_read": ""
+    "price": 166.99,
+    "disc_imp": 62.01,
+    "disc_pct": 27.1,
+    "url": "https://www.bike24.es/productos/905641?origin=PDP_rc_man",
+    "status": "VERIFIED",
+    "last_read": "2026-11-15",
+    "out_of_stock": false,
+    "is_from": true
   },
   {
     "id": "ES-SPO-WS25MACTF101",
@@ -1317,7 +1491,9 @@
     "disc_pct": null,
     "url": "",
     "status": "NO_STOCK",
-    "last_read": ""
+    "last_read": "",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "ES-WET-WS25MACTF101",
@@ -1332,7 +1508,9 @@
     "disc_pct": 14.9,
     "url": "https://www.wetsuitoutlet.es/2026-zone3-hombres-active-flex-swim-neopreno-ws25mactf101-black-orange-p-52492.html?currency=EUR",
     "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "last_read": "2026-11-15",
+    "out_of_stock": false,
+    "is_from": true
   },
   {
     "id": "ES-TRI-WS25MACTF101",
@@ -1342,12 +1520,14 @@
     "code": "WS25MACTF101",
     "model": "Men's Active-Flex Wetsuit",
     "pvp": 229.0,
-    "price": 59.0,
-    "disc_imp": 170.0,
-    "disc_pct": 74.2,
+    "price": 169.95,
+    "disc_imp": 59.05,
+    "disc_pct": 25.8,
     "url": "https://www.triathlon24.nl/wetsuits/zone3/",
     "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "last_read": "2026-11-17",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "ES-ALL-WS25MACTF101",
@@ -1362,7 +1542,9 @@
     "disc_pct": null,
     "url": "",
     "status": "NO_STOCK",
-    "last_read": ""
+    "last_read": "",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "ES-TRA-WS25WACTF101",
@@ -1377,7 +1559,9 @@
     "disc_pct": 9.8,
     "url": "https://www.tradeinn.com/swiminn/es/zone3-traje-de-neopreno-de-manga-larga-para-mujer-active-flex/141564543/p?country=es",
     "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "last_read": "2026-11-17",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "ES-DEP-WS25WACTF101",
@@ -1387,12 +1571,14 @@
     "code": "WS25WACTF101",
     "model": "Women's Active-Flex Wetsuit",
     "pvp": 229.0,
-    "price": null,
-    "disc_imp": null,
-    "disc_pct": null,
-    "url": "",
-    "status": "NO_STOCK",
-    "last_read": ""
+    "price": 202.95,
+    "disc_imp": 26.05,
+    "disc_pct": 11.4,
+    "url": "https://www.deporvillage.com/traje-neopreno-zone3-active-flex-mujer",
+    "status": "VERIFIED",
+    "last_read": "2026-11-15",
+    "out_of_stock": false,
+    "is_from": true
   },
   {
     "id": "ES-BIK-WS25WACTF101",
@@ -1407,7 +1593,9 @@
     "disc_pct": null,
     "url": "",
     "status": "NO_STOCK",
-    "last_read": ""
+    "last_read": "",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "ES-SPO-WS25WACTF101",
@@ -1422,7 +1610,9 @@
     "disc_pct": null,
     "url": "",
     "status": "NO_STOCK",
-    "last_read": ""
+    "last_read": "",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "ES-WET-WS25WACTF101",
@@ -1437,7 +1627,9 @@
     "disc_pct": 14.9,
     "url": "https://www.wetsuitoutlet.es/2026-zone3-mujer-active-flex-swim-neopreno-ws25wactf101-black-orange-p-52493.html?currency=EUR",
     "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "last_read": "2026-11-15",
+    "out_of_stock": false,
+    "is_from": true
   },
   {
     "id": "ES-TRI-WS25WACTF101",
@@ -1447,12 +1639,14 @@
     "code": "WS25WACTF101",
     "model": "Women's Active-Flex Wetsuit",
     "pvp": 229.0,
-    "price": 59.0,
-    "disc_imp": 170.0,
-    "disc_pct": 74.2,
+    "price": 169.95,
+    "disc_imp": 59.05,
+    "disc_pct": 25.8,
     "url": "https://www.triathlon24.nl/wetsuits/zone3/",
     "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "last_read": "2026-11-17",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "ES-ALL-WS25WACTF101",
@@ -1467,7 +1661,9 @@
     "disc_pct": 19.7,
     "url": "https://www.alltricks.es/F-46286-combinaisons-_-maillots-de-bain/P-3282574-traje_de_neopreno_zone3_active_flex_negro_naranja_para_mujer",
     "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "last_read": "2026-11-17",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "ES-TRA-WS25MSRV101",
@@ -1482,7 +1678,9 @@
     "disc_pct": null,
     "url": "https://www.tradeinn.com/swiminn/es/zone3-shorty-manga-larga-versa-swimrun/137937167/p?country=es",
     "status": "PENDING_URL",
-    "last_read": ""
+    "last_read": "",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "ES-DEP-WS25MSRV101",
@@ -1492,12 +1690,14 @@
     "code": "WS25MSRV101",
     "model": "Men's Versa Swimrun Wetsuit",
     "pvp": 259.0,
-    "price": null,
-    "disc_imp": null,
-    "disc_pct": null,
-    "url": "",
-    "status": "NO_STOCK",
-    "last_read": ""
+    "price": 238.95,
+    "disc_imp": 20.05,
+    "disc_pct": 7.7,
+    "url": "https://www.deporvillage.com/traje-neopreno-zone3-versa-swimrun",
+    "status": "VERIFIED",
+    "last_read": "2026-10-11",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "ES-BIK-WS25MSRV101",
@@ -1507,12 +1707,14 @@
     "code": "WS25MSRV101",
     "model": "Men's Versa Swimrun Wetsuit",
     "pvp": 259.0,
-    "price": null,
-    "disc_imp": null,
-    "disc_pct": null,
-    "url": "",
-    "status": "NO_STOCK",
-    "last_read": ""
+    "price": 194.99,
+    "disc_imp": 64.01,
+    "disc_pct": 24.7,
+    "url": "https://www.bike24.es/productos/905642",
+    "status": "VERIFIED",
+    "last_read": "2026-10-11",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "ES-SPO-WS25MSRV101",
@@ -1527,7 +1729,9 @@
     "disc_pct": null,
     "url": "",
     "status": "NO_STOCK",
-    "last_read": ""
+    "last_read": "",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "ES-WET-WS25MSRV101",
@@ -1542,7 +1746,9 @@
     "disc_pct": null,
     "url": "",
     "status": "NO_STOCK",
-    "last_read": ""
+    "last_read": "",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "ES-TRI-WS25MSRV101",
@@ -1557,7 +1763,9 @@
     "disc_pct": null,
     "url": "",
     "status": "NO_STOCK",
-    "last_read": ""
+    "last_read": "",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "ES-ALL-WS25MSRV101",
@@ -1572,7 +1780,9 @@
     "disc_pct": null,
     "url": "",
     "status": "NO_STOCK",
-    "last_read": ""
+    "last_read": "",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "ES-TRA-WS25WSRV101",
@@ -1587,7 +1797,9 @@
     "disc_pct": null,
     "url": "",
     "status": "NO_STOCK",
-    "last_read": ""
+    "last_read": "",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "ES-DEP-WS25WSRV101",
@@ -1602,7 +1814,9 @@
     "disc_pct": null,
     "url": "",
     "status": "NO_STOCK",
-    "last_read": ""
+    "last_read": "",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "ES-BIK-WS25WSRV101",
@@ -1617,7 +1831,9 @@
     "disc_pct": null,
     "url": "",
     "status": "NO_STOCK",
-    "last_read": ""
+    "last_read": "",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "ES-SPO-WS25WSRV101",
@@ -1632,7 +1848,9 @@
     "disc_pct": null,
     "url": "",
     "status": "NO_STOCK",
-    "last_read": ""
+    "last_read": "",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "ES-WET-WS25WSRV101",
@@ -1647,7 +1865,9 @@
     "disc_pct": null,
     "url": "",
     "status": "NO_STOCK",
-    "last_read": ""
+    "last_read": "",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "ES-TRI-WS25WSRV101",
@@ -1662,7 +1882,9 @@
     "disc_pct": null,
     "url": "",
     "status": "NO_STOCK",
-    "last_read": ""
+    "last_read": "",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "ES-ALL-WS25WSRV101",
@@ -1677,7 +1899,9 @@
     "disc_pct": null,
     "url": "",
     "status": "NO_STOCK",
-    "last_read": ""
+    "last_read": "",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "UK-TRA-WS22MVAN101",
@@ -1687,12 +1911,14 @@
     "code": "WS22MVAN101",
     "model": "Men's Vanquish-X Wetsuit",
     "pvp": 699.0,
-    "price": 560.99,
-    "disc_imp": 138.01,
-    "disc_pct": 19.7,
+    "price": 562.49,
+    "disc_imp": 136.51,
+    "disc_pct": 19.5,
     "url": "https://www.tradeinn.com/swiminn/en/zone3-vanquish-x-long-sleeve-neoprene-wetsuit/138472238/p?country=uk",
     "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "last_read": "2026-11-11",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "UK-DEP-WS22MVAN101",
@@ -1702,12 +1928,14 @@
     "code": "WS22MVAN101",
     "model": "Men's Vanquish-X Wetsuit",
     "pvp": 699.0,
-    "price": null,
-    "disc_imp": null,
-    "disc_pct": null,
+    "price": 567.45,
+    "disc_imp": 131.55,
+    "disc_pct": 18.8,
     "url": "https://www.deporvillage.net/zone3-vanquish-x-wetsuit-black-orange",
-    "status": "PENDING_URL",
-    "last_read": ""
+    "status": "VERIFIED",
+    "last_read": "2026-11-15",
+    "out_of_stock": false,
+    "is_from": true
   },
   {
     "id": "UK-SPO-WS22MVAN101",
@@ -1717,12 +1945,14 @@
     "code": "WS22MVAN101",
     "model": "Men's Vanquish-X Wetsuit",
     "pvp": 699.0,
-    "price": null,
-    "disc_imp": null,
-    "disc_pct": null,
-    "url": "",
-    "status": "NO_STOCK",
-    "last_read": ""
+    "price": 489.3,
+    "disc_imp": 209.7,
+    "disc_pct": 30.0,
+    "url": "https://www.sportsshoes.com/product/zne533/zone3-vanquish-x-men's-wetsuit---aw26",
+    "status": "VERIFIED",
+    "last_read": "2026-11-15",
+    "out_of_stock": false,
+    "is_from": true
   },
   {
     "id": "UK-MY -WS22MVAN101",
@@ -1732,12 +1962,14 @@
     "code": "WS22MVAN101",
     "model": "Men's Vanquish-X Wetsuit",
     "pvp": 699.0,
-    "price": 174.97,
-    "disc_imp": 524.03,
-    "disc_pct": 75.0,
+    "price": 558.97,
+    "disc_imp": 140.03,
+    "disc_pct": 20.0,
     "url": "https://mytriathlon.co.uk/brands/Zone-3.html",
     "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "last_read": "2026-11-17",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "UK-SIG-WS22MVAN101",
@@ -1747,12 +1979,14 @@
     "code": "WS22MVAN101",
     "model": "Men's Vanquish-X Wetsuit",
     "pvp": 699.0,
-    "price": 584.0,
-    "disc_imp": 115.0,
-    "disc_pct": 16.5,
+    "price": 560.0,
+    "disc_imp": 139.0,
+    "disc_pct": 19.9,
     "url": "https://www.sigmasports.com/item/Zone3/Vanquish-X-Wetsuit/X5AZ",
     "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "last_read": "2026-11-15",
+    "out_of_stock": false,
+    "is_from": true
   },
   {
     "id": "UK-WET-WS22MVAN101",
@@ -1767,7 +2001,9 @@
     "disc_pct": null,
     "url": "",
     "status": "NO_STOCK",
-    "last_read": ""
+    "last_read": "",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "UK-TRA-WS22WVAN101",
@@ -1777,12 +2013,14 @@
     "code": "WS22WVAN101",
     "model": "Women's Vanquish-X Wetsuit",
     "pvp": 699.0,
-    "price": 566.49,
-    "disc_imp": 132.51,
-    "disc_pct": 19.0,
+    "price": 567.99,
+    "disc_imp": 131.01,
+    "disc_pct": 18.7,
     "url": "https://www.tradeinn.com/swiminn/en/zone3-vanquish-x-woman-long-sleeve-neoprene-wetsuit/138472237/p?country=uk",
     "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "last_read": "2026-11-11",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "UK-DEP-WS22WVAN101",
@@ -1792,12 +2030,14 @@
     "code": "WS22WVAN101",
     "model": "Women's Vanquish-X Wetsuit",
     "pvp": 699.0,
-    "price": null,
-    "disc_imp": null,
-    "disc_pct": null,
-    "url": "",
-    "status": "NO_STOCK",
-    "last_read": ""
+    "price": 614.25,
+    "disc_imp": 84.75,
+    "disc_pct": 12.1,
+    "url": "https://www.deporvillage.co.uk/swimming-triathlon%3Azone3%3Aneoprene_wetsuits",
+    "status": "VERIFIED",
+    "last_read": "2026-11-15",
+    "out_of_stock": false,
+    "is_from": true
   },
   {
     "id": "UK-SPO-WS22WVAN101",
@@ -1807,12 +2047,14 @@
     "code": "WS22WVAN101",
     "model": "Women's Vanquish-X Wetsuit",
     "pvp": 699.0,
-    "price": null,
-    "disc_imp": null,
-    "disc_pct": null,
-    "url": "",
-    "status": "NO_STOCK",
-    "last_read": ""
+    "price": 489.3,
+    "disc_imp": 209.7,
+    "disc_pct": 30.0,
+    "url": "https://www.sportsshoes.com/product/zne534/zone3-vanquish-x-women's-wetsuit---aw26",
+    "status": "VERIFIED",
+    "last_read": "2026-11-15",
+    "out_of_stock": false,
+    "is_from": true
   },
   {
     "id": "UK-MY -WS22WVAN101",
@@ -1822,12 +2064,14 @@
     "code": "WS22WVAN101",
     "model": "Women's Vanquish-X Wetsuit",
     "pvp": 699.0,
-    "price": 438.97,
-    "disc_imp": 260.03,
-    "disc_pct": 37.2,
+    "price": 558.97,
+    "disc_imp": 140.03,
+    "disc_pct": 20.0,
     "url": "https://mytriathlon.co.uk/zone3-vanquish-x-wetsuit-womens-black-2025/",
     "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "last_read": "2026-11-17",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "UK-SIG-WS22WVAN101",
@@ -1837,12 +2081,14 @@
     "code": "WS22WVAN101",
     "model": "Women's Vanquish-X Wetsuit",
     "pvp": 699.0,
-    "price": 632.0,
-    "disc_imp": 67.0,
-    "disc_pct": 9.6,
+    "price": 679.0,
+    "disc_imp": 20.0,
+    "disc_pct": 2.9,
     "url": "https://www.sigmasports.com/item/Zone3/Vanquish-X-Womens-Wetsuit/X5B9",
     "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "last_read": "2026-11-17",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "UK-WET-WS22WVAN101",
@@ -1857,7 +2103,9 @@
     "disc_pct": null,
     "url": "",
     "status": "NO_STOCK",
-    "last_read": ""
+    "last_read": "",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "UK-TRA-WS25MASP101",
@@ -1867,12 +2115,14 @@
     "code": "WS25MASP101",
     "model": "Men's Aspire Wetsuit",
     "pvp": 549.0,
-    "price": null,
-    "disc_imp": null,
-    "disc_pct": null,
+    "price": 452.99,
+    "disc_imp": 96.01,
+    "disc_pct": 17.5,
     "url": "https://www.tradeinn.com/swiminn/en/zone3-aspire-wetsuit/137048627/p?country=uk",
-    "status": "PENDING_URL",
-    "last_read": ""
+    "status": "VERIFIED",
+    "last_read": "2026-11-11",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "UK-DEP-WS25MASP101",
@@ -1882,12 +2132,14 @@
     "code": "WS25MASP101",
     "model": "Men's Aspire Wetsuit",
     "pvp": 549.0,
-    "price": null,
-    "disc_imp": null,
-    "disc_pct": null,
-    "url": "",
-    "status": "NO_STOCK",
-    "last_read": ""
+    "price": 456.3,
+    "disc_imp": 92.7,
+    "disc_pct": 16.9,
+    "url": "https://www.deporvillage.co.uk/swimming-triathlon%3Azone3%3Aneoprene_wetsuits",
+    "status": "VERIFIED",
+    "last_read": "2026-11-15",
+    "out_of_stock": false,
+    "is_from": true
   },
   {
     "id": "UK-SPO-WS25MASP101",
@@ -1900,9 +2152,11 @@
     "price": null,
     "disc_imp": null,
     "disc_pct": null,
-    "url": "",
-    "status": "NO_STOCK",
-    "last_read": ""
+    "url": "https://www.sportsshoes.com/product/zne66/zone3-zone-3-aspire-wetsuit",
+    "status": "PENDING_URL",
+    "last_read": "",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "UK-MY -WS25MASP101",
@@ -1912,12 +2166,14 @@
     "code": "WS25MASP101",
     "model": "Men's Aspire Wetsuit",
     "pvp": 549.0,
-    "price": 146.97,
-    "disc_imp": 402.03,
-    "disc_pct": 73.2,
+    "price": 438.97,
+    "disc_imp": 110.03,
+    "disc_pct": 20.0,
     "url": "https://mytriathlon.co.uk/brands/Zone-3.html",
     "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "last_read": "2026-11-17",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "UK-SIG-WS25MASP101",
@@ -1927,12 +2183,14 @@
     "code": "WS25MASP101",
     "model": "Men's Aspire Wetsuit",
     "pvp": 549.0,
-    "price": 446.0,
-    "disc_imp": 103.0,
-    "disc_pct": 18.8,
+    "price": 469.0,
+    "disc_imp": 80.0,
+    "disc_pct": 14.6,
     "url": "https://www.sigmasports.com/item/Zone3/Aspire-Mens-Swimming---Triathlon-Wetsuit/14FCK",
     "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "last_read": "2026-11-15",
+    "out_of_stock": false,
+    "is_from": true
   },
   {
     "id": "UK-WET-WS25MASP101",
@@ -1942,12 +2200,14 @@
     "code": "WS25MASP101",
     "model": "Men's Aspire Wetsuit",
     "pvp": 549.0,
-    "price": 549.95,
-    "disc_imp": -0.95,
-    "disc_pct": -0.2,
+    "price": null,
+    "disc_imp": null,
+    "disc_pct": null,
     "url": "https://www.wetsuitoutlet.co.uk/2026-zone3-mens-aspire-wetsuit-ws25masp-black-chalk-p-53917.html?currency=GBP",
-    "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "status": "PENDING_URL",
+    "last_read": "",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "UK-TRA-WS25WASP101",
@@ -1957,12 +2217,14 @@
     "code": "WS25WASP101",
     "model": "Women's Aspire Wetsuit",
     "pvp": 549.0,
-    "price": null,
-    "disc_imp": null,
-    "disc_pct": null,
-    "url": "",
-    "status": "NO_STOCK",
-    "last_read": ""
+    "price": 452.99,
+    "disc_imp": 96.01,
+    "disc_pct": 17.5,
+    "url": "https://www.tradeinn.com/swiminn/en/zone3-traje-de-neopreno-de-manga-larga-para-mujer-aspire/141564550/p?country=uk",
+    "status": "VERIFIED",
+    "last_read": "2026-11-11",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "UK-DEP-WS25WASP101",
@@ -1972,12 +2234,14 @@
     "code": "WS25WASP101",
     "model": "Women's Aspire Wetsuit",
     "pvp": 549.0,
-    "price": null,
-    "disc_imp": null,
-    "disc_pct": null,
-    "url": "",
-    "status": "NO_STOCK",
-    "last_read": ""
+    "price": 458.8,
+    "disc_imp": 90.2,
+    "disc_pct": 16.4,
+    "url": "https://www.deporvillage.co.uk/zone3-aspire-wetsuit-black-pink-women",
+    "status": "VERIFIED",
+    "last_read": "2026-11-15",
+    "out_of_stock": false,
+    "is_from": true
   },
   {
     "id": "UK-SPO-WS25WASP101",
@@ -1992,7 +2256,9 @@
     "disc_pct": null,
     "url": "",
     "status": "NO_STOCK",
-    "last_read": ""
+    "last_read": "",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "UK-MY -WS25WASP101",
@@ -2002,12 +2268,14 @@
     "code": "WS25WASP101",
     "model": "Women's Aspire Wetsuit",
     "pvp": 549.0,
-    "price": 146.97,
-    "disc_imp": 402.03,
-    "disc_pct": 73.2,
+    "price": 438.97,
+    "disc_imp": 110.03,
+    "disc_pct": 20.0,
     "url": "https://mytriathlon.co.uk/brands/Zone-3.html",
     "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "last_read": "2026-11-17",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "UK-SIG-WS25WASP101",
@@ -2022,7 +2290,9 @@
     "disc_pct": 17.7,
     "url": "https://www.sigmasports.com/item/Zone3/Womens-Aspire-Wetsuit/14FCW",
     "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "last_read": "2026-11-15",
+    "out_of_stock": false,
+    "is_from": true
   },
   {
     "id": "UK-WET-WS25WASP101",
@@ -2037,7 +2307,9 @@
     "disc_pct": null,
     "url": "",
     "status": "NO_STOCK",
-    "last_read": ""
+    "last_read": "",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "UK-TRA-WS24MVIS101",
@@ -2047,12 +2319,14 @@
     "code": "WS24MVIS101",
     "model": "Men's Vision Wetsuit",
     "pvp": 399.0,
-    "price": 326.99,
-    "disc_imp": 72.01,
-    "disc_pct": 18.0,
+    "price": 327.99,
+    "disc_imp": 71.01,
+    "disc_pct": 17.8,
     "url": "https://www.tradeinn.com/swiminn/en/zone3-terraprene-vision-long-sleeve-neoprene-wetsuit/140374093/p?country=uk",
     "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "last_read": "2026-11-11",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "UK-DEP-WS24MVIS101",
@@ -2062,12 +2336,14 @@
     "code": "WS24MVIS101",
     "model": "Men's Vision Wetsuit",
     "pvp": 399.0,
-    "price": 432.0,
-    "disc_imp": -33.0,
-    "disc_pct": -8.3,
+    "price": 355.31,
+    "disc_imp": 43.69,
+    "disc_pct": 10.9,
     "url": "https://www.deporvillage.net/zone3-terraprene-vision-wetsuit-black-green",
     "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "last_read": "2026-11-15",
+    "out_of_stock": false,
+    "is_from": true
   },
   {
     "id": "UK-SPO-WS24MVIS101",
@@ -2077,12 +2353,14 @@
     "code": "WS24MVIS101",
     "model": "Men's Vision Wetsuit",
     "pvp": 399.0,
-    "price": null,
-    "disc_imp": null,
-    "disc_pct": null,
-    "url": "",
-    "status": "NO_STOCK",
-    "last_read": ""
+    "price": 359.09,
+    "disc_imp": 39.91,
+    "disc_pct": 10.0,
+    "url": "https://www.sportsshoes.com/product/zne435/zone3-terraprene-vision-wetsuit---aw26",
+    "status": "VERIFIED",
+    "last_read": "2026-11-15",
+    "out_of_stock": false,
+    "is_from": true
   },
   {
     "id": "UK-MY -WS24MVIS101",
@@ -2092,12 +2370,14 @@
     "code": "WS24MVIS101",
     "model": "Men's Vision Wetsuit",
     "pvp": 399.0,
-    "price": 110.97,
-    "disc_imp": 288.03,
-    "disc_pct": 72.2,
+    "price": 338.97,
+    "disc_imp": 60.03,
+    "disc_pct": 15.0,
     "url": "https://mytriathlon.co.uk/brands/Zone-3.html",
     "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "last_read": "2026-11-17",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "UK-SIG-WS24MVIS101",
@@ -2112,7 +2392,9 @@
     "disc_pct": null,
     "url": "",
     "status": "NO_STOCK",
-    "last_read": ""
+    "last_read": "",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "UK-WET-WS24MVIS101",
@@ -2127,7 +2409,9 @@
     "disc_pct": 19.8,
     "url": "https://www.wetsuitoutlet.co.uk/2026-zone3-mens-terraprene-vision-back-zip-swim-wetsuit-ws24mvis101-black-forest-green-p-48572.html?currency=GBP",
     "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "last_read": "2026-11-17",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "UK-TRA-WS24WVIS101",
@@ -2137,12 +2421,14 @@
     "code": "WS24WVIS101",
     "model": "Women's Vision Wetsuit",
     "pvp": 399.0,
-    "price": 326.99,
-    "disc_imp": 72.01,
-    "disc_pct": 18.0,
+    "price": 327.99,
+    "disc_imp": 71.01,
+    "disc_pct": 17.8,
     "url": "https://www.tradeinn.com/swiminn/en/zone3-terraprene-vision-woman-long-sleeve-neoprene-wetsuit/140374092/p?country=uk",
     "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "last_read": "2026-11-11",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "UK-DEP-WS24WVIS101",
@@ -2152,12 +2438,14 @@
     "code": "WS24WVIS101",
     "model": "Women's Vision Wetsuit",
     "pvp": 399.0,
-    "price": null,
-    "disc_imp": null,
-    "disc_pct": null,
-    "url": "",
-    "status": "NO_STOCK",
-    "last_read": ""
+    "price": 372.73,
+    "disc_imp": 26.27,
+    "disc_pct": 6.6,
+    "url": "https://www.deporvillage.co.uk/zone3%3Awomen",
+    "status": "VERIFIED",
+    "last_read": "2026-11-15",
+    "out_of_stock": false,
+    "is_from": true
   },
   {
     "id": "UK-SPO-WS24WVIS101",
@@ -2167,12 +2455,14 @@
     "code": "WS24WVIS101",
     "model": "Women's Vision Wetsuit",
     "pvp": 399.0,
-    "price": null,
-    "disc_imp": null,
-    "disc_pct": null,
-    "url": "",
-    "status": "NO_STOCK",
-    "last_read": ""
+    "price": 359.09,
+    "disc_imp": 39.91,
+    "disc_pct": 10.0,
+    "url": "https://www.sportsshoes.com/product/zne448/zone3-terraprene-vision-women's-wetsuit---aw26",
+    "status": "VERIFIED",
+    "last_read": "2026-11-15",
+    "out_of_stock": false,
+    "is_from": true
   },
   {
     "id": "UK-MY -WS24WVIS101",
@@ -2182,12 +2472,14 @@
     "code": "WS24WVIS101",
     "model": "Women's Vision Wetsuit",
     "pvp": 399.0,
-    "price": 110.97,
-    "disc_imp": 288.03,
-    "disc_pct": 72.2,
+    "price": 338.97,
+    "disc_imp": 60.03,
+    "disc_pct": 15.0,
     "url": "https://mytriathlon.co.uk/brands/Zone-3.html",
     "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "last_read": "2026-11-17",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "UK-SIG-WS24WVIS101",
@@ -2202,7 +2494,9 @@
     "disc_pct": null,
     "url": "",
     "status": "NO_STOCK",
-    "last_read": ""
+    "last_read": "",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "UK-WET-WS24WVIS101",
@@ -2212,12 +2506,14 @@
     "code": "WS24WVIS101",
     "model": "Women's Vision Wetsuit",
     "pvp": 399.0,
-    "price": 319.95,
-    "disc_imp": 79.05,
-    "disc_pct": 19.8,
+    "price": 399.95,
+    "disc_imp": -0.95,
+    "disc_pct": -0.2,
     "url": "https://www.wetsuitoutlet.co.uk/2026-zone3-womens-terraprene-vision-back-zip-swim-wetsuit-ws24wvis101-black-eucalyptus-green-p-48600.html?currency=GBP",
     "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "last_read": "2026-11-17",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "UK-TRA-WS21MADV101",
@@ -2227,12 +2523,14 @@
     "code": "WS21MADV101",
     "model": "Men's Advance Wetsuit",
     "pvp": 299.0,
-    "price": 246.49,
-    "disc_imp": 52.51,
-    "disc_pct": 17.6,
+    "price": 246.99,
+    "disc_imp": 52.01,
+    "disc_pct": 17.4,
     "url": "https://www.tradeinn.com/swiminn/en/zone3-advance-long-sleeve-neoprene-wetsuit/137937160/p?country=uk",
     "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "last_read": "2026-11-11",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "UK-DEP-WS21MADV101",
@@ -2242,12 +2540,14 @@
     "code": "WS21MADV101",
     "model": "Men's Advance Wetsuit",
     "pvp": 299.0,
-    "price": null,
-    "disc_imp": null,
-    "disc_pct": null,
-    "url": "",
-    "status": "NO_STOCK",
-    "last_read": ""
+    "price": 254.06,
+    "disc_imp": 44.94,
+    "disc_pct": 15.0,
+    "url": "https://www.deporvillage.co.uk/zone3-advance-wetsuit-black-grey-blue",
+    "status": "VERIFIED",
+    "last_read": "2026-11-15",
+    "out_of_stock": false,
+    "is_from": true
   },
   {
     "id": "UK-SPO-WS21MADV101",
@@ -2257,12 +2557,14 @@
     "code": "WS21MADV101",
     "model": "Men's Advance Wetsuit",
     "pvp": 299.0,
-    "price": null,
-    "disc_imp": null,
-    "disc_pct": null,
-    "url": "",
-    "status": "NO_STOCK",
-    "last_read": ""
+    "price": 209.29,
+    "disc_imp": 89.71,
+    "disc_pct": 30.0,
+    "url": "https://www.sportsshoes.com/product/zne93/zone3-advance-wetsuit---aw26",
+    "status": "VERIFIED",
+    "last_read": "2026-11-15",
+    "out_of_stock": false,
+    "is_from": true
   },
   {
     "id": "UK-MY -WS21MADV101",
@@ -2272,12 +2574,14 @@
     "code": "WS21MADV101",
     "model": "Men's Advance Wetsuit",
     "pvp": 299.0,
-    "price": 110.97,
-    "disc_imp": 188.03,
-    "disc_pct": 62.9,
+    "price": 238.97,
+    "disc_imp": 60.03,
+    "disc_pct": 20.1,
     "url": "https://mytriathlon.co.uk/brands/Zone-3.html",
     "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "last_read": "2026-11-17",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "UK-SIG-WS21MADV101",
@@ -2287,12 +2591,14 @@
     "code": "WS21MADV101",
     "model": "Men's Advance Wetsuit",
     "pvp": 299.0,
-    "price": 253.0,
-    "disc_imp": 46.0,
-    "disc_pct": 15.4,
+    "price": 263.0,
+    "disc_imp": 36.0,
+    "disc_pct": 12.0,
     "url": "https://www.sigmasports.com/item/Zone3/Advance-Wetsuit/TM3R",
     "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "last_read": "2026-11-17",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "UK-WET-WS21MADV101",
@@ -2307,7 +2613,9 @@
     "disc_pct": 14.7,
     "url": "https://www.wetsuitoutlet.co.uk/2026-zone3-mens-advance-swim-wetsuit-ws21madv-black-blue-p-38382.html?currency=GBP",
     "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "last_read": "2026-11-15",
+    "out_of_stock": false,
+    "is_from": true
   },
   {
     "id": "UK-TRA-WS21WADV101",
@@ -2317,12 +2625,14 @@
     "code": "WS21WADV101",
     "model": "Women's Advance Wetsuit",
     "pvp": 299.0,
-    "price": 239.99,
-    "disc_imp": 59.01,
-    "disc_pct": 19.7,
+    "price": 240.49,
+    "disc_imp": 58.51,
+    "disc_pct": 19.6,
     "url": "https://www.tradeinn.com/swiminn/en/zone3-advance-woman-long-sleeve-neoprene-wetsuit/137937161/p?country=uk",
     "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "last_read": "2026-11-11",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "UK-DEP-WS21WADV101",
@@ -2332,12 +2642,14 @@
     "code": "WS21WADV101",
     "model": "Women's Advance Wetsuit",
     "pvp": 299.0,
-    "price": null,
-    "disc_imp": null,
-    "disc_pct": null,
-    "url": "",
-    "status": "NO_STOCK",
-    "last_read": ""
+    "price": 264.51,
+    "disc_imp": 34.49,
+    "disc_pct": 11.5,
+    "url": "https://www.deporvillage.co.uk/zone3-advance-plus-wetsuit-black-grey-blue-women",
+    "status": "VERIFIED",
+    "last_read": "2026-11-15",
+    "out_of_stock": false,
+    "is_from": true
   },
   {
     "id": "UK-SPO-WS21WADV101",
@@ -2347,12 +2659,14 @@
     "code": "WS21WADV101",
     "model": "Women's Advance Wetsuit",
     "pvp": 299.0,
-    "price": 209.29,
-    "disc_imp": 89.71,
+    "price": 209.28,
+    "disc_imp": 89.72,
     "disc_pct": 30.0,
     "url": "https://www.sportsshoes.com/product/zne110/zone3-advance-women's-wetsuit---aw26",
     "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "last_read": "2026-11-17",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "UK-MY -WS21WADV101",
@@ -2362,12 +2676,14 @@
     "code": "WS21WADV101",
     "model": "Women's Advance Wetsuit",
     "pvp": 299.0,
-    "price": 110.97,
-    "disc_imp": 188.03,
-    "disc_pct": 62.9,
+    "price": 238.97,
+    "disc_imp": 60.03,
+    "disc_pct": 20.1,
     "url": "https://mytriathlon.co.uk/brands/Zone-3.html",
     "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "last_read": "2026-11-17",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "UK-SIG-WS21WADV101",
@@ -2382,7 +2698,9 @@
     "disc_pct": 13.7,
     "url": "https://www.sigmasports.com/item/Zone3/Advance-Womens-Wetsuit/TMED",
     "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "last_read": "2026-11-17",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "UK-WET-WS21WADV101",
@@ -2397,7 +2715,9 @@
     "disc_pct": 14.7,
     "url": "https://www.wetsuitoutlet.co.uk/2026-zone3-womens-advance-swim-wetsuit-ws21wadv-black-turquoise-p-38383.html?currency=GBP",
     "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "last_read": "2026-11-17",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "UK-TRA-WS21MAGI116",
@@ -2407,12 +2727,14 @@
     "code": "WS21MAGI116",
     "model": "Men's Agile Wetsuit",
     "pvp": 219.0,
-    "price": 192.99,
-    "disc_imp": 26.01,
-    "disc_pct": 11.9,
+    "price": 183.99,
+    "disc_imp": 35.01,
+    "disc_pct": 16.0,
     "url": "https://www.tradeinn.com/swiminn/en/zone3-agile-long-sleeve-neoprene-wetsuit/137937162/p?country=uk",
     "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "last_read": "2026-11-11",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "UK-DEP-WS21MAGI116",
@@ -2422,12 +2744,14 @@
     "code": "WS21MAGI116",
     "model": "Men's Agile Wetsuit",
     "pvp": 219.0,
-    "price": null,
-    "disc_imp": null,
-    "disc_pct": null,
-    "url": "",
-    "status": "NO_STOCK",
-    "last_read": ""
+    "price": 177.96,
+    "disc_imp": 41.04,
+    "disc_pct": 18.7,
+    "url": "https://www.deporvillage.co.uk/zone3-agile-wetsuit-black-grey",
+    "status": "VERIFIED",
+    "last_read": "2026-11-15",
+    "out_of_stock": false,
+    "is_from": true
   },
   {
     "id": "UK-SPO-WS21MAGI116",
@@ -2437,12 +2761,14 @@
     "code": "WS21MAGI116",
     "model": "Men's Agile Wetsuit",
     "pvp": 219.0,
-    "price": null,
-    "disc_imp": null,
-    "disc_pct": null,
-    "url": "",
-    "status": "NO_STOCK",
-    "last_read": ""
+    "price": 197.09,
+    "disc_imp": 21.91,
+    "disc_pct": 10.0,
+    "url": "https://www.sportsshoes.com/product/zne94/zone3-agile-wetsuit---aw26",
+    "status": "VERIFIED",
+    "last_read": "2026-11-15",
+    "out_of_stock": false,
+    "is_from": true
   },
   {
     "id": "UK-MY -WS21MAGI116",
@@ -2452,12 +2778,14 @@
     "code": "WS21MAGI116",
     "model": "Men's Agile Wetsuit",
     "pvp": 219.0,
-    "price": 110.97,
-    "disc_imp": 108.03,
-    "disc_pct": 49.3,
+    "price": 174.97,
+    "disc_imp": 44.03,
+    "disc_pct": 20.1,
     "url": "https://mytriathlon.co.uk/brands/Zone-3.html",
     "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "last_read": "2026-11-17",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "UK-SIG-WS21MAGI116",
@@ -2472,7 +2800,9 @@
     "disc_pct": null,
     "url": "",
     "status": "NO_STOCK",
-    "last_read": ""
+    "last_read": "",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "UK-WET-WS21MAGI116",
@@ -2487,7 +2817,9 @@
     "disc_pct": 14.6,
     "url": "https://www.wetsuitoutlet.co.uk/2026-zone3-mens-agile-swim-wetsuit-ws21magi116-black-silver-gunmetal-p-40555.html?currency=GBP",
     "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "last_read": "2026-11-17",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "UK-TRA-WS21WAGI114",
@@ -2497,12 +2829,14 @@
     "code": "WS21WAGI114",
     "model": "Women's Agile Wetsuit",
     "pvp": 219.0,
-    "price": 192.99,
-    "disc_imp": 26.01,
-    "disc_pct": 11.9,
+    "price": 193.49,
+    "disc_imp": 25.51,
+    "disc_pct": 11.6,
     "url": "https://www.tradeinn.com/swiminn/en/zone3-agile-woman-long-sleeve-neoprene-wetsuit/137937163/p?country=uk",
     "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "last_read": "2026-11-11",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "UK-DEP-WS21WAGI114",
@@ -2512,12 +2846,14 @@
     "code": "WS21WAGI114",
     "model": "Women's Agile Wetsuit",
     "pvp": 219.0,
-    "price": null,
-    "disc_imp": null,
-    "disc_pct": null,
-    "url": "",
-    "status": "NO_STOCK",
-    "last_read": ""
+    "price": 200.53,
+    "disc_imp": 18.47,
+    "disc_pct": 8.4,
+    "url": "https://www.deporvillage.co.uk/zone3-agile-wetsuit-black-pink-women",
+    "status": "VERIFIED",
+    "last_read": "2026-11-15",
+    "out_of_stock": false,
+    "is_from": true
   },
   {
     "id": "UK-SPO-WS21WAGI114",
@@ -2527,12 +2863,14 @@
     "code": "WS21WAGI114",
     "model": "Women's Agile Wetsuit",
     "pvp": 219.0,
-    "price": 197.09,
-    "disc_imp": 21.91,
+    "price": 197.08,
+    "disc_imp": 21.92,
     "disc_pct": 10.0,
     "url": "https://www.sportsshoes.com/product/zne111/zone3-agile-women's-wetsuit---aw26",
     "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "last_read": "2026-11-17",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "UK-MY -WS21WAGI114",
@@ -2542,12 +2880,14 @@
     "code": "WS21WAGI114",
     "model": "Women's Agile Wetsuit",
     "pvp": 219.0,
-    "price": 110.97,
-    "disc_imp": 108.03,
-    "disc_pct": 49.3,
+    "price": 174.97,
+    "disc_imp": 44.03,
+    "disc_pct": 20.1,
     "url": "https://mytriathlon.co.uk/brands/Zone-3.html",
     "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "last_read": "2026-11-17",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "UK-SIG-WS21WAGI114",
@@ -2562,7 +2902,9 @@
     "disc_pct": null,
     "url": "",
     "status": "NO_STOCK",
-    "last_read": ""
+    "last_read": "",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "UK-WET-WS21WAGI114",
@@ -2577,7 +2919,9 @@
     "disc_pct": 14.6,
     "url": "https://www.wetsuitoutlet.co.uk/2026-zone3-womens-agile-swim-wetsuit-ws21wagi114-black-pink-turquoise-p-40559.html?currency=GBP",
     "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "last_read": "2026-11-15",
+    "out_of_stock": false,
+    "is_from": true
   },
   {
     "id": "UK-TRA-WS26MGLISL101",
@@ -2587,12 +2931,14 @@
     "code": "WS26MGLISL101",
     "model": "Men's Ascend Sleeveless Wetsuit",
     "pvp": 155.0,
-    "price": 121.99,
-    "disc_imp": 33.01,
-    "disc_pct": 21.3,
+    "price": 127.99,
+    "disc_imp": 27.01,
+    "disc_pct": 17.4,
     "url": "https://www.tradeinn.com/swiminn/en/zone3-ascend-sleeveless-neoprene-wetsuit/142771415/p?country=uk",
     "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "last_read": "2026-11-11",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "UK-DEP-WS26MGLISL101",
@@ -2607,7 +2953,9 @@
     "disc_pct": null,
     "url": "",
     "status": "NO_STOCK",
-    "last_read": ""
+    "last_read": "",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "UK-SPO-WS26MGLISL101",
@@ -2622,7 +2970,9 @@
     "disc_pct": null,
     "url": "",
     "status": "NO_STOCK",
-    "last_read": ""
+    "last_read": "",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "UK-MY -WS26MGLISL101",
@@ -2632,12 +2982,14 @@
     "code": "WS26MGLISL101",
     "model": "Men's Ascend Sleeveless Wetsuit",
     "pvp": 155.0,
-    "price": 129.95,
-    "disc_imp": 25.05,
-    "disc_pct": 16.2,
+    "price": 146.97,
+    "disc_imp": 8.03,
+    "disc_pct": 5.2,
     "url": "https://mytriathlon.co.uk/zone3-ascend-sleeveless-wetsuit-mens-black-grey-2026/",
     "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "last_read": "2026-11-17",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "UK-SIG-WS26MGLISL101",
@@ -2652,7 +3004,9 @@
     "disc_pct": null,
     "url": "",
     "status": "NO_STOCK",
-    "last_read": ""
+    "last_read": "",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "UK-WET-WS26MGLISL101",
@@ -2662,12 +3016,14 @@
     "code": "WS26MGLISL101",
     "model": "Men's Ascend Sleeveless Wetsuit",
     "pvp": 155.0,
-    "price": 131.99,
-    "disc_imp": 23.01,
-    "disc_pct": 14.8,
+    "price": 154.95,
+    "disc_imp": 0.05,
+    "disc_pct": 0.0,
     "url": "https://www.wetsuitoutlet.co.uk/2026-zone3-mens-ascend-sleeveless-swim-wetsuit-ws26mglisl101-black-grey-p-56135.html?currency=GBP",
     "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "last_read": "2026-11-17",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "UK-TRA-WS26WGLISL101",
@@ -2677,12 +3033,14 @@
     "code": "WS26WGLISL101",
     "model": "Women's Ascend Sleeveless Wetsuit",
     "pvp": 155.0,
-    "price": 135.99,
-    "disc_imp": 19.01,
-    "disc_pct": 12.3,
+    "price": 136.49,
+    "disc_imp": 18.51,
+    "disc_pct": 11.9,
     "url": "https://www.tradeinn.com/swiminn/en/zone3-ascend-woman-sleeveless-neoprene-wetsuit/142771416/p?country=uk",
     "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "last_read": "2026-11-11",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "UK-DEP-WS26WGLISL101",
@@ -2697,7 +3055,9 @@
     "disc_pct": null,
     "url": "",
     "status": "NO_STOCK",
-    "last_read": ""
+    "last_read": "",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "UK-SPO-WS26WGLISL101",
@@ -2712,7 +3072,9 @@
     "disc_pct": null,
     "url": "",
     "status": "NO_STOCK",
-    "last_read": ""
+    "last_read": "",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "UK-MY -WS26WGLISL101",
@@ -2722,12 +3084,14 @@
     "code": "WS26WGLISL101",
     "model": "Women's Ascend Sleeveless Wetsuit",
     "pvp": 155.0,
-    "price": null,
-    "disc_imp": null,
-    "disc_pct": null,
-    "url": "",
-    "status": "NO_STOCK",
-    "last_read": ""
+    "price": 154.95,
+    "disc_imp": 0.05,
+    "disc_pct": 0.0,
+    "url": "https://mytriathlon.co.uk/zone3-ascend-sleeveless-wetsuit-womens-black-grey-2026/",
+    "status": "VERIFIED",
+    "last_read": "2026-11-16",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "UK-SIG-WS26WGLISL101",
@@ -2742,7 +3106,9 @@
     "disc_pct": null,
     "url": "",
     "status": "NO_STOCK",
-    "last_read": ""
+    "last_read": "",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "UK-WET-WS26WGLISL101",
@@ -2757,7 +3123,9 @@
     "disc_pct": 0.0,
     "url": "https://www.wetsuitoutlet.co.uk/2026-zone3-womens-ascend-sleeveless-wetsuit-ws26wglisl101-black-grey-p-56136.html?currency=GBP",
     "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "last_read": "2026-11-15",
+    "out_of_stock": false,
+    "is_from": true
   },
   {
     "id": "UK-TRA-WS25MACTF101",
@@ -2767,12 +3135,14 @@
     "code": "WS25MACTF101",
     "model": "Men's Active-Flex Wetsuit",
     "pvp": 189.0,
-    "price": 170.49,
-    "disc_imp": 18.51,
-    "disc_pct": 9.8,
+    "price": 170.99,
+    "disc_imp": 18.01,
+    "disc_pct": 9.5,
     "url": "https://www.tradeinn.com/swiminn/en/zone3-active-flex-long-sleeve-neoprene-wetsuit/141564541/p?country=uk",
     "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "last_read": "2026-11-11",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "UK-DEP-WS25MACTF101",
@@ -2782,12 +3152,14 @@
     "code": "WS25MACTF101",
     "model": "Men's Active-Flex Wetsuit",
     "pvp": 189.0,
-    "price": null,
-    "disc_imp": null,
-    "disc_pct": null,
+    "price": 185.4,
+    "disc_imp": 3.6,
+    "disc_pct": 1.9,
     "url": "https://www.deporvillage.net/zone3-active-flex-wetsuit-black-orange",
-    "status": "PENDING_URL",
-    "last_read": ""
+    "status": "VERIFIED",
+    "last_read": "2026-11-15",
+    "out_of_stock": false,
+    "is_from": true
   },
   {
     "id": "UK-SPO-WS25MACTF101",
@@ -2797,12 +3169,14 @@
     "code": "WS25MACTF101",
     "model": "Men's Active-Flex Wetsuit",
     "pvp": 189.0,
-    "price": null,
-    "disc_imp": null,
-    "disc_pct": null,
-    "url": "",
-    "status": "NO_STOCK",
-    "last_read": ""
+    "price": 170.09,
+    "disc_imp": 18.91,
+    "disc_pct": 10.0,
+    "url": "https://www.sportsshoes.com/product/zne477/zone3-active-flex-wetsuit---aw26",
+    "status": "VERIFIED",
+    "last_read": "2026-11-15",
+    "out_of_stock": false,
+    "is_from": true
   },
   {
     "id": "UK-MY -WS25MACTF101",
@@ -2812,12 +3186,14 @@
     "code": "WS25MACTF101",
     "model": "Men's Active-Flex Wetsuit",
     "pvp": 189.0,
-    "price": 110.97,
-    "disc_imp": 78.03,
-    "disc_pct": 41.3,
+    "price": 160.97,
+    "disc_imp": 28.03,
+    "disc_pct": 14.8,
     "url": "https://mytriathlon.co.uk/brands/Zone-3.html",
     "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "last_read": "2026-11-17",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "UK-SIG-WS25MACTF101",
@@ -2832,7 +3208,9 @@
     "disc_pct": null,
     "url": "",
     "status": "NO_STOCK",
-    "last_read": ""
+    "last_read": "",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "UK-WET-WS25MACTF101",
@@ -2847,7 +3225,9 @@
     "disc_pct": 12.7,
     "url": "https://www.wetsuitoutlet.co.uk/2026-zone3-mens-active-flex-swim-wetsuit-ws25mactf101-black-orange-p-52492.html?currency=GBP",
     "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "last_read": "2026-11-15",
+    "out_of_stock": false,
+    "is_from": true
   },
   {
     "id": "UK-TRA-WS25WACTF101",
@@ -2857,12 +3237,14 @@
     "code": "WS25WACTF101",
     "model": "Women's Active-Flex Wetsuit",
     "pvp": 189.0,
-    "price": 173.99,
-    "disc_imp": 15.01,
-    "disc_pct": 7.9,
+    "price": 174.49,
+    "disc_imp": 14.51,
+    "disc_pct": 7.7,
     "url": "https://www.tradeinn.com/swiminn/en/zone3-active-flex-woman-long-sleeve-neoprene-wetsuit/141564543/p?country=uk",
     "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "last_read": "2026-11-11",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "UK-DEP-WS25WACTF101",
@@ -2872,12 +3254,14 @@
     "code": "WS25WACTF101",
     "model": "Women's Active-Flex Wetsuit",
     "pvp": 189.0,
-    "price": null,
-    "disc_imp": null,
-    "disc_pct": null,
-    "url": "",
-    "status": "NO_STOCK",
-    "last_read": ""
+    "price": 183.63,
+    "disc_imp": 5.37,
+    "disc_pct": 2.8,
+    "url": "https://www.deporvillage.co.uk/zone3-active-flex-wetsuit-black-orange-women",
+    "status": "VERIFIED",
+    "last_read": "2026-11-15",
+    "out_of_stock": false,
+    "is_from": true
   },
   {
     "id": "UK-SPO-WS25WACTF101",
@@ -2887,12 +3271,14 @@
     "code": "WS25WACTF101",
     "model": "Women's Active-Flex Wetsuit",
     "pvp": 189.0,
-    "price": null,
-    "disc_imp": null,
-    "disc_pct": null,
-    "url": "",
-    "status": "NO_STOCK",
-    "last_read": ""
+    "price": 170.09,
+    "disc_imp": 18.91,
+    "disc_pct": 10.0,
+    "url": "https://www.sportsshoes.com/store/zone-3/running",
+    "status": "VERIFIED",
+    "last_read": "2026-11-15",
+    "out_of_stock": false,
+    "is_from": true
   },
   {
     "id": "UK-MY -WS25WACTF101",
@@ -2907,7 +3293,9 @@
     "disc_pct": 20.1,
     "url": "https://mytriathlon.co.uk/zone3-active-flex-wetsuit-womens-black-orange-2025/",
     "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "last_read": "2026-11-17",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "UK-SIG-WS25WACTF101",
@@ -2922,7 +3310,9 @@
     "disc_pct": null,
     "url": "",
     "status": "NO_STOCK",
-    "last_read": ""
+    "last_read": "",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "UK-WET-WS25WACTF101",
@@ -2937,7 +3327,9 @@
     "disc_pct": 9.6,
     "url": "https://www.wetsuitoutlet.co.uk/2026-zone3-womens-active-flex-swim-wetsuit-ws25wactf101-black-orange-p-52493.html?currency=GBP",
     "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "last_read": "2026-11-15",
+    "out_of_stock": false,
+    "is_from": true
   },
   {
     "id": "UK-TRA-WS25MSRV101",
@@ -2952,7 +3344,9 @@
     "disc_pct": null,
     "url": "https://www.tradeinn.com/swiminn/en/zone3-versa-swimrun-long-sleeve-shorty/137937167/p?country=uk",
     "status": "PENDING_URL",
-    "last_read": ""
+    "last_read": "",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "UK-DEP-WS25MSRV101",
@@ -2962,12 +3356,14 @@
     "code": "WS25MSRV101",
     "model": "Men's Versa Swimrun Wetsuit",
     "pvp": 219.0,
-    "price": null,
-    "disc_imp": null,
-    "disc_pct": null,
-    "url": "",
-    "status": "NO_STOCK",
-    "last_read": ""
+    "price": 218.87,
+    "disc_imp": 0.13,
+    "disc_pct": 0.1,
+    "url": "https://www.deporvillage.co.uk/zone3-versa-swimrun-wetsuit-black-orange-102335",
+    "status": "VERIFIED",
+    "last_read": "2026-10-11",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "UK-SPO-WS25MSRV101",
@@ -2982,7 +3378,9 @@
     "disc_pct": null,
     "url": "",
     "status": "NO_STOCK",
-    "last_read": ""
+    "last_read": "",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "UK-MY -WS25MSRV101",
@@ -2992,12 +3390,14 @@
     "code": "WS25MSRV101",
     "model": "Men's Versa Swimrun Wetsuit",
     "pvp": 219.0,
-    "price": 109.97,
-    "disc_imp": 109.03,
-    "disc_pct": 49.8,
+    "price": 185.97,
+    "disc_imp": 33.03,
+    "disc_pct": 15.1,
     "url": "https://mytriathlon.co.uk/zone3-versa-swimrun-wetsuit-mens-black-orange-2025/",
     "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "last_read": "2026-11-17",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "UK-SIG-WS25MSRV101",
@@ -3012,7 +3412,9 @@
     "disc_pct": null,
     "url": "",
     "status": "NO_STOCK",
-    "last_read": ""
+    "last_read": "",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "UK-WET-WS25MSRV101",
@@ -3027,7 +3429,9 @@
     "disc_pct": null,
     "url": "",
     "status": "NO_STOCK",
-    "last_read": ""
+    "last_read": "",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "UK-TRA-WS25WSRV101",
@@ -3042,7 +3446,9 @@
     "disc_pct": null,
     "url": "",
     "status": "NO_STOCK",
-    "last_read": ""
+    "last_read": "",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "UK-DEP-WS25WSRV101",
@@ -3057,7 +3463,9 @@
     "disc_pct": null,
     "url": "",
     "status": "NO_STOCK",
-    "last_read": ""
+    "last_read": "",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "UK-SPO-WS25WSRV101",
@@ -3067,12 +3475,14 @@
     "code": "WS25WSRV101",
     "model": "Women's Versa Swimrun Wetsuit",
     "pvp": 219.0,
-    "price": 170.09,
-    "disc_imp": 48.91,
-    "disc_pct": 22.3,
+    "price": null,
+    "disc_imp": null,
+    "disc_pct": null,
     "url": "https://www.sportsshoes.com/product/zne113/zone3-zone-3-versa-swim-run-femme-wetsuit---ss21",
-    "status": "VERIFIED",
-    "last_read": "2026-11-17 22:55"
+    "status": "PENDING_URL",
+    "last_read": "",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "UK-MY -WS25WSRV101",
@@ -3087,7 +3497,9 @@
     "disc_pct": null,
     "url": "",
     "status": "NO_STOCK",
-    "last_read": ""
+    "last_read": "",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "UK-SIG-WS25WSRV101",
@@ -3102,7 +3514,9 @@
     "disc_pct": null,
     "url": "",
     "status": "NO_STOCK",
-    "last_read": ""
+    "last_read": "",
+    "out_of_stock": false,
+    "is_from": false
   },
   {
     "id": "UK-WET-WS25WSRV101",
@@ -3117,6 +3531,8 @@
     "disc_pct": null,
     "url": "",
     "status": "NO_STOCK",
-    "last_read": ""
+    "last_read": "",
+    "out_of_stock": false,
+    "is_from": false
   }
 ]
