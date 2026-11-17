@@ -6,7 +6,6 @@ from playwright.async_api import async_playwright
 
 async def extract_min_price(page, url, country, pvp):
     try:
-        # Configure headers and cookies per country
         if country == "UK":
             await page.set_extra_http_headers({"Accept-Language": "en-GB,en;q=0.9"})
         else:
@@ -16,7 +15,6 @@ async def extract_min_price(page, url, country, pvp):
         if not resp or resp.status >= 400:
             return None
 
-        # Wait 3.5 seconds for dynamic JS size/variant prices (Wetsuit Outlet, TradeInn, Bike24)
         await page.wait_for_timeout(3500)
         html = await page.content()
 
@@ -38,7 +36,8 @@ async def extract_min_price(page, url, country, pvp):
         dom_prices = await page.evaluate('''() => {
             const selectors = [
                 '[itemprop="price"]', '.product-price', '.price-sales', '#js-precio',
-                '.pdp-price', '.product-page-price', '.price--main', '.current-price'
+                '.pdp-price', '.product-page-price', '.price--main', '.current-price',
+                '[data-testid="price"]', '.product-price__price', '.final-price'
             ];
             const found = [];
             selectors.forEach(sel => {
@@ -85,7 +84,9 @@ async def main():
     with open("data/history.json", "r", encoding="utf-8") as f:
         history = json.load(f)
 
-    now_str = datetime.utcnow().strftime("%Y-%m-%d %H:%M")
+    now_dt = datetime.utcnow()
+    today_str = now_dt.strftime("%Y-%m-%d")
+    now_str = now_dt.strftime("%Y-%m-%d %H:%M")
 
     async with async_playwright() as p:
         browser = await p.chromium.launch(headless=True, args=["--disable-blink-features=AutomationControlled"])
@@ -117,11 +118,18 @@ async def main():
                 row["disc_imp"] = round(row["pvp"] - min_price, 2)
                 row["disc_pct"] = round((row["disc_imp"] / row["pvp"]) * 100, 1)
                 row["status"] = "VERIFIED"
-                row["last_read"] = now_str
+                row["last_read"] = today_str
+                row["out_of_stock"] = False
+                row["is_from"] = False
                 updated_count += 1
 
+                # Update or append today's reading in history
+                history = [
+                    h for h in history
+                    if not (str(h.get("timestamp", ""))[:10] == today_str and h.get("country") == row["country"] and h.get("operator") == row["operator"] and h.get("code") == row["code"])
+                ]
                 history.append({
-                    "timestamp": now_str,
+                    "timestamp": today_str,
                     "country": row["country"],
                     "currency": row["currency"],
                     "operator": row["operator"],
@@ -131,17 +139,37 @@ async def main():
                     "price": min_price,
                     "disc_imp": row["disc_imp"],
                     "disc_pct": row["disc_pct"],
+                    "out_of_stock": False,
+                    "is_from": False,
                     "url": url
                 })
 
         await browser.close()
+
+    # Sort history chronologically
+    history.sort(key=lambda x: (str(x.get("timestamp", "")), x.get("country", ""), x.get("operator", ""), x.get("code", "")))
 
     with open("data/tracking.json", "w", encoding="utf-8") as f:
         json.dump(tracking, f, indent=2, ensure_ascii=False)
     with open("data/history.json", "w", encoding="utf-8") as f:
         json.dump(history, f, indent=2, ensure_ascii=False)
 
-    # Inject updated DATA_ROWS directly into index.html for GitHub Pages
+    # Build compact history array for index.html: [date, country, operator, code, price, disc_pct, out_of_stock_int, is_from_int]
+    history_compact = [
+        [
+            str(h.get("timestamp", ""))[:10],
+            h["country"],
+            h["operator"],
+            h["code"],
+            float(h["price"]),
+            float(h["disc_pct"]),
+            1 if h.get("out_of_stock") else 0,
+            1 if h.get("is_from") else 0
+        ]
+        for h in history
+    ]
+
+    # Inject updated DATA_ROWS and HISTORY_COMPACT into index.html for GitHub Pages
     with open("index.html", "r", encoding="utf-8") as f:
         html_doc = f.read()
 
@@ -151,10 +179,16 @@ async def main():
         html_doc,
         flags=re.S
     )
+    html_doc = re.sub(
+        r"const HISTORY_COMPACT = \[.*?\];",
+        "const HISTORY_COMPACT = " + json.dumps(history_compact, ensure_ascii=False) + ";",
+        html_doc,
+        flags=re.S
+    )
     with open("index.html", "w", encoding="utf-8") as f:
         f.write(html_doc)
 
-    print(f"Scan finished at {now_str}. Real verified prices updated: {updated_count}")
+    print(f"Scan finished at {now_str}. Real verified prices updated: {updated_count}. Total history records: {len(history_compact)}")
 
 if __name__ == "__main__":
     asyncio.run(main())
