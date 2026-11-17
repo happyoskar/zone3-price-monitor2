@@ -1,0 +1,146 @@
+[
+  {
+    "code": "WS22MVAN101",
+    "name": "Men's Vanquish-X Wetsuit",
+    "color": "Black/Orange",
+    "gbp_rrp": 699.0,
+    "eur_rrp": 859.0,
+    "sizes": "S, SM, ST, M, MT, ML, L, XL",
+    "ean": "5056305724818"
+  },
+  {
+    "code": "WS22WVAN101",
+    "name": "Women's Vanquish-X Wetsuit",
+    "color": "Black/Coral",
+    "gbp_rrp": 699.0,
+    "eur_rrp": 859.0,
+    "sizes": "XS, S, ST, M, L, XL",
+    "ean": "5056305724894"
+  },
+  {
+    "code": "WS25MASP101",
+    "name": "Men's Aspire Wetsuit",
+    "color": "Black/Chalk",
+    "gbp_rrp": 549.0,
+    "eur_rrp": 689.0,
+    "sizes": "S, SM, ST, M, MT, ML, L, XL, XXL",
+    "ean": "5056305745202"
+  },
+  {
+    "code": "WS25WASP101",
+    "name": "Women's Aspire Wetsuit",
+    "color": "Black/Chalk",
+    "gbp_rrp": 549.0,
+    "eur_rrp": 689.0,
+    "sizes": "XS, S, SM, ST, M, ML, L, XL",
+    "ean": "5056305745295"
+  },
+  {
+    "code": "WS24MVIS101",
+    "name": "Men's Vision Wetsuit",
+    "color": "Black/Forest Green",
+    "gbp_rrp": 399.0,
+    "eur_rrp": 499.0,
+    "sizes": "S, SM, ST, M, MT, ML, L, XL, XXL",
+    "ean": "5056305737726"
+  },
+  {
+    "code": "WS24WVIS101",
+    "name": "Women's Vision Wetsuit",
+    "color": "Black/Eucalyptus Green",
+    "gbp_rrp": 399.0,
+    "eur_rrp": 499.0,
+    "sizes": "XS, S, SM, ST, M, ML, L, XL",
+    "ean": "5056305739447"
+  },
+  {
+    "code": "WS21MADV101",
+    "name": "Men's Advance Wetsuit",
+    "color": "Black/Blue/Silver",
+    "gbp_rrp": 299.0,
+    "eur_rrp": 369.0,
+    "sizes": "S, SM, ST, M, MT, ML, L, XL, XXL",
+    "ean": "5056305711115"
+  },
+  {
+    "code": "WS21WADV101",
+    "name": "Women's Advance Wetsuit",
+    "color": "Black/Pink/Silver",
+    "gbp_rrp": 299.0,
+    "eur_rrp": 369.0,
+    "sizes": "XS, S, SM, ST, M, ML, L, XL",
+    "ean": "5056305710835"
+  },
+  {
+    "code": "WS21MAGI116",
+    "name": "Men's Agile Wetsuit",
+    "color": "Black/Silver",
+    "gbp_rrp": 219.0,
+    "eur_rrp": 259.0,
+    "sizes": "S, SM, ST, M, MT, ML, L, XL, XXL",
+    "ean": "5056305711139"
+  },
+  {
+    "code": "WS21WAGI114",
+    "name": "Women's Agile Wetsuit",
+    "color": "Black/Turquoise/Pink",
+    "gbp_rrp": 219.0,
+    "eur_rrp": 259.0,
+    "sizes": "XS, S, SM, ST, M, ML, L, XL, XXL",
+    "ean": "5056305711221"
+  },
+  {
+    "code": "WS26MGLISL101",
+    "name": "Men's Ascend Sleeveless Wetsuit",
+    "color": "Black/Grey",
+    "gbp_rrp": 155.0,
+    "eur_rrp": 179.0,
+    "sizes": "S, M, L, XL, XXL",
+    "ean": "5056305752330"
+  },
+  {
+    "code": "WS26WGLISL101",
+    "name": "Women's Ascend Sleeveless Wetsuit",
+    "color": "Black/Grey",
+    "gbp_rrp": 155.0,
+    "eur_rrp": 179.0,
+    "sizes": "S, M, L, XL, XXL",
+    "ean": "5056305752385"
+  },
+  {
+    "code": "WS25MACTF101",
+    "name": "Men's Active-Flex Wetsuit",
+    "color": "Black/Orange",
+    "gbp_rrp": 189.0,
+    "eur_rrp": 229.0,
+    "sizes": "S, SM, M, ML, L, XL, XXL",
+    "ean": "5056305745370"
+  },
+  {
+    "code": "WS25WACTF101",
+    "name": "Women's Active-Flex Wetsuit",
+    "color": "Black/Orange",
+    "gbp_rrp": 189.0,
+    "eur_rrp": 229.0,
+    "sizes": "S, SM, SL, SXL, M, ML, MXL, L, XL, XXL",
+    "ean": "5056305745455"
+  },
+  {
+    "code": "WS25MSRV101",
+    "name": "Men's Versa Swimrun Wetsuit",
+    "color": "Black/Orange",
+    "gbp_rrp": 219.0,
+    "eur_rrp": 259.0,
+    "sizes": "S, SM, ST, M, MT, ML, L, XL, XXL",
+    "ean": "5056305745585"
+  },
+  {
+    "code": "WS25WSRV101",
+    "name": "Women's Versa Swimrun Wetsuit",
+    "color": "Black/Orange",
+    "gbp_rrp": 219.0,
+    "eur_rrp": 259.0,
+    "sizes": "XS, S, ST, M, L, XL",
+    "ean": "5056305746940"
+  }
+]
