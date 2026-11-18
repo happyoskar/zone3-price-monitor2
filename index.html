@@ -400,7 +400,7 @@
 
       let html = '<thead>';
       html += '<tr class="bg-slate-900 text-white text-[11px] uppercase tracking-wider">';
-      html += '<th colspan="3" class="py-2.5 px-3 border-r border-slate-700">Catàleg Zone3 2026 (Clica un model per veure l'històric)</th>';
+      html += '<th colspan="3" class="py-2.5 px-3 border-r border-slate-700">Catàleg Zone3 2026 (Clica un model per veure l\'històric)</th>';
       if (showES) html += `<th colspan="${ES_OPS.length}" class="py-2.5 px-3 text-center bg-[#183754] border-r border-slate-700">Espanya (EUR) — ${esVerCount} Preus Verificats (★ = Més Descompte)</th>`;
       if (showUK) html += `<th colspan="${UK_OPS.length}" class="py-2.5 px-3 text-center bg-[#43230a]">Regne Unit (GBP) — ${ukVerCount} Preus Verificats (★ = Més Descompte)</th>`;
       html += '</tr>';
@@ -557,7 +557,7 @@
             const cls = [
               isCross ? 'cross' : '',
               oos ? 'out-of-stock' : ''
-            ].filter(Boolean).join(' ');
+            ].filter(Boolean).join('\n');
 
             const priceStr = sym === '€' ? `${price.toFixed(2)} €` : `£${price.toFixed(2)}`;
             const label = `${isFrom ? '≤' : ''}${Math.round(pct)}`;
@@ -644,7 +644,7 @@
         const polyCoords = pts.map(p => {
           const dIdx = allDates.indexOf(p[0]);
           return `${xForIdx(dIdx).toFixed(1)},${yForPrice(p[4]).toFixed(1)}`;
-        }).join(' ');
+        }).join('\n');
 
         svg += `<g class="chart-series" data-series-id="${sIdx}">`;
         if (pts.length > 1) {
