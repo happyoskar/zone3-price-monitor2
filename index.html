@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Zone3 — Evolució de Preus, Descomptes i First-Mover (2026)</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     body { font-family: 'Inter', sans-serif; background-color: #f7f9fc; color: #172538; }
@@ -53,7 +54,14 @@
         </div>
       </div>
 
-      <div class="flex items-center gap-2.5">
+      <div class="flex items-center gap-2 flex-wrap">
+        <input type="file" id="zip-upload-input" accept=".zip" class="hidden" onchange="handleZipUpload(event)" />
+        <button onclick="triggerZipSync()" id="btn-zip-sync" class="bg-orange-500 hover:bg-orange-600 text-white font-bold text-xs px-3.5 py-2 rounded-lg shadow transition flex items-center gap-1.5">
+          <span>⚡ Actualitzar Repositori (.ZIP)</span>
+        </button>
+        <button onclick="configureGitHubToken()" title="Configurar o canviar el Token de GitHub desat al navegador" class="bg-slate-800 hover:bg-slate-700 border border-slate-600 text-slate-300 font-medium text-xs px-2.5 py-2 rounded-lg transition">
+          🔑 Token
+        </button>
         <button onclick="exportCSV()" class="bg-slate-800 hover:bg-slate-700 border border-slate-600 text-slate-200 font-medium text-xs px-3.5 py-2 rounded-lg transition">
           Descarregar CSV Complet
         </button>
@@ -945,6 +953,202 @@
         if (!document.getElementById('view-urls').classList.contains('hidden')) renderUrlTable();
       } catch (err) {
         console.warn('Usant dades incrustades:', err);
+      }
+    }
+
+
+    // GITHUB 1-CLICK .ZIP REPOSITORY UPDATER (Git Data API single-commit atomic push)
+    const GH_OWNER = 'happyoskar';
+    const GH_REPO = 'zone3-price-monitor2';
+    const GH_BRANCH = 'main';
+
+    function configureGitHubToken() {
+      const current = localStorage.getItem('z3_gh_token') || '';
+      const masked = current ? (current.slice(0, 7) + '...' + current.slice(-4)) : 'Cap token desat';
+      const input = prompt(
+        `Clau d'accés de GitHub (Personal Access Token) actual: ${masked}\n\n` +
+        `Enganxa aquí el teu Token de GitHub (comença per ghp_ o github_pat_).\n` +
+        `Es desarà únicament a la memòria d'aquest navegador (localStorage):`,
+        current
+      );
+      if (input !== null) {
+        const clean = input.trim();
+        if (clean) {
+          localStorage.setItem('z3_gh_token', clean);
+          alert('Token de GitHub desat correctament en aquest navegador.');
+        } else {
+          localStorage.removeItem('z3_gh_token');
+          alert('Token esborrat del navegador.');
+        }
+      }
+    }
+
+    function triggerZipSync() {
+      let token = localStorage.getItem('z3_gh_token') || '';
+      if (!token) {
+        const input = prompt(
+          `Primera configuració (només cal fer-ho 1 vegada):\n\n` +
+          `Perquè aquest botó pugui actualitzar el teu repositori ${GH_OWNER}/${GH_REPO} directament, enganxa aquí el teu Personal Access Token de GitHub (amb permís 'repo' o 'Contents: Read and write'):`
+        );
+        if (!input || !input.trim()) return;
+        token = input.trim();
+        localStorage.setItem('z3_gh_token', token);
+      }
+      const fileInput = document.getElementById('zip-upload-input');
+      fileInput.value = '';
+      fileInput.click();
+    }
+
+    async function handleZipUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const btn = document.getElementById('btn-zip-sync');
+      const origText = btn.innerHTML;
+
+      try {
+        if (typeof JSZip === 'undefined') {
+          alert('Error: La llibreria JSZip encara no s\'ha carregat. Comprova la connexió a internet.');
+          return;
+        }
+
+        btn.disabled = true;
+        btn.innerHTML = '<span>⏳ Llegint .ZIP...</span>';
+
+        const zip = await JSZip.loadAsync(file);
+        const allowedFiles = ['index.html', 'scraper.py', 'data/tracking.json', 'data/history.json'];
+        const foundFiles = {};
+
+        for (const path of allowedFiles) {
+          if (zip.files[path]) {
+            foundFiles[path] = await zip.files[path].async('string');
+          }
+        }
+
+        const keys = Object.keys(foundFiles);
+        if (!keys.length) {
+          alert(
+            `El fitxer "${file.name}" no conté cap dels arxius oficials del projecte (index.html, scraper.py, data/tracking.json, data/history.json).\n\n` +
+            `No s'ha fet cap canvi al repositori.`
+          );
+          return;
+        }
+
+        // Parse summary info if tracking.json & history.json are inside the ZIP
+        let summaryInfo = `Fitxer seleccionat: ${file.name}\nArxius validats dins del paquet (${keys.length}):\n- ` + keys.join('\n- ');
+        if (foundFiles['data/tracking.json']) {
+          try {
+            const tr = JSON.parse(foundFiles['data/tracking.json']);
+            const verCount = tr.filter(r => r.status === 'VERIFIED').length;
+            const pendCount = tr.filter(r => r.status === 'PENDING_URL').length;
+            const catCount = tr.filter(r => r.status === 'PENDING_PDP').length;
+            summaryInfo += `\n\nResum de dades del paquet:\n• ${verCount} Fitxes PDP Verificades\n• ${pendCount} Fitxes PDP Pendents\n• ${catCount} En Quarantena`;
+          } catch (e) {}
+        }
+        if (foundFiles['data/history.json']) {
+          try {
+            const hi = JSON.parse(foundFiles['data/history.json']);
+            summaryInfo += `\n• ${hi.length} Lectures històriques auditades`;
+          } catch (e) {}
+        }
+
+        const confirmPush = confirm(
+          `${summaryInfo}\n\nVols pujar i publicar aquests ${keys.length} fitxers directament a GitHub (${GH_OWNER}/${GH_REPO})?`
+        );
+        if (!confirmPush) return;
+
+        const token = localStorage.getItem('z3_gh_token') || '';
+        const headers = {
+          'Authorization': `Bearer ${token}`,
+          'Accept': 'application/vnd.github+json',
+          'Content-Type': 'application/json'
+        };
+        const apiBase = `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}`;
+
+        btn.innerHTML = '<span>⏳ Connectant amb GitHub...</span>';
+
+        // 1. Get current branch reference SHA
+        const refResp = await fetch(`${apiBase}/git/ref/heads/${GH_BRANCH}`, { headers, cache: 'no-store' });
+        if (!refResp.ok) {
+          if (refResp.status === 401 || refResp.status === 403) {
+            alert('Error d\'autorització (401/403): El Token de GitHub no és vàlid o no té permisos d\'escriptura (repo / Contents: Read & write). Clica el botó "🔑 Token" per actualitzar-lo.');
+            return;
+          }
+          throw new Error(`No s'ha pogut llegir la branca ${GH_BRANCH} (HTTP ${refResp.status})`);
+        }
+        const refData = await refResp.json();
+        const latestCommitSha = refData.object.sha;
+
+        // 2. Get base tree SHA
+        const commitResp = await fetch(`${apiBase}/git/commits/${latestCommitSha}`, { headers, cache: 'no-store' });
+        if (!commitResp.ok) throw new Error(`Error llegint commit actual (HTTP ${commitResp.status})`);
+        const commitData = await commitResp.json();
+        const baseTreeSha = commitData.tree.sha;
+
+        // 3. Create blobs for each file in the ZIP
+        const treeItems = [];
+        for (let i = 0; i < keys.length; i++) {
+          const path = keys[i];
+          btn.innerHTML = `<span>⏳ Pujant (${i + 1}/${keys.length}) ${path}...</span>`;
+          const blobResp = await fetch(`${apiBase}/git/blobs`, {
+            method: 'POST',
+            headers,
+            body: JSON.stringify({ content: foundFiles[path], encoding: 'utf-8' })
+          });
+          if (!blobResp.ok) throw new Error(`Error pujant ${path} (HTTP ${blobResp.status})`);
+          const blobData = await blobResp.json();
+          treeItems.push({
+            path: path,
+            mode: '100644',
+            type: 'blob',
+            sha: blobData.sha
+          });
+        }
+
+        // 4. Create new tree
+        btn.innerHTML = '<span>⏳ Registrant commit...</span>';
+        const treeResp = await fetch(`${apiBase}/git/trees`, {
+          method: 'POST',
+          headers,
+          body: JSON.stringify({ base_tree: baseTreeSha, tree: treeItems })
+        });
+        if (!treeResp.ok) throw new Error(`Error creant arbre Git (HTTP ${treeResp.status})`);
+        const treeData = await treeResp.json();
+
+        // 5. Create commit
+        const newCommitResp = await fetch(`${apiBase}/git/commits`, {
+          method: 'POST',
+          headers,
+          body: JSON.stringify({
+            message: `Actualització amb 1 clic des del panell web (${file.name})`,
+            tree: treeData.sha,
+            parents: [latestCommitSha]
+          })
+        });
+        if (!newCommitResp.ok) throw new Error(`Error creant commit (HTTP ${newCommitResp.status})`);
+        const newCommitData = await newCommitResp.json();
+
+        // 6. Update branch ref
+        const updateRefResp = await fetch(`${apiBase}/git/refs/heads/${GH_BRANCH}`, {
+          method: 'PATCH',
+          headers,
+          body: JSON.stringify({ sha: newCommitData.sha, force: false })
+        });
+        if (!updateRefResp.ok) throw new Error(`Error actualitzant branca ${GH_BRANCH} (HTTP ${updateRefResp.status})`);
+
+        // Refresh data immediately in memory and UI
+        await syncLiveGitHubData();
+        alert(
+          `✅ Repositori actualitzat amb èxit!\n\n` +
+          `S'han publicat els ${keys.length} fitxers a ${GH_OWNER}/${GH_REPO} en un sol commit.\n` +
+          ` Les dades en pantalla ja s'han refrescat (i GitHub Pages publicarà el nou HTML en ~45 segons).`
+        );
+      } catch (err) {
+        console.error(err);
+        alert(`Error durant l'actualització a GitHub:\n${err.message}`);
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = origText;
       }
     }
 
