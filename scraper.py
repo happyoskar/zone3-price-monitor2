@@ -7,7 +7,6 @@ import urllib.request
 from datetime import datetime
 from urllib.parse import urlparse, quote_plus
 from playwright.async_api import async_playwright
-from bs4 import BeautifulSoup
 
 ZYTE_API_KEY = os.environ.get("ZYTE_API_KEY", "").strip()
 
@@ -301,8 +300,8 @@ def validate_market_url(url, country):
             return False, "URL TradeInn amb paràmetre country=uk en mercat ES"
     return True, f"Mercat {country} validat a la URL"
 
-def fetch_via_zyte_sync(url, country):
-    """Calls Zyte API with geolocation (ES or GB) and returns parsed page_info dict + structured product data."""
+def fetch_zyte_raw_sync(url, country):
+    """Calls Zyte API with geolocation (ES or GB) using only Python stdlib and returns raw browserHtml + product dict."""
     if not ZYTE_API_KEY:
         return None
     try:
@@ -326,78 +325,87 @@ def fetch_via_zyte_sync(url, country):
             },
             method="POST"
         )
-        with urllib.request.urlopen(req, timeout=50) as resp:
+        with urllib.request.urlopen(req, timeout=55) as resp:
             if resp.status != 200:
                 return None
-            zdata = json.loads(resp.read().decode("utf-8"))
-
-        html_str = zdata.get("browserHtml") or ""
-        zprod = zdata.get("product") or {}
-
-        soup = BeautifulSoup(html_str, "html.parser")
-        title = (soup.title.string if soup.title and soup.title.string else "").strip()
-        h1 = " | ".join(h.get_text(" ", strip=True) for h in soup.find_all("h1"))
-        ld_nodes = [s.get_text() for s in soup.find_all("script", attrs={"type": "application/ld+json"})]
-
-        meta_curr = ""
-        mc_tag = soup.select_one('meta[property="product:price:currency"], meta[property="og:price:currency"], [itemprop="priceCurrency"]')
-        if mc_tag:
-            meta_curr = (mc_tag.get("content") or "").strip()
-
-        meta_price = ""
-        mp_tag = soup.select_one('meta[property="product:price:amount"], meta[property="og:price:amount"], meta[itemprop="price"]')
-        if mp_tag:
-            meta_price = (mp_tag.get("content") or "").strip()
-
-        # Remove carousels and recommendation containers before extracting DOM prices
-        for bad_sel in [
-            ".related", ".recommendations", ".cross-sell", ".upsell", ".similar-products",
-            ".product-carousel", ".also-bought", ".alternatives", "aside", "footer", "nav",
-            "del", "s", ".old-price", ".price-old", ".rrp", ".strike"
-        ]:
-            for tag in soup.select(bad_sel):
-                tag.decompose()
-
-        dom_prices = []
-        for sel in [
-            '[itemprop="price"]', '#js-precio', '[data-testid="price"]', '[data-testid="product-price"]',
-            '.product-detail-price', '.price__value', '.pdp-price', '.product-page-price',
-            '.price--main', '.price--withoutTax', '#productPrice', '.product-price__price',
-            '.final-price', '.price-box__price', '.product-price', '.price-sales', '.current-price'
-        ]:
-            for el in soup.select(sel):
-                txt = (el.get_text(" ", strip=True) or el.get("content") or "").strip()
-                attr_curr = (el.get("data-currency") or el.get("currency") or "").strip()
-                if txt:
-                    dom_prices.append({"selector": sel, "text": txt, "attrCurr": attr_curr})
-
-        links = []
-        for a in soup.find_all("a", href=True):
-            href = a["href"].strip()
-            if href.startswith("/"):
-                parsed_base = urlparse(url)
-                href = f"{parsed_base.scheme}://{parsed_base.netloc}{href}"
-            if href.startswith("http"):
-                txt = (a.get_text(" ", strip=True) or a.get("title") or a.get("aria-label") or "").strip()
-                links.append({"href": href, "text": txt})
-
-        body_text = soup.get_text(" ", strip=True)[:4500]
-        return {
-            "title": title,
-            "h1": h1,
-            "ldNodes": ld_nodes,
-            "metaCurr": meta_curr,
-            "metaPrice": meta_price,
-            "domPrices": dom_prices,
-            "bodyText": body_text,
-            "zyteProduct": zprod,
-            "links": links
-        }
+            return json.loads(resp.read().decode("utf-8"))
     except Exception:
         return None
 
-async def fetch_via_zyte(url, country):
-    return await asyncio.to_thread(fetch_via_zyte_sync, url, country)
+async def parse_html_with_playwright(page, html_str, base_url, zprod=None):
+    """Parses HTML string using Playwright's native DOM engine (zero external bs4 dependency)."""
+    try:
+        if html_str:
+            await page.set_content(html_str, wait_until="domcontentloaded", timeout=15000)
+            info = await page.evaluate("""(baseUrl) => {
+                const title = document.title || "";
+                const h1 = Array.from(document.querySelectorAll("h1")).map(e => e.innerText.trim()).join(" | ");
+                const ldNodes = Array.from(document.querySelectorAll('script[type="application/ld+json"]')).map(s => s.innerText);
+                const metaCurr = (document.querySelector('meta[property="product:price:currency"], meta[property="og:price:currency"], [itemprop="priceCurrency"]') || {}).content || "";
+                const metaPrice = (document.querySelector('meta[property="product:price:amount"], meta[property="og:price:amount"], meta[itemprop="price"]') || {}).content || "";
+
+                const forbiddenContainers = [
+                    '.related', '.recommendations', '.cross-sell', '.upsell', '.similar-products',
+                    '.product-carousel', '.also-bought', '.alternatives', 'aside', 'footer', 'nav',
+                    '[data-testid*="recommend"]', '[class*="recommend"]', '[class*="related"]',
+                    '[class*="carousel"]', '[class*="slider"]', '[class*="cross"]', '[id*="related"]'
+                ].join(', ');
+
+                const selectors = [
+                    '[itemprop="price"]', '#js-precio', '[data-testid="price"]', '[data-testid="product-price"]',
+                    '.product-detail-price', '.price__value', '.pdp-price', '.product-page-price',
+                    '.price--main', '.price--withoutTax', '#productPrice', '.product-price__price',
+                    '.final-price', '.price-box__price', '.product-price', '.price-sales', '.current-price'
+                ];
+                const domPrices = [];
+                selectors.forEach(sel => {
+                    document.querySelectorAll(sel).forEach(el => {
+                        if (el.closest('del, s, .old-price, .price-old, .rrp, .strike')) return;
+                        if (el.closest(forbiddenContainers)) return;
+                        const txt = (el.innerText || el.getAttribute("content") || "").trim();
+                        const attrCurr = (el.getAttribute("data-currency") || el.getAttribute("currency") || "").trim();
+                        if (txt) domPrices.push({ selector: sel, text: txt, attrCurr });
+                    });
+                });
+
+                const links = [];
+                document.querySelectorAll('a[href]').forEach(a => {
+                    let href = (a.getAttribute('href') || '').trim();
+                    if (href.startsWith('/')) {
+                        try {
+                            const u = new URL(baseUrl);
+                            href = u.origin + href;
+                        } catch (e) {}
+                    }
+                    if (href.startsWith('http')) {
+                        const text = (a.innerText || a.getAttribute('title') || a.getAttribute('aria-label') || '').trim();
+                        links.push({ href, text });
+                    }
+                });
+
+                const bodyText = (document.body ? document.body.innerText : "").slice(0, 4500);
+                return { title, h1, ldNodes, metaCurr, metaPrice, domPrices, bodyText, links };
+            }""", base_url)
+        else:
+            info = {"title": "", "h1": "", "ldNodes": [], "metaCurr": "", "metaPrice": "", "domPrices": [], "bodyText": "", "links": []}
+
+        if isinstance(zprod, dict) and zprod.get("name"):
+            if not info["h1"]:
+                info["h1"] = str(zprod.get("name", "")).strip()
+            if not info["title"]:
+                info["title"] = str(zprod.get("name", "")).strip()
+        info["zyteProduct"] = zprod or {}
+        return info
+    except Exception:
+        return None
+
+async def fetch_via_zyte(page, url, country):
+    zdata = await asyncio.to_thread(fetch_zyte_raw_sync, url, country)
+    if not zdata:
+        return None
+    html_str = zdata.get("browserHtml") or ""
+    zprod = zdata.get("product") or {}
+    return await parse_html_with_playwright(page, html_str, url, zprod)
 
 async def discover_missing_pdps(page_es, page_uk, tracking, today_str):
     """Deep Auto-Discovery engine: direct candidate probes + operator catalog/search + Zyte fallback + DuckDuckGo HTML."""
@@ -426,7 +434,7 @@ async def discover_missing_pdps(page_es, page_uk, tracking, today_str):
                         await page.wait_for_timeout(1200)
                         page_title_h1 = await page.evaluate("() => (document.title || '') + ' | ' + Array.from(document.querySelectorAll('h1')).map(e => e.innerText).join(' ')")
                     elif ZYTE_API_KEY and resp and resp.status in (403, 429, 503):
-                        zinfo = await fetch_via_zyte(p_url, country)
+                        zinfo = await fetch_via_zyte(page, p_url, country)
                         if zinfo:
                             page_title_h1 = f"{zinfo.get('title', '')} | {zinfo.get('h1', '')}"
                     if page_title_h1:
@@ -460,12 +468,12 @@ async def discover_missing_pdps(page_es, page_uk, tracking, today_str):
                     }""")
                     collected_links.extend(links)
                 elif ZYTE_API_KEY and (not resp or resp.status in (403, 429, 503)):
-                    zinfo = await fetch_via_zyte(c_url, country)
+                    zinfo = await fetch_via_zyte(page, c_url, country)
                     if zinfo and zinfo.get("links"):
                         collected_links.extend(zinfo["links"])
             except Exception:
                 if ZYTE_API_KEY:
-                    zinfo = await fetch_via_zyte(c_url, country)
+                    zinfo = await fetch_via_zyte(page, c_url, country)
                     if zinfo and zinfo.get("links"):
                         collected_links.extend(zinfo["links"])
 
@@ -711,7 +719,7 @@ async def extract_verified_pdp_price(page, row, force_zyte_only=False):
 
     # If domain already tripped the Playwright circuit breaker and ZYTE_API_KEY is configured, go straight to Zyte
     if force_zyte_only and ZYTE_API_KEY:
-        z_info = await fetch_via_zyte(url, country)
+        z_info = await fetch_via_zyte(page, url, country)
         if z_info:
             return evaluate_page_info_candidates(z_info, row, source_prefix="[Zyte] ")
         return None, False, "BLOCKED_HTTP", "Accés bloquejat i sense resposta de Zyte API"
@@ -778,7 +786,7 @@ async def extract_verified_pdp_price(page, row, force_zyte_only=False):
 
     # Hybrid Zyte Fallback: if Playwright hit anti-bot (403/429/503/Captcha) or empty JS render and ZYTE_API_KEY is available
     if ZYTE_API_KEY and status_code in ("BLOCKED_HTTP", "BLOCKED_CAPTCHA", "HTTP_ERROR", "NO_VALID_PRICE", "ERROR"):
-        z_info = await fetch_via_zyte(url, country)
+        z_info = await fetch_via_zyte(page, url, country)
         if z_info:
             z_price, z_oos, z_status, z_ev = evaluate_page_info_candidates(z_info, row, source_prefix="[Zyte] ")
             if z_status in ("VERIFIED", "OUT_OF_STOCK"):
