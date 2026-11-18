@@ -15,7 +15,8 @@
     "last_read": "2026-11-17",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (EUR 654.99) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (EUR 654.99) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "ES-DEP-WS22MVAN101",
@@ -33,7 +34,8 @@
     "last_read": "2026-11-17",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (EUR 607.00) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (EUR 607.00) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "ES-BIK-WS22MVAN101",
@@ -51,7 +53,8 @@
     "last_read": "2026-11-04",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (EUR 631.99) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (EUR 631.99) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "ES-SPO-WS22MVAN101",
@@ -69,7 +72,8 @@
     "last_read": "2026-11-17",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (EUR 629.99) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (EUR 629.99) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "ES-WET-WS22MVAN101",
@@ -87,7 +91,8 @@
     "last_read": "",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Sense URL assignada"
+    "evidence": "Sense URL assignada",
+    "freshness": "NONE"
   },
   {
     "id": "ES-TRI-WS22MVAN101",
@@ -105,7 +110,8 @@
     "last_read": "",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Sense URL assignada"
+    "evidence": "Sense URL assignada",
+    "freshness": "NONE"
   },
   {
     "id": "ES-ALL-WS22MVAN101",
@@ -123,7 +129,8 @@
     "last_read": "",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Sense URL assignada"
+    "evidence": "Sense URL assignada",
+    "freshness": "NONE"
   },
   {
     "id": "ES-TRA-WS22WVAN101",
@@ -141,7 +148,8 @@
     "last_read": "2026-11-17",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (EUR 679.99) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (EUR 679.99) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "ES-DEP-WS22WVAN101",
@@ -159,7 +167,8 @@
     "last_read": "2026-11-15",
     "out_of_stock": false,
     "is_from": true,
-    "evidence": "PDP Verificada (EUR 647.70) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (EUR 647.70) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "ES-BIK-WS22WVAN101",
@@ -177,7 +186,8 @@
     "last_read": "2026-10-11",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (EUR 619.99) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (EUR 619.99) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "ES-SPO-WS22WVAN101",
@@ -195,7 +205,8 @@
     "last_read": "",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Sense URL assignada"
+    "evidence": "Sense URL assignada",
+    "freshness": "NONE"
   },
   {
     "id": "ES-WET-WS22WVAN101",
@@ -213,7 +224,8 @@
     "last_read": "",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Sense URL assignada"
+    "evidence": "Sense URL assignada",
+    "freshness": "NONE"
   },
   {
     "id": "ES-TRI-WS22WVAN101",
@@ -231,7 +243,8 @@
     "last_read": "",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Sense URL assignada"
+    "evidence": "Sense URL assignada",
+    "freshness": "NONE"
   },
   {
     "id": "ES-ALL-WS22WVAN101",
@@ -249,7 +262,8 @@
     "last_read": "",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Sense URL assignada"
+    "evidence": "Sense URL assignada",
+    "freshness": "NONE"
   },
   {
     "id": "ES-TRA-WS25MASP101",
@@ -267,7 +281,8 @@
     "last_read": "2026-11-17",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (EUR 526.99) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (EUR 526.99) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "ES-DEP-WS25MASP101",
@@ -285,7 +300,8 @@
     "last_read": "2026-10-12",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (EUR 499.95) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (EUR 499.95) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "ES-BIK-WS25MASP101",
@@ -303,7 +319,8 @@
     "last_read": "2026-11-04",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (EUR 481.99) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (EUR 481.99) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "ES-SPO-WS25MASP101",
@@ -321,7 +338,8 @@
     "last_read": "2026-11-18",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (EUR 489.99 vs RRP 689.99€) · Fitxa individual Sportano #610052"
+    "evidence": "PDP Verificada (EUR 489.99 vs RRP 689.99€) · Fitxa individual Sportano #610052",
+    "freshness": "LIVE_TODAY"
   },
   {
     "id": "ES-WET-WS25MASP101",
@@ -339,7 +357,8 @@
     "last_read": "",
     "out_of_stock": true,
     "is_from": false,
-    "evidence": "Auditada fitxa p-53917 (18/11): Sense estoc actual a Wetsuit Outlet ES (no mostra preu actiu)"
+    "evidence": "Auditada fitxa p-53917 (18/11): Sense estoc actual a Wetsuit Outlet ES (no mostra preu actiu)",
+    "freshness": "NONE"
   },
   {
     "id": "ES-TRI-WS25MASP101",
@@ -357,7 +376,8 @@
     "last_read": "2026-11-18",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (EUR 429.95 vs Adviesprijs 689€) · SKU WS25MASP101 validat a fitxa individual"
+    "evidence": "PDP Verificada (EUR 429.95 vs Adviesprijs 689€) · SKU WS25MASP101 validat a fitxa individual",
+    "freshness": "LIVE_TODAY"
   },
   {
     "id": "ES-ALL-WS25MASP101",
@@ -375,7 +395,8 @@
     "last_read": "2026-11-17",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (EUR 512.99) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (EUR 512.99) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "ES-TRA-WS25WASP101",
@@ -393,7 +414,8 @@
     "last_read": "2026-11-11",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (EUR 534.99) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (EUR 534.99) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "ES-DEP-WS25WASP101",
@@ -411,7 +433,8 @@
     "last_read": "2026-10-12",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (EUR 496.95) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (EUR 496.95) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "ES-BIK-WS25WASP101",
@@ -429,7 +452,8 @@
     "last_read": "2026-10-16",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (EUR 510.99) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (EUR 510.99) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "ES-SPO-WS25WASP101",
@@ -447,7 +471,8 @@
     "last_read": "",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Sense URL assignada"
+    "evidence": "Sense URL assignada",
+    "freshness": "NONE"
   },
   {
     "id": "ES-WET-WS25WASP101",
@@ -465,7 +490,8 @@
     "last_read": "",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Sense URL assignada"
+    "evidence": "Sense URL assignada",
+    "freshness": "NONE"
   },
   {
     "id": "ES-TRI-WS25WASP101",
@@ -483,7 +509,8 @@
     "last_read": "2026-11-18",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (EUR 429.95 vs Adviesprijs 689€) · SKU WS25WASP101 validat a fitxa individual"
+    "evidence": "PDP Verificada (EUR 429.95 vs Adviesprijs 689€) · SKU WS25WASP101 validat a fitxa individual",
+    "freshness": "LIVE_TODAY"
   },
   {
     "id": "ES-ALL-WS25WASP101",
@@ -501,7 +528,8 @@
     "last_read": "",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Sense URL assignada"
+    "evidence": "Sense URL assignada",
+    "freshness": "NONE"
   },
   {
     "id": "ES-TRA-WS24MVIS101",
@@ -519,7 +547,8 @@
     "last_read": "2026-11-17",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (EUR 386.99) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (EUR 386.99) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "ES-DEP-WS24MVIS101",
@@ -537,7 +566,8 @@
     "last_read": "2026-11-17",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (EUR 432.00) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (EUR 432.00) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "ES-BIK-WS24MVIS101",
@@ -555,7 +585,8 @@
     "last_read": "2026-11-04",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (EUR 401.99) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (EUR 401.99) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "ES-SPO-WS24MVIS101",
@@ -573,7 +604,8 @@
     "last_read": "",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Sense URL assignada"
+    "evidence": "Sense URL assignada",
+    "freshness": "NONE"
   },
   {
     "id": "ES-WET-WS24MVIS101",
@@ -591,7 +623,8 @@
     "last_read": "2026-11-15",
     "out_of_stock": false,
     "is_from": true,
-    "evidence": "PDP Verificada (EUR 469.99) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (EUR 469.99) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "ES-TRI-WS24MVIS101",
@@ -609,7 +642,8 @@
     "last_read": "2026-11-18",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (EUR 349.95 vs Adviesprijs 499€) · SKU WS24MVIS101 validat a fitxa individual"
+    "evidence": "PDP Verificada (EUR 349.95 vs Adviesprijs 499€) · SKU WS24MVIS101 validat a fitxa individual",
+    "freshness": "LIVE_TODAY"
   },
   {
     "id": "ES-ALL-WS24MVIS101",
@@ -627,7 +661,8 @@
     "last_read": "2026-11-15",
     "out_of_stock": false,
     "is_from": true,
-    "evidence": "PDP Verificada (EUR 353.99) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (EUR 353.99) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "ES-TRA-WS24WVIS101",
@@ -645,7 +680,8 @@
     "last_read": "2026-11-11",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (EUR 386.99) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (EUR 386.99) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "ES-DEP-WS24WVIS101",
@@ -663,7 +699,8 @@
     "last_read": "2026-11-15",
     "out_of_stock": false,
     "is_from": true,
-    "evidence": "PDP Verificada (EUR 377.23) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (EUR 377.23) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "ES-BIK-WS24WVIS101",
@@ -681,7 +718,8 @@
     "last_read": "2026-10-11",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (EUR 374.99) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (EUR 374.99) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "ES-SPO-WS24WVIS101",
@@ -699,7 +737,8 @@
     "last_read": "",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Sense URL assignada"
+    "evidence": "Sense URL assignada",
+    "freshness": "NONE"
   },
   {
     "id": "ES-WET-WS24WVIS101",
@@ -717,7 +756,8 @@
     "last_read": "2026-11-15",
     "out_of_stock": false,
     "is_from": true,
-    "evidence": "PDP Verificada (EUR 469.99) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (EUR 469.99) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "ES-TRI-WS24WVIS101",
@@ -735,7 +775,8 @@
     "last_read": "2026-11-18",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (EUR 349.95 vs Adviesprijs 499€) · SKU WS24WVIS101 validat a fitxa individual"
+    "evidence": "PDP Verificada (EUR 349.95 vs Adviesprijs 499€) · SKU WS24WVIS101 validat a fitxa individual",
+    "freshness": "LIVE_TODAY"
   },
   {
     "id": "ES-ALL-WS24WVIS101",
@@ -753,7 +794,8 @@
     "last_read": "",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Sense URL assignada"
+    "evidence": "Sense URL assignada",
+    "freshness": "NONE"
   },
   {
     "id": "ES-TRA-WS21MADV101",
@@ -771,7 +813,8 @@
     "last_read": "2026-11-17",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (EUR 287.99) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (EUR 287.99) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "ES-DEP-WS21MADV101",
@@ -789,7 +832,8 @@
     "last_read": "2026-10-12",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (EUR 301.95) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (EUR 301.95) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "ES-BIK-WS21MADV101",
@@ -807,7 +851,8 @@
     "last_read": "2026-11-04",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (EUR 279.99) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (EUR 279.99) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "ES-SPO-WS21MADV101",
@@ -825,7 +870,8 @@
     "last_read": "2026-11-18",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (EUR 259.99 vs RRP 369.99€) · SKU WS21MADV101 validat a fitxa #118144"
+    "evidence": "PDP Verificada (EUR 259.99 vs RRP 369.99€) · SKU WS21MADV101 validat a fitxa #118144",
+    "freshness": "LIVE_TODAY"
   },
   {
     "id": "ES-WET-WS21MADV101",
@@ -843,7 +889,8 @@
     "last_read": "2026-11-17",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (EUR 368.99) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (EUR 368.99) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "ES-TRI-WS21MADV101",
@@ -861,7 +908,8 @@
     "last_read": "2026-11-18",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (EUR 289.95 vs Adviesprijs 369€) · SKU WS21MADV101 validat a fitxa individual"
+    "evidence": "PDP Verificada (EUR 289.95 vs Adviesprijs 369€) · SKU WS21MADV101 validat a fitxa individual",
+    "freshness": "LIVE_TODAY"
   },
   {
     "id": "ES-ALL-WS21MADV101",
@@ -879,7 +927,8 @@
     "last_read": "2026-11-15",
     "out_of_stock": false,
     "is_from": true,
-    "evidence": "PDP Verificada (EUR 286.99) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (EUR 286.99) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "ES-TRA-WS21WADV101",
@@ -897,7 +946,8 @@
     "last_read": "2026-11-17",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (EUR 283.99) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (EUR 283.99) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "ES-DEP-WS21WADV101",
@@ -915,7 +965,8 @@
     "last_read": "2026-11-15",
     "out_of_stock": false,
     "is_from": true,
-    "evidence": "PDP Verificada (EUR 270.95) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (EUR 270.95) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "ES-BIK-WS21WADV101",
@@ -933,7 +984,8 @@
     "last_read": "2026-10-11",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (EUR 270.99) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (EUR 270.99) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "ES-SPO-WS21WADV101",
@@ -951,7 +1003,8 @@
     "last_read": "2026-11-18",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (EUR 269.99 · €256.49 amb codi vs RRP 369.99€) · SKU WS21WADV101 #118145"
+    "evidence": "PDP Verificada (EUR 269.99 · €256.49 amb codi vs RRP 369.99€) · SKU WS21WADV101 #118145",
+    "freshness": "LIVE_TODAY"
   },
   {
     "id": "ES-WET-WS21WADV101",
@@ -969,7 +1022,8 @@
     "last_read": "2026-11-15",
     "out_of_stock": false,
     "is_from": true,
-    "evidence": "PDP Verificada (EUR 324.99) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (EUR 324.99) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "ES-TRI-WS21WADV101",
@@ -987,7 +1041,8 @@
     "last_read": "2026-11-17",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (EUR 249.95) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (EUR 249.95) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "ES-ALL-WS21WADV101",
@@ -1005,7 +1060,8 @@
     "last_read": "2026-11-17",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (EUR 317.99) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (EUR 317.99) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "ES-TRA-WS21MAGI116",
@@ -1023,7 +1079,8 @@
     "last_read": "2026-11-17",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (EUR 213.99) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (EUR 213.99) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "ES-DEP-WS21MAGI116",
@@ -1041,7 +1098,8 @@
     "last_read": "2026-10-12",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (EUR 189.95) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (EUR 189.95) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "ES-BIK-WS21MAGI116",
@@ -1059,7 +1117,8 @@
     "last_read": "2026-11-04",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (EUR 200.99) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (EUR 200.99) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "ES-SPO-WS21MAGI116",
@@ -1077,7 +1136,8 @@
     "last_read": "2026-11-17",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (EUR 209.99) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (EUR 209.99) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "ES-WET-WS21MAGI116",
@@ -1095,7 +1155,8 @@
     "last_read": "2026-11-15",
     "out_of_stock": false,
     "is_from": true,
-    "evidence": "PDP Verificada (EUR 195.99) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (EUR 195.99) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "ES-TRI-WS21MAGI116",
@@ -1113,7 +1174,8 @@
     "last_read": "2026-11-18",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (EUR 199.95 vs Adviesprijs 259€) · ID 74428 validat a fitxa individual"
+    "evidence": "PDP Verificada (EUR 199.95 vs Adviesprijs 259€) · ID 74428 validat a fitxa individual",
+    "freshness": "LIVE_TODAY"
   },
   {
     "id": "ES-ALL-WS21MAGI116",
@@ -1131,7 +1193,8 @@
     "last_read": "2026-10-23",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (EUR 231.99) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (EUR 231.99) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "ES-TRA-WS21WAGI114",
@@ -1149,7 +1212,8 @@
     "last_read": "2026-11-17",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (EUR 229.99) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (EUR 229.99) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "ES-DEP-WS21WAGI114",
@@ -1167,7 +1231,8 @@
     "last_read": "2026-10-12",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (EUR 221.95) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (EUR 221.95) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "ES-BIK-WS21WAGI114",
@@ -1185,7 +1250,8 @@
     "last_read": "2026-10-16",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (EUR 199.99) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (EUR 199.99) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "ES-SPO-WS21WAGI114",
@@ -1203,7 +1269,8 @@
     "last_read": "",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Bloquejat pel filtre >45% PVP: Sportano #56809 mostra liquidació 79,99€ (-69.1%), sota el llindar de seguretat (116,55€)"
+    "evidence": "Bloquejat pel filtre >45% PVP: Sportano #56809 mostra liquidació 79,99€ (-69.1%), sota el llindar de seguretat (116,55€)",
+    "freshness": "NONE"
   },
   {
     "id": "ES-WET-WS21WAGI114",
@@ -1221,7 +1288,8 @@
     "last_read": "2026-11-15",
     "out_of_stock": false,
     "is_from": true,
-    "evidence": "PDP Verificada (EUR 254.99) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (EUR 254.99) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "ES-TRI-WS21WAGI114",
@@ -1239,7 +1307,8 @@
     "last_read": "2026-11-18",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (EUR 199.95 vs Adviesprijs 259€) · SKU WS21WAGI114 validat a fitxa individual"
+    "evidence": "PDP Verificada (EUR 199.95 vs Adviesprijs 259€) · SKU WS21WAGI114 validat a fitxa individual",
+    "freshness": "LIVE_TODAY"
   },
   {
     "id": "ES-ALL-WS21WAGI114",
@@ -1257,7 +1326,8 @@
     "last_read": "2026-11-15",
     "out_of_stock": false,
     "is_from": true,
-    "evidence": "PDP Verificada (EUR 183.99) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (EUR 183.99) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "ES-TRA-WS26MGLISL101",
@@ -1275,7 +1345,8 @@
     "last_read": "2026-11-17",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (EUR 150.99) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (EUR 150.99) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "ES-DEP-WS26MGLISL101",
@@ -1293,7 +1364,8 @@
     "last_read": "",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Sense URL assignada"
+    "evidence": "Sense URL assignada",
+    "freshness": "NONE"
   },
   {
     "id": "ES-BIK-WS26MGLISL101",
@@ -1311,7 +1383,8 @@
     "last_read": "2026-10-11",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (EUR 144.99) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (EUR 144.99) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "ES-SPO-WS26MGLISL101",
@@ -1329,7 +1402,8 @@
     "last_read": "2026-11-18",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (EUR 143.99 vs RRP 179.00€) · SKU WS26MGLISL101 validat a fitxa #940553"
+    "evidence": "PDP Verificada (EUR 143.99 vs RRP 179.00€) · SKU WS26MGLISL101 validat a fitxa #940553",
+    "freshness": "LIVE_TODAY"
   },
   {
     "id": "ES-WET-WS26MGLISL101",
@@ -1347,7 +1421,8 @@
     "last_read": "2026-11-15",
     "out_of_stock": false,
     "is_from": true,
-    "evidence": "PDP Verificada (EUR 158.99) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (EUR 158.99) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "ES-TRI-WS26MGLISL101",
@@ -1365,7 +1440,8 @@
     "last_read": "",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Sense URL assignada"
+    "evidence": "Sense URL assignada",
+    "freshness": "NONE"
   },
   {
     "id": "ES-ALL-WS26MGLISL101",
@@ -1383,7 +1459,8 @@
     "last_read": "",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Sense URL assignada"
+    "evidence": "Sense URL assignada",
+    "freshness": "NONE"
   },
   {
     "id": "ES-TRA-WS26WGLISL101",
@@ -1401,7 +1478,8 @@
     "last_read": "2026-11-11",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (EUR 161.49) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (EUR 161.49) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "ES-DEP-WS26WGLISL101",
@@ -1419,7 +1497,8 @@
     "last_read": "",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Sense URL assignada"
+    "evidence": "Sense URL assignada",
+    "freshness": "NONE"
   },
   {
     "id": "ES-BIK-WS26WGLISL101",
@@ -1437,7 +1516,8 @@
     "last_read": "2026-10-11",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (EUR 147.99) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (EUR 147.99) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "ES-SPO-WS26WGLISL101",
@@ -1455,7 +1535,8 @@
     "last_read": "",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Sense URL assignada"
+    "evidence": "Sense URL assignada",
+    "freshness": "NONE"
   },
   {
     "id": "ES-WET-WS26WGLISL101",
@@ -1473,7 +1554,8 @@
     "last_read": "2026-11-15",
     "out_of_stock": false,
     "is_from": true,
-    "evidence": "PDP Verificada (EUR 179.99) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (EUR 179.99) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "ES-TRI-WS26WGLISL101",
@@ -1491,7 +1573,8 @@
     "last_read": "",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Sense URL assignada"
+    "evidence": "Sense URL assignada",
+    "freshness": "NONE"
   },
   {
     "id": "ES-ALL-WS26WGLISL101",
@@ -1509,7 +1592,8 @@
     "last_read": "",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Sense URL assignada"
+    "evidence": "Sense URL assignada",
+    "freshness": "NONE"
   },
   {
     "id": "ES-TRA-WS25MACTF101",
@@ -1527,7 +1611,8 @@
     "last_read": "2026-11-17",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (EUR 201.99) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (EUR 201.99) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "ES-DEP-WS25MACTF101",
@@ -1545,7 +1630,8 @@
     "last_read": "2026-11-17",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (EUR 190.95) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (EUR 190.95) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "ES-BIK-WS25MACTF101",
@@ -1563,7 +1649,8 @@
     "last_read": "2026-11-15",
     "out_of_stock": false,
     "is_from": true,
-    "evidence": "PDP Verificada (EUR 166.99) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (EUR 166.99) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "ES-SPO-WS25MACTF101",
@@ -1581,7 +1668,8 @@
     "last_read": "",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Sense URL assignada"
+    "evidence": "Sense URL assignada",
+    "freshness": "NONE"
   },
   {
     "id": "ES-WET-WS25MACTF101",
@@ -1599,7 +1687,8 @@
     "last_read": "2026-11-15",
     "out_of_stock": false,
     "is_from": true,
-    "evidence": "PDP Verificada (EUR 194.99) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (EUR 194.99) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "ES-TRI-WS25MACTF101",
@@ -1617,7 +1706,8 @@
     "last_read": "2026-11-18",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (EUR 169.95 vs Adviesprijs 229€) · SKU WS25MACTF101 validat a fitxa individual"
+    "evidence": "PDP Verificada (EUR 169.95 vs Adviesprijs 229€) · SKU WS25MACTF101 validat a fitxa individual",
+    "freshness": "LIVE_TODAY"
   },
   {
     "id": "ES-ALL-WS25MACTF101",
@@ -1635,7 +1725,8 @@
     "last_read": "",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Sense URL assignada"
+    "evidence": "Sense URL assignada",
+    "freshness": "NONE"
   },
   {
     "id": "ES-TRA-WS25WACTF101",
@@ -1653,7 +1744,8 @@
     "last_read": "2026-11-17",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (EUR 206.49) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (EUR 206.49) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "ES-DEP-WS25WACTF101",
@@ -1671,7 +1763,8 @@
     "last_read": "2026-10-12",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (EUR 202.95) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (EUR 202.95) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "ES-BIK-WS25WACTF101",
@@ -1689,7 +1782,8 @@
     "last_read": "",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Sense URL assignada"
+    "evidence": "Sense URL assignada",
+    "freshness": "NONE"
   },
   {
     "id": "ES-SPO-WS25WACTF101",
@@ -1707,7 +1801,8 @@
     "last_read": "",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Sense URL assignada"
+    "evidence": "Sense URL assignada",
+    "freshness": "NONE"
   },
   {
     "id": "ES-WET-WS25WACTF101",
@@ -1725,7 +1820,8 @@
     "last_read": "2026-11-15",
     "out_of_stock": false,
     "is_from": true,
-    "evidence": "PDP Verificada (EUR 194.99) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (EUR 194.99) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "ES-TRI-WS25WACTF101",
@@ -1743,7 +1839,8 @@
     "last_read": "2026-11-18",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (EUR 169.95 vs Adviesprijs 229€) · SKU WS25WACTF101 validat a fitxa individual"
+    "evidence": "PDP Verificada (EUR 169.95 vs Adviesprijs 229€) · SKU WS25WACTF101 validat a fitxa individual",
+    "freshness": "LIVE_TODAY"
   },
   {
     "id": "ES-ALL-WS25WACTF101",
@@ -1761,7 +1858,8 @@
     "last_read": "2026-11-17",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (EUR 183.99) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (EUR 183.99) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "ES-TRA-WS25MSRV101",
@@ -1779,7 +1877,8 @@
     "last_read": "",
     "out_of_stock": true,
     "is_from": false,
-    "evidence": "Auditada fitxa 137937167 (18/11): Esgotat / sense preu actiu per a ES (només romanent 133,99€ a FI)"
+    "evidence": "Auditada fitxa 137937167 (18/11): Esgotat / sense preu actiu per a ES (només romanent 133,99€ a FI)",
+    "freshness": "NONE"
   },
   {
     "id": "ES-DEP-WS25MSRV101",
@@ -1797,7 +1896,8 @@
     "last_read": "2026-10-11",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (EUR 238.95) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (EUR 238.95) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "ES-BIK-WS25MSRV101",
@@ -1815,7 +1915,8 @@
     "last_read": "2026-10-11",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (EUR 194.99) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (EUR 194.99) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "ES-SPO-WS25MSRV101",
@@ -1833,7 +1934,8 @@
     "last_read": "",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Sense URL assignada"
+    "evidence": "Sense URL assignada",
+    "freshness": "NONE"
   },
   {
     "id": "ES-WET-WS25MSRV101",
@@ -1851,7 +1953,8 @@
     "last_read": "",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Sense URL assignada"
+    "evidence": "Sense URL assignada",
+    "freshness": "NONE"
   },
   {
     "id": "ES-TRI-WS25MSRV101",
@@ -1869,7 +1972,8 @@
     "last_read": "",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Sense URL assignada"
+    "evidence": "Sense URL assignada",
+    "freshness": "NONE"
   },
   {
     "id": "ES-ALL-WS25MSRV101",
@@ -1887,7 +1991,8 @@
     "last_read": "",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Sense URL assignada"
+    "evidence": "Sense URL assignada",
+    "freshness": "NONE"
   },
   {
     "id": "ES-TRA-WS25WSRV101",
@@ -1905,7 +2010,8 @@
     "last_read": "",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Sense URL assignada"
+    "evidence": "Sense URL assignada",
+    "freshness": "NONE"
   },
   {
     "id": "ES-DEP-WS25WSRV101",
@@ -1923,7 +2029,8 @@
     "last_read": "",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Sense URL assignada"
+    "evidence": "Sense URL assignada",
+    "freshness": "NONE"
   },
   {
     "id": "ES-BIK-WS25WSRV101",
@@ -1941,7 +2048,8 @@
     "last_read": "",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Sense URL assignada"
+    "evidence": "Sense URL assignada",
+    "freshness": "NONE"
   },
   {
     "id": "ES-SPO-WS25WSRV101",
@@ -1959,7 +2067,8 @@
     "last_read": "",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Sense URL assignada"
+    "evidence": "Sense URL assignada",
+    "freshness": "NONE"
   },
   {
     "id": "ES-WET-WS25WSRV101",
@@ -1977,7 +2086,8 @@
     "last_read": "",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Sense URL assignada"
+    "evidence": "Sense URL assignada",
+    "freshness": "NONE"
   },
   {
     "id": "ES-TRI-WS25WSRV101",
@@ -1995,7 +2105,8 @@
     "last_read": "",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Sense URL assignada"
+    "evidence": "Sense URL assignada",
+    "freshness": "NONE"
   },
   {
     "id": "ES-ALL-WS25WSRV101",
@@ -2013,7 +2124,8 @@
     "last_read": "",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Sense URL assignada"
+    "evidence": "Sense URL assignada",
+    "freshness": "NONE"
   },
   {
     "id": "UK-TRA-WS22MVAN101",
@@ -2031,7 +2143,8 @@
     "last_read": "2026-11-11",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (GBP 562.49) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (GBP 562.49) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "UK-DEP-WS22MVAN101",
@@ -2049,7 +2162,8 @@
     "last_read": "2026-10-11",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (GBP 642.20) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (GBP 642.20) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "UK-SPO-WS22MVAN101",
@@ -2067,7 +2181,8 @@
     "last_read": "2026-11-05",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (GBP 489.30) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (GBP 489.30) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "UK-MY -WS22MVAN101",
@@ -2085,7 +2200,8 @@
     "last_read": "2026-11-16",
     "out_of_stock": false,
     "is_from": true,
-    "evidence": "PDP Verificada (GBP 558.97) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (GBP 558.97) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "UK-SIG-WS22MVAN101",
@@ -2103,7 +2219,8 @@
     "last_read": "2026-11-15",
     "out_of_stock": false,
     "is_from": true,
-    "evidence": "PDP Verificada (GBP 560.00) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (GBP 560.00) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "UK-WET-WS22MVAN101",
@@ -2121,7 +2238,8 @@
     "last_read": "",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Sense URL assignada"
+    "evidence": "Sense URL assignada",
+    "freshness": "NONE"
   },
   {
     "id": "UK-TRA-WS22WVAN101",
@@ -2139,7 +2257,8 @@
     "last_read": "2026-11-11",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (GBP 567.99) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (GBP 567.99) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "UK-DEP-WS22WVAN101",
@@ -2157,7 +2276,8 @@
     "last_read": "",
     "out_of_stock": false,
     "is_from": true,
-    "evidence": "En quarantena: URL de categoria genèrica (cal URL de fitxa exacta PDP)"
+    "evidence": "En quarantena: URL de categoria genèrica (cal URL de fitxa exacta PDP)",
+    "freshness": "NONE"
   },
   {
     "id": "UK-SPO-WS22WVAN101",
@@ -2175,7 +2295,8 @@
     "last_read": "2026-11-05",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (GBP 489.30) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (GBP 489.30) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "UK-MY -WS22WVAN101",
@@ -2193,7 +2314,8 @@
     "last_read": "2026-11-17",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (GBP 558.97) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (GBP 558.97) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "UK-SIG-WS22WVAN101",
@@ -2211,7 +2333,8 @@
     "last_read": "2026-11-17",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (GBP 679.00) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (GBP 679.00) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "UK-WET-WS22WVAN101",
@@ -2229,7 +2352,8 @@
     "last_read": "",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Sense URL assignada"
+    "evidence": "Sense URL assignada",
+    "freshness": "NONE"
   },
   {
     "id": "UK-TRA-WS25MASP101",
@@ -2247,7 +2371,8 @@
     "last_read": "2026-11-11",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (GBP 452.99) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (GBP 452.99) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "UK-DEP-WS25MASP101",
@@ -2265,7 +2390,8 @@
     "last_read": "2026-11-18",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (GBP 456.30) · Fitxa individual 'Zone3 Aspire Wetsuit black yellow'"
+    "evidence": "PDP Verificada (GBP 456.30) · Fitxa individual 'Zone3 Aspire Wetsuit black yellow'",
+    "freshness": "LIVE_TODAY"
   },
   {
     "id": "UK-SPO-WS25MASP101",
@@ -2283,7 +2409,8 @@
     "last_read": "",
     "out_of_stock": true,
     "is_from": false,
-    "evidence": "Auditada fitxa ZNE66 (18/11): Fitxa antiga (RRP £374.99 vs £549 AW26) i fora d'estoc actual"
+    "evidence": "Auditada fitxa ZNE66 (18/11): Fitxa antiga (RRP £374.99 vs £549 AW26) i fora d'estoc actual",
+    "freshness": "NONE"
   },
   {
     "id": "UK-MY -WS25MASP101",
@@ -2301,7 +2428,8 @@
     "last_read": "2026-11-16",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (GBP 438.97) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (GBP 438.97) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "UK-SIG-WS25MASP101",
@@ -2319,7 +2447,8 @@
     "last_read": "2026-11-15",
     "out_of_stock": false,
     "is_from": true,
-    "evidence": "PDP Verificada (GBP 469.00) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (GBP 469.00) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "UK-WET-WS25MASP101",
@@ -2337,7 +2466,8 @@
     "last_read": "",
     "out_of_stock": true,
     "is_from": false,
-    "evidence": "Auditada fitxa p-53917 (18/11): Sense estoc actual a Wetsuit Outlet UK (no mostra preu actiu)"
+    "evidence": "Auditada fitxa p-53917 (18/11): Sense estoc actual a Wetsuit Outlet UK (no mostra preu actiu)",
+    "freshness": "NONE"
   },
   {
     "id": "UK-TRA-WS25WASP101",
@@ -2355,7 +2485,8 @@
     "last_read": "2026-11-11",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (GBP 452.99) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (GBP 452.99) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "UK-DEP-WS25WASP101",
@@ -2373,7 +2504,8 @@
     "last_read": "2026-10-11",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (GBP 460.64) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (GBP 460.64) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "UK-SPO-WS25WASP101",
@@ -2391,7 +2523,8 @@
     "last_read": "",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Sense URL assignada"
+    "evidence": "Sense URL assignada",
+    "freshness": "NONE"
   },
   {
     "id": "UK-MY -WS25WASP101",
@@ -2409,7 +2542,8 @@
     "last_read": "2026-11-16",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (GBP 438.97) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (GBP 438.97) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "UK-SIG-WS25WASP101",
@@ -2427,7 +2561,8 @@
     "last_read": "2026-11-15",
     "out_of_stock": false,
     "is_from": true,
-    "evidence": "PDP Verificada (GBP 452.00) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (GBP 452.00) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "UK-WET-WS25WASP101",
@@ -2445,7 +2580,8 @@
     "last_read": "",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Sense URL assignada"
+    "evidence": "Sense URL assignada",
+    "freshness": "NONE"
   },
   {
     "id": "UK-TRA-WS24MVIS101",
@@ -2463,7 +2599,8 @@
     "last_read": "2026-11-11",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (GBP 327.99) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (GBP 327.99) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "UK-DEP-WS24MVIS101",
@@ -2481,7 +2618,8 @@
     "last_read": "2026-11-15",
     "out_of_stock": false,
     "is_from": true,
-    "evidence": "PDP Verificada (GBP 355.31) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (GBP 355.31) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "UK-SPO-WS24MVIS101",
@@ -2499,7 +2637,8 @@
     "last_read": "2026-11-05",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (GBP 359.09) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (GBP 359.09) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "UK-MY -WS24MVIS101",
@@ -2517,7 +2656,8 @@
     "last_read": "2026-11-16",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (GBP 338.97) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (GBP 338.97) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "UK-SIG-WS24MVIS101",
@@ -2535,7 +2675,8 @@
     "last_read": "",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Sense URL assignada"
+    "evidence": "Sense URL assignada",
+    "freshness": "NONE"
   },
   {
     "id": "UK-WET-WS24MVIS101",
@@ -2553,7 +2694,8 @@
     "last_read": "2026-11-17",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (GBP 319.95) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (GBP 319.95) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "UK-TRA-WS24WVIS101",
@@ -2571,7 +2713,8 @@
     "last_read": "2026-11-11",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (GBP 327.99) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (GBP 327.99) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "UK-DEP-WS24WVIS101",
@@ -2589,7 +2732,8 @@
     "last_read": "2026-11-18",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (GBP 372.73) · Ref Z3-WS24WVIS101 validada a fitxa individual"
+    "evidence": "PDP Verificada (GBP 372.73) · Ref Z3-WS24WVIS101 validada a fitxa individual",
+    "freshness": "LIVE_TODAY"
   },
   {
     "id": "UK-SPO-WS24WVIS101",
@@ -2607,7 +2751,8 @@
     "last_read": "2026-11-05",
     "out_of_stock": true,
     "is_from": false,
-    "evidence": "PDP Verificada (GBP 359.09) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (GBP 359.09) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "UK-MY -WS24WVIS101",
@@ -2625,7 +2770,8 @@
     "last_read": "2026-11-16",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (GBP 338.97) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (GBP 338.97) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "UK-SIG-WS24WVIS101",
@@ -2643,7 +2789,8 @@
     "last_read": "",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Sense URL assignada"
+    "evidence": "Sense URL assignada",
+    "freshness": "NONE"
   },
   {
     "id": "UK-WET-WS24WVIS101",
@@ -2661,7 +2808,8 @@
     "last_read": "2026-11-17",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (GBP 399.95) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (GBP 399.95) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "UK-TRA-WS21MADV101",
@@ -2679,7 +2827,8 @@
     "last_read": "2026-11-11",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (GBP 246.99) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (GBP 246.99) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "UK-DEP-WS21MADV101",
@@ -2697,7 +2846,8 @@
     "last_read": "2026-10-11",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (GBP 276.61) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (GBP 276.61) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "UK-SPO-WS21MADV101",
@@ -2715,7 +2865,8 @@
     "last_read": "2026-11-05",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (GBP 209.29) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (GBP 209.29) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "UK-MY -WS21MADV101",
@@ -2733,7 +2884,8 @@
     "last_read": "2026-11-16",
     "out_of_stock": false,
     "is_from": true,
-    "evidence": "PDP Verificada (GBP 238.97) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (GBP 238.97) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "UK-SIG-WS21MADV101",
@@ -2751,7 +2903,8 @@
     "last_read": "2026-11-17",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (GBP 263.00) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (GBP 263.00) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "UK-WET-WS21MADV101",
@@ -2769,7 +2922,8 @@
     "last_read": "2026-11-15",
     "out_of_stock": false,
     "is_from": true,
-    "evidence": "PDP Verificada (GBP 254.95) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (GBP 254.95) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "UK-TRA-WS21WADV101",
@@ -2787,7 +2941,8 @@
     "last_read": "2026-11-11",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (GBP 240.49) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (GBP 240.49) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "UK-DEP-WS21WADV101",
@@ -2805,7 +2960,8 @@
     "last_read": "2026-11-15",
     "out_of_stock": false,
     "is_from": true,
-    "evidence": "PDP Verificada (GBP 264.51) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (GBP 264.51) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "UK-SPO-WS21WADV101",
@@ -2823,7 +2979,8 @@
     "last_read": "2026-11-17",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (GBP 209.28) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (GBP 209.28) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "UK-MY -WS21WADV101",
@@ -2841,7 +2998,8 @@
     "last_read": "2026-11-16",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (GBP 238.97) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (GBP 238.97) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "UK-SIG-WS21WADV101",
@@ -2859,7 +3017,8 @@
     "last_read": "2026-11-17",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (GBP 258.00) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (GBP 258.00) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "UK-WET-WS21WADV101",
@@ -2877,7 +3036,8 @@
     "last_read": "2026-11-17",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (GBP 254.95) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (GBP 254.95) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "UK-TRA-WS21MAGI116",
@@ -2895,7 +3055,8 @@
     "last_read": "2026-11-11",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (GBP 183.99) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (GBP 183.99) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "UK-DEP-WS21MAGI116",
@@ -2913,7 +3074,8 @@
     "last_read": "2026-10-11",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (GBP 179.63) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (GBP 179.63) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "UK-SPO-WS21MAGI116",
@@ -2931,7 +3093,8 @@
     "last_read": "2026-11-05",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (GBP 197.09) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (GBP 197.09) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "UK-MY -WS21MAGI116",
@@ -2949,7 +3112,8 @@
     "last_read": "2026-11-16",
     "out_of_stock": false,
     "is_from": true,
-    "evidence": "PDP Verificada (GBP 174.97) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (GBP 174.97) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "UK-SIG-WS21MAGI116",
@@ -2967,7 +3131,8 @@
     "last_read": "",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Sense URL assignada"
+    "evidence": "Sense URL assignada",
+    "freshness": "NONE"
   },
   {
     "id": "UK-WET-WS21MAGI116",
@@ -2985,7 +3150,8 @@
     "last_read": "2026-11-17",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (GBP 186.95) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (GBP 186.95) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "UK-TRA-WS21WAGI114",
@@ -3003,7 +3169,8 @@
     "last_read": "2026-11-11",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (GBP 193.49) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (GBP 193.49) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "UK-DEP-WS21WAGI114",
@@ -3021,7 +3188,8 @@
     "last_read": "2026-10-11",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (GBP 203.37) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (GBP 203.37) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "UK-SPO-WS21WAGI114",
@@ -3039,7 +3207,8 @@
     "last_read": "2026-11-17",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (GBP 197.08) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (GBP 197.08) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "UK-MY -WS21WAGI114",
@@ -3057,7 +3226,8 @@
     "last_read": "2026-11-16",
     "out_of_stock": false,
     "is_from": true,
-    "evidence": "PDP Verificada (GBP 174.97) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (GBP 174.97) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "UK-SIG-WS21WAGI114",
@@ -3075,7 +3245,8 @@
     "last_read": "",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Sense URL assignada"
+    "evidence": "Sense URL assignada",
+    "freshness": "NONE"
   },
   {
     "id": "UK-WET-WS21WAGI114",
@@ -3093,7 +3264,8 @@
     "last_read": "2026-11-15",
     "out_of_stock": false,
     "is_from": true,
-    "evidence": "PDP Verificada (GBP 186.95) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (GBP 186.95) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "UK-TRA-WS26MGLISL101",
@@ -3111,7 +3283,8 @@
     "last_read": "2026-11-11",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (GBP 127.99) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (GBP 127.99) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "UK-DEP-WS26MGLISL101",
@@ -3129,7 +3302,8 @@
     "last_read": "",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Sense URL assignada"
+    "evidence": "Sense URL assignada",
+    "freshness": "NONE"
   },
   {
     "id": "UK-SPO-WS26MGLISL101",
@@ -3147,7 +3321,8 @@
     "last_read": "",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Sense URL assignada"
+    "evidence": "Sense URL assignada",
+    "freshness": "NONE"
   },
   {
     "id": "UK-MY -WS26MGLISL101",
@@ -3165,7 +3340,8 @@
     "last_read": "2026-11-17",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (GBP 146.97) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (GBP 146.97) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "UK-SIG-WS26MGLISL101",
@@ -3183,7 +3359,8 @@
     "last_read": "",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Sense URL assignada"
+    "evidence": "Sense URL assignada",
+    "freshness": "NONE"
   },
   {
     "id": "UK-WET-WS26MGLISL101",
@@ -3201,7 +3378,8 @@
     "last_read": "2026-11-17",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (GBP 154.95) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (GBP 154.95) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "UK-TRA-WS26WGLISL101",
@@ -3219,7 +3397,8 @@
     "last_read": "2026-11-11",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (GBP 136.49) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (GBP 136.49) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "UK-DEP-WS26WGLISL101",
@@ -3237,7 +3416,8 @@
     "last_read": "",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Sense URL assignada"
+    "evidence": "Sense URL assignada",
+    "freshness": "NONE"
   },
   {
     "id": "UK-SPO-WS26WGLISL101",
@@ -3255,7 +3435,8 @@
     "last_read": "",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Sense URL assignada"
+    "evidence": "Sense URL assignada",
+    "freshness": "NONE"
   },
   {
     "id": "UK-MY -WS26WGLISL101",
@@ -3273,7 +3454,8 @@
     "last_read": "2026-11-16",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (GBP 154.95) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (GBP 154.95) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "UK-SIG-WS26WGLISL101",
@@ -3291,7 +3473,8 @@
     "last_read": "",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Sense URL assignada"
+    "evidence": "Sense URL assignada",
+    "freshness": "NONE"
   },
   {
     "id": "UK-WET-WS26WGLISL101",
@@ -3309,7 +3492,8 @@
     "last_read": "2026-11-15",
     "out_of_stock": false,
     "is_from": true,
-    "evidence": "PDP Verificada (GBP 154.95) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (GBP 154.95) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "UK-TRA-WS25MACTF101",
@@ -3327,7 +3511,8 @@
     "last_read": "2026-11-11",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (GBP 170.99) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (GBP 170.99) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "UK-DEP-WS25MACTF101",
@@ -3345,7 +3530,8 @@
     "last_read": "2026-11-15",
     "out_of_stock": false,
     "is_from": true,
-    "evidence": "PDP Verificada (GBP 185.40) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (GBP 185.40) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "UK-SPO-WS25MACTF101",
@@ -3363,7 +3549,8 @@
     "last_read": "2026-11-05",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (GBP 170.09) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (GBP 170.09) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "UK-MY -WS25MACTF101",
@@ -3381,7 +3568,8 @@
     "last_read": "2026-11-16",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (GBP 160.97) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (GBP 160.97) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "UK-SIG-WS25MACTF101",
@@ -3399,7 +3587,8 @@
     "last_read": "",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Sense URL assignada"
+    "evidence": "Sense URL assignada",
+    "freshness": "NONE"
   },
   {
     "id": "UK-WET-WS25MACTF101",
@@ -3417,7 +3606,8 @@
     "last_read": "2026-11-15",
     "out_of_stock": false,
     "is_from": true,
-    "evidence": "PDP Verificada (GBP 164.95) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (GBP 164.95) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "UK-TRA-WS25WACTF101",
@@ -3435,7 +3625,8 @@
     "last_read": "2026-11-11",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (GBP 174.49) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (GBP 174.49) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "UK-DEP-WS25WACTF101",
@@ -3453,7 +3644,8 @@
     "last_read": "2026-10-11",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (GBP 183.87) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (GBP 183.87) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "UK-SPO-WS25WACTF101",
@@ -3471,7 +3663,8 @@
     "last_read": "2026-11-18",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (GBP 170.09 · 4x £42.52 Clearpay vs RRP £188.99) · Codi ZNE485 AW26"
+    "evidence": "PDP Verificada (GBP 170.09 · 4x £42.52 Clearpay vs RRP £188.99) · Codi ZNE485 AW26",
+    "freshness": "LIVE_TODAY"
   },
   {
     "id": "UK-MY -WS25WACTF101",
@@ -3489,7 +3682,8 @@
     "last_read": "2026-11-17",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (GBP 150.97) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (GBP 150.97) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "UK-SIG-WS25WACTF101",
@@ -3507,7 +3701,8 @@
     "last_read": "",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Sense URL assignada"
+    "evidence": "Sense URL assignada",
+    "freshness": "NONE"
   },
   {
     "id": "UK-WET-WS25WACTF101",
@@ -3525,7 +3720,8 @@
     "last_read": "2026-11-15",
     "out_of_stock": false,
     "is_from": true,
-    "evidence": "PDP Verificada (GBP 170.95) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (GBP 170.95) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "UK-TRA-WS25MSRV101",
@@ -3543,7 +3739,8 @@
     "last_read": "",
     "out_of_stock": true,
     "is_from": false,
-    "evidence": "Auditada fitxa 137937167 (18/11): Esgotat / sense preu actiu per a UK"
+    "evidence": "Auditada fitxa 137937167 (18/11): Esgotat / sense preu actiu per a UK",
+    "freshness": "NONE"
   },
   {
     "id": "UK-DEP-WS25MSRV101",
@@ -3561,7 +3758,8 @@
     "last_read": "2026-10-11",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (GBP 218.87) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (GBP 218.87) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "UK-SPO-WS25MSRV101",
@@ -3579,7 +3777,8 @@
     "last_read": "",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Sense URL assignada"
+    "evidence": "Sense URL assignada",
+    "freshness": "NONE"
   },
   {
     "id": "UK-MY -WS25MSRV101",
@@ -3597,7 +3796,8 @@
     "last_read": "2026-11-17",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (GBP 185.97) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (GBP 185.97) · SKU/Model validat a fitxa individual",
+    "freshness": "HISTORICAL_PDP"
   },
   {
     "id": "UK-SIG-WS25MSRV101",
@@ -3615,7 +3815,8 @@
     "last_read": "",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Sense URL assignada"
+    "evidence": "Sense URL assignada",
+    "freshness": "NONE"
   },
   {
     "id": "UK-WET-WS25MSRV101",
@@ -3633,7 +3834,8 @@
     "last_read": "",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Sense URL assignada"
+    "evidence": "Sense URL assignada",
+    "freshness": "NONE"
   },
   {
     "id": "UK-TRA-WS25WSRV101",
@@ -3651,7 +3853,8 @@
     "last_read": "",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Sense URL assignada"
+    "evidence": "Sense URL assignada",
+    "freshness": "NONE"
   },
   {
     "id": "UK-DEP-WS25WSRV101",
@@ -3669,7 +3872,8 @@
     "last_read": "",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Sense URL assignada"
+    "evidence": "Sense URL assignada",
+    "freshness": "NONE"
   },
   {
     "id": "UK-SPO-WS25WSRV101",
@@ -3687,7 +3891,8 @@
     "last_read": "",
     "out_of_stock": true,
     "is_from": false,
-    "evidence": "Auditada fitxa ZNE113 (18/11): 'Sorry, product is currently out of stock' (Sense estoc a Sportshoes UK)"
+    "evidence": "Auditada fitxa ZNE113 (18/11): 'Sorry, product is currently out of stock' (Sense estoc a Sportshoes UK)",
+    "freshness": "NONE"
   },
   {
     "id": "UK-MY -WS25WSRV101",
@@ -3705,7 +3910,8 @@
     "last_read": "",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Sense URL assignada"
+    "evidence": "Sense URL assignada",
+    "freshness": "NONE"
   },
   {
     "id": "UK-SIG-WS25WSRV101",
@@ -3723,7 +3929,8 @@
     "last_read": "",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Sense URL assignada"
+    "evidence": "Sense URL assignada",
+    "freshness": "NONE"
   },
   {
     "id": "UK-WET-WS25WSRV101",
@@ -3741,6 +3948,7 @@
     "last_read": "",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Sense URL assignada"
+    "evidence": "Sense URL assignada",
+    "freshness": "NONE"
   }
 ]
