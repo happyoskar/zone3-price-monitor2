@@ -979,16 +979,25 @@
         if (hResp.ok) {
           const hData = await hResp.json();
           if (Array.isArray(hData) && hData.length) {
-            HISTORY_COMPACT = hData.filter(h => (h.audit_status || 'VALID') === 'VALID').map(h => [
-              String(h.timestamp || '').slice(0, 10),
-              h.country,
-              h.operator,
-              h.code,
-              Number(h.price),
-              Number(h.disc_pct),
-              h.out_of_stock ? 1 : 0,
-              h.is_from ? 1 : 0
-            ]);
+            const dailyMinMap = new Map();
+            hData.filter(h => (h.audit_status || 'VALID') === 'VALID' && Number(h.price) > 0).forEach(h => {
+              const dStr = String(h.timestamp || '').slice(0, 10);
+              const key = `${dStr}|${h.country}|${h.operator}|${h.code}`;
+              const existing = dailyMinMap.get(key);
+              if (!existing || Number(h.price) < existing[4]) {
+                dailyMinMap.set(key, [
+                  dStr,
+                  h.country,
+                  h.operator,
+                  h.code,
+                  Number(h.price),
+                  Number(h.disc_pct),
+                  h.out_of_stock ? 1 : 0,
+                  h.is_from ? 1 : 0
+                ]);
+              }
+            });
+            HISTORY_COMPACT = Array.from(dailyMinMap.values());
           }
         }
         updateDynamicKPIs();
@@ -1172,10 +1181,15 @@
                 incomingTr.forEach(newR => {
                   const liveR = curMap[newR.id];
                   if (liveR && liveR.status === 'VERIFIED' && liveR.price > 0) {
-                    liveR.out_of_stock = false;
                     const isExplicitZipToday = ((newR.status === 'VERIFIED' && newR.last_read === '2026-11-18' && newR.id.includes('-TRA-WS25')) || newR.id === 'UK-DEP-WS21WADV101');
-                    if (!isExplicitZipToday && (newR.status !== 'VERIFIED' || String(liveR.last_read || '') >= String(newR.last_read || ''))) {
-                      Object.assign(newR, liveR);
+                    const liveDate = String(liveR.last_read || '');
+                    const newDate = String(newR.last_read || '');
+                    if (!isExplicitZipToday) {
+                      if (newR.status !== 'VERIFIED' || liveDate > newDate) {
+                        Object.assign(newR, liveR);
+                      } else if (liveDate === newDate && Number(liveR.price) < Number(newR.price)) {
+                        Object.assign(newR, liveR);
+                      }
                     }
                   }
                 });
@@ -1192,19 +1206,27 @@
               const curHist = await curResp.json();
               if (Array.isArray(curHist)) {
                 const incomingKeys = new Set(incomingHist.map(h => `${String(h.timestamp||'').slice(0,10)}|${h.country}|${h.operator}|${h.code}|${h.audit_status||'VALID'}`));
-                const validKeys = new Set(incomingHist.filter(h => (h.audit_status||'VALID') === 'VALID').map(h => `${String(h.timestamp||'').slice(0,10)}|${h.country}|${h.operator}|${h.code}`));
+                const validMap = new Map();
+                incomingHist.forEach(h => {
+                  if ((h.audit_status || 'VALID') === 'VALID') {
+                    const bk = `${String(h.timestamp||'').slice(0,10)}|${h.country}|${h.operator}|${h.code}`;
+                    validMap.set(bk, h);
+                  }
+                });
                 curHist.forEach(oldH => {
                   const datePart = String(oldH.timestamp||'').slice(0,10);
                   const baseKey = `${datePart}|${oldH.country}|${oldH.operator}|${oldH.code}`;
                   const fullKey = `${baseKey}|${oldH.audit_status||'VALID'}`;
                   if ((oldH.audit_status || 'VALID') === 'VALID' && datePart >= '2026-11-18' && oldH.price > 0 && !String(oldH.url || '').toLowerCase().includes('advance-plus')) {
-                    oldH.out_of_stock = false;
-                    if (!validKeys.has(baseKey)) {
+                    const existingValid = validMap.get(baseKey);
+                    if (!existingValid) {
                       incomingHist.push(oldH);
-                      validKeys.add(baseKey);
+                      validMap.set(baseKey, oldH);
                       incomingKeys.add(fullKey);
+                    } else if (Number(oldH.price) < Number(existingValid.price)) {
+                      Object.assign(existingValid, oldH);
                     }
-                  } else if (!incomingKeys.has(fullKey) && !validKeys.has(baseKey)) {
+                  } else if (!incomingKeys.has(fullKey) && !validMap.has(baseKey)) {
                     oldH.audit_status = oldH.audit_status && oldH.audit_status !== 'VALID' ? oldH.audit_status : 'QUARANTINED_PREVIOUS_RUN';
                     oldH.quarantine_reason = oldH.quarantine_reason || 'Conservat en quarantena per traçabilitat: lectura capturada amb la versió anterior del lector sense validació estricta de bloc principal.';
                     incomingHist.push(oldH);

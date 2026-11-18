@@ -925,32 +925,39 @@ async def main():
                     zyte_rescued_count += 1
                 prev_price = row.get("price")
                 prev_date = row.get("last_read", "")
-                row["price"] = min_price
-                row["disc_imp"] = round(row["pvp"] - min_price, 2)
-                row["disc_pct"] = round((row["disc_imp"] / row["pvp"]) * 100, 1)
-                row["status"] = "VERIFIED"
-                row["freshness"] = "LIVE_TODAY"
-                row["last_read"] = today_str
-                row["out_of_stock"] = bool(is_oos)
-                row["is_from"] = False
-                row["evidence"] = evidence_str
-                updated_count += 1
 
-                existing_same_slot = next(
-                    (h for h in history if h.get("run_slot") == run_slot and h.get("country") == row["country"] and h.get("operator") == row["operator"] and h.get("code") == row["code"] and h.get("audit_status", "VALID") == "VALID"),
+                # Daily Lowest Price Rule (AM/PM consolidation):
+                # If we already read a LOWER price earlier today for this model/operator/country, keep the lower price of today
+                effective_price = min_price
+                effective_oos = bool(is_oos)
+                effective_evidence = evidence_str
+
+                existing_same_day = next(
+                    (h for h in history if str(h.get("timestamp", ""))[:10] == today_str and h.get("country") == row["country"] and h.get("operator") == row["operator"] and h.get("code") == row["code"] and h.get("audit_status", "VALID") == "VALID"),
                     None
                 )
-                if existing_same_slot:
-                    if existing_same_slot.get("price") != min_price:
-                        existing_same_slot["previous_price"] = existing_same_slot.get("price")
-                        existing_same_slot["audit_note"] = f"Actualitzat dins del mateix torn {run_slot} ({now_iso})"
-                    existing_same_slot["price"] = min_price
-                    existing_same_slot["disc_imp"] = row["disc_imp"]
-                    existing_same_slot["disc_pct"] = row["disc_pct"]
-                    existing_same_slot["out_of_stock"] = bool(is_oos)
-                    existing_same_slot["is_from"] = False
-                    existing_same_slot["evidence"] = evidence_str
-                    existing_same_slot["timestamp_iso"] = now_iso
+
+                if existing_same_day and existing_same_day.get("price") is not None and float(existing_same_day["price"]) > 0:
+                    old_day_price = float(existing_same_day["price"])
+                    if min_price < old_day_price:
+                        existing_same_day["intraday_higher_price"] = old_day_price
+                        existing_same_day["audit_note"] = f"Preu mínim diari actualitzat a {run_slot} ({min_price:.2f} vs lectura prèvia d'avui {old_day_price:.2f})"
+                        existing_same_day["price"] = min_price
+                        existing_same_day["disc_imp"] = round(row["pvp"] - min_price, 2)
+                        existing_same_day["disc_pct"] = round((existing_same_day["disc_imp"] / row["pvp"]) * 100, 1)
+                        existing_same_day["out_of_stock"] = bool(is_oos)
+                        existing_same_day["is_from"] = False
+                        existing_same_day["evidence"] = evidence_str
+                        existing_same_day["run_slot"] = run_slot
+                        existing_same_day["timestamp_iso"] = now_iso
+                    elif min_price > old_day_price:
+                        effective_price = old_day_price
+                        effective_oos = bool(existing_same_day.get("out_of_stock", False))
+                        existing_same_day["intraday_higher_price"] = min_price
+                        existing_same_day["audit_note"] = f"Mantingut preu mínim diari ({old_day_price:.2f}); lectura posterior a {run_slot}: {min_price:.2f}"
+                        effective_evidence = f"{existing_same_day.get('evidence', evidence_str)} · [Mínim diari mantingut davant {min_price:.2f} a {run_slot}]"
+                    else:
+                        existing_same_day["timestamp_iso"] = now_iso
                 else:
                     new_entry = {
                         "timestamp": today_str,
@@ -962,19 +969,30 @@ async def main():
                         "code": row["code"],
                         "model": row["model"],
                         "pvp": row["pvp"],
-                        "price": min_price,
-                        "disc_imp": row["disc_imp"],
-                        "disc_pct": row["disc_pct"],
-                        "out_of_stock": bool(is_oos),
+                        "price": effective_price,
+                        "disc_imp": round(row["pvp"] - effective_price, 2),
+                        "disc_pct": round(((row["pvp"] - effective_price) / row["pvp"]) * 100, 1),
+                        "out_of_stock": effective_oos,
                         "is_from": False,
                         "url": url,
                         "audit_status": "VALID",
-                        "evidence": evidence_str
+                        "evidence": effective_evidence
                     }
-                    if prev_price is not None and prev_price != min_price:
+                    if prev_price is not None and prev_price != effective_price and prev_date != today_str:
                         new_entry["previous_price"] = prev_price
                         new_entry["previous_date"] = prev_date
                     history.append(new_entry)
+
+                row["price"] = effective_price
+                row["disc_imp"] = round(row["pvp"] - effective_price, 2)
+                row["disc_pct"] = round((row["disc_imp"] / row["pvp"]) * 100, 1)
+                row["status"] = "VERIFIED"
+                row["freshness"] = "LIVE_TODAY"
+                row["last_read"] = today_str
+                row["out_of_stock"] = effective_oos
+                row["is_from"] = False
+                row["evidence"] = effective_evidence
+                updated_count += 1
             else:
                 if status_code == "OUT_OF_STOCK":
                     row["out_of_stock"] = True
