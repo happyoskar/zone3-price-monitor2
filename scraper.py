@@ -2,7 +2,7 @@ import asyncio
 import json
 import re
 from datetime import datetime
-from urllib.parse import urlparse
+from urllib.parse import urlparse, urljoin
 from playwright.async_api import async_playwright
 
 GENERIC_URL_PATTERNS = [
@@ -14,6 +14,22 @@ GENERIC_URL_PATTERNS = [
     "/store/zone-3/",
     "/marcas/zone3"
 ]
+
+OPERATOR_CATALOG_URLS = {
+    ("ES", "Trade Inn"): ["https://www.tradeinn.com/swiminn/es/trajes-y-complementos-trajes/11400/s?q=zone3"],
+    ("ES", "Deporvillage"): ["https://www.deporvillage.com/natacion-zone3", "https://www.deporvillage.com/catalogsearch/result/?q=zone3+neopreno"],
+    ("ES", "Bike 24"): ["https://www.bike24.es/marcas/zone3", "https://www.bike24.es/buscar?searchTerm=zone3+wetsuit"],
+    ("ES", "Sportano"): ["https://sportano.com/en/zone3", "https://sportano.com/en/search?q=zone3+wetsuit"],
+    ("ES", "Wetsuit Outlet"): ["https://www.wetsuitoutlet.es/zone3-m-123.html?currency=EUR"],
+    ("ES", "Triathlon24"): ["https://www.triathlon24.nl/wetsuits/zone3/"],
+    ("ES", "Alltricks"): ["https://www.alltricks.es/C-46286-combinaisons-_-maillots-de-bain/N-147403-marque~zone3"],
+    ("UK", "Trade Inn"): ["https://www.tradeinn.com/swiminn/en/suits-and-complements-suits/11400/s?q=zone3"],
+    ("UK", "Deporvillage"): ["https://www.deporvillage.co.uk/swimming-triathlon%3Azone3%3Aneoprene_wetsuits"],
+    ("UK", "Sportshoes"): ["https://www.sportsshoes.com/products/?q=zone3%20wetsuit"],
+    ("UK", "My Triathlon"): ["https://mytriathlon.co.uk/brands/Zone-3.html"],
+    ("UK", "Sigma"): ["https://www.sigmasports.com/brand/zone3/wetsuits"],
+    ("UK", "Wetsuit Outlet"): ["https://www.wetsuitoutlet.co.uk/zone3-m-123.html?currency=GBP"]
+}
 
 MODEL_KEYWORDS = {
     "WS22MVAN101": ["vanquish"],
@@ -48,7 +64,11 @@ def is_generic_category_url(u):
     u_low = u.lower().strip()
     if u_low.endswith("/zone3") or u_low.endswith("/zone3/"):
         return True
-    return any(p in u_low for p in GENERIC_URL_PATTERNS)
+    if any(p in u_low for p in GENERIC_URL_PATTERNS):
+        return True
+    if any( in u_low for  in ["/search", "catalogsearch", "searchterm=", "?q="]):
+        return True
+    return False
 
 def get_domain(u):
     try:
@@ -78,6 +98,11 @@ def validate_product_identity(text_to_check, url, code, model_name):
     if keywords and not any(k in combined for k in keywords):
         return False, f"El producte ('{text_to_check[:45]}') no conté el model ({'/'.join(keywords)})"
 
+    # For sleeveless models, ensure sleeveless / sin mangas / mouwloos is present if glide/ascend
+    if "GLISL" in code:
+        if not any(w in combined for w in ["sleeveless", "sin mangas", "mouwloos", "sans manches", "glisl", "ascend"]):
+            return False, "El model és Sleeveless (sense mànigues) però la fitxa és de màniga llarga"
+
     is_womens_model = "W" in code[4:6] or "women" in model_name.lower()
     has_female_word = any(re.search(r"\b" + w + r"\b", combined) for w in FEMALE_TOKENS)
     if is_womens_model and not has_female_word:
@@ -99,6 +124,72 @@ def validate_market_url(url, country):
         if country == "ES" and "country=uk" in u_low:
             return False, "URL TradeInn amb paràmetre country=uk en mercat ES"
     return True, f"Mercat {country} validat a la URL"
+
+async def discover_missing_pdps(page_es, page_uk, tracking, today_str):
+    """Auto-Discovery engine: scans operator Zone3 catalogs to find PDP URLs for NOT_LISTED / UNMAPPED / PENDING_PDP cells."""
+    missing_by_op = {}
+    for row in tracking:
+        st = row.get("status", "")
+        if st in ("UNMAPPED", "NOT_LISTED", "PENDING_PDP") or not row.get("url"):
+            missing_by_op.setdefault((row["country"], row["operator"]), []).append(row)
+
+    discovered_total = 0
+    for (country, operator), rows in missing_by_op.items():
+        cat_urls = OPERATOR_CATALOG_URLS.get((country, operator), [])
+        if not cat_urls:
+            continue
+        page = page_uk if country == "UK" else page_es
+        collected_links = []
+
+        for c_url in cat_urls:
+            try:
+                resp = await page.goto(c_url, wait_until="domcontentloaded", timeout=25000)
+                if not resp or resp.status >= 400:
+                    continue
+                await page.wait_for_timeout(2000)
+                links = await page.evaluate("""() => {
+                    return Array.from(document.querySelectorAll('a[href]')).map(a => ({
+                        href: a.href,
+                        text: (a.innerText || a.getAttribute('title') || a.getAttribute('aria-label') || '').trim()
+                    })).filter(x => x.href && x.href.startsWith('http'));
+                }""")
+                collected_links.extend(links)
+            except Exception:
+                continue
+
+        if not collected_links:
+            continue
+
+        for row in rows:
+            code = row["code"]
+            model_name = row["model"]
+            found_url = None
+            for link in collected_links:
+                href = link["href"].split("#")[0]
+                if is_generic_category_url(href):
+                    continue
+                mkt_ok, _ = validate_market_url(href, country)
+                if not mkt_ok:
+                    continue
+                id_ok, _ = validate_product_identity(link["text"], href, code, model_name)
+                if id_ok:
+                    if "tradeinn.com" in href.lower() and "country=" not in href.lower():
+                        sep = "&" if "?" in href else "?"
+                        href = f"{href}{sep}country={'uk' if country == 'UK' else 'es'}"
+                    found_url = href
+                    break
+
+            if found_url:
+                row["url"] = found_url
+                row["status"] = "PENDING_URL"
+                row["evidence"] = f"Auto-Discovery ({today_str}): Fitxa PDP localitzada al catàleg de {operator}"
+                discovered_total += 1
+            else:
+                if row.get("status") in ("UNMAPPED", "NOT_LISTED"):
+                    row["status"] = "NOT_LISTED"
+                    row["evidence"] = f"Verificat al catàleg de {operator} ({today_str}): model no llistat actualment"
+
+    return discovered_total
 
 async def extract_verified_pdp_price(page, row):
     url = row.get("url", "").strip()
@@ -132,7 +223,7 @@ async def extract_verified_pdp_price(page, row):
         if resp.status >= 400:
             return None, False, "HTTP_ERROR", f"Error HTTP {resp.status}"
 
-        await page.wait_for_timeout(3000)
+        await page.wait_for_timeout(2800)
 
         page_info = await page.evaluate("""() => {
             const title = document.title || "";
@@ -141,7 +232,6 @@ async def extract_verified_pdp_price(page, row):
             const metaCurr = (document.querySelector('meta[property="product:price:currency"], meta[property="og:price:currency"], [itemprop="priceCurrency"]') || {}).content || "";
             const metaPrice = (document.querySelector('meta[property="product:price:amount"], meta[property="og:price:amount"], meta[itemprop="price"]') || {}).content || "";
 
-            // Exclude any related / carousel / recommendation / footer / sidebar containers so cross-sell prices are NEVER read
             const forbiddenContainers = [
                 '.related', '.recommendations', '.cross-sell', '.upsell', '.similar-products',
                 '.product-carousel', '.also-bought', '.alternatives', 'aside', 'footer', 'nav',
@@ -150,10 +240,10 @@ async def extract_verified_pdp_price(page, row):
             ].join(', ');
 
             const selectors = [
-                '[itemprop="price"]', '.product-price', '.price-sales', '#js-precio',
-                '.pdp-price', '.product-page-price', '.price--main', '.current-price',
-                '[data-testid="price"]', '.product-price__price', '.final-price',
-                '.price-box__price'
+                '[itemprop="price"]', '#js-precio', '[data-testid="price"]', '[data-testid="product-price"]',
+                '.product-detail-price', '.price__value', '.pdp-price', '.product-page-price',
+                '.price--main', '.price--withoutTax', '#productPrice', '.product-price__price',
+                '.final-price', '.price-box__price', '.product-price', '.price-sales', '.current-price'
             ];
             const domPrices = [];
             selectors.forEach(sel => {
@@ -183,14 +273,17 @@ async def extract_verified_pdp_price(page, row):
         detected_oos = False
         currency_mismatch = False
 
-        # 1. Structured JSON-LD Product offers (linked specifically to THIS product's name/SKU and explicit priceCurrency)
+        # 1. Structured JSON-LD Product / ProductGroup / hasVariant offers
         for raw_ld in page_info["ldNodes"]:
             try:
                 data = json.loads(raw_ld)
                 items = data if isinstance(data, list) else [data]
-                for item in items:
-                    if isinstance(item, dict) and "@graph" in item and isinstance(item["@graph"], list):
-                        items.extend(item["@graph"])
+                for item in list(items):
+                    if isinstance(item, dict):
+                        if "@graph" in item and isinstance(item["@graph"], list):
+                            items.extend(item["@graph"])
+                        if "hasVariant" in item and isinstance(item["hasVariant"], list):
+                            items.extend(item["hasVariant"])
                 for item in items:
                     if not isinstance(item, dict):
                         continue
@@ -198,25 +291,26 @@ async def extract_verified_pdp_price(page, row):
                     if "product" in t:
                         prod_name = str(item.get("name", "")).strip()
                         prod_sku = str(item.get("sku", "") or item.get("mpn", "")).strip()
-                        # Verify this JSON-LD Product node actually belongs to our target model (not a related item)
                         if prod_name:
                             ld_ok, _ = validate_product_identity(f"{prod_name} {prod_sku}", url, code, model_name)
                             if not ld_ok:
                                 continue
                         offers = item.get("offers", [])
                         if isinstance(offers, dict):
-                            offers = [offers]
+                            if "offers" in offers and isinstance(offers["offers"], list):
+                                offers = [offers] + offers["offers"]
+                            else:
+                                offers = [offers]
                         elif not isinstance(offers, list):
                             offers = []
                         for off in offers:
                             if not isinstance(off, dict):
                                 continue
-                            curr = str(off.get("priceCurrency", "")).upper().strip()
-                            if not curr:
-                                continue
-                            if curr != expected_curr:
+                            curr = str(off.get("priceCurrency", "") or page_info.get("metaCurr", "")).upper().strip()
+                            if curr and curr != expected_curr:
                                 currency_mismatch = True
                                 continue
+                            effective_curr = curr or expected_curr
                             avail = str(off.get("availability", "")).lower()
                             if "outofstock" in avail or "discontinued" in avail:
                                 detected_oos = True
@@ -225,34 +319,44 @@ async def extract_verified_pdp_price(page, row):
                                     val = normalize_price(off[p_key])
                                     if val:
                                         candidates.append((
-                                            1, # Priority 1: JSON-LD with explicit currency & product match
+                                            1,
                                             val,
-                                            f"JSON-LD {p_key} [Moneda explícita {curr} | Mercat {country}] ({val:.2f} {expected_sym}) · Producte: '{(prod_name or page_info['h1'])[:40]}'"
+                                            f"JSON-LD {p_key} [{effective_curr} | Mercat {country}] ({val:.2f} {expected_sym}) · Producte: '{(prod_name or page_info['h1'])[:40]}'"
                                         ))
             except:
                 pass
 
-        # 2. OpenGraph / Microdata with explicit meta currency
+        # 2. OpenGraph / Microdata
         m_curr = str(page_info.get("metaCurr", "")).upper().strip()
-        if m_curr:
-            if m_curr != expected_curr:
-                currency_mismatch = True
-            elif page_info.get("metaPrice"):
-                val = normalize_price(page_info["metaPrice"])
-                if val:
-                    candidates.append((
-                        2,
-                        val,
-                        f"Meta OG [Moneda explícita {m_curr} | Mercat {country}] ({val:.2f} {expected_sym}) · H1: '{page_info['h1'][:40]}'"
-                    ))
+        if m_curr and m_curr != expected_curr:
+            currency_mismatch = True
+        elif page_info.get("metaPrice"):
+            val = normalize_price(page_info["metaPrice"])
+            if val:
+                candidates.append((
+                    2,
+                    val,
+                    f"Meta OG [{m_curr or expected_curr} | Mercat {country}] ({val:.2f} {expected_sym}) · H1: '{page_info['h1'][:40]}'"
+                ))
 
-        # 3. Main Product DOM elements (requiring explicit currency symbol or metaCurr == expected_curr, excluding all carousels/related blocks)
+        # 3. Main Product DOM elements (excluding all carousels/related blocks)
+        u_low = url.lower()
+        has_local_domain_currency = (
+            (country == "ES" and any(d in u_low for d in [".es/", ".nl/", "country=es", "currency=eur", "deporvillage.com/"])) or
+            (country == "UK" and any(d in u_low for d in [".co.uk/", "country=uk", "currency=gbp", "sigmasports.com/", "sportsshoes.com/"]))
+        )
         for dp in page_info["domPrices"]:
             txt = dp["text"]
             if forbidden_sym in txt:
                 currency_mismatch = True
                 continue
-            has_explicit_curr = (expected_sym in txt) or (expected_curr in txt.upper()) or (m_curr == expected_curr) or (dp.get("attrCurr", "").upper() == expected_curr)
+            has_explicit_curr = (
+                (expected_sym in txt) or
+                (expected_curr in txt.upper()) or
+                (m_curr == expected_curr) or
+                (dp.get("attrCurr", "").upper() == expected_curr) or
+                has_local_domain_currency
+            )
             if not has_explicit_curr:
                 continue
             for m in re.finditer(r"([\d]{2,3}(?:[.,]\d{1,2})?)", txt):
@@ -261,10 +365,9 @@ async def extract_verified_pdp_price(page, row):
                     candidates.append((
                         3,
                         val,
-                        f"DOM Principal {dp['selector']} [Moneda explícita {expected_curr} | Mercat {country}] ({val:.2f} {expected_sym}) · H1: '{page_info['h1'][:38]}'"
+                        f"DOM Principal {dp['selector']} [{expected_curr} | Mercat {country}] ({val:.2f} {expected_sym}) · H1: '{page_info['h1'][:38]}'"
                     ))
 
-        # Filter by strict price floor (45% to 120% of official RRP)
         valid_candidates = [(prio, p, ev) for (prio, p, ev) in candidates if (pvp * 0.45) <= p <= (pvp * 1.20)]
 
         if not valid_candidates:
@@ -272,9 +375,8 @@ async def extract_verified_pdp_price(page, row):
                 return None, False, "CURRENCY_MISMATCH", f"Moneda de la pàgina no coincideix amb {expected_curr} ({country})"
             if detected_oos or any(w in body_low for w in ["agotado", "out of stock", "fuera de stock", "sold out", "no disponible"]):
                 return None, True, "OUT_OF_STOCK", f"Producte sense estoc a la fitxa ({page_info['h1'][:35] or page_info['title'][:35]})"
-            return None, False, "NO_VALID_PRICE", f"Cap preu principal amb moneda explícita {expected_curr} entre 45%-120% PVP"
+            return None, False, "NO_VALID_PRICE", f"Cap preu principal ({expected_curr}) entre 45%-120% PVP"
 
-        # Sort by source priority first (JSON-LD > Meta > Main DOM), then price
         valid_candidates.sort(key=lambda x: (x[0], x[1]))
         _, best_price, best_evidence = valid_candidates[0]
         return round(best_price, 2), detected_oos, "VERIFIED", best_evidence
@@ -294,12 +396,10 @@ async def main():
     run_slot = f"{today_str}-{slot_suffix}"
     now_iso = now_dt.strftime("%Y-%m-%dT%H:%M:%SZ")
 
-    # Persistent Circuit Breaker per domain: stops hitting an operator if 2 consecutive block/captcha responses occur
     domain_blocks = {}
-    CIRCUIT_BREAKER_LIMIT = 2
+    CIRCUIT_BREAKER_LIMIT = 3
 
     async with async_playwright() as p:
-        # Clean headless browser launch without stealth/automation-hiding flags
         browser = await p.chromium.launch(headless=True)
         context_es = await browser.new_context(locale="es-ES", timezone_id="Europe/Madrid")
         context_uk = await browser.new_context(locale="en-GB", timezone_id="Europe/London")
@@ -307,16 +407,22 @@ async def main():
         page_es = await context_es.new_page()
         page_uk = await context_uk.new_page()
 
+        # PHASE 1: Auto-Discovery of missing PDP URLs on operator catalogs
+        discovered_count = await discover_missing_pdps(page_es, page_uk, tracking, today_str)
+
         updated_count = 0
         quarantined_count = 0
         circuit_skipped = 0
 
+        # PHASE 2: Price Verification on all mapped PDPs
         for row in tracking:
+            row["is_from"] = False
             url = row.get("url", "").strip()
             if not url:
-                row["status"] = "UNMAPPED"
+                row["status"] = "NOT_LISTED"
                 row["freshness"] = "NONE"
-                row["evidence"] = "Sense URL assignada"
+                if not row.get("evidence"):
+                    row["evidence"] = "Model no llistat al catàleg actual de l'operador"
                 continue
 
             if is_generic_category_url(url):
@@ -356,7 +462,6 @@ async def main():
                 row["evidence"] = evidence_str
                 updated_count += 1
 
-                # APPEND-ONLY HISTORY: Never delete older readings; log intra-day AM/PM slot and keep previous_price if changed
                 existing_same_slot = next(
                     (h for h in history if h.get("run_slot") == run_slot and h.get("country") == row["country"] and h.get("operator") == row["operator"] and h.get("code") == row["code"] and h.get("audit_status", "VALID") == "VALID"),
                     None
@@ -369,6 +474,7 @@ async def main():
                     existing_same_slot["disc_imp"] = row["disc_imp"]
                     existing_same_slot["disc_pct"] = row["disc_pct"]
                     existing_same_slot["out_of_stock"] = bool(is_oos)
+                    existing_same_slot["is_from"] = False
                     existing_same_slot["evidence"] = evidence_str
                     existing_same_slot["timestamp_iso"] = now_iso
                 else:
@@ -415,7 +521,6 @@ async def main():
     with open("data/history.json", "w", encoding="utf-8") as f:
         json.dump(history, f, indent=2, ensure_ascii=False)
 
-    # HISTORY_COMPACT for charts only includes VALID PDP readings (excluding QUARANTINED_CATEGORY_URL)
     valid_history = [h for h in history if h.get("audit_status", "VALID") == "VALID"]
     history_compact = [
         [
@@ -424,9 +529,9 @@ async def main():
             h["operator"],
             h["code"],
             float(h["price"]),
-            float(h["disc_pct"]),
+            round(float(h["disc_pct"]), 1),
             1 if h.get("out_of_stock") else 0,
-            1 if h.get("is_from") else 0
+            0
         ]
         for h in valid_history
     ]
@@ -439,7 +544,7 @@ async def main():
     with open("index.html", "w", encoding="utf-8") as f:
         f.write(html_doc)
 
-    print(f"Scan finished ({now_iso}). Live today: {updated_count} | Quarantined: {quarantined_count} | Circuit-breaker skipped: {circuit_skipped} | Total history (with quarantined trace): {len(history)}")
+    print(f"Scan finished ({now_iso}). Auto-discovered PDPs: {discovered_count} | Live today: {updated_count} | Quarantined: {quarantined_count} | Circuit-breaker skipped: {circuit_skipped} | Total history: {len(history)}")
 
 if __name__ == "__main__":
     asyncio.run(main())
