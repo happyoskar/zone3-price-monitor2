@@ -173,18 +173,8 @@ async def main():
     with open("index.html", "r", encoding="utf-8") as f:
         html_doc = f.read()
 
-    html_doc = re.sub(
-        r"const DATA_ROWS = \[.*?\];",
-        "const DATA_ROWS = " + json.dumps(tracking, ensure_ascii=False) + ";",
-        html_doc,
-        flags=re.S
-    )
-    html_doc = re.sub(
-        r"const HISTORY_COMPACT = \[.*?\];",
-        "const HISTORY_COMPACT = " + json.dumps(history_compact, ensure_ascii=False) + ";",
-        html_doc,
-        flags=re.S
-    )
+    html_doc = re.sub(r"(?:const|let) DATA_ROWS = \[.*?\];", lambda _: "let DATA_ROWS = " + json.dumps(tracking, ensure_ascii=False) + ";", html_doc, flags=re.S)
+    html_doc = re.sub(r"(?:const|let) HISTORY_COMPACT = \[.*?\];", lambda _: "let HISTORY_COMPACT = " + json.dumps(history_compact, ensure_ascii=False) + ";", html_doc, flags=re.S)
     with open("index.html", "w", encoding="utf-8") as f:
         f.write(html_doc)
 
