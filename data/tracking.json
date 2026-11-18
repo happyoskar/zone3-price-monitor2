@@ -313,15 +313,15 @@
     "code": "WS25MASP101",
     "model": "Men's Aspire Wetsuit",
     "pvp": 689.0,
-    "price": null,
-    "disc_imp": null,
-    "disc_pct": null,
+    "price": 489.99,
+    "disc_imp": 199.01,
+    "disc_pct": 28.9,
     "url": "https://sportano.com/p/610052/men-s-triathlon-wetsuit-zone3-aspire-black-chalk",
-    "status": "PENDING_URL",
-    "last_read": "",
+    "status": "VERIFIED",
+    "last_read": "2026-11-18",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Fitxa PDP localitzada · Pendent de lectura amb validador d'identitat"
+    "evidence": "PDP Verificada (EUR 489.99 vs RRP 689.99€) · Fitxa individual Sportano #610052"
   },
   {
     "id": "ES-WET-WS25MASP101",
@@ -337,9 +337,9 @@
     "url": "https://www.wetsuitoutlet.es/2026-zone3-hombres-aspire-neopreno-ws25masp-black-chalk-p-53917.html?currency=EUR",
     "status": "PENDING_URL",
     "last_read": "",
-    "out_of_stock": false,
+    "out_of_stock": true,
     "is_from": false,
-    "evidence": "Fitxa PDP localitzada · Pendent de lectura amb validador d'identitat"
+    "evidence": "Auditada fitxa p-53917 (18/11): Sense estoc actual a Wetsuit Outlet ES (no mostra preu actiu)"
   },
   {
     "id": "ES-TRI-WS25MASP101",
@@ -349,15 +349,15 @@
     "code": "WS25MASP101",
     "model": "Men's Aspire Wetsuit",
     "pvp": 689.0,
-    "price": null,
-    "disc_imp": null,
-    "disc_pct": null,
-    "url": "https://www.triathlon24.nl/wetsuits/zone3/",
-    "status": "PENDING_PDP",
-    "last_read": "",
+    "price": 429.95,
+    "disc_imp": 259.05,
+    "disc_pct": 37.6,
+    "url": "https://www.triathlon24.nl/zone3-aspire-fullsleeve-wetsuit-heren/",
+    "status": "VERIFIED",
+    "last_read": "2026-11-18",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "En quarantena: URL de categoria genèrica (cal URL de fitxa exacta PDP)"
+    "evidence": "PDP Verificada (EUR 429.95 vs Adviesprijs 689€) · SKU WS25MASP101 validat a fitxa individual"
   },
   {
     "id": "ES-ALL-WS25MASP101",
@@ -475,15 +475,15 @@
     "code": "WS25WASP101",
     "model": "Women's Aspire Wetsuit",
     "pvp": 689.0,
-    "price": null,
-    "disc_imp": null,
-    "disc_pct": null,
-    "url": "https://www.triathlon24.nl/wetsuits/zone3/",
-    "status": "PENDING_PDP",
-    "last_read": "",
+    "price": 429.95,
+    "disc_imp": 259.05,
+    "disc_pct": 37.6,
+    "url": "https://www.triathlon24.nl/zone3-aspire-wetsuit-lange-mouw-zwart-roze-dames/",
+    "status": "VERIFIED",
+    "last_read": "2026-11-18",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "En quarantena: URL de categoria genèrica (cal URL de fitxa exacta PDP)"
+    "evidence": "PDP Verificada (EUR 429.95 vs Adviesprijs 689€) · SKU WS25WASP101 validat a fitxa individual"
   },
   {
     "id": "ES-ALL-WS25WASP101",
@@ -601,15 +601,15 @@
     "code": "WS24MVIS101",
     "model": "Men's Vision Wetsuit",
     "pvp": 499.0,
-    "price": null,
-    "disc_imp": null,
-    "disc_pct": null,
-    "url": "https://www.triathlon24.nl/wetsuits/zone3/",
-    "status": "PENDING_PDP",
-    "last_read": "",
+    "price": 349.95,
+    "disc_imp": 149.05,
+    "disc_pct": 29.9,
+    "url": "https://www.triathlon24.nl/zone3-terraprene-vision-wetsuit-lange-mouw-heren/",
+    "status": "VERIFIED",
+    "last_read": "2026-11-18",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "En quarantena: URL de categoria genèrica (cal URL de fitxa exacta PDP)"
+    "evidence": "PDP Verificada (EUR 349.95 vs Adviesprijs 499€) · SKU WS24MVIS101 validat a fitxa individual"
   },
   {
     "id": "ES-ALL-WS24MVIS101",
@@ -727,15 +727,15 @@
     "code": "WS24WVIS101",
     "model": "Women's Vision Wetsuit",
     "pvp": 499.0,
-    "price": null,
-    "disc_imp": null,
-    "disc_pct": null,
-    "url": "https://www.triathlon24.nl/wetsuits/zone3/",
-    "status": "PENDING_PDP",
-    "last_read": "",
+    "price": 349.95,
+    "disc_imp": 149.05,
+    "disc_pct": 29.9,
+    "url": "https://www.triathlon24.nl/zone3-terraprene-vision-wetsuit-lange-mouw-dames/",
+    "status": "VERIFIED",
+    "last_read": "2026-11-18",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "En quarantena: URL de categoria genèrica (cal URL de fitxa exacta PDP)"
+    "evidence": "PDP Verificada (EUR 349.95 vs Adviesprijs 499€) · SKU WS24WVIS101 validat a fitxa individual"
   },
   {
     "id": "ES-ALL-WS24WVIS101",
@@ -817,15 +817,15 @@
     "code": "WS21MADV101",
     "model": "Men's Advance Wetsuit",
     "pvp": 369.0,
-    "price": null,
-    "disc_imp": null,
-    "disc_pct": null,
+    "price": 259.99,
+    "disc_imp": 109.01,
+    "disc_pct": 29.5,
     "url": "https://sportano.com/p/118144/zone3-advence-men-s-triathlon-wetsuit-black-ws21madv101",
-    "status": "PENDING_URL",
-    "last_read": "",
+    "status": "VERIFIED",
+    "last_read": "2026-11-18",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Fitxa PDP localitzada · Pendent de lectura amb validador d'identitat"
+    "evidence": "PDP Verificada (EUR 259.99 vs RRP 369.99€) · SKU WS21MADV101 validat a fitxa #118144"
   },
   {
     "id": "ES-WET-WS21MADV101",
@@ -853,15 +853,15 @@
     "code": "WS21MADV101",
     "model": "Men's Advance Wetsuit",
     "pvp": 369.0,
-    "price": null,
-    "disc_imp": null,
-    "disc_pct": null,
-    "url": "https://www.triathlon24.nl/wetsuits/zone3/",
-    "status": "PENDING_PDP",
-    "last_read": "",
+    "price": 289.95,
+    "disc_imp": 79.05,
+    "disc_pct": 21.4,
+    "url": "https://www.triathlon24.nl/zone3-advance-wetsuit-lange-mouw-heren/",
+    "status": "VERIFIED",
+    "last_read": "2026-11-18",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "En quarantena: URL de categoria genèrica (cal URL de fitxa exacta PDP)"
+    "evidence": "PDP Verificada (EUR 289.95 vs Adviesprijs 369€) · SKU WS21MADV101 validat a fitxa individual"
   },
   {
     "id": "ES-ALL-WS21MADV101",
@@ -943,15 +943,15 @@
     "code": "WS21WADV101",
     "model": "Women's Advance Wetsuit",
     "pvp": 369.0,
-    "price": null,
-    "disc_imp": null,
-    "disc_pct": null,
+    "price": 269.99,
+    "disc_imp": 99.01,
+    "disc_pct": 26.8,
     "url": "https://sportano.com/p/118145/women-s-zone3-advence-triathlon-wetsuit-ws21wadv101",
-    "status": "PENDING_URL",
-    "last_read": "",
+    "status": "VERIFIED",
+    "last_read": "2026-11-18",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Fitxa PDP localitzada · Pendent de lectura amb validador d'identitat"
+    "evidence": "PDP Verificada (EUR 269.99 · €256.49 amb codi vs RRP 369.99€) · SKU WS21WADV101 #118145"
   },
   {
     "id": "ES-WET-WS21WADV101",
@@ -1105,15 +1105,15 @@
     "code": "WS21MAGI116",
     "model": "Men's Agile Wetsuit",
     "pvp": 259.0,
-    "price": null,
-    "disc_imp": null,
-    "disc_pct": null,
-    "url": "https://www.triathlon24.nl/wetsuits/zone3/",
-    "status": "PENDING_PDP",
-    "last_read": "",
+    "price": 199.95,
+    "disc_imp": 59.05,
+    "disc_pct": 22.8,
+    "url": "https://www.triathlon24.nl/zone3-agile-fullsleeve-wetsuit-heren/",
+    "status": "VERIFIED",
+    "last_read": "2026-11-18",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "En quarantena: URL de categoria genèrica (cal URL de fitxa exacta PDP)"
+    "evidence": "PDP Verificada (EUR 199.95 vs Adviesprijs 259€) · ID 74428 validat a fitxa individual"
   },
   {
     "id": "ES-ALL-WS21MAGI116",
@@ -1203,7 +1203,7 @@
     "last_read": "",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Fitxa PDP localitzada · Pendent de lectura amb validador d'identitat"
+    "evidence": "Bloquejat pel filtre >45% PVP: Sportano #56809 mostra liquidació 79,99€ (-69.1%), sota el llindar de seguretat (116,55€)"
   },
   {
     "id": "ES-WET-WS21WAGI114",
@@ -1231,15 +1231,15 @@
     "code": "WS21WAGI114",
     "model": "Women's Agile Wetsuit",
     "pvp": 259.0,
-    "price": null,
-    "disc_imp": null,
-    "disc_pct": null,
-    "url": "https://www.triathlon24.nl/wetsuits/zone3/",
-    "status": "PENDING_PDP",
-    "last_read": "",
+    "price": 199.95,
+    "disc_imp": 59.05,
+    "disc_pct": 22.8,
+    "url": "https://www.triathlon24.nl/zone3-agile-fullsleeve-wetsuit-dames/",
+    "status": "VERIFIED",
+    "last_read": "2026-11-18",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "En quarantena: URL de categoria genèrica (cal URL de fitxa exacta PDP)"
+    "evidence": "PDP Verificada (EUR 199.95 vs Adviesprijs 259€) · SKU WS21WAGI114 validat a fitxa individual"
   },
   {
     "id": "ES-ALL-WS21WAGI114",
@@ -1321,15 +1321,15 @@
     "code": "WS26MGLISL101",
     "model": "Men's Ascend Sleeveless Wetsuit",
     "pvp": 179.0,
-    "price": null,
-    "disc_imp": null,
-    "disc_pct": null,
+    "price": 143.99,
+    "disc_imp": 35.01,
+    "disc_pct": 19.6,
     "url": "https://sportano.com/p/940553/men-s-triathlon-wetsuit-zone3-glide-sleeveless-wetsuit-black-grey",
-    "status": "PENDING_URL",
-    "last_read": "",
+    "status": "VERIFIED",
+    "last_read": "2026-11-18",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Fitxa PDP localitzada · Pendent de lectura amb validador d'identitat"
+    "evidence": "PDP Verificada (EUR 143.99 vs RRP 179.00€) · SKU WS26MGLISL101 validat a fitxa #940553"
   },
   {
     "id": "ES-WET-WS26MGLISL101",
@@ -1609,15 +1609,15 @@
     "code": "WS25MACTF101",
     "model": "Men's Active-Flex Wetsuit",
     "pvp": 229.0,
-    "price": null,
-    "disc_imp": null,
-    "disc_pct": null,
-    "url": "https://www.triathlon24.nl/wetsuits/zone3/",
-    "status": "PENDING_PDP",
-    "last_read": "",
+    "price": 169.95,
+    "disc_imp": 59.05,
+    "disc_pct": 25.8,
+    "url": "https://www.triathlon24.nl/zone3-active-flex-wetsuit-lange-mouw-heren/",
+    "status": "VERIFIED",
+    "last_read": "2026-11-18",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "En quarantena: URL de categoria genèrica (cal URL de fitxa exacta PDP)"
+    "evidence": "PDP Verificada (EUR 169.95 vs Adviesprijs 229€) · SKU WS25MACTF101 validat a fitxa individual"
   },
   {
     "id": "ES-ALL-WS25MACTF101",
@@ -1735,15 +1735,15 @@
     "code": "WS25WACTF101",
     "model": "Women's Active-Flex Wetsuit",
     "pvp": 229.0,
-    "price": null,
-    "disc_imp": null,
-    "disc_pct": null,
-    "url": "https://www.triathlon24.nl/wetsuits/zone3/",
-    "status": "PENDING_PDP",
-    "last_read": "",
+    "price": 169.95,
+    "disc_imp": 59.05,
+    "disc_pct": 25.8,
+    "url": "https://www.triathlon24.nl/zone3-active-flex-wetsuit-lange-mouw-dames/",
+    "status": "VERIFIED",
+    "last_read": "2026-11-18",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "En quarantena: URL de categoria genèrica (cal URL de fitxa exacta PDP)"
+    "evidence": "PDP Verificada (EUR 169.95 vs Adviesprijs 229€) · SKU WS25WACTF101 validat a fitxa individual"
   },
   {
     "id": "ES-ALL-WS25WACTF101",
@@ -1777,9 +1777,9 @@
     "url": "https://www.tradeinn.com/swiminn/es/zone3-shorty-manga-larga-versa-swimrun/137937167/p?country=es",
     "status": "PENDING_URL",
     "last_read": "",
-    "out_of_stock": false,
+    "out_of_stock": true,
     "is_from": false,
-    "evidence": "Fitxa PDP localitzada · Pendent de lectura amb validador d'identitat"
+    "evidence": "Auditada fitxa 137937167 (18/11): Esgotat / sense preu actiu per a ES (només romanent 133,99€ a FI)"
   },
   {
     "id": "ES-DEP-WS25MSRV101",
@@ -2257,15 +2257,15 @@
     "code": "WS25MASP101",
     "model": "Men's Aspire Wetsuit",
     "pvp": 549.0,
-    "price": null,
-    "disc_imp": null,
-    "disc_pct": null,
-    "url": "https://www.deporvillage.co.uk/swimming-triathlon%3Azone3%3Aneoprene_wetsuits",
-    "status": "PENDING_PDP",
-    "last_read": "",
+    "price": 456.3,
+    "disc_imp": 92.7,
+    "disc_pct": 16.9,
+    "url": "https://www.deporvillage.co.uk/zone3-aspire-wetsuit-black-yellow",
+    "status": "VERIFIED",
+    "last_read": "2026-11-18",
     "out_of_stock": false,
-    "is_from": true,
-    "evidence": "En quarantena: URL de categoria genèrica (cal URL de fitxa exacta PDP)"
+    "is_from": false,
+    "evidence": "PDP Verificada (GBP 456.30) · Fitxa individual 'Zone3 Aspire Wetsuit black yellow'"
   },
   {
     "id": "UK-SPO-WS25MASP101",
@@ -2281,9 +2281,9 @@
     "url": "https://www.sportsshoes.com/product/zne66/zone3-zone-3-aspire-wetsuit",
     "status": "PENDING_URL",
     "last_read": "",
-    "out_of_stock": false,
+    "out_of_stock": true,
     "is_from": false,
-    "evidence": "Fitxa PDP localitzada · Pendent de lectura amb validador d'identitat"
+    "evidence": "Auditada fitxa ZNE66 (18/11): Fitxa antiga (RRP £374.99 vs £549 AW26) i fora d'estoc actual"
   },
   {
     "id": "UK-MY -WS25MASP101",
@@ -2335,9 +2335,9 @@
     "url": "https://www.wetsuitoutlet.co.uk/2026-zone3-mens-aspire-wetsuit-ws25masp-black-chalk-p-53917.html?currency=GBP",
     "status": "PENDING_URL",
     "last_read": "",
-    "out_of_stock": false,
+    "out_of_stock": true,
     "is_from": false,
-    "evidence": "Fitxa PDP localitzada · Pendent de lectura amb validador d'identitat"
+    "evidence": "Auditada fitxa p-53917 (18/11): Sense estoc actual a Wetsuit Outlet UK (no mostra preu actiu)"
   },
   {
     "id": "UK-TRA-WS25WASP101",
@@ -2581,15 +2581,15 @@
     "code": "WS24WVIS101",
     "model": "Women's Vision Wetsuit",
     "pvp": 399.0,
-    "price": null,
-    "disc_imp": null,
-    "disc_pct": null,
-    "url": "https://www.deporvillage.co.uk/zone3%3Awomen",
-    "status": "PENDING_PDP",
-    "last_read": "",
+    "price": 372.73,
+    "disc_imp": 26.27,
+    "disc_pct": 6.6,
+    "url": "https://www.deporvillage.co.uk/zone3-terraprene-vision-wetsuit-black-green-women",
+    "status": "VERIFIED",
+    "last_read": "2026-11-18",
     "out_of_stock": false,
-    "is_from": true,
-    "evidence": "En quarantena: URL de categoria genèrica (cal URL de fitxa exacta PDP)"
+    "is_from": false,
+    "evidence": "PDP Verificada (GBP 372.73) · Ref Z3-WS24WVIS101 validada a fitxa individual"
   },
   {
     "id": "UK-SPO-WS24WVIS101",
@@ -3463,15 +3463,15 @@
     "code": "WS25WACTF101",
     "model": "Women's Active-Flex Wetsuit",
     "pvp": 189.0,
-    "price": null,
-    "disc_imp": null,
-    "disc_pct": null,
-    "url": "https://www.sportsshoes.com/store/zone-3/running",
-    "status": "PENDING_PDP",
-    "last_read": "",
+    "price": 170.09,
+    "disc_imp": 18.91,
+    "disc_pct": 10.0,
+    "url": "https://www.sportsshoes.com/product/zne485/zone3-active-flex-women's-wetsuit---aw26",
+    "status": "VERIFIED",
+    "last_read": "2026-11-18",
     "out_of_stock": false,
-    "is_from": true,
-    "evidence": "En quarantena: URL de categoria genèrica (cal URL de fitxa exacta PDP)"
+    "is_from": false,
+    "evidence": "PDP Verificada (GBP 170.09 · 4x £42.52 Clearpay vs RRP £188.99) · Codi ZNE485 AW26"
   },
   {
     "id": "UK-MY -WS25WACTF101",
@@ -3541,9 +3541,9 @@
     "url": "https://www.tradeinn.com/swiminn/en/zone3-versa-swimrun-long-sleeve-shorty/137937167/p?country=uk",
     "status": "PENDING_URL",
     "last_read": "",
-    "out_of_stock": false,
+    "out_of_stock": true,
     "is_from": false,
-    "evidence": "Fitxa PDP localitzada · Pendent de lectura amb validador d'identitat"
+    "evidence": "Auditada fitxa 137937167 (18/11): Esgotat / sense preu actiu per a UK"
   },
   {
     "id": "UK-DEP-WS25MSRV101",
@@ -3685,9 +3685,9 @@
     "url": "https://www.sportsshoes.com/product/zne113/zone3-zone-3-versa-swim-run-femme-wetsuit---ss21",
     "status": "PENDING_URL",
     "last_read": "",
-    "out_of_stock": false,
+    "out_of_stock": true,
     "is_from": false,
-    "evidence": "Fitxa PDP localitzada · Pendent de lectura amb validador d'identitat"
+    "evidence": "Auditada fitxa ZNE113 (18/11): 'Sorry, product is currently out of stock' (Sense estoc a Sportshoes UK)"
   },
   {
     "id": "UK-MY -WS25WSRV101",
