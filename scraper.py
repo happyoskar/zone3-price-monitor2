@@ -697,7 +697,8 @@ def evaluate_page_info_candidates(page_info, row, source_prefix=""):
 
     ean = MODEL_EANS.get(code, "")
     has_exact_sku = (code.lower() in f"{title_h1} {url} {body_low}".lower()) or (ean and ean in body_low)
-    min_allowed_ratio = 0.25 if has_exact_sku else 0.42
+    # Regla d'auditoria: descartar descomptes superiors al 50% (pressuposant error, liquidació residual o unitat de 2a mà / outlet B-stock)
+    min_allowed_ratio = 0.50
 
     # Market tag for evidence (explicitly clarifying EU-wide .com / .nl stores shipping in EUR to ES)
     u_low = url.lower()
@@ -911,13 +912,16 @@ def evaluate_page_info_candidates(page_info, row, source_prefix=""):
     valid_candidates.sort(key=lambda x: (x[0], x[2]))
     _, best_cand_oos, best_price, best_evidence = valid_candidates[0]
 
-    # Add hidden tooltip note if the selected price is a promo-code price and we also know the higher base price (e.g. Sportano BLACKBELT)
+    # Add coupon badge & tooltip note if the selected price is a promo-code price and we also know the higher base price (e.g. Sportano BLACKBELT)
     base_ref_prices = [round(p, 2) for p in jsonld_base_prices if round(p, 2) > round(best_price, 2) + 0.5]
-    if base_ref_prices:
+    if base_ref_prices and (explicit_promo_price or detected_promo_code or "sportano.com" in u_low):
         base_p = min(base_ref_prices)
-        code_lbl = f" '{detected_promo_code}'" if detected_promo_code else ""
+        c_name = detected_promo_code or ("BLACKBELT" if "sportano.com" in u_low else "PROMO")
         if "Nota cupó" not in best_evidence:
-            best_evidence += f" · [Nota cupó: preu mostrat a la web aplicant codi{code_lbl}; preu base llistat sense codi: {base_p:.2f} {expected_sym}]"
+            best_evidence += f" · [🎟️ Codi '{c_name}' aplicat · Preu base sense codi: {base_p:.2f} {expected_sym}]"
+    elif explicit_promo_price and detected_promo_code:
+        if "Nota cupó" not in best_evidence and "🎟️ Codi" not in best_evidence:
+            best_evidence += f" · [🎟️ Codi '{detected_promo_code}' aplicat a la fitxa]"
     elif detected_promo_code and not explicit_promo_price:
         if "Nota cupó" not in best_evidence:
             best_evidence += f" · [Nota cupó: detectat codi promocional '{detected_promo_code}' a la web sense preu final descomptat explícit]"
@@ -1126,7 +1130,7 @@ async def main():
                     None
                 )
 
-                if existing_same_day and existing_same_day.get("price") is not None and float(existing_same_day["price"]) > 0:
+                if existing_same_day and existing_same_day.get("price") is not None and float(existing_same_day["price"]) >= (row["pvp"] * 0.50):
                     old_day_price = float(existing_same_day["price"])
                     if min_price < old_day_price:
                         existing_same_day["intraday_higher_price"] = old_day_price

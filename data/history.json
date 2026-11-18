@@ -30714,9 +30714,11 @@
     "out_of_stock": false,
     "is_from": false,
     "url": "https://sportano.com/p/118145/women-s-zone3-advence-triathlon-wetsuit-ws21wadv101",
-    "evidence": "[Zyte] Preu amb codi 'BLACKBELT' mostrat a la fitxa [EUR | Sportano.com EU->ES] (256.49 €) · Fitxa #118145 · [Nota cupó: preu mostrat a la web aplicant codi 'BLACKBELT'; preu base llistat sense codi: 269.99 €]",
+    "evidence": "[Zyte] Preu amb codi 'BLACKBELT' mostrat a la fitxa [EUR | Sportano.com EU->ES] (256.49 €) · Fitxa #118145 · [🎟️ Codi 'BLACKBELT' aplicat · Preu base sense codi: 269.99 €]",
     "audit_status": "VALID",
-    "run_slot": "2026-11-18-AM"
+    "run_slot": "2026-11-18-AM",
+    "base_price": 269.99,
+    "promo_code": "BLACKBELT"
   },
   {
     "timestamp": "2026-11-18",
@@ -30732,9 +30734,11 @@
     "out_of_stock": false,
     "is_from": false,
     "url": "https://sportano.com/p/610052/men-s-triathlon-wetsuit-zone3-aspire-black-chalk",
-    "evidence": "[Zyte] Preu amb codi 'BLACKBELT' mostrat a la fitxa [EUR | Sportano.com EU->ES] (465.49 €) · Fitxa #610052 · [Nota cupó: preu mostrat a la web aplicant codi 'BLACKBELT'; preu base llistat sense codi: 489.99 €]",
+    "evidence": "[Zyte] Preu amb codi 'BLACKBELT' mostrat a la fitxa [EUR | Sportano.com EU->ES] (465.49 €) · Fitxa #610052 · [🎟️ Codi 'BLACKBELT' aplicat · Preu base sense codi: 489.99 €]",
     "audit_status": "VALID",
-    "run_slot": "2026-11-18-AM"
+    "run_slot": "2026-11-18-AM",
+    "base_price": 489.99,
+    "promo_code": "BLACKBELT"
   },
   {
     "timestamp": "2026-11-18",
@@ -30988,7 +30992,9 @@
     "is_from": false,
     "url": "https://sportano.com/p/118163/men-s-zone3-agile-triathlon-wetsuit-black-ws21magi116",
     "audit_status": "VALID",
-    "evidence": "[Zyte] Preu amb codi 'BLACKBELT' mostrat a la fitxa [EUR | Sportano.com EU->ES] (178.49 €) · Fitxa #118163 · [Nota cupó: preu mostrat a la web aplicant codi 'BLACKBELT'; preu base llistat sense codi: 209.99 €]"
+    "evidence": "[Zyte] Preu amb codi 'BLACKBELT' mostrat a la fitxa [EUR | Sportano.com EU->ES] (178.49 €) · Fitxa #118163 · [🎟️ Codi 'BLACKBELT' aplicat · Preu base sense codi: 209.99 €]",
+    "base_price": 209.99,
+    "promo_code": "BLACKBELT"
   },
   {
     "timestamp": "2026-11-18",
@@ -31007,7 +31013,9 @@
     "is_from": false,
     "url": "https://sportano.com/p/56809/women-s-zone3-agile-triathlon-wetsuit-black-ws21wagi114",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada amb SKU exacte WS21WAGI114 (EUR 79.99 liquidació vs PVP 259.00€) · Fitxa Sportano #56809"
+    "evidence": "PDP Verificada amb SKU exacte WS21WAGI114 (EUR 79.99 liquidació vs PVP 259.00€) · Fitxa Sportano #56809",
+    "base_price": 209.99,
+    "promo_code": "BLACKBELT"
   },
   {
     "timestamp": "2026-11-18",
@@ -31025,7 +31033,9 @@
     "is_from": false,
     "url": "https://sportano.com/p/118161/zone3-vanquish-x-men-s-triathlon-wetsuit-black-ws22mvan101",
     "audit_status": "VALID",
-    "evidence": "[Zyte] Preu amb codi 'BLACKBELT' mostrat a la fitxa [EUR | Sportano.com EU->ES] (598.49 €) · Fitxa #118161 · [Nota cupó: preu mostrat a la web aplicant codi 'BLACKBELT'; preu base llistat sense codi: 629.99 €]"
+    "evidence": "[Zyte] Preu amb codi 'BLACKBELT' mostrat a la fitxa [EUR | Sportano.com EU->ES] (598.49 €) · Fitxa #118161 · [🎟️ Codi 'BLACKBELT' aplicat · Preu base sense codi: 629.99 €]",
+    "base_price": 629.99,
+    "promo_code": "BLACKBELT"
   },
   {
     "timestamp": "2026-11-18",
@@ -32926,10 +32936,11 @@
     "out_of_stock": false,
     "is_from": false,
     "url": "https://www.deporvillage.co.uk/zone3-advance-plus-wetsuit-black-grey-blue-women",
-    "audit_status": "VALID",
+    "audit_status": "QUARANTINED_PREVIOUS_RUN",
     "evidence": "[Zyte] Zyte Product API [GBP | Mercat UK] (279.13 £) · 'Zone3 Advance+ Wetsuit Black Grey Blue W'",
     "previous_price": 264.51,
-    "previous_date": "2026-11-15"
+    "previous_date": "2026-11-15",
+    "quarantine_reason": "Conservat en quarantena per traçabilitat: lectura capturada amb la versió anterior del lector sense validació estricta de bloc principal."
   },
   {
     "timestamp": "2026-11-18",

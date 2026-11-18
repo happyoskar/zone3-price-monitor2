@@ -72,8 +72,10 @@
     "last_read": "2026-11-18",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "JSON-LD price [EUR | Mercat ES] (598.49 €) · Producte: 'ZONE3 Vanquish-X men's triathlon wetsuit'",
-    "freshness": "LIVE_TODAY"
+    "evidence": "[Zyte] Preu amb codi 'BLACKBELT' mostrat a la fitxa [EUR | Sportano.com EU->ES] (598.49 €) · Fitxa #118161 · [🎟️ Codi 'BLACKBELT' aplicat · Preu base sense codi: 629.99 €]",
+    "freshness": "LIVE_TODAY",
+    "base_price": 629.99,
+    "promo_code": "BLACKBELT"
   },
   {
     "id": "ES-WET-WS22MVAN101",
@@ -330,16 +332,18 @@
     "code": "WS25MASP101",
     "model": "Men's Aspire Wetsuit",
     "pvp": 689,
-    "price": 489.99,
-    "disc_imp": 199.01,
-    "disc_pct": 28.9,
+    "price": 465.49,
+    "disc_imp": 223.51,
+    "disc_pct": 32.4,
     "url": "https://sportano.com/p/610052/men-s-triathlon-wetsuit-zone3-aspire-black-chalk",
     "status": "VERIFIED",
     "last_read": "2026-11-18",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (EUR 489.99 vs RRP 689.99€) · Fitxa individual Sportano #610052",
-    "freshness": "LIVE_TODAY"
+    "evidence": "[Zyte] Preu amb codi 'BLACKBELT' mostrat a la fitxa [EUR | Sportano.com EU->ES] (465.49 €) · Fitxa #610052 · [🎟️ Codi 'BLACKBELT' aplicat · Preu base sense codi: 489.99 €]",
+    "freshness": "LIVE_TODAY",
+    "base_price": 489.99,
+    "promo_code": "BLACKBELT"
   },
   {
     "id": "ES-WET-WS25MASP101",
@@ -376,7 +380,7 @@
     "last_read": "2026-11-18",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (EUR 429.95 vs Adviesprijs 689€) · SKU WS25MASP101 validat a fitxa individual",
+    "evidence": "PDP Verificada (EUR 429.95 vs Adviesprijs 689€) · SKU WS25MASP101 validat a fitxa individual · [EUR | Triathlon24.nl EU->ES]",
     "freshness": "LIVE_TODAY"
   },
   {
@@ -509,7 +513,7 @@
     "last_read": "2026-11-18",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (EUR 429.95 vs Adviesprijs 689€) · SKU WS25WASP101 validat a fitxa individual",
+    "evidence": "PDP Verificada (EUR 429.95 vs Adviesprijs 689€) · SKU WS25WASP101 validat a fitxa individual · [EUR | Triathlon24.nl EU->ES]",
     "freshness": "LIVE_TODAY"
   },
   {
@@ -642,7 +646,7 @@
     "last_read": "2026-11-18",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (EUR 349.95 vs Adviesprijs 499€) · SKU WS24MVIS101 validat a fitxa individual",
+    "evidence": "PDP Verificada (EUR 349.95 vs Adviesprijs 499€) · SKU WS24MVIS101 validat a fitxa individual · [EUR | Triathlon24.nl EU->ES]",
     "freshness": "LIVE_TODAY"
   },
   {
@@ -775,7 +779,7 @@
     "last_read": "2026-11-18",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (EUR 349.95 vs Adviesprijs 499€) · SKU WS24WVIS101 validat a fitxa individual",
+    "evidence": "PDP Verificada (EUR 349.95 vs Adviesprijs 499€) · SKU WS24WVIS101 validat a fitxa individual · [EUR | Triathlon24.nl EU->ES]",
     "freshness": "LIVE_TODAY"
   },
   {
@@ -870,7 +874,7 @@
     "last_read": "2026-11-18",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (EUR 259.99 vs RRP 369.99€) · SKU WS21MADV101 validat a fitxa #118144",
+    "evidence": "PDP Verificada (EUR 259.99 vs RRP 369.99€) · SKU WS21MADV101 validat a fitxa #118144 · [EUR | Sportano.com EU->ES]",
     "freshness": "LIVE_TODAY"
   },
   {
@@ -908,7 +912,7 @@
     "last_read": "2026-11-18",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (EUR 289.95 vs Adviesprijs 369€) · SKU WS21MADV101 validat a fitxa individual",
+    "evidence": "PDP Verificada (EUR 289.95 vs Adviesprijs 369€) · SKU WS21MADV101 validat a fitxa individual · [EUR | Triathlon24.nl EU->ES]",
     "freshness": "LIVE_TODAY"
   },
   {
@@ -995,16 +999,18 @@
     "code": "WS21WADV101",
     "model": "Women's Advance Wetsuit",
     "pvp": 369,
-    "price": 269.99,
-    "disc_imp": 99.01,
-    "disc_pct": 26.8,
+    "price": 256.49,
+    "disc_imp": 112.51,
+    "disc_pct": 30.5,
     "url": "https://sportano.com/p/118145/women-s-zone3-advence-triathlon-wetsuit-ws21wadv101",
     "status": "VERIFIED",
     "last_read": "2026-11-18",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (EUR 269.99 · €256.49 amb codi vs RRP 369.99€) · SKU WS21WADV101 #118145",
-    "freshness": "LIVE_TODAY"
+    "evidence": "[Zyte] Preu amb codi 'BLACKBELT' mostrat a la fitxa [EUR | Sportano.com EU->ES] (256.49 €) · Fitxa #118145 · [🎟️ Codi 'BLACKBELT' aplicat · Preu base sense codi: 269.99 €]",
+    "freshness": "LIVE_TODAY",
+    "base_price": 269.99,
+    "promo_code": "BLACKBELT"
   },
   {
     "id": "ES-WET-WS21WADV101",
@@ -1136,8 +1142,10 @@
     "last_read": "2026-11-18",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "JSON-LD price [EUR | Mercat ES] (178.49 €) · Producte: 'Men's ZONE3 Agile triathlon wetsuit blac'",
-    "freshness": "LIVE_TODAY"
+    "evidence": "[Zyte] Preu amb codi 'BLACKBELT' mostrat a la fitxa [EUR | Sportano.com EU->ES] (178.49 €) · Fitxa #118163 · [🎟️ Codi 'BLACKBELT' aplicat · Preu base sense codi: 209.99 €]",
+    "freshness": "LIVE_TODAY",
+    "base_price": 209.99,
+    "promo_code": "BLACKBELT"
   },
   {
     "id": "ES-WET-WS21MAGI116",
@@ -1174,7 +1182,7 @@
     "last_read": "2026-11-18",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (EUR 199.95 vs Adviesprijs 259€) · ID 74428 validat a fitxa individual",
+    "evidence": "PDP Verificada (EUR 199.95 vs Adviesprijs 259€) · ID 74428 validat a fitxa individual · [EUR | Triathlon24.nl EU->ES]",
     "freshness": "LIVE_TODAY"
   },
   {
@@ -1270,7 +1278,9 @@
     "out_of_stock": false,
     "is_from": false,
     "evidence": "PDP Verificada amb SKU exacte WS21WAGI114 (EUR 79.99 liquidació vs PVP 259.00€) · Fitxa Sportano #56809",
-    "freshness": "LIVE_TODAY"
+    "freshness": "LIVE_TODAY",
+    "base_price": 209.99,
+    "promo_code": "BLACKBELT"
   },
   {
     "id": "ES-WET-WS21WAGI114",
@@ -1307,7 +1317,7 @@
     "last_read": "2026-11-18",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (EUR 199.95 vs Adviesprijs 259€) · SKU WS21WAGI114 validat a fitxa individual",
+    "evidence": "PDP Verificada (EUR 199.95 vs Adviesprijs 259€) · SKU WS21WAGI114 validat a fitxa individual · [EUR | Triathlon24.nl EU->ES]",
     "freshness": "LIVE_TODAY"
   },
   {
@@ -1402,7 +1412,7 @@
     "last_read": "2026-11-18",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (EUR 143.99 vs RRP 179.00€) · SKU WS26MGLISL101 validat a fitxa #940553",
+    "evidence": "PDP Verificada (EUR 143.99 vs RRP 179.00€) · SKU WS26MGLISL101 validat a fitxa #940553 · [EUR | Sportano.com EU->ES]",
     "freshness": "LIVE_TODAY"
   },
   {
@@ -1706,7 +1716,7 @@
     "last_read": "2026-11-18",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (EUR 169.95 vs Adviesprijs 229€) · SKU WS25MACTF101 validat a fitxa individual",
+    "evidence": "PDP Verificada (EUR 169.95 vs Adviesprijs 229€) · SKU WS25MACTF101 validat a fitxa individual · [EUR | Triathlon24.nl EU->ES]",
     "freshness": "LIVE_TODAY"
   },
   {
@@ -1839,7 +1849,7 @@
     "last_read": "2026-11-18",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (EUR 169.95 vs Adviesprijs 229€) · SKU WS25WACTF101 validat a fitxa individual",
+    "evidence": "PDP Verificada (EUR 169.95 vs Adviesprijs 229€) · SKU WS25WACTF101 validat a fitxa individual · [EUR | Triathlon24.nl EU->ES]",
     "freshness": "LIVE_TODAY"
   },
   {
@@ -2952,16 +2962,16 @@
     "code": "WS21WADV101",
     "model": "Women's Advance Wetsuit",
     "pvp": 299,
-    "price": 279.13,
-    "disc_imp": 19.87,
-    "disc_pct": 6.6,
-    "url": "https://www.deporvillage.co.uk/zone3-advance-plus-wetsuit-black-grey-blue-women",
-    "status": "VERIFIED",
-    "last_read": "2026-11-18",
+    "price": null,
+    "disc_imp": null,
+    "disc_pct": null,
+    "url": "",
+    "status": "UNMAPPED",
+    "last_read": "",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "[Zyte] Zyte Product API [GBP | Mercat UK] (279.13 £) · 'Zone3 Advance+ Wetsuit Black Grey Blue W'",
-    "freshness": "LIVE_TODAY"
+    "evidence": "Exclosa fitxa Advance Plus (model diferent de WS21WADV101 Advance estàndard)",
+    "freshness": "NONE"
   },
   {
     "id": "UK-SPO-WS21WADV101",
