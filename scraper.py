@@ -32,7 +32,9 @@ GENERIC_URL_PATTERNS = [
 OPERATOR_CATALOG_URLS = {
     ("ES", "Trade Inn"): [
         "https://www.tradeinn.com/swiminn/es/trajes-y-complementos-trajes/11400/s?q=zone3",
-        "https://www.tradeinn.com/swiminn/es/s?q=zone3+versa"
+        "https://www.tradeinn.com/swiminn/es/s?q=zone3+versa",
+        "https://www.tradeinn.com/swiminn/es/s?q=WS25WSRV101",
+        "https://www.tradeinn.com/swiminn/es/s?q=5056305746940"
     ],
     ("ES", "Deporvillage"): [
         "https://www.deporvillage.com/natacion-zone3",
@@ -43,34 +45,54 @@ OPERATOR_CATALOG_URLS = {
         "https://www.deporvillage.com/catalogsearch/result/?q=zone3+sleeveless",
         "https://www.deporvillage.com/catalogsearch/result/?q=zone3+versa",
         "https://www.deporvillage.com/catalogsearch/result/?q=5056305752330",
-        "https://www.deporvillage.com/catalogsearch/result/?q=5056305752385"
+        "https://www.deporvillage.com/catalogsearch/result/?q=5056305752385",
+        "https://www.deporvillage.com/catalogsearch/result/?q=5056305746940"
     ],
     ("ES", "Bike 24"): [
         "https://www.bike24.es/marcas/zone3",
         "https://www.bike24.es/marcas/zone3?page=2",
+        "https://www.bike24.es/marcas/zone3?page=3",
         "https://www.bike24.es/buscar?searchTerm=zone3+wetsuit",
         "https://www.bike24.es/buscar?searchTerm=zone3+active+flex",
         "https://www.bike24.es/buscar?searchTerm=zone3+versa",
+        "https://www.bike24.es/buscar?searchTerm=WS25WACTF101",
         "https://www.bike24.es/buscar?searchTerm=5056305745455",
         "https://www.bike24.es/buscar?searchTerm=5056305746940"
     ],
     ("ES", "Sportano"): [
         "https://sportano.com/en/zone3",
         "https://sportano.com/en/zone3?p=2",
+        "https://sportano.com/en/zone3?p=3",
+        "https://sportano.com/en/zone3?p=4",
         "https://sportano.com/en/search?q=zone3+wetsuit",
-        "https://sportano.com/en/search?q=zone3+vanquish",
-        "https://sportano.com/en/search?q=zone3+aspire",
         "https://sportano.com/en/search?q=zone3+vision",
+        "https://sportano.com/en/search?q=zone3+terraprene",
+        "https://sportano.com/en/search?q=WS24MVIS101",
+        "https://sportano.com/en/search?q=WS24WVIS101",
+        "https://sportano.com/en/search?q=5056305737726",
+        "https://sportano.com/en/search?q=5056305739447",
+        "https://sportano.com/en/search?q=zone3+vanquish",
+        "https://sportano.com/en/search?q=WS22WVAN101",
+        "https://sportano.com/en/search?q=zone3+aspire",
+        "https://sportano.com/en/search?q=WS25WASP101",
         "https://sportano.com/en/search?q=zone3+active+flex",
+        "https://sportano.com/en/search?q=WS25MACTF101",
+        "https://sportano.com/en/search?q=WS25WACTF101",
         "https://sportano.com/en/search?q=zone3+glide",
         "https://sportano.com/en/search?q=zone3+ascend",
-        "https://sportano.com/en/search?q=zone3+versa"
+        "https://sportano.com/en/search?q=WS26WGLISL101",
+        "https://sportano.com/en/search?q=zone3+versa",
+        "https://sportano.com/en/search?q=WS25MSRV101",
+        "https://sportano.com/en/search?q=WS25WSRV101"
     ],
     ("ES", "Wetsuit Outlet"): [
         "https://www.wetsuitoutlet.es/zone3-m-123.html?currency=EUR",
         "https://www.wetsuitoutlet.es/advanced_search_result.php?keywords=zone3+vanquish&currency=EUR",
         "https://www.wetsuitoutlet.es/advanced_search_result.php?keywords=zone3+aspire&currency=EUR",
-        "https://www.wetsuitoutlet.es/advanced_search_result.php?keywords=zone3+versa&currency=EUR"
+        "https://www.wetsuitoutlet.es/advanced_search_result.php?keywords=zone3+versa&currency=EUR",
+        "https://www.wetsuitoutlet.es/advanced_search_result.php?keywords=WS25WASP&currency=EUR",
+        "https://www.wetsuitoutlet.es/advanced_search_result.php?keywords=WS22MVAN&currency=EUR",
+        "https://www.wetsuitoutlet.es/advanced_search_result.php?keywords=WS22WVAN&currency=EUR"
     ],
     ("ES", "Triathlon24"): [
         "https://www.triathlon24.nl/wetsuits/zone3/",
@@ -84,24 +106,33 @@ OPERATOR_CATALOG_URLS = {
         "https://www.alltricks.es/s?k=zone3+neopreno",
         "https://www.alltricks.es/s?k=zone3+vanquish",
         "https://www.alltricks.es/s?k=zone3+aspire",
+        "https://www.alltricks.es/s?k=zone3+aspire+mujer",
         "https://www.alltricks.es/s?k=zone3+vision",
+        "https://www.alltricks.es/s?k=zone3+vision+mujer",
         "https://www.alltricks.es/s?k=zone3+active+flex",
+        "https://www.alltricks.es/s?k=zone3+active+flex+hombre",
         "https://www.alltricks.es/s?k=zone3+ascend",
-        "https://www.alltricks.es/s?k=zone3+glide"
+        "https://www.alltricks.es/s?k=zone3+glide",
+        "https://www.alltricks.es/s?k=zone3+versa"
     ],
     ("UK", "Trade Inn"): [
         "https://www.tradeinn.com/swiminn/en/suits-and-complements-suits/11400/s?q=zone3",
-        "https://www.tradeinn.com/swiminn/en/s?q=zone3+versa"
+        "https://www.tradeinn.com/swiminn/en/s?q=zone3+versa",
+        "https://www.tradeinn.com/swiminn/en/s?q=WS25WSRV101"
     ],
     ("UK", "Deporvillage"): [
         "https://www.deporvillage.co.uk/swimming-triathlon%3Azone3%3Aneoprene_wetsuits",
         "https://www.deporvillage.co.uk/catalogsearch/result/?q=zone3+wetsuit",
+        "https://www.deporvillage.co.uk/catalogsearch/result/?q=zone3+advance+women",
         "https://www.deporvillage.co.uk/catalogsearch/result/?q=zone3+ascend",
         "https://www.deporvillage.co.uk/catalogsearch/result/?q=zone3+glide",
         "https://www.deporvillage.co.uk/catalogsearch/result/?q=zone3+sleeveless",
         "https://www.deporvillage.co.uk/catalogsearch/result/?q=zone3+versa",
+        "https://www.deporvillage.co.uk/catalogsearch/result/?q=zone3+versa+women",
+        "https://www.deporvillage.co.uk/catalogsearch/result/?q=5056305710835",
         "https://www.deporvillage.co.uk/catalogsearch/result/?q=5056305752330",
-        "https://www.deporvillage.co.uk/catalogsearch/result/?q=5056305752385"
+        "https://www.deporvillage.co.uk/catalogsearch/result/?q=5056305752385",
+        "https://www.deporvillage.co.uk/catalogsearch/result/?q=5056305746940"
     ],
     ("UK", "Sportshoes"): [
         "https://www.sportsshoes.com/products/?q=zone3%20wetsuit",
@@ -110,7 +141,10 @@ OPERATOR_CATALOG_URLS = {
         "https://www.sportsshoes.com/products/?q=zone3%20glide",
         "https://www.sportsshoes.com/products/?q=zone3%20versa"
     ],
-    ("UK", "My Triathlon"): ["https://mytriathlon.co.uk/brands/Zone-3.html"],
+    ("UK", "My Triathlon"): [
+        "https://mytriathlon.co.uk/brands/Zone-3.html",
+        "https://mytriathlon.co.uk/search.php?search_query=zone3+versa"
+    ],
     ("UK", "Sigma"): [
         "https://www.sigmasports.com/brand/zone3/wetsuits",
         "https://www.sigmasports.com/brand/zone3",
@@ -119,17 +153,19 @@ OPERATOR_CATALOG_URLS = {
         "https://www.sigmasports.com/search?query=zone3+agile",
         "https://www.sigmasports.com/search?query=zone3+active+flex",
         "https://www.sigmasports.com/search?query=zone3+ascend",
-        "https://www.sigmasports.com/search?query=zone3+glide"
+        "https://www.sigmasports.com/search?query=zone3+glide",
+        "https://www.sigmasports.com/search?query=zone3+versa"
     ],
     ("UK", "Wetsuit Outlet"): [
         "https://www.wetsuitoutlet.co.uk/zone3-m-123.html?currency=GBP",
         "https://www.wetsuitoutlet.co.uk/advanced_search_result.php?keywords=zone3+vanquish&currency=GBP",
         "https://www.wetsuitoutlet.co.uk/advanced_search_result.php?keywords=zone3+aspire&currency=GBP",
-        "https://www.wetsuitoutlet.co.uk/advanced_search_result.php?keywords=zone3+versa&currency=GBP"
+        "https://www.wetsuitoutlet.co.uk/advanced_search_result.php?keywords=zone3+versa&currency=GBP",
+        "https://www.wetsuitoutlet.co.uk/advanced_search_result.php?keywords=WS25WASP&currency=GBP"
     ]
 }
 
-# Candidate direct URLs & sequential ID probes for Bike 24 and Deporvillage missing SKUs
+# Candidate direct URLs & sequential ID probes for missing SKUs across operators
 DIRECT_CANDIDATE_PROBES = {
     ("ES", "Bike 24", "WS25WACTF101"): [
         "https://www.bike24.es/productos/1004855",
@@ -155,6 +191,21 @@ DIRECT_CANDIDATE_PROBES = {
         "https://www.deporvillage.com/traje-de-neopreno-zone3-glide-sin-mangas-mujer",
         "https://www.deporvillage.com/traje-neopreno-zone3-ascend-sleeveless-mujer"
     ],
+    ("ES", "Deporvillage", "WS25WSRV101"): [
+        "https://www.deporvillage.com/traje-neopreno-zone3-versa-swimrun-mujer",
+        "https://www.deporvillage.com/traje-de-neopreno-zone3-versa-swimrun-mujer"
+    ],
+    ("UK", "Deporvillage", "WS21WADV101"): [
+        "https://www.deporvillage.co.uk/zone3-advance-wetsuit-black-grey-blue-women",
+        "https://www.deporvillage.co.uk/zone3-advance-wetsuit-black-pink-women",
+        "https://www.deporvillage.co.uk/zone3-advance-wetsuit-black-turquoise-women",
+        "https://www.deporvillage.co.uk/zone3-advance-wetsuit-women"
+    ],
+    ("UK", "Deporvillage", "WS25WSRV101"): [
+        "https://www.deporvillage.co.uk/zone3-versa-swimrun-wetsuit-black-orange-women",
+        "https://www.deporvillage.co.uk/zone3-versa-swimrun-wetsuit-women",
+        "https://www.deporvillage.co.uk/zone3-versa-swimrun-wetsuit-black-green-women"
+    ],
     ("UK", "Deporvillage", "WS26MGLISL101"): [
         "https://www.deporvillage.co.uk/zone3-ascend-sleeveless-wetsuit-black-grey",
         "https://www.deporvillage.co.uk/zone3-glide-sleeveless-wetsuit-black-grey",
@@ -164,6 +215,32 @@ DIRECT_CANDIDATE_PROBES = {
         "https://www.deporvillage.co.uk/zone3-ascend-sleeveless-wetsuit-black-grey-women",
         "https://www.deporvillage.co.uk/zone3-glide-sleeveless-wetsuit-black-grey-women",
         "https://www.deporvillage.co.uk/zone3-ascend-sleeveless-wetsuit-women"
+    ],
+    ("ES", "Wetsuit Outlet", "WS25WASP101"): [
+        "https://www.wetsuitoutlet.es/2026-zone3-mujer-aspire-neopreno-ws25wasp-black-chalk-p-53918.html?currency=EUR",
+        "https://www.wetsuitoutlet.es/2026-zone3-mujer-aspire-neopreno-ws25wasp101-black-chalk-p-53918.html?currency=EUR"
+    ],
+    ("UK", "Wetsuit Outlet", "WS25WASP101"): [
+        "https://www.wetsuitoutlet.co.uk/2026-zone3-womens-aspire-wetsuit-ws25wasp-black-chalk-p-53918.html?currency=GBP",
+        "https://www.wetsuitoutlet.co.uk/2026-zone3-womens-aspire-wetsuit-ws25wasp101-black-chalk-p-53918.html?currency=GBP"
+    ],
+    ("ES", "Triathlon24", "WS22MVAN101"): [
+        "https://www.triathlon24.nl/zone3-vanquish-x-wetsuit-lange-mouw-heren/",
+        "https://www.triathlon24.nl/zone3-vanquish-x-fullsleeve-wetsuit-heren/"
+    ],
+    ("ES", "Triathlon24", "WS22WVAN101"): [
+        "https://www.triathlon24.nl/zone3-vanquish-x-wetsuit-lange-mouw-dames/",
+        "https://www.triathlon24.nl/zone3-vanquish-x-fullsleeve-wetsuit-dames/"
+    ],
+    ("ES", "Triathlon24", "WS26MGLISL101"): [
+        "https://www.triathlon24.nl/zone3-ascend-sleeveless-wetsuit-heren/",
+        "https://www.triathlon24.nl/zone3-glide-sleeveless-wetsuit-heren/",
+        "https://www.triathlon24.nl/zone3-ascend-wetsuit-mouwloos-heren/"
+    ],
+    ("ES", "Triathlon24", "WS26WGLISL101"): [
+        "https://www.triathlon24.nl/zone3-ascend-sleeveless-wetsuit-dames/",
+        "https://www.triathlon24.nl/zone3-glide-sleeveless-wetsuit-dames/",
+        "https://www.triathlon24.nl/zone3-ascend-wetsuit-mouwloos-dames/"
     ]
 }
 
@@ -367,21 +444,26 @@ def parse_html_fast_stdlib(html_str, base_url, zprod=None):
         for m_p in re.finditer(r'id=["\']js-precio["\'][^>]*>([^<]+)<', html_str, flags=re.I):
             dom_prices.append({"selector": "#js-precio", "text": m_p.group(1).strip(), "attrCurr": ""})
 
+        # Extract links including title, aria-label, and inner img alt attributes (crucial for Sportano & Alltricks product cards)
         links = []
         parsed_base = urlparse(base_url)
         base_origin = f"{parsed_base.scheme}://{parsed_base.netloc}" if parsed_base.scheme else ""
-        for m_a in re.finditer(r'<a[^>]+href=["\']([^"\']+)["\'][^>]*>(.*?)</a>', html_str, flags=re.I | re.S):
-            href = m_a.group(1).strip()
+        for m_a in re.finditer(r'<a\s+([^>]*?)href=["\']([^"\']+)["\']([^>]*)>(.*?)</a>', html_str, flags=re.I | re.S):
+            attrs_before, href, attrs_after, inner_html = m_a.group(1), m_a.group(2).strip(), m_a.group(3), m_a.group(4)
             if href.startswith("/") and base_origin:
                 href = base_origin + href
             if href.startswith("http"):
-                txt = re.sub(r"<[^>]+>", " ", m_a.group(2))
-                txt = re.sub(r"\s+", " ", txt).strip()
-                links.append({"href": href, "text": txt})
+                all_attrs = f"{attrs_before} {attrs_after}"
+                attr_texts = re.findall(r'(?:title|aria-label)=["\']([^"\']+)["\']', all_attrs, flags=re.I)
+                img_alts = re.findall(r'alt=["\']([^"\']+)["\']', inner_html, flags=re.I)
+                inner_txt = re.sub(r"<[^>]+>", " ", inner_html)
+                combined_txt = " ".join([inner_txt] + attr_texts + img_alts)
+                combined_txt = re.sub(r"\s+", " ", combined_txt).strip()
+                links.append({"href": href, "text": combined_txt})
 
         clean_html = re.sub(r"<(script|style|noscript)[^>]*>.*?</\1>", " ", html_str, flags=re.I | re.S)
         body_text = re.sub(r"<[^>]+>", " ", clean_html)
-        body_text = re.sub(r"\s+", " ", body_text).strip()[:4500]
+        body_text = re.sub(r"\s+", " ", body_text).strip()[:6000]
 
         info = {
             "title": title,
@@ -466,7 +548,7 @@ async def discover_missing_pdps(page_es, page_uk, tracking, today_str):
                     links = await page.evaluate("""() => {
                         return Array.from(document.querySelectorAll('a[href]')).map(a => ({
                             href: a.href,
-                            text: (a.innerText || a.getAttribute('title') || a.getAttribute('aria-label') || '').trim()
+                            text: ((a.innerText || '') + ' ' + (a.getAttribute('title') || '') + ' ' + (a.getAttribute('aria-label') || '') + ' ' + Array.from(a.querySelectorAll('img[alt]')).map(i => i.getAttribute('alt')).join(' ')).trim()
                         })).filter(x => x.href && x.href.startsWith('http'));
                     }""")
                     collected_links.extend(links)
@@ -502,8 +584,54 @@ async def discover_missing_pdps(page_es, page_uk, tracking, today_str):
                     found_url = href
                     break
 
+            # 1b. Direct Operator Internal Search by exact SKU & EAN (especially for Sportano, Deporvillage, Sigma, Alltricks)
+            if not found_url:
+                ean = MODEL_EANS.get(code, "")
+                kw_main = (MODEL_KEYWORDS.get(code) or [""])[0]
+                gender_q = "women" if ("W" in code[4:6] or "women" in model_name.lower()) else "men"
+                op_search_templates = {
+                    ("ES", "Sportano"): [f"https://sportano.com/en/search?q={code}", f"https://sportano.com/en/search?q=zone3+{kw_main}+{gender_q}"],
+                    ("ES", "Deporvillage"): [f"https://www.deporvillage.com/catalogsearch/result/?q={code}", f"https://www.deporvillage.com/catalogsearch/result/?q={ean}"],
+                    ("UK", "Deporvillage"): [f"https://www.deporvillage.co.uk/catalogsearch/result/?q={code}", f"https://www.deporvillage.co.uk/catalogsearch/result/?q={ean}"],
+                    ("ES", "Alltricks"): [f"https://www.alltricks.es/s?k=zone3+{kw_main}"],
+                    ("UK", "Sigma"): [f"https://www.sigmasports.com/search?query=zone3+{kw_main}"]
+                }
+                for s_url in op_search_templates.get((country, operator), []):
+                    if found_url:
+                        break
+                    try:
+                        s_links = []
+                        resp = await page.goto(s_url, wait_until="domcontentloaded", timeout=18000)
+                        if resp and resp.status == 200:
+                            await page.wait_for_timeout(1200)
+                            s_links = await page.evaluate("""() => {
+                                return Array.from(document.querySelectorAll('a[href]')).map(a => ({
+                                    href: a.href,
+                                    text: ((a.innerText || '') + ' ' + (a.getAttribute('title') || '') + ' ' + (a.getAttribute('aria-label') || '') + ' ' + Array.from(a.querySelectorAll('img[alt]')).map(i => i.getAttribute('alt')).join(' ')).trim()
+                                })).filter(x => x.href && x.href.startsWith('http'));
+                            }""")
+                        elif ZYTE_API_KEY:
+                            zinfo = await fetch_via_zyte(page, s_url, country)
+                            if zinfo and zinfo.get("links"):
+                                s_links = zinfo["links"]
+                        for slink in s_links:
+                            href = slink["href"].split("#")[0]
+                            if expected_dom and expected_dom not in href.lower():
+                                continue
+                            if is_generic_category_url(href):
+                                continue
+                            mkt_ok, _ = validate_market_url(href, country)
+                            if not mkt_ok:
+                                continue
+                            id_ok, _ = validate_product_identity(slink["text"], href, code, model_name)
+                            if id_ok:
+                                found_url = href
+                                break
+                    except Exception:
+                        pass
+
             # 2. Fallback: DuckDuckGo HTML search (`site:<operator_domain> zone3 <model> <code/EAN>`)
-            if not found_url and expected_dom and code != "WS25WSRV101":
+            if not found_url and expected_dom:
                 ean = MODEL_EANS.get(code, "")
                 for q_str in [f"site:{expected_dom} zone3 {model_name}", f"site:{expected_dom} {code} OR {ean}"]:
                     if found_url:
@@ -548,6 +676,7 @@ async def discover_missing_pdps(page_es, page_uk, tracking, today_str):
 def evaluate_page_info_candidates(page_info, row, source_prefix=""):
     url = row.get("url", "").strip()
     country = row["country"]
+    operator = row["operator"]
     expected_curr = row["currency"]
     sig = EXPECTED_MARKET_SIGNALS[country]
     expected_sym = sig["symbol"]
@@ -556,7 +685,8 @@ def evaluate_page_info_candidates(page_info, row, source_prefix=""):
     code = row["code"]
     model_name = row["model"]
 
-    body_low = (page_info.get("bodyText") or "").lower()
+    body_text_raw = page_info.get("bodyText") or ""
+    body_low = body_text_raw.lower()
     if any(c in body_low for c in ["verify you are human", "cf-chl-bypass", "access denied", "captcha"]):
         return None, False, "BLOCKED_CAPTCHA", "Bloqueig anti-bot / Captcha detectat"
 
@@ -569,7 +699,17 @@ def evaluate_page_info_candidates(page_info, row, source_prefix=""):
     has_exact_sku = (code.lower() in f"{title_h1} {url} {body_low}".lower()) or (ean and ean in body_low)
     min_allowed_ratio = 0.25 if has_exact_sku else 0.42
 
+    # Market tag for evidence (explicitly clarifying EU-wide .com / .nl stores shipping in EUR to ES)
+    u_low = url.lower()
+    if country == "ES" and "sportano.com" in u_low:
+        market_tag = f"{expected_curr} | Sportano.com EU->ES"
+    elif country == "ES" and "triathlon24.nl" in u_low:
+        market_tag = f"{expected_curr} | Triathlon24.nl EU->ES"
+    else:
+        market_tag = f"{expected_curr} | Mercat {country}"
+
     candidates = []
+    jsonld_base_prices = []
     instock_variant_prices = []
     oos_variant_prices = []
     detected_oos = False
@@ -600,7 +740,7 @@ def evaluate_page_info_candidates(page_info, row, source_prefix=""):
                     1,
                     is_z_oos,
                     z_val,
-                    f"{source_prefix}Zyte Product API [{z_curr or expected_curr} | Mercat {country}] ({z_val:.2f} {expected_sym}) · '{(zprod.get('name') or page_info.get('h1', ''))[:40]}'"
+                    f"{source_prefix}Zyte Product API [{market_tag}] ({z_val:.2f} {expected_sym}) · '{(zprod.get('name') or page_info.get('h1', ''))[:40]}'"
                 ))
 
     # 1. Structured JSON-LD Product / ProductGroup / hasVariant offers
@@ -641,7 +781,6 @@ def evaluate_page_info_candidates(page_info, row, source_prefix=""):
                         if curr and curr != expected_curr:
                             currency_mismatch = True
                             continue
-                        effective_curr = curr or expected_curr
                         avail = str(off.get("availability", "")).lower()
                         off_size = str(off.get("sku", "") or off.get("name", "") or variant_size).strip()
                         is_off_oos = False
@@ -656,13 +795,14 @@ def evaluate_page_info_candidates(page_info, row, source_prefix=""):
                                 if val and (pvp * min_allowed_ratio) <= val <= (pvp * 1.20):
                                     if not is_off_oos and p_key in ("price", "lowPrice"):
                                         instock_variant_prices.append((val, off_size))
+                                        jsonld_base_prices.append(val)
                                     elif is_off_oos:
                                         oos_variant_prices.append((val, off_size))
                                     candidates.append((
                                         1,
                                         is_off_oos,
                                         val,
-                                        f"{source_prefix}JSON-LD {p_key} [{effective_curr} | Mercat {country}] ({val:.2f} {expected_sym}) · Producte: '{(prod_name or page_info.get('h1', ''))[:40]}'"
+                                        f"{source_prefix}JSON-LD {p_key} [{market_tag}] ({val:.2f} {expected_sym}) · Producte: '{(prod_name or page_info.get('h1', ''))[:40]}'"
                                     ))
         except Exception:
             pass
@@ -678,11 +818,10 @@ def evaluate_page_info_candidates(page_info, row, source_prefix=""):
                 2,
                 False,
                 val,
-                f"{source_prefix}Meta OG [{m_curr or expected_curr} | Mercat {country}] ({val:.2f} {expected_sym}) · H1: '{page_info.get('h1', '')[:40]}'"
+                f"{source_prefix}Meta OG [{market_tag}] ({val:.2f} {expected_sym}) · H1: '{page_info.get('h1', '')[:40]}'"
             ))
 
     # 3. Main Product DOM elements (excluding all carousels/related blocks)
-    u_low = url.lower()
     has_local_domain_currency = (
         (country == "ES" and any(d in u_low for d in [".es/", ".nl/", "country=es", "currency=eur", "deporvillage.com/", "sportano.com/"])) or
         (country == "UK" and any(d in u_low for d in [".co.uk/", "country=uk", "currency=gbp", "sigmasports.com/", "sportsshoes.com/"]))
@@ -708,10 +847,49 @@ def evaluate_page_info_candidates(page_info, row, source_prefix=""):
                     3,
                     False,
                     val,
-                    f"{source_prefix}DOM Principal {dp['selector']} [{expected_curr} | Mercat {country}] ({val:.2f} {expected_sym}) · H1: '{page_info.get('h1', '')[:38]}'"
+                    f"{source_prefix}DOM Principal {dp['selector']} [{market_tag}] ({val:.2f} {expected_sym}) · H1: '{page_info.get('h1', '')[:38]}'"
                 ))
 
-    body_has_oos_text = any(w in body_low for w in ["agotado", "out of stock", "fuera de stock", "sold out", "no disponible", "currently unavailable"])
+    # 4. Promo Code / Coupon Price Detection on PDP:
+    #    - Case 4A: The page explicitly displays the discounted price with a promo code (e.g., Sportano "598,49 € with code: BLACKBELT") ->
+    #      Use the displayed discounted price as priority 1 and annotate both the promo code and the base price in the tooltip.
+    #    - Case 4B: The page mentions a promo code/coupon discount (e.g. "extra 10% off with code X") without displaying the resulting discounted price ->
+    #      Keep the base price and add a hidden tooltip note that a coupon exists.
+    explicit_promo_price = None
+    detected_promo_code = None
+    m_code_name = re.search(r"(?:with code|con el código|amb el codi|code|código|cupón|coupon)[:\s]+([A-Z0-9_-]{4,16})", body_text_raw, flags=re.I)
+    if m_code_name:
+        cand_code = m_code_name.group(1).upper()
+        if cand_code not in ("ZONE3", "WETSUIT", "NEOPRENE", "HTML", "JSON", "TRUE", "FALSE") and not cand_code.startswith("WS2"):
+            detected_promo_code = cand_code
+
+    # Look for explicit price near promo code in body text (e.g. "598,49 € with code BLACKBELT" or "with code BLACKBELT: 598.49 €")
+    promo_patterns = [
+        r"([\d]{2,3}[.,]\d{2})\s*(?:€|EUR|£|GBP)?\s*(?:with code|con código|con el código|amb codi)[:\s]*([A-Z0-9_-]{4,16})?",
+        r"(?:with code|con código|con el código|amb codi)[:\s]*([A-Z0-9_-]{4,16})?[^\d]{0,25}([\d]{2,3}[.,]\d{2})\s*(?:€|EUR|£|GBP)"
+    ]
+    for pat in promo_patterns:
+        for m_pr in re.finditer(pat, body_text_raw, flags=re.I):
+            g1, g2 = m_pr.group(1), m_pr.group(2)
+            p_raw = g1 if (g1 and re.match(r"^[\d.,]+$", g1)) else g2
+            c_raw = g2 if p_raw == g1 else g1
+            p_val = normalize_price(p_raw)
+            if p_val and (pvp * min_allowed_ratio) <= p_val <= (pvp * 1.15):
+                explicit_promo_price = p_val
+                if c_raw and len(c_raw) >= 4:
+                    detected_promo_code = c_raw.upper()
+                break
+
+    if explicit_promo_price and not (detected_oos and not detected_instock):
+        code_lbl = f" '{detected_promo_code}'" if detected_promo_code else ""
+        candidates.append((
+            1,
+            False,
+            explicit_promo_price,
+            f"{source_prefix}Preu amb codi{code_lbl} mostrat a la fitxa [{market_tag}] ({explicit_promo_price:.2f} {expected_sym})"
+        ))
+
+    body_has_oos_text = any(w in body_low for w in ["agotado", "out of stock", "fuera de stock", "sold out", "no disponible", "currently unavailable", "product temporarily unavailable", "temporarily unavailable"])
     if body_has_oos_text and not detected_instock:
         detected_oos = True
 
@@ -729,13 +907,24 @@ def evaluate_page_info_candidates(page_info, row, source_prefix=""):
             return None, True, "OUT_OF_STOCK", f"Producte esgotat a la fitxa ({(page_info.get('h1') or page_info.get('title') or '')[:35]})"
         return None, False, "NO_VALID_PRICE", f"Cap preu principal ({expected_curr}) validat a la fitxa"
 
-    # Sort by priority (1=JSON-LD/Zyte, 2=Meta, 3=DOM) then lowest price
+    # Sort by priority (1=JSON-LD/Zyte/ExplicitPromo, 2=Meta, 3=DOM) then lowest price
     valid_candidates.sort(key=lambda x: (x[0], x[2]))
     _, best_cand_oos, best_price, best_evidence = valid_candidates[0]
 
-    # Subtle note in tooltip if multiple in-stock sizes have different prices
+    # Add hidden tooltip note if the selected price is a promo-code price and we also know the higher base price (e.g. Sportano BLACKBELT)
+    base_ref_prices = [round(p, 2) for p in jsonld_base_prices if round(p, 2) > round(best_price, 2) + 0.5]
+    if base_ref_prices:
+        base_p = min(base_ref_prices)
+        code_lbl = f" '{detected_promo_code}'" if detected_promo_code else ""
+        if "Nota cupó" not in best_evidence:
+            best_evidence += f" · [Nota cupó: preu mostrat a la web aplicant codi{code_lbl}; preu base llistat sense codi: {base_p:.2f} {expected_sym}]"
+    elif detected_promo_code and not explicit_promo_price:
+        if "Nota cupó" not in best_evidence:
+            best_evidence += f" · [Nota cupó: detectat codi promocional '{detected_promo_code}' a la web sense preu final descomptat explícit]"
+
+    # Subtle note in tooltip if multiple in-stock sizes have different prices (and not already a base vs promo difference)
     unique_instock_prices = sorted(list(set(round(p, 2) for (p, _) in instock_variant_prices)))
-    if len(unique_instock_prices) > 1:
+    if len(unique_instock_prices) > 1 and not base_ref_prices:
         min_p = unique_instock_prices[0]
         max_p = unique_instock_prices[-1]
         min_sizes = [sz for (p, sz) in instock_variant_prices if round(p, 2) == min_p and sz]
