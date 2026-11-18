@@ -275,6 +275,9 @@ def validate_product_identity(text_to_check, url, code, model_name):
         if any(w in combined for w in ["sleeveless", "sin mangas", "mouwloos", "sans manches"]):
             return False, "El model és de màniga llarga però la fitxa és Sleeveless"
 
+    if "ADV" in code and any(plus_tok in combined for plus_tok in ["advance+", "advance plus", "advance-plus", "advence+", "advence plus"]):
+        return False, "Versió Advance+ / Advance Plus exclosa (el model monitoritzat és l'Advance estàndard)"
+
     if any(bad in combined for bad in ["goggles", "gafas", "gloves", "guantes", "socks", "calcetines", "buoy", "boya", "cap", "gorro", "trisuit", "kneeskin", "jammer"]):
         return False, "Accessori exclòs (no és un neoprè)"
 
@@ -537,8 +540,8 @@ async def discover_missing_pdps(page_es, page_uk, tracking, today_str):
                 discovered_total += 1
             else:
                 if row.get("status") in ("UNMAPPED", "NOT_LISTED"):
-                    row["status"] = "NOT_LISTED"
-                    row["evidence"] = f"Verificat al catàleg i cercador de {operator} ({today_str}): model no comercialitzat actualment"
+                    row["status"] = "UNMAPPED"
+                    row["evidence"] = f"Cerca automàtica a {operator} ({today_str}): cap fitxa PDP localitzada (no confirma absència comercial)"
 
     return discovered_total
 
@@ -567,6 +570,8 @@ def evaluate_page_info_candidates(page_info, row, source_prefix=""):
     min_allowed_ratio = 0.25 if has_exact_sku else 0.42
 
     candidates = []
+    instock_variant_prices = []
+    oos_variant_prices = []
     detected_oos = False
     detected_instock = False
     currency_mismatch = False
@@ -584,13 +589,16 @@ def evaluate_page_info_candidates(page_info, row, source_prefix=""):
         else:
             z_val = normalize_price(zprod.get("price"))
             z_avail = str(zprod.get("availability") or "").lower()
+            is_z_oos = False
             if "instock" in z_avail:
                 detected_instock = True
             elif "outofstock" in z_avail or "discontinued" in z_avail:
                 detected_oos = True
+                is_z_oos = True
             if z_val:
                 candidates.append((
                     1,
+                    is_z_oos,
                     z_val,
                     f"{source_prefix}Zyte Product API [{z_curr or expected_curr} | Mercat {country}] ({z_val:.2f} {expected_sym}) · '{(zprod.get('name') or page_info.get('h1', ''))[:40]}'"
                 ))
@@ -613,6 +621,7 @@ def evaluate_page_info_candidates(page_info, row, source_prefix=""):
                 if "product" in t:
                     prod_name = str(item.get("name", "")).strip()
                     prod_sku = str(item.get("sku", "") or item.get("mpn", "") or item.get("gtin13", "")).strip()
+                    variant_size = str(item.get("size", "") or item.get("color", "")).strip()
                     if prod_name:
                         ld_ok, _ = validate_product_identity(f"{prod_name} {prod_sku}", url, code, model_name)
                         if not ld_ok:
@@ -634,16 +643,24 @@ def evaluate_page_info_candidates(page_info, row, source_prefix=""):
                             continue
                         effective_curr = curr or expected_curr
                         avail = str(off.get("availability", "")).lower()
+                        off_size = str(off.get("sku", "") or off.get("name", "") or variant_size).strip()
+                        is_off_oos = False
                         if "instock" in avail:
                             detected_instock = True
                         elif "outofstock" in avail or "discontinued" in avail:
                             detected_oos = True
+                            is_off_oos = True
                         for p_key in ["price", "lowPrice", "highPrice"]:
                             if p_key in off:
                                 val = normalize_price(off[p_key])
-                                if val:
+                                if val and (pvp * min_allowed_ratio) <= val <= (pvp * 1.20):
+                                    if not is_off_oos and p_key in ("price", "lowPrice"):
+                                        instock_variant_prices.append((val, off_size))
+                                    elif is_off_oos:
+                                        oos_variant_prices.append((val, off_size))
                                     candidates.append((
                                         1,
+                                        is_off_oos,
                                         val,
                                         f"{source_prefix}JSON-LD {p_key} [{effective_curr} | Mercat {country}] ({val:.2f} {expected_sym}) · Producte: '{(prod_name or page_info.get('h1', ''))[:40]}'"
                                     ))
@@ -659,6 +676,7 @@ def evaluate_page_info_candidates(page_info, row, source_prefix=""):
         if val:
             candidates.append((
                 2,
+                False,
                 val,
                 f"{source_prefix}Meta OG [{m_curr or expected_curr} | Mercat {country}] ({val:.2f} {expected_sym}) · H1: '{page_info.get('h1', '')[:40]}'"
             ))
@@ -688,22 +706,43 @@ def evaluate_page_info_candidates(page_info, row, source_prefix=""):
             if val:
                 candidates.append((
                     3,
+                    False,
                     val,
                     f"{source_prefix}DOM Principal {dp['selector']} [{expected_curr} | Mercat {country}] ({val:.2f} {expected_sym}) · H1: '{page_info.get('h1', '')[:38]}'"
                 ))
 
-    valid_candidates = [(prio, p, ev) for (prio, p, ev) in candidates if (pvp * min_allowed_ratio) <= p <= (pvp * 1.20)]
+    body_has_oos_text = any(w in body_low for w in ["agotado", "out of stock", "fuera de stock", "sold out", "no disponible", "currently unavailable"])
+    if body_has_oos_text and not detected_instock:
+        detected_oos = True
+
+    valid_candidates = [(prio, is_oos_cand, p, ev) for (prio, is_oos_cand, p, ev) in candidates if (pvp * min_allowed_ratio) <= p <= (pvp * 1.20)]
+
+    # If there are in-stock candidates, filter out any candidate that is explicitly marked out-of-stock
+    instock_candidates = [c for c in valid_candidates if not c[1]]
+    if instock_candidates:
+        valid_candidates = instock_candidates
 
     if not valid_candidates:
         if currency_mismatch:
             return None, False, "CURRENCY_MISMATCH", f"Moneda de la pàgina no coincideix amb {expected_curr} ({country})"
-        if detected_oos or any(w in body_low for w in ["agotado", "out of stock", "fuera de stock", "sold out", "no disponible", "currently unavailable"]):
+        if detected_oos:
             return None, True, "OUT_OF_STOCK", f"Producte esgotat a la fitxa ({(page_info.get('h1') or page_info.get('title') or '')[:35]})"
         return None, False, "NO_VALID_PRICE", f"Cap preu principal ({expected_curr}) validat a la fitxa"
 
-    valid_candidates.sort(key=lambda x: (x[0], x[1]))
-    _, best_price, best_evidence = valid_candidates[0]
-    final_oos = False if detected_instock else False
+    # Sort by priority (1=JSON-LD/Zyte, 2=Meta, 3=DOM) then lowest price
+    valid_candidates.sort(key=lambda x: (x[0], x[2]))
+    _, best_cand_oos, best_price, best_evidence = valid_candidates[0]
+
+    # Subtle note in tooltip if multiple in-stock sizes have different prices
+    unique_instock_prices = sorted(list(set(round(p, 2) for (p, _) in instock_variant_prices)))
+    if len(unique_instock_prices) > 1:
+        min_p = unique_instock_prices[0]
+        max_p = unique_instock_prices[-1]
+        min_sizes = [sz for (p, sz) in instock_variant_prices if round(p, 2) == min_p and sz]
+        sz_note = f" ({min_sizes[0][:18]})" if min_sizes else ""
+        best_evidence += f" · [Nota talles: preu mínim en talla específica{sz_note}; altres talles en estoc fins a {max_p:.2f} {expected_sym}]"
+
+    final_oos = True if (best_cand_oos or (detected_oos and not detected_instock)) else False
     return round(best_price, 2), final_oos, "VERIFIED", best_evidence
 
 async def extract_verified_pdp_price(page, row, force_zyte_only=False):
@@ -847,10 +886,11 @@ async def main():
             row["is_from"] = False
             url = row.get("url", "").strip()
             if not url:
-                row["status"] = "NOT_LISTED"
+                if row.get("status") not in ("NOT_LISTED", "UNMAPPED"):
+                    row["status"] = "UNMAPPED"
                 row["freshness"] = "NONE"
                 if not row.get("evidence"):
-                    row["evidence"] = "Model no llistat al catàleg actual de l'operador"
+                    row["evidence"] = "Cerca automàtica: cap fitxa PDP localitzada al catàleg de l'operador"
                 continue
 
             if is_generic_category_url(url):

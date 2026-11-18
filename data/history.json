@@ -1045,9 +1045,10 @@
     "out_of_stock": false,
     "is_from": false,
     "url": "https://www.deporvillage.co.uk/zone3-advance-plus-wetsuit-black-grey-blue-women",
-    "audit_status": "VALID",
+    "audit_status": "QUARANTINED_MODEL_MISMATCH",
     "run_slot": "2026-10-11-AM",
-    "evidence": "Lectura històrica validada a fitxa individual (PDP)"
+    "evidence": "Lectura històrica validada a fitxa individual (PDP)",
+    "quarantine_reason": "Exclòs en auditoria v9.5: La URL correspon al model Zone3 Advance Plus, diferent del model estàndard WS21WADV101."
   },
   {
     "timestamp": "2026-10-11",
@@ -1488,6 +1489,25 @@
     "audit_status": "VALID",
     "run_slot": "2026-10-11-AM",
     "evidence": "Lectura històrica validada a fitxa individual (PDP)"
+  },
+  {
+    "timestamp": "2026-10-11",
+    "country": "UK",
+    "currency": "GBP",
+    "operator": "Deporvillage",
+    "code": "WS21WADV101",
+    "model": "Women's Advance Wetsuit",
+    "pvp": 299,
+    "price": 282.97,
+    "disc_imp": 16.03,
+    "disc_pct": 5.4,
+    "out_of_stock": false,
+    "is_from": false,
+    "url": "https://www.deporvillage.co.uk/zone3-advance-plus-wetsuit-black-grey-blue-women",
+    "audit_status": "QUARANTINED_PREVIOUS_RUN",
+    "run_slot": "2026-10-11-AM",
+    "evidence": "Lectura històrica validada a fitxa individual (PDP)",
+    "quarantine_reason": "Conservat en quarantena per traçabilitat: lectura capturada amb la versió anterior del lector sense validació estricta de bloc principal."
   },
   {
     "timestamp": "2026-10-12",
@@ -29004,11 +29024,12 @@
     "out_of_stock": false,
     "is_from": false,
     "url": "https://www.deporvillage.co.uk/zone3-advance-plus-wetsuit-black-grey-blue-women",
-    "audit_status": "VALID",
+    "audit_status": "QUARANTINED_MODEL_MISMATCH",
     "run_slot": "2026-11-15-AM",
     "evidence": "Lectura històrica validada a fitxa individual (PDP)",
     "previous_url": "https://www.deporvillage.net/zone3-advance-plus-wetsuit-black-grey-blue-women",
-    "audit_note": "URL normalitzada del domini genèric .net al domini local de mercat (.com / .co.uk) mantenint la fitxa PDP exacta"
+    "audit_note": "URL normalitzada del domini genèric .net al domini local de mercat (.com / .co.uk) mantenint la fitxa PDP exacta",
+    "quarantine_reason": "Exclòs en auditoria v9.5: La URL correspon al model Zone3 Advance Plus, diferent del model estàndard WS21WADV101."
   },
   {
     "timestamp": "2026-11-15",
@@ -29355,6 +29376,27 @@
     "audit_status": "VALID",
     "run_slot": "2026-11-15-AM",
     "evidence": "Lectura històrica validada a fitxa individual (PDP)"
+  },
+  {
+    "timestamp": "2026-11-15",
+    "country": "UK",
+    "currency": "GBP",
+    "operator": "Deporvillage",
+    "code": "WS21WADV101",
+    "model": "Women's Advance Wetsuit",
+    "pvp": 299,
+    "price": 264.51,
+    "disc_imp": 34.49,
+    "disc_pct": 11.5,
+    "out_of_stock": false,
+    "is_from": false,
+    "url": "https://www.deporvillage.co.uk/zone3-advance-plus-wetsuit-black-grey-blue-women",
+    "audit_status": "QUARANTINED_PREVIOUS_RUN",
+    "run_slot": "2026-11-15-AM",
+    "evidence": "Lectura històrica validada a fitxa individual (PDP)",
+    "previous_url": "https://www.deporvillage.net/zone3-advance-plus-wetsuit-black-grey-blue-women",
+    "audit_note": "URL normalitzada del domini genèric .net al domini local de mercat (.com / .co.uk) mantenint la fitxa PDP exacta",
+    "quarantine_reason": "Conservat en quarantena per traçabilitat: lectura capturada amb la versió anterior del lector sense validació estricta de bloc principal."
   },
   {
     "timestamp": "2026-11-16",
