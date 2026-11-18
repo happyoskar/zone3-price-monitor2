@@ -66,7 +66,7 @@ def is_generic_category_url(u):
         return True
     if any(p in u_low for p in GENERIC_URL_PATTERNS):
         return True
-    if any( in u_low for  in ["/search", "catalogsearch", "searchterm=", "?q="]):
+    if any(x in u_low for x in ["/search", "catalogsearch", "searchterm=", "?q="]):
         return True
     return False
 
