@@ -2,8 +2,17 @@ import asyncio
 import json
 import re
 from datetime import datetime
-from urllib.parse import urlparse, urljoin
+from urllib.parse import urlparse, quote_plus
 from playwright.async_api import async_playwright
+
+STEALTH_INIT_SCRIPT = """
+Object.defineProperty(navigator, 'webdriver', { get: () => undefined });
+window.chrome = { runtime: {} };
+Object.defineProperty(navigator, 'plugins', { get: () => [1, 2, 3, 4, 5] });
+Object.defineProperty(navigator, 'languages', { get: () => ['es-ES', 'es', 'en-GB', 'en'] });
+"""
+
+USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
 
 GENERIC_URL_PATTERNS = [
     "/brands/zone-3",
@@ -19,16 +28,82 @@ OPERATOR_CATALOG_URLS = {
     ("ES", "Trade Inn"): ["https://www.tradeinn.com/swiminn/es/trajes-y-complementos-trajes/11400/s?q=zone3"],
     ("ES", "Deporvillage"): ["https://www.deporvillage.com/natacion-zone3", "https://www.deporvillage.com/catalogsearch/result/?q=zone3+neopreno"],
     ("ES", "Bike 24"): ["https://www.bike24.es/marcas/zone3", "https://www.bike24.es/buscar?searchTerm=zone3+wetsuit"],
-    ("ES", "Sportano"): ["https://sportano.com/en/zone3", "https://sportano.com/en/search?q=zone3+wetsuit"],
-    ("ES", "Wetsuit Outlet"): ["https://www.wetsuitoutlet.es/zone3-m-123.html?currency=EUR"],
-    ("ES", "Triathlon24"): ["https://www.triathlon24.nl/wetsuits/zone3/"],
-    ("ES", "Alltricks"): ["https://www.alltricks.es/C-46286-combinaisons-_-maillots-de-bain/N-147403-marque~zone3"],
+    ("ES", "Sportano"): [
+        "https://sportano.com/en/zone3",
+        "https://sportano.com/en/zone3?p=2",
+        "https://sportano.com/en/search?q=zone3+wetsuit",
+        "https://sportano.com/en/search?q=zone3+vanquish",
+        "https://sportano.com/en/search?q=zone3+aspire",
+        "https://sportano.com/en/search?q=zone3+vision",
+        "https://sportano.com/en/search?q=zone3+active+flex",
+        "https://sportano.com/en/search?q=zone3+glide",
+        "https://sportano.com/en/search?q=zone3+versa"
+    ],
+    ("ES", "Wetsuit Outlet"): [
+        "https://www.wetsuitoutlet.es/zone3-m-123.html?currency=EUR",
+        "https://www.wetsuitoutlet.es/advanced_search_result.php?keywords=zone3+vanquish&currency=EUR",
+        "https://www.wetsuitoutlet.es/advanced_search_result.php?keywords=zone3+aspire&currency=EUR",
+        "https://www.wetsuitoutlet.es/advanced_search_result.php?keywords=zone3+versa&currency=EUR"
+    ],
+    ("ES", "Triathlon24"): [
+        "https://www.triathlon24.nl/wetsuits/zone3/",
+        "https://www.triathlon24.nl/search/zone3+vanquish/",
+        "https://www.triathlon24.nl/search/zone3+ascend/",
+        "https://www.triathlon24.nl/search/zone3+glide/",
+        "https://www.triathlon24.nl/search/zone3+versa/"
+    ],
+    ("ES", "Alltricks"): [
+        "https://www.alltricks.es/C-46286-combinaisons-_-maillots-de-bain/N-147403-marque~zone3",
+        "https://www.alltricks.es/s?k=zone3+neopreno",
+        "https://www.alltricks.es/s?k=zone3+vanquish",
+        "https://www.alltricks.es/s?k=zone3+aspire",
+        "https://www.alltricks.es/s?k=zone3+vision",
+        "https://www.alltricks.es/s?k=zone3+active+flex",
+        "https://www.alltricks.es/s?k=zone3+ascend"
+    ],
     ("UK", "Trade Inn"): ["https://www.tradeinn.com/swiminn/en/suits-and-complements-suits/11400/s?q=zone3"],
-    ("UK", "Deporvillage"): ["https://www.deporvillage.co.uk/swimming-triathlon%3Azone3%3Aneoprene_wetsuits"],
-    ("UK", "Sportshoes"): ["https://www.sportsshoes.com/products/?q=zone3%20wetsuit"],
+    ("UK", "Deporvillage"): [
+        "https://www.deporvillage.co.uk/swimming-triathlon%3Azone3%3Aneoprene_wetsuits",
+        "https://www.deporvillage.co.uk/catalogsearch/result/?q=zone3+wetsuit"
+    ],
+    ("UK", "Sportshoes"): [
+        "https://www.sportsshoes.com/products/?q=zone3%20wetsuit",
+        "https://www.sportsshoes.com/products/?q=zone3%20aspire",
+        "https://www.sportsshoes.com/products/?q=zone3%20ascend",
+        "https://www.sportsshoes.com/products/?q=zone3%20versa"
+    ],
     ("UK", "My Triathlon"): ["https://mytriathlon.co.uk/brands/Zone-3.html"],
-    ("UK", "Sigma"): ["https://www.sigmasports.com/brand/zone3/wetsuits"],
-    ("UK", "Wetsuit Outlet"): ["https://www.wetsuitoutlet.co.uk/zone3-m-123.html?currency=GBP"]
+    ("UK", "Sigma"): [
+        "https://www.sigmasports.com/brand/zone3/wetsuits",
+        "https://www.sigmasports.com/brand/zone3",
+        "https://www.sigmasports.com/search?query=zone3+wetsuit",
+        "https://www.sigmasports.com/search?query=zone3+vision",
+        "https://www.sigmasports.com/search?query=zone3+agile",
+        "https://www.sigmasports.com/search?query=zone3+active+flex",
+        "https://www.sigmasports.com/search?query=zone3+ascend"
+    ],
+    ("UK", "Wetsuit Outlet"): [
+        "https://www.wetsuitoutlet.co.uk/zone3-m-123.html?currency=GBP",
+        "https://www.wetsuitoutlet.co.uk/advanced_search_result.php?keywords=zone3+vanquish&currency=GBP",
+        "https://www.wetsuitoutlet.co.uk/advanced_search_result.php?keywords=zone3+aspire&currency=GBP",
+        "https://www.wetsuitoutlet.co.uk/advanced_search_result.php?keywords=zone3+versa&currency=GBP"
+    ]
+}
+
+OPERATOR_DOMAIN_FILTER = {
+    ("ES", "Trade Inn"): "tradeinn.com",
+    ("ES", "Deporvillage"): "deporvillage.com",
+    ("ES", "Bike 24"): "bike24.es",
+    ("ES", "Sportano"): "sportano.com",
+    ("ES", "Wetsuit Outlet"): "wetsuitoutlet.es",
+    ("ES", "Triathlon24"): "triathlon24.nl",
+    ("ES", "Alltricks"): "alltricks.es",
+    ("UK", "Trade Inn"): "tradeinn.com",
+    ("UK", "Deporvillage"): "deporvillage.co.uk",
+    ("UK", "Sportshoes"): "sportsshoes.com",
+    ("UK", "My Triathlon"): "mytriathlon.co.uk",
+    ("UK", "Sigma"): "sigmasports.com",
+    ("UK", "Wetsuit Outlet"): "wetsuitoutlet.co.uk"
 }
 
 MODEL_KEYWORDS = {
@@ -50,8 +125,26 @@ MODEL_KEYWORDS = {
     "WS25WSRV101": ["versa"]
 }
 
+MODEL_EANS = {
+    "WS22MVAN101": "5056305724818",
+    "WS22WVAN101": "5056305724894",
+    "WS25MASP101": "5056305745202",
+    "WS25WASP101": "5056305745295",
+    "WS24MVIS101": "5056305737726",
+    "WS24WVIS101": "5056305739447",
+    "WS21MADV101": "5056305711115",
+    "WS21WADV101": "5056305710835",
+    "WS21MAGI116": "5056305711139",
+    "WS21WAGI114": "5056305711221",
+    "WS26MGLISL101": "5056305752330",
+    "WS26WGLISL101": "5056305752385",
+    "WS25MACTF101": "5056305745370",
+    "WS25WACTF101": "5056305745455",
+    "WS25MSRV101": "5056305745585",
+    "WS25WSRV101": "5056305746940"
+}
+
 FEMALE_TOKENS = ["women", "woman", "mujer", "dames", "femme", "womens", "ladies", "chica"]
-MALE_TOKENS = ["men", "man", "hombre", "heren", "homme", "mens"]
 
 EXPECTED_MARKET_SIGNALS = {
     "ES": {"currency": "EUR", "symbol": "€", "forbidden_symbol": "£", "bad_domains": [".co.uk"]},
@@ -66,7 +159,7 @@ def is_generic_category_url(u):
         return True
     if any(p in u_low for p in GENERIC_URL_PATTERNS):
         return True
-    if any(x in u_low for x in ["/search", "catalogsearch", "searchterm=", "?q="]):
+    if any(x in u_low for x in ["/search", "catalogsearch", "searchterm=", "?q=", "/s?k=", "advanced_search_result"]):
         return True
     return False
 
@@ -98,10 +191,15 @@ def validate_product_identity(text_to_check, url, code, model_name):
     if keywords and not any(k in combined for k in keywords):
         return False, f"El producte ('{text_to_check[:45]}') no conté el model ({'/'.join(keywords)})"
 
-    # For sleeveless models, ensure sleeveless / sin mangas / mouwloos is present if glide/ascend
     if "GLISL" in code:
         if not any(w in combined for w in ["sleeveless", "sin mangas", "mouwloos", "sans manches", "glisl", "ascend"]):
             return False, "El model és Sleeveless (sense mànigues) però la fitxa és de màniga llarga"
+    else:
+        if any(w in combined for w in ["sleeveless", "sin mangas", "mouwloos", "sans manches"]):
+            return False, "El model és de màniga llarga però la fitxa és Sleeveless"
+
+    if any(bad in combined for bad in ["goggles", "gafas", "gloves", "guantes", "socks", "calcetines", "buoy", "boya", "cap", "gorro", "trisuit", "kneeskin", "jammer"]):
+        return False, "Accessori exclòs (no és un neoprè)"
 
     is_womens_model = "W" in code[4:6] or "women" in model_name.lower()
     has_female_word = any(re.search(r"\b" + w + r"\b", combined) for w in FEMALE_TOKENS)
@@ -126,7 +224,7 @@ def validate_market_url(url, country):
     return True, f"Mercat {country} validat a la URL"
 
 async def discover_missing_pdps(page_es, page_uk, tracking, today_str):
-    """Auto-Discovery engine: scans operator Zone3 catalogs to find PDP URLs for NOT_LISTED / UNMAPPED / PENDING_PDP cells."""
+    """Deep Auto-Discovery engine: scans operator Zone3 catalogs, model search endpoints, and DuckDuckGo HTML fallback."""
     missing_by_op = {}
     for row in tracking:
         st = row.get("status", "")
@@ -136,17 +234,19 @@ async def discover_missing_pdps(page_es, page_uk, tracking, today_str):
     discovered_total = 0
     for (country, operator), rows in missing_by_op.items():
         cat_urls = OPERATOR_CATALOG_URLS.get((country, operator), [])
-        if not cat_urls:
-            continue
+        expected_dom = OPERATOR_DOMAIN_FILTER.get((country, operator), "")
         page = page_uk if country == "UK" else page_es
         collected_links = []
 
+        # 1. Scan operator catalog & targeted model search URLs
         for c_url in cat_urls:
             try:
                 resp = await page.goto(c_url, wait_until="domcontentloaded", timeout=25000)
                 if not resp or resp.status >= 400:
                     continue
-                await page.wait_for_timeout(2000)
+                await page.wait_for_timeout(1800)
+                await page.evaluate("window.scrollTo(0, document.body.scrollHeight / 2)")
+                await page.wait_for_timeout(700)
                 links = await page.evaluate("""() => {
                     return Array.from(document.querySelectorAll('a[href]')).map(a => ({
                         href: a.href,
@@ -157,15 +257,15 @@ async def discover_missing_pdps(page_es, page_uk, tracking, today_str):
             except Exception:
                 continue
 
-        if not collected_links:
-            continue
-
+        # Match collected links against missing rows
         for row in rows:
             code = row["code"]
             model_name = row["model"]
             found_url = None
             for link in collected_links:
                 href = link["href"].split("#")[0]
+                if expected_dom and expected_dom not in href.lower():
+                    continue
                 if is_generic_category_url(href):
                     continue
                 mkt_ok, _ = validate_market_url(href, country)
@@ -179,15 +279,43 @@ async def discover_missing_pdps(page_es, page_uk, tracking, today_str):
                     found_url = href
                     break
 
+            # 2. Fallback: DuckDuckGo HTML search (`site:<operator_domain> zone3 <model>`) if still not found
+            if not found_url and expected_dom and code != "WS25WSRV101":
+                try:
+                    q_str = f"site:{expected_dom} zone3 {model_name} {code}"
+                    ddg_url = f"https://html.duckduckgo.com/html/?q={quote_plus(q_str)}"
+                    resp = await page.goto(ddg_url, wait_until="domcontentloaded", timeout=18000)
+                    if resp and resp.status == 200:
+                        await page.wait_for_timeout(1000)
+                        ddg_links = await page.evaluate("""() => {
+                            return Array.from(document.querySelectorAll('a.result__a')).map(a => ({
+                                href: a.href,
+                                text: (a.innerText || '').trim()
+                            }));
+                        }""")
+                        for dlink in ddg_links:
+                            href = dlink["href"].split("#")[0]
+                            if expected_dom not in href.lower() or is_generic_category_url(href):
+                                continue
+                            mkt_ok, _ = validate_market_url(href, country)
+                            if not mkt_ok:
+                                continue
+                            id_ok, _ = validate_product_identity(dlink["text"], href, code, model_name)
+                            if id_ok:
+                                found_url = href
+                                break
+                except Exception:
+                    pass
+
             if found_url:
                 row["url"] = found_url
                 row["status"] = "PENDING_URL"
-                row["evidence"] = f"Auto-Discovery ({today_str}): Fitxa PDP localitzada al catàleg de {operator}"
+                row["evidence"] = f"Auto-Discovery ({today_str}): Fitxa PDP localitzada per a {operator} ({country})"
                 discovered_total += 1
             else:
                 if row.get("status") in ("UNMAPPED", "NOT_LISTED"):
                     row["status"] = "NOT_LISTED"
-                    row["evidence"] = f"Verificat al catàleg de {operator} ({today_str}): model no llistat actualment"
+                    row["evidence"] = f"Verificat al catàleg i cercador de {operator} ({today_str}): model no comercialitzat actualment"
 
     return discovered_total
 
@@ -256,7 +384,7 @@ async def extract_verified_pdp_price(page, row):
                 });
             });
 
-            const bodyText = (document.body ? document.body.innerText : "").slice(0, 4000);
+            const bodyText = (document.body ? document.body.innerText : "").slice(0, 4500);
             return { title, h1, ldNodes, metaCurr, metaPrice, domPrices, bodyText };
         }""")
 
@@ -268,6 +396,11 @@ async def extract_verified_pdp_price(page, row):
         id_ok, id_msg = validate_product_identity(title_h1, url, code, model_name)
         if not id_ok:
             return None, False, "IDENTITY_MISMATCH", id_msg
+
+        # Check if exact SKU or EAN is present in the page or URL (allows deeper clearance discounts >= 25% PVP)
+        ean = MODEL_EANS.get(code, "")
+        has_exact_sku = (code.lower() in f"{title_h1} {url} {body_low}".lower()) or (ean and ean in body_low)
+        min_allowed_ratio = 0.25 if has_exact_sku else 0.42
 
         candidates = []
         detected_oos = False
@@ -290,7 +423,7 @@ async def extract_verified_pdp_price(page, row):
                     t = str(item.get("@type", "")).lower()
                     if "product" in t:
                         prod_name = str(item.get("name", "")).strip()
-                        prod_sku = str(item.get("sku", "") or item.get("mpn", "")).strip()
+                        prod_sku = str(item.get("sku", "") or item.get("mpn", "") or item.get("gtin13", "")).strip()
                         if prod_name:
                             ld_ok, _ = validate_product_identity(f"{prod_name} {prod_sku}", url, code, model_name)
                             if not ld_ok:
@@ -314,7 +447,7 @@ async def extract_verified_pdp_price(page, row):
                             avail = str(off.get("availability", "")).lower()
                             if "outofstock" in avail or "discontinued" in avail:
                                 detected_oos = True
-                            for p_key in ["price", "lowPrice"]:
+                            for p_key in ["price", "lowPrice", "highPrice"]:
                                 if p_key in off:
                                     val = normalize_price(off[p_key])
                                     if val:
@@ -342,7 +475,7 @@ async def extract_verified_pdp_price(page, row):
         # 3. Main Product DOM elements (excluding all carousels/related blocks)
         u_low = url.lower()
         has_local_domain_currency = (
-            (country == "ES" and any(d in u_low for d in [".es/", ".nl/", "country=es", "currency=eur", "deporvillage.com/"])) or
+            (country == "ES" and any(d in u_low for d in [".es/", ".nl/", "country=es", "currency=eur", "deporvillage.com/", "sportano.com/"])) or
             (country == "UK" and any(d in u_low for d in [".co.uk/", "country=uk", "currency=gbp", "sigmasports.com/", "sportsshoes.com/"]))
         )
         for dp in page_info["domPrices"]:
@@ -368,14 +501,14 @@ async def extract_verified_pdp_price(page, row):
                         f"DOM Principal {dp['selector']} [{expected_curr} | Mercat {country}] ({val:.2f} {expected_sym}) · H1: '{page_info['h1'][:38]}'"
                     ))
 
-        valid_candidates = [(prio, p, ev) for (prio, p, ev) in candidates if (pvp * 0.45) <= p <= (pvp * 1.20)]
+        valid_candidates = [(prio, p, ev) for (prio, p, ev) in candidates if (pvp * min_allowed_ratio) <= p <= (pvp * 1.20)]
 
         if not valid_candidates:
             if currency_mismatch:
                 return None, False, "CURRENCY_MISMATCH", f"Moneda de la pàgina no coincideix amb {expected_curr} ({country})"
-            if detected_oos or any(w in body_low for w in ["agotado", "out of stock", "fuera de stock", "sold out", "no disponible"]):
-                return None, True, "OUT_OF_STOCK", f"Producte sense estoc a la fitxa ({page_info['h1'][:35] or page_info['title'][:35]})"
-            return None, False, "NO_VALID_PRICE", f"Cap preu principal ({expected_curr}) entre 45%-120% PVP"
+            if detected_oos or any(w in body_low for w in ["agotado", "out of stock", "fuera de stock", "sold out", "no disponible", "currently unavailable"]):
+                return None, True, "OUT_OF_STOCK", f"Producte esgotat a la fitxa ({page_info['h1'][:35] or page_info['title'][:35]})"
+            return None, False, "NO_VALID_PRICE", f"Cap preu principal ({expected_curr}) validat a la fitxa"
 
         valid_candidates.sort(key=lambda x: (x[0], x[1]))
         _, best_price, best_evidence = valid_candidates[0]
@@ -397,17 +530,32 @@ async def main():
     now_iso = now_dt.strftime("%Y-%m-%dT%H:%M:%SZ")
 
     domain_blocks = {}
-    CIRCUIT_BREAKER_LIMIT = 3
+    CIRCUIT_BREAKER_LIMIT = 4
 
     async with async_playwright() as p:
-        browser = await p.chromium.launch(headless=True)
-        context_es = await browser.new_context(locale="es-ES", timezone_id="Europe/Madrid")
-        context_uk = await browser.new_context(locale="en-GB", timezone_id="Europe/London")
+        browser = await p.chromium.launch(
+            headless=True,
+            args=["--disable-blink-features=AutomationControlled", "--no-sandbox"]
+        )
+        context_es = await browser.new_context(
+            locale="es-ES",
+            timezone_id="Europe/Madrid",
+            user_agent=USER_AGENT,
+            viewport={"width": 1366, "height": 768}
+        )
+        context_uk = await browser.new_context(
+            locale="en-GB",
+            timezone_id="Europe/London",
+            user_agent=USER_AGENT,
+            viewport={"width": 1366, "height": 768}
+        )
+        await context_es.add_init_script(STEALTH_INIT_SCRIPT)
+        await context_uk.add_init_script(STEALTH_INIT_SCRIPT)
 
         page_es = await context_es.new_page()
         page_uk = await context_uk.new_page()
 
-        # PHASE 1: Auto-Discovery of missing PDP URLs on operator catalogs
+        # PHASE 1: Deep Auto-Discovery of missing PDP URLs (Catalog + Search + DuckDuckGo HTML fallback)
         discovered_count = await discover_missing_pdps(page_es, page_uk, tracking, today_str)
 
         updated_count = 0
