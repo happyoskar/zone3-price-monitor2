@@ -30,8 +30,10 @@ jobs:
           pip install playwright
           playwright install --with-deps chromium
 
-      - name: Execute Real Price Scraper (108 URLs)
-        run: python scraper.py
+      - name: Execute Real Price Scraper (Playwright Stealth + Zyte Hybrid Fallback)
+        env:
+          ZYTE_API_KEY: ${{ secrets.ZYTE_API_KEY }}
+        run: python -u scraper.py
 
       - name: Commit and Push Updated Prices & HTML Dashboard
         run: |
