@@ -201,11 +201,7 @@ DIRECT_CANDIDATE_PROBES = {
         "https://www.deporvillage.co.uk/zone3-advance-wetsuit-black-turquoise-women",
         "https://www.deporvillage.co.uk/zone3-advance-wetsuit-women"
     ],
-    ("UK", "Deporvillage", "WS25WSRV101"): [
-        "https://www.deporvillage.co.uk/zone3-versa-swimrun-wetsuit-black-orange-women",
-        "https://www.deporvillage.co.uk/zone3-versa-swimrun-wetsuit-women",
-        "https://www.deporvillage.co.uk/zone3-versa-swimrun-wetsuit-black-green-women"
-    ],
+
     ("UK", "Deporvillage", "WS26MGLISL101"): [
         "https://www.deporvillage.co.uk/zone3-ascend-sleeveless-wetsuit-black-grey",
         "https://www.deporvillage.co.uk/zone3-glide-sleeveless-wetsuit-black-grey",
@@ -440,28 +436,11 @@ def parse_html_fast_stdlib(html_str, base_url, zprod=None):
         if m_mp:
             meta_price = m_mp.group(1).strip()
 
+        # Only extract unique main-product ID selectors (#js-precio, #productPrice) in raw HTML parser;
+        # never use broad class regexes over raw HTML to avoid capturing recommended/carousel product prices.
         dom_prices = []
-        for m_p in re.finditer(r'id=["\']js-precio["\'][^>]*>([^<]+)<', html_str, flags=re.I):
-            dom_prices.append({"selector": "#js-precio", "text": m_p.group(1).strip(), "attrCurr": ""})
-        # Extract data-testid="price" / data-testid="product-price" / itemprop="price" / Deporvillage & React price containers
-        for m_dt in re.finditer(r'data-testid=["\'](?:product-price|price|current-price|final-price)["\'][^>]*>(.*?)</(?:span|div|p|strong)>', html_str, flags=re.I | re.S):
-            txt_dt = re.sub(r"<[^>]+>", " ", m_dt.group(1)).strip()
-            if txt_dt:
-                dom_prices.append({"selector": "[data-testid=price]", "text": txt_dt, "attrCurr": ""})
-        for m_ip in re.finditer(r'itemprop=["\']price["\'][^>]*content=["\']([^"\']+)["\']', html_str, flags=re.I):
-            dom_prices.append({"selector": "[itemprop=price]", "text": m_ip.group(1).strip(), "attrCurr": meta_curr})
-        for m_cls in re.finditer(r'class=["\'][^"\']*(?:product-detail-price|price__value|pdp-price|product-page-price|final-price|price-sales|current-price)[^"\']*["\'][^>]*>(.*?)</(?:span|div|p|strong)>', html_str, flags=re.I | re.S):
-            txt_cls = re.sub(r"<[^>]+>", " ", m_cls.group(1)).strip()
-            if txt_cls and len(txt_cls) < 40:
-                dom_prices.append({"selector": ".product-price", "text": txt_cls, "attrCurr": ""})
-        # Extract Next.js __NEXT_DATA__ product price if present (used by Deporvillage and modern React stores)
-        m_next = re.search(r'<script[^>]*id=["\']__NEXT_DATA__["\'][^>]*>(.*?)</script>', html_str, flags=re.I | re.S)
-        if m_next:
-            next_raw = m_next.group(1)
-            for m_np in re.finditer(r'"(?:finalPrice|specialPrice|salePrice|currentPrice|price|lowPrice)"\s*:\s*(?:"([\d]+(?:[.,]\d{1,2})?)"|([\d]+(?:\.\d{1,2})?))', next_raw):
-                val_np = m_np.group(1) or m_np.group(2)
-                if val_np:
-                    dom_prices.append({"selector": "__NEXT_DATA__", "text": val_np, "attrCurr": meta_curr})
+        for m_p in re.finditer(r'id=["\'](?:js-precio|productPrice)["\'][^>]*>([^<]+)<', html_str, flags=re.I):
+            dom_prices.append({"selector": "#js-precio", "text": m_p.group(1).strip(), "attrCurr": meta_curr})
 
         # Extract links including title, aria-label, and inner img alt attributes (crucial for Sportano & Alltricks product cards)
         links = []
@@ -740,17 +719,20 @@ def evaluate_page_info_candidates(page_info, row, source_prefix=""):
     detected_instock = False
     currency_mismatch = False
 
-    # 0. Zyte Automatic Product Extraction (if provided by Zyte fallback)
+    # 0. Zyte Automatic Product Extraction (individually validated for product identity & currency)
     zprod = page_info.get("zyteProduct") or {}
     if isinstance(zprod, dict) and zprod.get("price"):
+        z_name = str(zprod.get("name") or "").strip()
+        z_sku = str(zprod.get("sku") or zprod.get("mpn") or zprod.get("gtin") or "").strip()
+        z_id_ok, _ = validate_product_identity(f"{z_name} {z_sku}" if z_name else title_h1, url, code, model_name)
         z_curr = str(zprod.get("currency") or zprod.get("currencyRaw") or "").upper().strip()
         if z_curr in ("€", "EUR"):
             z_curr = "EUR"
         elif z_curr in ("£", "GBP"):
             z_curr = "GBP"
-        if z_curr and z_curr != expected_curr:
+        if not z_curr or z_curr != expected_curr:
             currency_mismatch = True
-        else:
+        elif z_id_ok:
             z_val = normalize_price(zprod.get("price"))
             z_avail = str(zprod.get("availability") or "").lower()
             is_z_oos = False
@@ -764,7 +746,7 @@ def evaluate_page_info_candidates(page_info, row, source_prefix=""):
                     1,
                     is_z_oos,
                     z_val,
-                    f"{source_prefix}Zyte Product API [{market_tag}] ({z_val:.2f} {expected_sym}) · '{(zprod.get('name') or page_info.get('h1', ''))[:40]}'"
+                    f"{source_prefix}Zyte Product API [{market_tag}] ({z_val:.2f} {expected_sym}) · '{(z_name or page_info.get('h1', ''))[:40]}'"
                 ))
 
     # 1. Structured JSON-LD Product / ProductGroup / hasVariant offers
@@ -1006,16 +988,17 @@ async def extract_verified_pdp_price(page, row, force_zyte_only=False):
 
                 const forbiddenContainers = [
                     '.related', '.recommendations', '.cross-sell', '.upsell', '.similar-products',
-                    '.product-carousel', '.also-bought', '.alternatives', 'aside', 'footer', 'nav',
-                    '[data-testid*="recommend"]', '[class*="recommend"]', '[class*="related"]',
-                    '[class*="carousel"]', '[class*="slider"]', '[class*="cross"]', '[id*="related"]'
+                    '.product-carousel', '.also-bought', '.alternatives', 'aside', 'footer', 'nav', 'header',
+                    '[data-testid*="recommend"]', '[data-testid*="carousel"]', '[data-testid*="related"]',
+                    '[class*="recommend"]', '[class*="related"]', '[class*="carousel"]', '[class*="slider"]',
+                    '[class*="cross"]', '[class*="upsell"]', '[class*="similar"]', '[class*="other-products"]',
+                    '[id*="related"]', '[id*="recommend"]', '[id*="carousel"]'
                 ].join(', ');
 
                 const selectors = [
-                    '[itemprop="price"]', '#js-precio', '[data-testid="price"]', '[data-testid="product-price"]',
-                    '.product-detail-price', '.price__value', '.pdp-price', '.product-page-price',
-                    '.price--main', '.price--withoutTax', '#productPrice', '.product-price__price',
-                    '.final-price', '.price-box__price', '.product-price', '.price-sales', '.current-price'
+                    '#js-precio', '#productPrice', '[data-testid="product-price"]',
+                    '.product-detail-price', '.pdp-price', '.product-page-price',
+                    '.price--main', '.price--withoutTax', '.product-price__price'
                 ];
                 const domPrices = [];
                 selectors.forEach(sel => {
@@ -1273,20 +1256,23 @@ async def main():
     with open("data/history.json", "w", encoding="utf-8") as f:
         json.dump(history, f, indent=2, ensure_ascii=False)
 
-    valid_history = [h for h in history if h.get("audit_status", "VALID") == "VALID"]
-    history_compact = [
-        [
-            str(h.get("timestamp", ""))[:10],
-            h["country"],
-            h["operator"],
-            h["code"],
-            float(h["price"]),
-            round(float(h["disc_pct"]), 1),
-            1 if h.get("out_of_stock") else 0,
-            0
-        ]
-        for h in valid_history
-    ]
+    valid_history = [h for h in history if h.get("audit_status", "VALID") == "VALID" and h.get("price") is not None and float(h.get("disc_pct", 0)) <= 50.0]
+    daily_min_map = {}
+    for h in valid_history:
+        d_str = str(h.get("timestamp", ""))[:10]
+        k = (d_str, h["country"], h["operator"], h["code"])
+        if k not in daily_min_map or float(h["price"]) < daily_min_map[k][4]:
+            daily_min_map[k] = [
+                d_str,
+                h["country"],
+                h["operator"],
+                h["code"],
+                float(h["price"]),
+                round(float(h["disc_pct"]), 1),
+                1 if h.get("out_of_stock") else 0,
+                0
+            ]
+    history_compact = list(daily_min_map.values())
 
     with open("index.html", "r", encoding="utf-8") as f:
         html_doc = f.read()
