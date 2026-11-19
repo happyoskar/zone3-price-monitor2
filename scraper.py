@@ -21,6 +21,7 @@ USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTM
 
 GENERIC_URL_PATTERNS = [
     "/brands/zone-3",
+    "/brands/zone3",
     "/wetsuits/zone3/",
     "/natacion-zone3",
     "swimming-triathlon",
@@ -86,13 +87,14 @@ OPERATOR_CATALOG_URLS = {
         "https://sportano.com/en/search?q=WS25WSRV101"
     ],
     ("ES", "Wetsuit Outlet"): [
-        "https://www.wetsuitoutlet.es/zone3-m-123.html?currency=EUR",
-        "https://www.wetsuitoutlet.es/advanced_search_result.php?keywords=zone3+vanquish&currency=EUR",
-        "https://www.wetsuitoutlet.es/advanced_search_result.php?keywords=zone3+aspire&currency=EUR",
-        "https://www.wetsuitoutlet.es/advanced_search_result.php?keywords=zone3+versa&currency=EUR",
-        "https://www.wetsuitoutlet.es/advanced_search_result.php?keywords=WS25WASP&currency=EUR",
-        "https://www.wetsuitoutlet.es/advanced_search_result.php?keywords=WS22MVAN&currency=EUR",
-        "https://www.wetsuitoutlet.es/advanced_search_result.php?keywords=WS22WVAN&currency=EUR"
+        "https://www.wetsuitoutlet.es/es-es/marcas/zone3",
+        "https://www.wetsuitoutlet.es/en-es/brands/zone3",
+        "https://www.wetsuitoutlet.es/zone3-m-123.html",
+        "https://www.wetsuitoutlet.es/es-es/search?q=zone3+wetsuit",
+        "https://www.wetsuitoutlet.es/en-es/search?q=zone3+wetsuit",
+        "https://www.wetsuitoutlet.es/advanced_search_result.php?keywords=zone3+vanquish",
+        "https://www.wetsuitoutlet.es/advanced_search_result.php?keywords=zone3+aspire",
+        "https://www.wetsuitoutlet.es/advanced_search_result.php?keywords=zone3+versa"
     ],
     ("ES", "Triathlon24"): [
         "https://www.triathlon24.nl/wetsuits/zone3/",
@@ -157,11 +159,12 @@ OPERATOR_CATALOG_URLS = {
         "https://www.sigmasports.com/search?query=zone3+versa"
     ],
     ("UK", "Wetsuit Outlet"): [
-        "https://www.wetsuitoutlet.co.uk/zone3-m-123.html?currency=GBP",
-        "https://www.wetsuitoutlet.co.uk/advanced_search_result.php?keywords=zone3+vanquish&currency=GBP",
-        "https://www.wetsuitoutlet.co.uk/advanced_search_result.php?keywords=zone3+aspire&currency=GBP",
-        "https://www.wetsuitoutlet.co.uk/advanced_search_result.php?keywords=zone3+versa&currency=GBP",
-        "https://www.wetsuitoutlet.co.uk/advanced_search_result.php?keywords=WS25WASP&currency=GBP"
+        "https://www.wetsuitoutlet.co.uk/brands/zone3",
+        "https://www.wetsuitoutlet.co.uk/zone3-m-123.html",
+        "https://www.wetsuitoutlet.co.uk/search?q=zone3+wetsuit",
+        "https://www.wetsuitoutlet.co.uk/advanced_search_result.php?keywords=zone3+vanquish",
+        "https://www.wetsuitoutlet.co.uk/advanced_search_result.php?keywords=zone3+aspire",
+        "https://www.wetsuitoutlet.co.uk/advanced_search_result.php?keywords=zone3+versa"
     ]
 }
 
@@ -336,9 +339,11 @@ def normalize_price(val_str):
         return None
 
 def validate_product_identity(text_to_check, url, code, model_name):
-    combined = f"{text_to_check} {url}".lower()
+    raw_combined = f"{text_to_check} {url}".lower()
+    # Normalize underscores, hyphens, slashes, and punctuation to spaces so \b word-boundary regexes work on underscore URLs (e.g. Alltricks _para_mujer_)
+    combined = re.sub(r"[_/\-|.,;:()\[\]]+", " ", raw_combined)
     keywords = MODEL_KEYWORDS.get(code, [])
-    if keywords and not any(k in combined for k in keywords):
+    if keywords and not any(k in raw_combined or k in combined for k in keywords):
         return False, f"El producte ('{text_to_check[:45]}') no conté el model ({'/'.join(keywords)})"
 
     if "GLISL" in code:
@@ -348,7 +353,7 @@ def validate_product_identity(text_to_check, url, code, model_name):
         if any(w in combined for w in ["sleeveless", "sin mangas", "mouwloos", "sans manches"]):
             return False, "El model és de màniga llarga però la fitxa és Sleeveless"
 
-    if "ADV" in code and any(plus_tok in combined for plus_tok in ["advance+", "advance plus", "advance-plus", "advence+", "advence plus"]):
+    if "ADV" in code and any(plus_tok in raw_combined or plus_tok in combined for plus_tok in ["advance+", "advance plus", "advance-plus", "advence+", "advence plus"]):
         return False, "Versió Advance+ / Advance Plus exclosa (el model monitoritzat és l'Advance estàndard)"
 
     if any(re.search(r"\b" + re.escape(bad) + r"\b", combined) for bad in ["goggles", "gafas", "gloves", "guantes", "socks", "calcetines", "buoy", "boya", "cap", "caps", "gorro", "trisuit", "kneeskin", "jammer"]):
@@ -436,11 +441,27 @@ def parse_html_fast_stdlib(html_str, base_url, zprod=None):
         if m_mp:
             meta_price = m_mp.group(1).strip()
 
-        # Only extract unique main-product ID selectors (#js-precio, #productPrice) in raw HTML parser;
-        # never use broad class regexes over raw HTML to avoid capturing recommended/carousel product prices.
+        # Strip out related/recommended/carousel/footer/aside/strikeout blocks before extracting main-product DOM prices
+        main_html = re.sub(r"<(script|style|noscript|aside|footer|nav|header|del|s)[^>]*>.*?</\1>", " ", html_str, flags=re.I | re.S)
+        main_html = re.sub(
+            r'<(div|section|ul)[^>]+(?:class|id|data-testid)=["\'][^"\']*(?:related|recommend|carousel|slider|upsell|cross-sell|similar|also-bought|alternatives|old-price|price-old|rrp|strike)[^"\']*["\'][^>]*>.*?</\1>',
+            " ",
+            main_html,
+            flags=re.I | re.S
+        )
         dom_prices = []
-        for m_p in re.finditer(r'id=["\'](?:js-precio|productPrice)["\'][^>]*>([^<]+)<', html_str, flags=re.I):
-            dom_prices.append({"selector": "#js-precio", "text": m_p.group(1).strip(), "attrCurr": meta_curr})
+        for m_p in re.finditer(r'id=["\'](?:js-precio|productPrice|product-price)["\'][^>]*>([^<]+)<', main_html, flags=re.I):
+            dom_prices.append({"selector": "#productPrice", "text": m_p.group(1).strip(), "attrCurr": meta_curr})
+        for m_ip in re.finditer(r'itemprop=["\']price["\'][^>]*content=["\']([^"\']+)["\']', main_html, flags=re.I):
+            dom_prices.append({"selector": "[itemprop=price]", "text": m_ip.group(1).strip(), "attrCurr": meta_curr})
+        for m_dt in re.finditer(r'data-testid=["\'](?:product-price|price|current-price|final-price)["\'][^>]*>(.*?)</(?:span|div|p|strong)>', main_html, flags=re.I | re.S):
+            txt_dt = re.sub(r"<[^>]+>", " ", m_dt.group(1)).strip()
+            if txt_dt and len(txt_dt) < 35:
+                dom_prices.append({"selector": "[data-testid=product-price]", "text": txt_dt, "attrCurr": meta_curr})
+        for m_cls in re.finditer(r'class=["\'][^"\']*(?:product-detail-price|pdp-price|product-page-price|price--main|price--withoutTax|product-price__price|now-price|price-now)[^"\']*["\'][^>]*>(.*?)</(?:span|div|p|strong)>', main_html, flags=re.I | re.S):
+            txt_cls = re.sub(r"<[^>]+>", " ", m_cls.group(1)).strip()
+            if txt_cls and len(txt_cls) < 35:
+                dom_prices.append({"selector": ".pdp-price", "text": txt_cls, "attrCurr": meta_curr})
 
         # Extract links including title, aria-label, and inner img alt attributes (crucial for Sportano & Alltricks product cards)
         links = []
@@ -687,14 +708,23 @@ def evaluate_page_info_candidates(page_info, row, source_prefix=""):
     body_low = body_text_raw.lower()
     title_h1 = f"{page_info.get('title', '')} | {page_info.get('h1', '')}".strip()
     title_h1_low = title_h1.lower()
-    if any(c in body_low or c in title_h1_low for c in [
-        "verify you are human", "cf-chl-bypass", "access denied", "captcha",
-        "just a moment", "un momento", "checking your browser", "attention required",
-        "cloudflare", "datadome", "enable javascript and cookies"
-    ]) or (not page_info.get("h1") and len(body_low.strip()) < 140):
-        return None, False, "BLOCKED_CAPTCHA", "Bloqueig anti-bot / Cloudflare challenge detectat"
+
+    # Only flag as anti-bot challenge if the page title/H1 is an explicit challenge screen or the page is an empty shell.
+    # Never trigger on 'recaptcha', 'cloudflare', or 'datadome' substrings in body_low when a real product H1 is present.
+    challenge_title_phrases = [
+        "just a moment", "un momento", "attention required", "verify you are human",
+        "checking your browser", "access denied", "pardon our interruption",
+        "please enable cookies", "security check"
+    ]
+    is_challenge_title = any(c in title_h1_low for c in challenge_title_phrases)
+    is_empty_shell = (not page_info.get("h1") and not (page_info.get("zyteProduct") or {}).get("name") and len(body_low.strip()) < 180)
+    if is_challenge_title or is_empty_shell:
+        return None, False, "BLOCKED_CAPTCHA", "Bloqueig anti-bot / Challenge detectat"
+
     id_ok, id_msg = validate_product_identity(title_h1, url, code, model_name)
     if not id_ok:
+        if any(c in body_low for c in ["verify you are human", "cf-chl-bypass", "enable javascript and cookies", "unusual traffic"]):
+            return None, False, "BLOCKED_CAPTCHA", "Bloqueig anti-bot / Captcha detectat"
         return None, False, "IDENTITY_MISMATCH", id_msg
 
     ean = MODEL_EANS.get(code, "")
@@ -719,20 +749,32 @@ def evaluate_page_info_candidates(page_info, row, source_prefix=""):
     detected_instock = False
     currency_mismatch = False
 
+    has_local_domain_currency = (
+        (country == "ES" and any(d in u_low for d in [".es/", ".nl/", "country=es", "currency=eur", "deporvillage.com/", "sportano.com/", "wetsuitoutlet.es/", "alltricks.es/"])) or
+        (country == "UK" and any(d in u_low for d in [".co.uk/", "country=uk", "currency=gbp", "sigmasports.com/", "sportsshoes.com/", "wetsuitoutlet.co.uk/"]))
+    )
+    m_curr = str(page_info.get("metaCurr", "")).upper().strip()
+    if m_curr in ("€", "EUR"):
+        m_curr = "EUR"
+    elif m_curr in ("£", "GBP"):
+        m_curr = "GBP"
+
     # 0. Zyte Automatic Product Extraction (individually validated for product identity & currency)
     zprod = page_info.get("zyteProduct") or {}
     if isinstance(zprod, dict) and zprod.get("price"):
         z_name = str(zprod.get("name") or "").strip()
         z_sku = str(zprod.get("sku") or zprod.get("mpn") or zprod.get("gtin") or "").strip()
         z_id_ok, _ = validate_product_identity(f"{z_name} {z_sku}" if z_name else title_h1, url, code, model_name)
-        z_curr = str(zprod.get("currency") or zprod.get("currencyRaw") or "").upper().strip()
+        z_curr = str(zprod.get("currency") or zprod.get("currencyRaw") or m_curr or "").upper().strip()
         if z_curr in ("€", "EUR"):
             z_curr = "EUR"
         elif z_curr in ("£", "GBP"):
             z_curr = "GBP"
-        if not z_curr or z_curr != expected_curr:
+        elif not z_curr and has_local_domain_currency and forbidden_sym not in str(zprod.get("price") or ""):
+            z_curr = expected_curr
+        if z_curr and z_curr != expected_curr:
             currency_mismatch = True
-        elif z_id_ok:
+        elif z_curr == expected_curr and z_id_ok:
             z_val = normalize_price(zprod.get("price"))
             z_avail = str(zprod.get("availability") or "").lower()
             is_z_oos = False
@@ -783,7 +825,13 @@ def evaluate_page_info_candidates(page_info, row, source_prefix=""):
                     for off in offers:
                         if not isinstance(off, dict):
                             continue
-                        curr = str(off.get("priceCurrency", "") or page_info.get("metaCurr", "")).upper().strip()
+                        curr = str(off.get("priceCurrency", "") or m_curr or "").upper().strip()
+                        if curr in ("€", "EUR"):
+                            curr = "EUR"
+                        elif curr in ("£", "GBP"):
+                            curr = "GBP"
+                        elif not curr and has_local_domain_currency:
+                            curr = expected_curr
                         if curr and curr != expected_curr:
                             currency_mismatch = True
                             continue
@@ -814,10 +862,9 @@ def evaluate_page_info_candidates(page_info, row, source_prefix=""):
             pass
 
     # 2. OpenGraph / Microdata
-    m_curr = str(page_info.get("metaCurr", "")).upper().strip()
     if m_curr and m_curr != expected_curr:
         currency_mismatch = True
-    elif page_info.get("metaPrice"):
+    elif page_info.get("metaPrice") and (m_curr == expected_curr or has_local_domain_currency):
         val = normalize_price(page_info["metaPrice"])
         if val:
             candidates.append((
@@ -828,10 +875,6 @@ def evaluate_page_info_candidates(page_info, row, source_prefix=""):
             ))
 
     # 3. Main Product DOM elements (excluding all carousels/related blocks)
-    has_local_domain_currency = (
-        (country == "ES" and any(d in u_low for d in [".es/", ".nl/", "country=es", "currency=eur", "deporvillage.com/", "sportano.com/"])) or
-        (country == "UK" and any(d in u_low for d in [".co.uk/", "country=uk", "currency=gbp", "sigmasports.com/", "sportsshoes.com/"]))
-    )
     for dp in page_info.get("domPrices", []):
         txt = dp["text"]
         if forbidden_sym in txt:
@@ -913,8 +956,9 @@ def evaluate_page_info_candidates(page_info, row, source_prefix=""):
             return None, True, "OUT_OF_STOCK", f"Producte esgotat a la fitxa ({(page_info.get('h1') or page_info.get('title') or '')[:35]})"
         return None, False, "NO_VALID_PRICE", f"Cap preu principal ({expected_curr}) validat a la fitxa"
 
-    # Sort by priority (1=JSON-LD/Zyte/ExplicitPromo, 2=Meta, 3=DOM) then lowest price
-    valid_candidates.sort(key=lambda x: (x[0], x[2]))
+    # Sort by: (is_undiscounted_rrp_metadata, priority, lowest_price)
+    # This ensures that if a metadata tag holds the full RRP (>= 99.5% of PVP) while another verified main-product source holds the active sale price, the active sale price is selected.
+    valid_candidates.sort(key=lambda x: (1 if (x[2] >= pvp * 0.995 and len(valid_candidates) > 1) else 0, x[0], x[2]))
     _, best_cand_oos, best_price, best_evidence = valid_candidates[0]
 
     # Add coupon badge & tooltip note if the selected price is a promo-code price and we also know the higher base price (e.g. Sportano BLACKBELT)
@@ -943,6 +987,30 @@ def evaluate_page_info_candidates(page_info, row, source_prefix=""):
     final_oos = True if (best_cand_oos or (detected_oos and not detected_instock)) else False
     return round(best_price, 2), final_oos, "VERIFIED", best_evidence
 
+def get_canonical_url_candidates(url, country):
+    """Returns primary URL plus clean locale-prefixed fallback variants (e.g. Wetsuit Outlet /es-es/ and /en-es/ without legacy osCommerce query strings)."""
+    u = url.strip()
+    if not u:
+        return []
+    cands = [u]
+    if "wetsuitoutlet.es/" in u.lower():
+        base_no_q = u.split("?")[0]
+        # If URL had a non-Spanish/non-English slug (like Danish 'svommedragt...sortbla-p-38382.html'), also add the standard English/Spanish slug for that product ID
+        m_pid = re.search(r"-(p-\d+\.html)$", base_no_q, flags=re.I)
+        path_part = re.sub(r"^https?://(?:www\.)?wetsuitoutlet\.es/(?:(?:es-es|en-es)/)?", "", base_no_q, flags=re.I)
+        for cand_u in [
+            f"https://www.wetsuitoutlet.es/es-es/{path_part}",
+            f"https://www.wetsuitoutlet.es/en-es/{path_part}",
+            base_no_q
+        ]:
+            if cand_u not in cands:
+                cands.append(cand_u)
+    elif "wetsuitoutlet.co.uk/" in u.lower() and "?" in u:
+        base_no_q = u.split("?")[0]
+        if base_no_q not in cands:
+            cands.append(base_no_q)
+    return cands
+
 async def extract_verified_pdp_price(page, row, force_zyte_only=False):
     url = row.get("url", "").strip()
     country = row["country"]
@@ -956,10 +1024,20 @@ async def extract_verified_pdp_price(page, row, force_zyte_only=False):
 
     # If domain already tripped the Playwright circuit breaker and ZYTE_API_KEY is configured, go straight to Zyte
     if force_zyte_only and ZYTE_API_KEY:
-        z_info = await fetch_via_zyte(page, url, country)
-        if z_info:
-            return evaluate_page_info_candidates(z_info, row, source_prefix="[Zyte] ")
-        return None, False, "BLOCKED_HTTP", "Accés bloquejat i sense resposta de Zyte API"
+        for cand_u in get_canonical_url_candidates(url, country):
+            for attempt in range(2):
+                z_info = await fetch_via_zyte(page, cand_u, country)
+                if z_info:
+                    r_copy = dict(row)
+                    r_copy["url"] = cand_u
+                    z_price, z_oos, z_status, z_ev = evaluate_page_info_candidates(z_info, r_copy, source_prefix="[Zyte] ")
+                    if z_status in ("VERIFIED", "OUT_OF_STOCK"):
+                        if cand_u != url:
+                            row["url"] = cand_u
+                        return z_price, z_oos, z_status, z_ev
+                if attempt == 0:
+                    await asyncio.sleep(0.6)
+        return None, False, "BLOCKED_HTTP", "Accés bloquejat i sense resposta vàlida de Zyte API"
 
     status_code = "ERROR"
     evidence_str = ""
@@ -1024,22 +1102,106 @@ async def extract_verified_pdp_price(page, row, force_zyte_only=False):
 
     # Hybrid Zyte Fallback: if Playwright hit anti-bot (403/429/503/Captcha), soft challenge redirect (IDENTITY_MISMATCH) or empty JS render and ZYTE_API_KEY is available
     if ZYTE_API_KEY and status_code in ("BLOCKED_HTTP", "BLOCKED_CAPTCHA", "HTTP_ERROR", "NO_VALID_PRICE", "IDENTITY_MISMATCH", "ERROR"):
-        for attempt in range(2):
-            z_info = await fetch_via_zyte(page, url, country)
-            if z_info:
-                z_price, z_oos, z_status, z_ev = evaluate_page_info_candidates(z_info, row, source_prefix="[Zyte] ")
-                if z_status in ("VERIFIED", "OUT_OF_STOCK"):
-                    return z_price, z_oos, z_status, z_ev
-            if attempt == 0:
-                await asyncio.sleep(0.8)
+        url_cands = get_canonical_url_candidates(url, country)
+        for cand_u in url_cands:
+            for attempt in range(2):
+                z_info = await fetch_via_zyte(page, cand_u, country)
+                if z_info:
+                    r_copy = dict(row)
+                    r_copy["url"] = cand_u
+                    z_price, z_oos, z_status, z_ev = evaluate_page_info_candidates(z_info, r_copy, source_prefix="[Zyte] ")
+                    if z_status in ("VERIFIED", "OUT_OF_STOCK"):
+                        if cand_u != url:
+                            row["url"] = cand_u
+                        return z_price, z_oos, z_status, z_ev
+                if attempt == 0:
+                    await asyncio.sleep(0.6)
 
     return None, False, status_code, evidence_str
+
+def save_all_state(tracking, history):
+    """Atomically persists tracking.json, history.json, and embedded index.html data so progress is never lost on timeout."""
+    history.sort(key=lambda x: (str(x.get("timestamp", "")), str(x.get("run_slot", "")), x.get("country", ""), x.get("operator", ""), x.get("code", "")))
+    with open("data/tracking.json", "w", encoding="utf-8") as f:
+        json.dump(tracking, f, indent=2, ensure_ascii=False)
+    with open("data/history.json", "w", encoding="utf-8") as f:
+        json.dump(history, f, indent=2, ensure_ascii=False)
+
+    valid_history = [h for h in history if h.get("audit_status", "VALID") == "VALID" and h.get("price") is not None and float(h.get("disc_pct", 0)) <= 50.0]
+    daily_min_map = {}
+    for h in valid_history:
+        d_str = str(h.get("timestamp", ""))[:10]
+        k = (d_str, h["country"], h["operator"], h["code"])
+        if k not in daily_min_map or float(h["price"]) < daily_min_map[k][4]:
+            daily_min_map[k] = [
+                d_str,
+                h["country"],
+                h["operator"],
+                h["code"],
+                float(h["price"]),
+                round(float(h["disc_pct"]), 1),
+                1 if h.get("out_of_stock") else 0,
+                0
+            ]
+    history_compact = list(daily_min_map.values())
+
+    with open("index.html", "r", encoding="utf-8") as f:
+        html_doc = f.read()
+
+    html_doc = re.sub(r"(?:const|let) DATA_ROWS = \[.*?\];", lambda _: "let DATA_ROWS = " + json.dumps(tracking, ensure_ascii=False) + ";", html_doc, flags=re.S)
+    html_doc = re.sub(r"(?:const|let) HISTORY_COMPACT = \[.*?\];", lambda _: "let HISTORY_COMPACT = " + json.dumps(history_compact, ensure_ascii=False) + ";", html_doc, flags=re.S)
+    with open("index.html", "w", encoding="utf-8") as f:
+        f.write(html_doc)
 
 async def main():
     with open("data/tracking.json", "r", encoding="utf-8") as f:
         tracking = json.load(f)
     with open("data/history.json", "r", encoding="utf-8") as f:
         history = json.load(f)
+
+    # Auto-reconcile tracking.json from history.json before scanning:
+    # ensures that if history.json has a more recent valid reading (or a lower valid price on the same latest date),
+    # tracking.json never regresses to an older date.
+    latest_hist_by_key = {}
+    for h in history:
+        if h.get("audit_status", "VALID") != "VALID":
+            continue
+        p_val = h.get("price")
+        d_pct = h.get("disc_pct")
+        if p_val is None or float(p_val) <= 0 or (d_pct is not None and float(d_pct) > 50.0):
+            continue
+        if "advance-plus" in str(h.get("url", "")).lower():
+            continue
+        d_str = str(h.get("timestamp", ""))[:10]
+        if not d_str:
+            continue
+        k = (h.get("country"), h.get("operator"), h.get("code"))
+        cur = latest_hist_by_key.get(k)
+        if not cur or d_str > cur["date"] or (d_str == cur["date"] and float(p_val) < cur["price"]):
+            latest_hist_by_key[k] = {
+                "date": d_str,
+                "price": float(p_val),
+                "out_of_stock": bool(h.get("out_of_stock", False)),
+                "evidence": h.get("evidence") or ""
+            }
+
+    for row in tracking:
+        if row.get("id") == "UK-DEP-WS21WADV101":
+            continue
+        k = (row.get("country"), row.get("operator"), row.get("code"))
+        best_h = latest_hist_by_key.get(k)
+        if best_h and row.get("url") and not is_generic_category_url(row.get("url", "")):
+            r_date = str(row.get("last_read") or "").strip()
+            r_price = row.get("price")
+            if row.get("status") != "VERIFIED" or best_h["date"] > r_date or (best_h["date"] == r_date and (r_price is None or best_h["price"] < float(r_price))):
+                row["price"] = round(best_h["price"], 2)
+                row["disc_imp"] = round(float(row["pvp"]) - row["price"], 2)
+                row["disc_pct"] = round((row["disc_imp"] / float(row["pvp"])) * 100, 1)
+                row["status"] = "VERIFIED"
+                row["last_read"] = best_h["date"]
+                row["out_of_stock"] = best_h["out_of_stock"]
+                if best_h["evidence"]:
+                    row["evidence"] = best_h["evidence"]
 
     now_dt = datetime.utcnow()
     today_str = now_dt.strftime("%Y-%m-%d")
@@ -1204,6 +1366,9 @@ async def main():
                     row["freshness"] = "NONE"
                     row["evidence"] = f"Revisat ({run_slot}): {evidence_str}"
 
+        # Checkpoint all Phase 1 PDP price readings to disk immediately before starting Phase 2 Auto-Discovery
+        save_all_state(tracking, history)
+
         # PHASE 2: Auto-Discovery of remaining unmapped PDP URLs (runs after mapped PDPs are safely read)
         discovered_count = await discover_missing_pdps(page_es, page_uk, tracking, today_str)
         if discovered_count > 0:
@@ -1249,38 +1414,7 @@ async def main():
 
         await browser.close()
 
-    history.sort(key=lambda x: (str(x.get("timestamp", "")), str(x.get("run_slot", "")), x.get("country", ""), x.get("operator", ""), x.get("code", "")))
-
-    with open("data/tracking.json", "w", encoding="utf-8") as f:
-        json.dump(tracking, f, indent=2, ensure_ascii=False)
-    with open("data/history.json", "w", encoding="utf-8") as f:
-        json.dump(history, f, indent=2, ensure_ascii=False)
-
-    valid_history = [h for h in history if h.get("audit_status", "VALID") == "VALID" and h.get("price") is not None and float(h.get("disc_pct", 0)) <= 50.0]
-    daily_min_map = {}
-    for h in valid_history:
-        d_str = str(h.get("timestamp", ""))[:10]
-        k = (d_str, h["country"], h["operator"], h["code"])
-        if k not in daily_min_map or float(h["price"]) < daily_min_map[k][4]:
-            daily_min_map[k] = [
-                d_str,
-                h["country"],
-                h["operator"],
-                h["code"],
-                float(h["price"]),
-                round(float(h["disc_pct"]), 1),
-                1 if h.get("out_of_stock") else 0,
-                0
-            ]
-    history_compact = list(daily_min_map.values())
-
-    with open("index.html", "r", encoding="utf-8") as f:
-        html_doc = f.read()
-
-    html_doc = re.sub(r"(?:const|let) DATA_ROWS = \[.*?\];", lambda _: "let DATA_ROWS = " + json.dumps(tracking, ensure_ascii=False) + ";", html_doc, flags=re.S)
-    html_doc = re.sub(r"(?:const|let) HISTORY_COMPACT = \[.*?\];", lambda _: "let HISTORY_COMPACT = " + json.dumps(history_compact, ensure_ascii=False) + ";", html_doc, flags=re.S)
-    with open("index.html", "w", encoding="utf-8") as f:
-        f.write(html_doc)
+    save_all_state(tracking, history)
 
     print(f"Scan finished ({now_iso}). Auto-discovered PDPs: {discovered_count} | Live today: {updated_count} (Zyte rescued: {zyte_rescued_count}) | Quarantined: {quarantined_count} | Circuit-breaker skipped: {circuit_skipped} | Total history: {len(history)}")
 
