@@ -1241,14 +1241,17 @@
                 curTr.forEach(r => { curMap[r.id] = r; });
                 incomingTr.forEach(newR => {
                   const liveR = curMap[newR.id];
-                  if (liveR && liveR.status === 'VERIFIED' && liveR.price > 0 && Number(liveR.disc_pct) <= 50.0 && newR.id !== 'UK-DEP-WS21WADV101') {
-                    const liveDate = String(liveR.last_read || '');
-                    const newDate = String(newR.last_read || '');
-                    // Regla 1: Entre dies diferents, a la foto actual preval sempre la lectura de la data més recent (liveDate > newDate)
-                    if (newR.status !== 'VERIFIED' || liveDate > newDate) {
-                      Object.assign(newR, liveR);
-                    } else if (liveDate === newDate && Number(liveR.price) < Number(newR.price)) {
-                      // Regla 2: Dins del mateix dia, preval sempre el preu vàlid més baix d'aquell dia
+                  if (liveR && newR.id !== 'UK-DEP-WS21WADV101') {
+                    if (liveR.status === 'VERIFIED' && liveR.price > 0 && Number(liveR.disc_pct) <= 50.0) {
+                      const liveDate = String(liveR.last_read || '');
+                      const newDate = String(newR.last_read || '');
+                      if (newR.status !== 'VERIFIED' || liveDate > newDate) {
+                        Object.assign(newR, liveR);
+                      } else if (liveDate === newDate && Number(liveR.price) < Number(newR.price)) {
+                        Object.assign(newR, liveR);
+                      }
+                    } else if (!newR.url && liveR.url) {
+                      // Preserve any newly discovered PDP URL on GitHub even if not yet VERIFIED
                       Object.assign(newR, liveR);
                     }
                   }

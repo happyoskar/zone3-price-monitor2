@@ -5,7 +5,7 @@ import os
 import re
 import urllib.request
 from datetime import datetime
-from urllib.parse import urlparse, quote_plus
+from urllib.parse import urlparse, quote_plus, unquote
 from playwright.async_api import async_playwright
 
 ZYTE_API_KEY = os.environ.get("ZYTE_API_KEY", "").strip()
@@ -463,22 +463,62 @@ def parse_html_fast_stdlib(html_str, base_url, zprod=None):
             if txt_cls and len(txt_cls) < 35:
                 dom_prices.append({"selector": ".pdp-price", "text": txt_cls, "attrCurr": meta_curr})
 
-        # Extract links including title, aria-label, and inner img alt attributes (crucial for Sportano & Alltricks product cards)
+        # Extract links including title, aria-label, inner img alt, surrounding card text (for empty stretched-link overlays),
+        # DuckDuckGo uddg= redirect unwrapping, and JSON/hydration product URLs (Alltricks, Wetsuit Outlet, Sportano, Sigma, etc.)
         links = []
+        seen_hrefs = {}
         parsed_base = urlparse(base_url)
         base_origin = f"{parsed_base.scheme}://{parsed_base.netloc}" if parsed_base.scheme else ""
+
+        def register_link(raw_href, raw_text):
+            if not raw_href:
+                return
+            h = raw_href.replace("\\/", "/").strip()
+            if "uddg=" in h:
+                m_u = re.search(r'uddg=([^&"\s]+)', h)
+                if m_u:
+                    h = unquote(m_u.group(1))
+            if h.startswith("//"):
+                h = "https:" + h
+            elif h.startswith("/") and base_origin:
+                h = base_origin + h
+            if not h.startswith("http"):
+                return
+            h_clean = h.split("#")[0].strip()
+            t_clean = re.sub(r"\s+", " ", (raw_text or "")).strip()
+            if h_clean in seen_hrefs:
+                if t_clean and t_clean not in seen_hrefs[h_clean]:
+                    seen_hrefs[h_clean] = (seen_hrefs[h_clean] + " " + t_clean).strip()
+            else:
+                seen_hrefs[h_clean] = t_clean
+
         for m_a in re.finditer(r'<a\s+([^>]*?)href=["\']([^"\']+)["\']([^>]*)>(.*?)</a>', html_str, flags=re.I | re.S):
             attrs_before, href, attrs_after, inner_html = m_a.group(1), m_a.group(2).strip(), m_a.group(3), m_a.group(4)
-            if href.startswith("/") and base_origin:
-                href = base_origin + href
-            if href.startswith("http"):
-                all_attrs = f"{attrs_before} {attrs_after}"
-                attr_texts = re.findall(r'(?:title|aria-label)=["\']([^"\']+)["\']', all_attrs, flags=re.I)
-                img_alts = re.findall(r'alt=["\']([^"\']+)["\']', inner_html, flags=re.I)
-                inner_txt = re.sub(r"<[^>]+>", " ", inner_html)
-                combined_txt = " ".join([inner_txt] + attr_texts + img_alts)
-                combined_txt = re.sub(r"\s+", " ", combined_txt).strip()
-                links.append({"href": href, "text": combined_txt})
+            all_attrs = f"{attrs_before} {attrs_after}"
+            attr_texts = re.findall(r'(?:title|aria-label|data-name|data-product-name)=["\']([^"\']+)["\']', all_attrs, flags=re.I)
+            img_alts = re.findall(r'alt=["\']([^"\']+)["\']', inner_html, flags=re.I)
+            inner_txt = re.sub(r"<[^>]+>", " ", inner_html)
+            combined_txt = " ".join([inner_txt] + attr_texts + img_alts).strip()
+            # If the <a> tag is an empty stretched-link overlay inside a product card, grab nearby card heading text
+            if len(re.sub(r"\s+", "", combined_txt)) < 6:
+                after_slice = html_str[m_a.end():m_a.end() + 320]
+                m_card_h = re.search(r'<(?:h[234]|p|span|div)[^>]+class=["\'][^"\']*(?:title|name|label|product)[^"\']*["\'][^>]*>(.*?)</', after_slice, flags=re.I | re.S)
+                if m_card_h:
+                    combined_txt = (combined_txt + " " + re.sub(r"<[^>]+>", " ", m_card_h.group(1))).strip()
+            register_link(href, combined_txt)
+
+        # Also extract PDP URLs embedded in JSON-LD ItemList or hydration state (Alltricks /P-, Wetsuit Outlet -p-, Sportano /p/, Sigma /item/, Sportshoes /product/)
+        for m_json_u in re.finditer(
+            r'["\']((?:https?:\\?/\\?/[^"\']*?|\\?/(?:es-es/|en-es/)?)(?:F-\d+-[^"\']*?/P-\d+-[^"\']+|[^"\']*?-p-\d+\.html|p/\d+/[^"\']+|item/Zone3/[^"\']+|product/zne\d+/[^"\']+|zone3-[^"\']+))["\']',
+            html_str,
+            flags=re.I
+        ):
+            u_cand = m_json_u.group(1)
+            ctx_slice = html_str[max(0, m_json_u.start() - 220):min(len(html_str), m_json_u.end() + 220)]
+            m_name_ctx = re.findall(r'["\'](?:name|title|productName)["\']\s*:\s*["\']([^"\']+)["\']', ctx_slice, flags=re.I)
+            register_link(u_cand, " ".join(m_name_ctx))
+
+        links = [{"href": k, "text": v} for k, v in seen_hrefs.items()]
 
         clean_html = re.sub(r"<(script|style|noscript)[^>]*>.*?</\1>", " ", html_str, flags=re.I | re.S)
         body_text = re.sub(r"<[^>]+>", " ", clean_html)
@@ -511,10 +551,71 @@ async def fetch_via_zyte(page, url, country):
     zprod = zdata.get("product") or {}
     return parse_html_fast_stdlib(html_str, url, zprod)
 
-async def discover_missing_pdps(page_es, page_uk, tracking, today_str):
-    """Deep Auto-Discovery engine: direct candidate probes + operator catalog/search + Zyte fallback + DuckDuckGo HTML."""
+def is_operator_pdp_url(href, expected_dom):
+    if not href or is_generic_category_url(href):
+        return False
+    h_low = href.lower()
+    if expected_dom and expected_dom not in h_low:
+        return False
+    if "alltricks.es" in h_low:
+        return "/p-" in h_low
+    if "wetsuitoutlet." in h_low:
+        return bool(re.search(r"-p-\d+\.html", h_low))
+    if "sportano.com" in h_low:
+        return bool(re.search(r"/p/\d+/", h_low))
+    if "bike24.es" in h_low:
+        return "/productos/" in h_low
+    if "sigmasports.com" in h_low:
+        return "/item/" in h_low
+    if "sportsshoes.com" in h_low:
+        return "/product/" in h_low
+    if "tradeinn.com" in h_low:
+        return "/p" in h_low and "zone3" in h_low
+    if "deporvillage." in h_low:
+        return "zone3" in h_low and not any(x in h_low for x in ["catalogsearch", "natacion-zone3", "swimming-triathlon"])
+    if "triathlon24.nl" in h_low:
+        return "zone3-" in h_low
+    if "mytriathlon.co.uk" in h_low:
+        return "zone3-" in h_low
+    return True
+
+async def fetch_discovery_links(page, url, country, expected_dom, force_zyte=False):
+    """Fetches product links from a catalog/search URL. Automatically falls back to Zyte if Playwright is soft-blocked (HTTP 200 with 0 PDP links)."""
+    links = []
+    if not force_zyte:
+        try:
+            resp = await page.goto(url, wait_until="domcontentloaded", timeout=18000)
+            if resp and resp.status == 200:
+                await page.wait_for_timeout(1400)
+                await page.evaluate("window.scrollTo(0, document.body.scrollHeight / 2)")
+                await page.wait_for_timeout(500)
+                links = await page.evaluate("""() => {
+                    return Array.from(document.querySelectorAll('a[href]')).map(a => {
+                        const card = a.closest('article, li, [class*="product"], [class*="item"], [class*="card"], [class*="tile"]');
+                        const cardTitle = card ? Array.from(card.querySelectorAll('h2, h3, h4, [class*="title"], [class*="name"]')).map(e => e.innerText).join(' ') : '';
+                        return {
+                            href: a.href,
+                            text: ((a.innerText || '') + ' ' + (a.getAttribute('title') || '') + ' ' + (a.getAttribute('aria-label') || '') + ' ' + Array.from(a.querySelectorAll('img[alt]')).map(i => i.getAttribute('alt')).join(' ') + ' ' + cardTitle).trim()
+                        };
+                    }).filter(x => x.href && x.href.startsWith('http'));
+                }""")
+        except Exception:
+            links = []
+
+    pdp_count = sum(1 for l in links if is_operator_pdp_url(l.get("href", ""), expected_dom))
+    if pdp_count == 0 and ZYTE_API_KEY:
+        zinfo = await fetch_via_zyte(page, url, country)
+        if zinfo and zinfo.get("links"):
+            links.extend(zinfo["links"])
+    return links
+
+async def discover_missing_pdps(page_es, page_uk, tracking, today_str, domain_blocks=None):
+    """Deep Auto-Discovery engine: direct candidate probes + operator catalog/search + automatic Zyte soft-block rescue + DuckDuckGo uddg unwrapping."""
+    domain_blocks = domain_blocks or {}
     missing_by_op = {}
     for row in tracking:
+        if row.get("id") == "UK-DEP-WS21WADV101":
+            continue
         st = row.get("status", "")
         if st in ("UNMAPPED", "NOT_LISTED", "PENDING_PDP") or not row.get("url"):
             missing_by_op.setdefault((row["country"], row["operator"]), []).append(row)
@@ -525,19 +626,21 @@ async def discover_missing_pdps(page_es, page_uk, tracking, today_str):
         cat_urls = OPERATOR_CATALOG_URLS.get((country, operator), [])
         expected_dom = OPERATOR_DOMAIN_FILTER.get((country, operator), "")
         page = page_uk if country == "UK" else page_es
+        dom_is_blocked = any( expected_dom in d and cnt >= 2 for d, cnt in domain_blocks.items() )
         collected_links = []
 
-        # 0. Direct candidate probes for priority missing SKUs (Bike 24 & Deporvillage)
+        # 0. Direct candidate probes for priority missing SKUs
         for row in list(rows):
             probe_urls = DIRECT_CANDIDATE_PROBES.get((country, operator, row["code"]), [])
             for p_url in probe_urls:
                 try:
-                    resp = await page.goto(p_url, wait_until="domcontentloaded", timeout=18000)
                     page_title_h1 = ""
-                    if resp and resp.status == 200:
-                        await page.wait_for_timeout(1200)
-                        page_title_h1 = await page.evaluate("() => (document.title || '') + ' | ' + Array.from(document.querySelectorAll('h1')).map(e => e.innerText).join(' ')")
-                    elif ZYTE_API_KEY and resp and resp.status in (403, 429, 503):
+                    if not dom_is_blocked:
+                        resp = await page.goto(p_url, wait_until="domcontentloaded", timeout=15000)
+                        if resp and resp.status == 200:
+                            await page.wait_for_timeout(1000)
+                            page_title_h1 = await page.evaluate("() => (document.title || '') + ' | ' + Array.from(document.querySelectorAll('h1')).map(e => e.innerText).join(' ')")
+                    if (not page_title_h1 or "moment" in page_title_h1.lower()) and ZYTE_API_KEY:
                         zinfo = await fetch_via_zyte(page, p_url, country)
                         if zinfo:
                             page_title_h1 = f"{zinfo.get('title', '')} | {zinfo.get('h1', '')}"
@@ -556,41 +659,22 @@ async def discover_missing_pdps(page_es, page_uk, tracking, today_str):
         if not rows:
             continue
 
-        # 1. Scan operator catalog & targeted model/EAN search URLs (with Zyte fallback if blocked)
+        # 1. Scan operator catalog & targeted model/EAN search URLs (with automatic Zyte fallback whenever 0 PDP links are returned)
         for c_url in cat_urls:
-            try:
-                resp = await page.goto(c_url, wait_until="domcontentloaded", timeout=25000)
-                if resp and resp.status == 200:
-                    await page.wait_for_timeout(1800)
-                    await page.evaluate("window.scrollTo(0, document.body.scrollHeight / 2)")
-                    await page.wait_for_timeout(700)
-                    links = await page.evaluate("""() => {
-                        return Array.from(document.querySelectorAll('a[href]')).map(a => ({
-                            href: a.href,
-                            text: ((a.innerText || '') + ' ' + (a.getAttribute('title') || '') + ' ' + (a.getAttribute('aria-label') || '') + ' ' + Array.from(a.querySelectorAll('img[alt]')).map(i => i.getAttribute('alt')).join(' ')).trim()
-                        })).filter(x => x.href && x.href.startsWith('http'));
-                    }""")
-                    collected_links.extend(links)
-                elif ZYTE_API_KEY and (not resp or resp.status in (403, 429, 503)):
-                    zinfo = await fetch_via_zyte(page, c_url, country)
-                    if zinfo and zinfo.get("links"):
-                        collected_links.extend(zinfo["links"])
-            except Exception:
-                if ZYTE_API_KEY:
-                    zinfo = await fetch_via_zyte(page, c_url, country)
-                    if zinfo and zinfo.get("links"):
-                        collected_links.extend(zinfo["links"])
+            c_links = await fetch_discovery_links(page, c_url, country, expected_dom, force_zyte=dom_is_blocked)
+            collected_links.extend(c_links)
 
         # Match collected links against remaining missing rows
+        inspected_candidates = {}
         for row in rows:
             code = row["code"]
             model_name = row["model"]
             found_url = None
+            partial_candidates = []
+
             for link in collected_links:
                 href = link["href"].split("#")[0]
-                if expected_dom and expected_dom not in href.lower():
-                    continue
-                if is_generic_category_url(href):
+                if not is_operator_pdp_url(href, expected_dom):
                     continue
                 mkt_ok, _ = validate_market_url(href, country)
                 if not mkt_ok:
@@ -602,81 +686,145 @@ async def discover_missing_pdps(page_es, page_uk, tracking, today_str):
                         href = f"{href}{sep}country={'uk' if country == 'UK' else 'es'}"
                     found_url = href
                     break
+                # If link URL/text contains the model keyword (e.g. 'vanquish', 'aspire', 'vision') but lacked gender in the short card text, queue for PDP title check
+                kws = MODEL_KEYWORDS.get(code, [])
+                comb_low = f"{link['text']} {href}".lower()
+                if kws and any(k in comb_low for k in kws) and href not in partial_candidates:
+                    partial_candidates.append(href)
 
-            # 1b. Direct Operator Internal Search by exact SKU & EAN (especially for Sportano, Deporvillage, Sigma, Alltricks)
+            # 1b. Direct Operator Internal Search by exact SKU, EAN & Model keyword across ALL operators
             if not found_url:
                 ean = MODEL_EANS.get(code, "")
                 kw_main = (MODEL_KEYWORDS.get(code) or [""])[0]
-                gender_q = "women" if ("W" in code[4:6] or "women" in model_name.lower()) else "men"
+                is_w = ("W" in code[4:6] or "women" in model_name.lower())
+                gender_en = "women" if is_w else "men"
+                gender_es = "mujer" if is_w else "hombre"
                 op_search_templates = {
-                    ("ES", "Sportano"): [f"https://sportano.com/en/search?q={code}", f"https://sportano.com/en/search?q=zone3+{kw_main}+{gender_q}"],
-                    ("ES", "Deporvillage"): [f"https://www.deporvillage.com/catalogsearch/result/?q={code}", f"https://www.deporvillage.com/catalogsearch/result/?q={ean}"],
-                    ("UK", "Deporvillage"): [f"https://www.deporvillage.co.uk/catalogsearch/result/?q={code}", f"https://www.deporvillage.co.uk/catalogsearch/result/?q={ean}"],
-                    ("ES", "Alltricks"): [f"https://www.alltricks.es/s?k=zone3+{kw_main}"],
-                    ("UK", "Sigma"): [f"https://www.sigmasports.com/search?query=zone3+{kw_main}"]
+                    ("ES", "Alltricks"): [
+                        f"https://www.alltricks.es/s?k=zone3+{kw_main}+{gender_es}",
+                        f"https://www.alltricks.es/s?k=zone3+{kw_main}",
+                        f"https://www.alltricks.es/s?k={code}"
+                    ],
+                    ("ES", "Wetsuit Outlet"): [
+                        f"https://www.wetsuitoutlet.es/es-es/search?q=zone3+{kw_main}",
+                        f"https://www.wetsuitoutlet.es/en-es/search?q=zone3+{kw_main}+{gender_en}",
+                        f"https://www.wetsuitoutlet.es/en-es/search?q={code[:8]}"
+                    ],
+                    ("UK", "Wetsuit Outlet"): [
+                        f"https://www.wetsuitoutlet.co.uk/search?q=zone3+{kw_main}+{gender_en}",
+                        f"https://www.wetsuitoutlet.co.uk/search?q={code[:8]}"
+                    ],
+                    ("ES", "Sportano"): [
+                        f"https://sportano.com/en/search?q={code}",
+                        f"https://sportano.com/en/search?q=zone3+{kw_main}+{gender_en}"
+                    ],
+                    ("ES", "Deporvillage"): [
+                        f"https://www.deporvillage.com/catalogsearch/result/?q=zone3+{kw_main}",
+                        f"https://www.deporvillage.com/catalogsearch/result/?q={ean}"
+                    ],
+                    ("UK", "Deporvillage"): [
+                        f"https://www.deporvillage.co.uk/catalogsearch/result/?q=zone3+{kw_main}",
+                        f"https://www.deporvillage.co.uk/catalogsearch/result/?q={ean}"
+                    ],
+                    ("ES", "Bike 24"): [
+                        f"https://www.bike24.es/buscar?searchTerm=zone3+{kw_main}"
+                    ],
+                    ("ES", "Triathlon24"): [
+                        f"https://www.triathlon24.nl/search/zone3+{kw_main}/"
+                    ],
+                    ("UK", "Sigma"): [
+                        f"https://www.sigmasports.com/search?query=zone3+{kw_main}"
+                    ],
+                    ("UK", "Sportshoes"): [
+                        f"https://www.sportsshoes.com/products/?q=zone3%20{kw_main}"
+                    ]
                 }
                 for s_url in op_search_templates.get((country, operator), []):
                     if found_url:
                         break
-                    try:
-                        s_links = []
-                        resp = await page.goto(s_url, wait_until="domcontentloaded", timeout=18000)
-                        if resp and resp.status == 200:
-                            await page.wait_for_timeout(1200)
-                            s_links = await page.evaluate("""() => {
-                                return Array.from(document.querySelectorAll('a[href]')).map(a => ({
-                                    href: a.href,
-                                    text: ((a.innerText || '') + ' ' + (a.getAttribute('title') || '') + ' ' + (a.getAttribute('aria-label') || '') + ' ' + Array.from(a.querySelectorAll('img[alt]')).map(i => i.getAttribute('alt')).join(' ')).trim()
-                                })).filter(x => x.href && x.href.startsWith('http'));
-                            }""")
-                        elif ZYTE_API_KEY:
-                            zinfo = await fetch_via_zyte(page, s_url, country)
-                            if zinfo and zinfo.get("links"):
-                                s_links = zinfo["links"]
-                        for slink in s_links:
-                            href = slink["href"].split("#")[0]
-                            if expected_dom and expected_dom not in href.lower():
-                                continue
-                            if is_generic_category_url(href):
-                                continue
-                            mkt_ok, _ = validate_market_url(href, country)
-                            if not mkt_ok:
-                                continue
-                            id_ok, _ = validate_product_identity(slink["text"], href, code, model_name)
-                            if id_ok:
-                                found_url = href
-                                break
-                    except Exception:
-                        pass
+                    s_links = await fetch_discovery_links(page, s_url, country, expected_dom, force_zyte=dom_is_blocked)
+                    collected_links.extend(s_links)
+                    for slink in s_links:
+                        href = slink["href"].split("#")[0]
+                        if not is_operator_pdp_url(href, expected_dom):
+                            continue
+                        mkt_ok, _ = validate_market_url(href, country)
+                        if not mkt_ok:
+                            continue
+                        id_ok, _ = validate_product_identity(slink["text"], href, code, model_name)
+                        if id_ok:
+                            found_url = href
+                            break
+                        kws = MODEL_KEYWORDS.get(code, [])
+                        if kws and any(k in f"{slink['text']} {href}".lower() for k in kws) and href not in partial_candidates:
+                            partial_candidates.append(href)
 
-            # 2. Fallback: DuckDuckGo HTML search (`site:<operator_domain> zone3 <model> <code/EAN>`)
+            # 1c. Inspect up to 2 partial candidate PDPs (where model keyword matched on the operator's domain, to verify H1/SKU inside the PDP)
+            if not found_url and partial_candidates:
+                for cand_href in partial_candidates[:2]:
+                    if cand_href not in inspected_candidates:
+                        p_title_h1 = ""
+                        if not dom_is_blocked:
+                            try:
+                                r_c = await page.goto(cand_href, wait_until="domcontentloaded", timeout=15000)
+                                if r_c and r_c.status == 200:
+                                    await page.wait_for_timeout(900)
+                                    p_title_h1 = await page.evaluate("() => (document.title || '') + ' | ' + Array.from(document.querySelectorAll('h1')).map(e => e.innerText).join(' ')")
+                            except Exception:
+                                pass
+                        if (not p_title_h1 or "moment" in p_title_h1.lower()) and ZYTE_API_KEY:
+                            z_c = await fetch_via_zyte(page, cand_href, country)
+                            if z_c:
+                                p_title_h1 = f"{z_c.get('title', '')} | {z_c.get('h1', '')}"
+                        inspected_candidates[cand_href] = p_title_h1
+                    cand_h1 = inspected_candidates.get(cand_href, "")
+                    if cand_h1:
+                        id_ok, _ = validate_product_identity(cand_h1, cand_href, code, model_name)
+                        if id_ok:
+                            found_url = cand_href
+                            break
+
+            # 2. Fallback: DuckDuckGo HTML search (`site:<operator_domain> zone3 <model>`) with `uddg=` unwrapping and Zyte fallback
             if not found_url and expected_dom:
                 ean = MODEL_EANS.get(code, "")
-                for q_str in [f"site:{expected_dom} zone3 {model_name}", f"site:{expected_dom} {code} OR {ean}"]:
+                kw_main = (MODEL_KEYWORDS.get(code) or [""])[0]
+                is_w = ("W" in code[4:6] or "women" in model_name.lower())
+                g_tok = "mujer OR women" if (country == "ES" and is_w) else ("hombre OR men" if country == "ES" else ("womens OR women" if is_w else "mens OR men"))
+                for q_str in [f"site:{expected_dom} zone3 {kw_main} {g_tok}", f"site:{expected_dom} {code} OR {ean}"]:
                     if found_url:
                         break
                     try:
                         ddg_url = f"https://html.duckduckgo.com/html/?q={quote_plus(q_str)}"
-                        resp = await page.goto(ddg_url, wait_until="domcontentloaded", timeout=18000)
+                        ddg_links = []
+                        resp = await page.goto(ddg_url, wait_until="domcontentloaded", timeout=15000)
                         if resp and resp.status == 200:
-                            await page.wait_for_timeout(1000)
+                            await page.wait_for_timeout(800)
                             ddg_links = await page.evaluate("""() => {
-                                return Array.from(document.querySelectorAll('a.result__a')).map(a => ({
+                                return Array.from(document.querySelectorAll('a.result__a, a[href*="uddg="]')).map(a => ({
                                     href: a.href,
                                     text: (a.innerText || '').trim()
                                 }));
                             }""")
-                            for dlink in ddg_links:
-                                href = dlink["href"].split("#")[0]
-                                if expected_dom not in href.lower() or is_generic_category_url(href):
-                                    continue
-                                mkt_ok, _ = validate_market_url(href, country)
-                                if not mkt_ok:
-                                    continue
-                                id_ok, _ = validate_product_identity(dlink["text"], href, code, model_name)
-                                if id_ok:
-                                    found_url = href
-                                    break
+                        if not ddg_links and ZYTE_API_KEY:
+                            z_ddg = await fetch_via_zyte(page, ddg_url, country)
+                            if z_ddg and z_ddg.get("links"):
+                                ddg_links = z_ddg["links"]
+                        for dlink in ddg_links:
+                            raw_h = dlink["href"]
+                            if "uddg=" in raw_h:
+                                m_u = re.search(r'uddg=([^&"\s]+)', raw_h)
+                                if m_u:
+                                    raw_h = unquote(m_u.group(1))
+                            href = raw_h.split("#")[0]
+                            if not is_operator_pdp_url(href, expected_dom):
+                                continue
+                            mkt_ok, _ = validate_market_url(href, country)
+                            if not mkt_ok:
+                                continue
+                            id_ok, _ = validate_product_identity(dlink["text"], href, code, model_name)
+                            if id_ok:
+                                found_url = href
+                                break
                     except Exception:
                         pass
 
@@ -1370,7 +1518,7 @@ async def main():
         save_all_state(tracking, history)
 
         # PHASE 2: Auto-Discovery of remaining unmapped PDP URLs (runs after mapped PDPs are safely read)
-        discovered_count = await discover_missing_pdps(page_es, page_uk, tracking, today_str)
+        discovered_count = await discover_missing_pdps(page_es, page_uk, tracking, today_str, domain_blocks=domain_blocks)
         if discovered_count > 0:
             for row in tracking:
                 if row.get("status") == "PENDING_URL" and row.get("url") and f"({today_str})" in str(row.get("evidence", "")):
