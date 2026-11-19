@@ -11,13 +11,20 @@ from playwright.async_api import async_playwright
 
 ZYTE_API_KEY = os.environ.get("ZYTE_API_KEY", "").strip()
 START_MONOTONIC = time.monotonic()
-MAX_TOTAL_RUNTIME_SEC = 540  # 9-minute hard budget so GitHub Actions always commits cleanly
+PHASE2_START_MONOTONIC = None
+PHASE2_BUDGET_SEC = 360       # 6-minute dedicated budget exclusively for Phase 2 Auto-Discovery
+MAX_TOTAL_RUNTIME_SEC = 1080  # 18-minute global safety cap
 ZYTE_CONCURRENCY_SEM = None
 ZYTE_PAGE_CACHE = {}
 DISCOVERY_LINKS_CACHE = {}
 
 def is_time_budget_exceeded(margin_sec=0):
-    return (time.monotonic() - START_MONOTONIC) >= (MAX_TOTAL_RUNTIME_SEC - margin_sec)
+    now_m = time.monotonic()
+    if (now_m - START_MONOTONIC) >= (MAX_TOTAL_RUNTIME_SEC - margin_sec):
+        return True
+    if PHASE2_START_MONOTONIC is not None and (now_m - PHASE2_START_MONOTONIC) >= (PHASE2_BUDGET_SEC - margin_sec):
+        return True
+    return False
 
 STEALTH_INIT_SCRIPT = """
 Object.defineProperty(navigator, 'webdriver', { get: () => undefined });
@@ -539,17 +546,24 @@ async def fetch_via_zyte(page, url, country):
     if cache_key in ZYTE_PAGE_CACHE:
         return ZYTE_PAGE_CACHE[cache_key]
     if ZYTE_CONCURRENCY_SEM is None:
-        ZYTE_CONCURRENCY_SEM = asyncio.Semaphore(6)
+        ZYTE_CONCURRENCY_SEM = asyncio.Semaphore(4)
     async with ZYTE_CONCURRENCY_SEM:
         if cache_key in ZYTE_PAGE_CACHE:
             return ZYTE_PAGE_CACHE[cache_key]
-        zdata = await asyncio.to_thread(fetch_zyte_raw_sync, url, country)
-        if not zdata:
-            return None
-        html_str = zdata.get("browserHtml") or ""
-        zprod = zdata.get("product") or {}
-        parsed = parse_html_fast_stdlib(html_str, url, zprod)
-        ZYTE_PAGE_CACHE[cache_key] = parsed
+        parsed = None
+        for attempt in range(2):
+            zdata = await asyncio.to_thread(fetch_zyte_raw_sync, url, country)
+            if zdata:
+                html_str = zdata.get("browserHtml") or ""
+                zprod = zdata.get("product") or {}
+                parsed = parse_html_fast_stdlib(html_str, url, zprod)
+                t_low = f"{parsed.get('title', '')} | {parsed.get('h1', '')}".lower()
+                is_valid_content = bool(parsed.get("h1") or zprod.get("price") or parsed.get("ldNodes") or len(parsed.get("links", [])) > 3) and not any(c in t_low for c in ["just a moment", "un momento", "attention required", "access denied"])
+                if is_valid_content:
+                    ZYTE_PAGE_CACHE[cache_key] = parsed
+                    return parsed
+            if attempt == 0:
+                await asyncio.sleep(0.8)
         return parsed
 
 async def prefetch_zyte_batch(page, urls, country):
@@ -630,6 +644,8 @@ async def fetch_discovery_links(page, url, country, expected_dom, force_zyte=Fal
 
 async def discover_missing_pdps(page_es, page_uk, tracking, today_str, domain_blocks=None):
     """Fast, time-bounded Deep Auto-Discovery engine with concurrent Zyte batching and deduplicated search caching."""
+    global PHASE2_START_MONOTONIC
+    PHASE2_START_MONOTONIC = time.monotonic()
     domain_blocks = domain_blocks or {}
     missing_by_op = {}
     for row in tracking:
@@ -1120,27 +1136,33 @@ def evaluate_page_info_candidates(page_info, row, source_prefix=""):
     return round(best_price, 2), final_oos, "VERIFIED", best_evidence
 
 def get_canonical_url_candidates(url, country):
-    """Returns primary URL plus at most 1 clean locale-prefixed fallback variant for Wetsuit Outlet."""
+    """Returns clean canonical URL first (e.g. Wetsuit Outlet /en-es/ or /es-es/ without legacy query strings or Danish slugs)."""
     u = url.strip()
     if not u:
         return []
-    cands = [u]
     if "wetsuitoutlet.es/" in u.lower():
+        if "svommedragt" in u.lower() and "p-38382.html" in u.lower():
+            u = "https://www.wetsuitoutlet.es/en-es/2026-zone3-mens-advance-swim-wetsuit-ws21madv-black-blue-p-38382.html"
         base_no_q = u.split("?")[0]
         path_part = re.sub(r"^https?://(?:www\.)?wetsuitoutlet\.es/(?:(?:es-es|en-es)/)?", "", base_no_q, flags=re.I)
-        pref = "en-es" if "-mens-" in path_part or "-womens-" in path_part else "es-es"
+        pref = "en-es" if ("-mens-" in path_part or "-womens-" in path_part or "-swim-wetsuit-" in path_part) else "es-es"
         cand_u = f"https://www.wetsuitoutlet.es/{pref}/{path_part}"
-        if cand_u not in cands:
-            cands.append(cand_u)
-    elif "wetsuitoutlet.co.uk/" in u.lower() and "?" in u:
-        base_no_q = u.split("?")[0]
+        cands = [cand_u]
         if base_no_q not in cands:
             cands.append(base_no_q)
-    return cands[:2]
+        return cands[:2]
+    elif "wetsuitoutlet.co.uk/" in u.lower() and "?" in u:
+        base_no_q = u.split("?")[0]
+        return [base_no_q, u][:2]
+    return [u]
 
 async def extract_verified_pdp_price(page, row, force_zyte_only=False):
-    url = row.get("url", "").strip()
+    raw_url = row.get("url", "").strip()
     country = row["country"]
+    cands_init = get_canonical_url_candidates(raw_url, country)
+    url = cands_init[0] if cands_init else raw_url
+    if url != raw_url:
+        row["url"] = url
 
     if is_generic_category_url(url):
         return None, False, "PENDING_PDP", "En quarantena: URL de categoria genèrica (cal fitxa individual PDP)"
@@ -1185,7 +1207,7 @@ async def extract_verified_pdp_price(page, row, force_zyte_only=False):
         elif resp.status >= 400:
             status_code, evidence_str = "HTTP_ERROR", f"Error HTTP {resp.status}"
         else:
-            await page.wait_for_timeout(1400)
+            await page.wait_for_timeout(600)
             page_info = await page.evaluate("""() => {
                 const title = document.title || "";
                 const h1 = Array.from(document.querySelectorAll("h1")).map(e => e.innerText.trim()).join(" | ");
@@ -1300,7 +1322,8 @@ async def main():
         d_pct = h.get("disc_pct")
         if p_val is None or float(p_val) <= 0 or (d_pct is not None and float(d_pct) > 50.0):
             continue
-        if "advance-plus" in str(h.get("url", "")).lower():
+        if "advance-plus" in str(h.get("url", "")).lower() or (h.get("country") == "UK" and h.get("operator") == "Deporvillage" and h.get("code") == "WS21WADV101" and float(p_val) > 300):
+            h["audit_status"] = "QUARANTINED_MODEL_MISMATCH"
             continue
         d_str = str(h.get("timestamp", ""))[:10]
         if not d_str:
@@ -1340,7 +1363,7 @@ async def main():
     now_iso = now_dt.strftime("%Y-%m-%dT%H:%M:%SZ")
 
     domain_blocks = {}
-    CIRCUIT_BREAKER_LIMIT = 2
+    CIRCUIT_BREAKER_LIMIT = 1 if ZYTE_API_KEY else 2
 
     print(f"Starting Zone3 Audit Scraper v9 ({now_iso}) | Zyte Hybrid Fallback: {'ENABLED' if ZYTE_API_KEY else 'NOT_SET (using Playwright Stealth)'}")
 
