@@ -355,7 +355,7 @@ def validate_product_identity(text_to_check, url, code, model_name):
     if "ADV" in code and any(plus_tok in combined for plus_tok in ["advance+", "advance plus", "advance-plus", "advence+", "advence plus"]):
         return False, "Versió Advance+ / Advance Plus exclosa (el model monitoritzat és l'Advance estàndard)"
 
-    if any(bad in combined for bad in ["goggles", "gafas", "gloves", "guantes", "socks", "calcetines", "buoy", "boya", "cap", "gorro", "trisuit", "kneeskin", "jammer"]):
+    if any(re.search(r"\b" + re.escape(bad) + r"\b", combined) for bad in ["goggles", "gafas", "gloves", "guantes", "socks", "calcetines", "buoy", "boya", "cap", "caps", "gorro", "trisuit", "kneeskin", "jammer"]):
         return False, "Accessori exclòs (no és un neoprè)"
 
     is_womens_model = "W" in code[4:6] or "women" in model_name.lower()
@@ -443,6 +443,25 @@ def parse_html_fast_stdlib(html_str, base_url, zprod=None):
         dom_prices = []
         for m_p in re.finditer(r'id=["\']js-precio["\'][^>]*>([^<]+)<', html_str, flags=re.I):
             dom_prices.append({"selector": "#js-precio", "text": m_p.group(1).strip(), "attrCurr": ""})
+        # Extract data-testid="price" / data-testid="product-price" / itemprop="price" / Deporvillage & React price containers
+        for m_dt in re.finditer(r'data-testid=["\'](?:product-price|price|current-price|final-price)["\'][^>]*>(.*?)</(?:span|div|p|strong)>', html_str, flags=re.I | re.S):
+            txt_dt = re.sub(r"<[^>]+>", " ", m_dt.group(1)).strip()
+            if txt_dt:
+                dom_prices.append({"selector": "[data-testid=price]", "text": txt_dt, "attrCurr": ""})
+        for m_ip in re.finditer(r'itemprop=["\']price["\'][^>]*content=["\']([^"\']+)["\']', html_str, flags=re.I):
+            dom_prices.append({"selector": "[itemprop=price]", "text": m_ip.group(1).strip(), "attrCurr": meta_curr})
+        for m_cls in re.finditer(r'class=["\'][^"\']*(?:product-detail-price|price__value|pdp-price|product-page-price|final-price|price-sales|current-price)[^"\']*["\'][^>]*>(.*?)</(?:span|div|p|strong)>', html_str, flags=re.I | re.S):
+            txt_cls = re.sub(r"<[^>]+>", " ", m_cls.group(1)).strip()
+            if txt_cls and len(txt_cls) < 40:
+                dom_prices.append({"selector": ".product-price", "text": txt_cls, "attrCurr": ""})
+        # Extract Next.js __NEXT_DATA__ product price if present (used by Deporvillage and modern React stores)
+        m_next = re.search(r'<script[^>]*id=["\']__NEXT_DATA__["\'][^>]*>(.*?)</script>', html_str, flags=re.I | re.S)
+        if m_next:
+            next_raw = m_next.group(1)
+            for m_np in re.finditer(r'"(?:finalPrice|specialPrice|salePrice|currentPrice|price|lowPrice)"\s*:\s*(?:"([\d]+(?:[.,]\d{1,2})?)"|([\d]+(?:\.\d{1,2})?))', next_raw):
+                val_np = m_np.group(1) or m_np.group(2)
+                if val_np:
+                    dom_prices.append({"selector": "__NEXT_DATA__", "text": val_np, "attrCurr": meta_curr})
 
         # Extract links including title, aria-label, and inner img alt attributes (crucial for Sportano & Alltricks product cards)
         links = []
@@ -687,10 +706,14 @@ def evaluate_page_info_candidates(page_info, row, source_prefix=""):
 
     body_text_raw = page_info.get("bodyText") or ""
     body_low = body_text_raw.lower()
-    if any(c in body_low for c in ["verify you are human", "cf-chl-bypass", "access denied", "captcha"]):
-        return None, False, "BLOCKED_CAPTCHA", "Bloqueig anti-bot / Captcha detectat"
-
     title_h1 = f"{page_info.get('title', '')} | {page_info.get('h1', '')}".strip()
+    title_h1_low = title_h1.lower()
+    if any(c in body_low or c in title_h1_low for c in [
+        "verify you are human", "cf-chl-bypass", "access denied", "captcha",
+        "just a moment", "un momento", "checking your browser", "attention required",
+        "cloudflare", "datadome", "enable javascript and cookies"
+    ]) or (not page_info.get("h1") and len(body_low.strip()) < 140):
+        return None, False, "BLOCKED_CAPTCHA", "Bloqueig anti-bot / Cloudflare challenge detectat"
     id_ok, id_msg = validate_product_identity(title_h1, url, code, model_name)
     if not id_ok:
         return None, False, "IDENTITY_MISMATCH", id_msg
@@ -1016,13 +1039,16 @@ async def extract_verified_pdp_price(page, row, force_zyte_only=False):
     except Exception as e:
         status_code, evidence_str = "ERROR", f"Error de lectura: {str(e)[:60]}"
 
-    # Hybrid Zyte Fallback: if Playwright hit anti-bot (403/429/503/Captcha) or empty JS render and ZYTE_API_KEY is available
-    if ZYTE_API_KEY and status_code in ("BLOCKED_HTTP", "BLOCKED_CAPTCHA", "HTTP_ERROR", "NO_VALID_PRICE", "ERROR"):
-        z_info = await fetch_via_zyte(page, url, country)
-        if z_info:
-            z_price, z_oos, z_status, z_ev = evaluate_page_info_candidates(z_info, row, source_prefix="[Zyte] ")
-            if z_status in ("VERIFIED", "OUT_OF_STOCK"):
-                return z_price, z_oos, z_status, z_ev
+    # Hybrid Zyte Fallback: if Playwright hit anti-bot (403/429/503/Captcha), soft challenge redirect (IDENTITY_MISMATCH) or empty JS render and ZYTE_API_KEY is available
+    if ZYTE_API_KEY and status_code in ("BLOCKED_HTTP", "BLOCKED_CAPTCHA", "HTTP_ERROR", "NO_VALID_PRICE", "IDENTITY_MISMATCH", "ERROR"):
+        for attempt in range(2):
+            z_info = await fetch_via_zyte(page, url, country)
+            if z_info:
+                z_price, z_oos, z_status, z_ev = evaluate_page_info_candidates(z_info, row, source_prefix="[Zyte] ")
+                if z_status in ("VERIFIED", "OUT_OF_STOCK"):
+                    return z_price, z_oos, z_status, z_ev
+            if attempt == 0:
+                await asyncio.sleep(0.8)
 
     return None, False, status_code, evidence_str
 
@@ -1066,15 +1092,12 @@ async def main():
         page_es = await context_es.new_page()
         page_uk = await context_uk.new_page()
 
-        # PHASE 1: Deep Auto-Discovery of missing PDP URLs (Probes + Catalog/EAN Search + Zyte + DuckDuckGo)
-        discovered_count = await discover_missing_pdps(page_es, page_uk, tracking, today_str)
-
         updated_count = 0
         zyte_rescued_count = 0
         quarantined_count = 0
         circuit_skipped = 0
 
-        # PHASE 2: Price Verification on all mapped PDPs
+        # PHASE 1 (Priority): Price Verification on all mapped PDPs first (clean session, zero rate-limit saturation)
         for row in tracking:
             row["is_from"] = False
             url = row.get("url", "").strip()
@@ -1110,12 +1133,13 @@ async def main():
                 page, row, force_zyte_only=playwright_blocked_for_dom
             )
 
-            if status_code in ("BLOCKED_HTTP", "BLOCKED_CAPTCHA"):
+            if status_code in ("BLOCKED_HTTP", "BLOCKED_CAPTCHA", "NO_VALID_PRICE"):
                 domain_blocks[dom] = domain_blocks.get(dom, 0) + 1
 
             if status_code == "VERIFIED" and min_price is not None and min_price > 0:
                 if "[Zyte]" in evidence_str:
                     zyte_rescued_count += 1
+                    domain_blocks[dom] = domain_blocks.get(dom, 0) + 1
                 prev_price = row.get("price")
                 prev_date = row.get("last_read", "")
 
@@ -1196,6 +1220,49 @@ async def main():
                     row["status"] = "PENDING_URL"
                     row["freshness"] = "NONE"
                     row["evidence"] = f"Revisat ({run_slot}): {evidence_str}"
+
+        # PHASE 2: Auto-Discovery of remaining unmapped PDP URLs (runs after mapped PDPs are safely read)
+        discovered_count = await discover_missing_pdps(page_es, page_uk, tracking, today_str)
+        if discovered_count > 0:
+            for row in tracking:
+                if row.get("status") == "PENDING_URL" and row.get("url") and f"({today_str})" in str(row.get("evidence", "")):
+                    dom = get_domain(row["url"])
+                    page = page_uk if row["country"] == "UK" else page_es
+                    min_price, is_oos, status_code, evidence_str = await extract_verified_pdp_price(
+                        page, row, force_zyte_only=(domain_blocks.get(dom, 0) >= CIRCUIT_BREAKER_LIMIT)
+                    )
+                    if status_code == "VERIFIED" and min_price is not None and min_price > 0:
+                        if "[Zyte]" in evidence_str:
+                            zyte_rescued_count += 1
+                        row["price"] = min_price
+                        row["disc_imp"] = round(row["pvp"] - min_price, 2)
+                        row["disc_pct"] = round((row["disc_imp"] / row["pvp"]) * 100, 1)
+                        row["status"] = "VERIFIED"
+                        row["freshness"] = "LIVE_TODAY"
+                        row["last_read"] = today_str
+                        row["out_of_stock"] = bool(is_oos)
+                        row["is_from"] = False
+                        row["evidence"] = evidence_str
+                        updated_count += 1
+                        history.append({
+                            "timestamp": today_str,
+                            "run_slot": run_slot,
+                            "timestamp_iso": now_iso,
+                            "country": row["country"],
+                            "currency": row["currency"],
+                            "operator": row["operator"],
+                            "code": row["code"],
+                            "model": row["model"],
+                            "pvp": row["pvp"],
+                            "price": min_price,
+                            "disc_imp": row["disc_imp"],
+                            "disc_pct": row["disc_pct"],
+                            "out_of_stock": bool(is_oos),
+                            "is_from": False,
+                            "url": row["url"],
+                            "audit_status": "VALID",
+                            "evidence": evidence_str
+                        })
 
         await browser.close()
 
