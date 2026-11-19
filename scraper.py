@@ -3,12 +3,21 @@ import base64
 import json
 import os
 import re
+import time
 import urllib.request
 from datetime import datetime
 from urllib.parse import urlparse, quote_plus, unquote
 from playwright.async_api import async_playwright
 
 ZYTE_API_KEY = os.environ.get("ZYTE_API_KEY", "").strip()
+START_MONOTONIC = time.monotonic()
+MAX_TOTAL_RUNTIME_SEC = 540  # 9-minute hard budget so GitHub Actions always commits cleanly
+ZYTE_CONCURRENCY_SEM = None
+ZYTE_PAGE_CACHE = {}
+DISCOVERY_LINKS_CACHE = {}
+
+def is_time_budget_exceeded(margin_sec=0):
+    return (time.monotonic() - START_MONOTONIC) >= (MAX_TOTAL_RUNTIME_SEC - margin_sec)
 
 STEALTH_INIT_SCRIPT = """
 Object.defineProperty(navigator, 'webdriver', { get: () => undefined });
@@ -63,28 +72,7 @@ OPERATOR_CATALOG_URLS = {
     ("ES", "Sportano"): [
         "https://sportano.com/en/zone3",
         "https://sportano.com/en/zone3?p=2",
-        "https://sportano.com/en/zone3?p=3",
-        "https://sportano.com/en/zone3?p=4",
-        "https://sportano.com/en/search?q=zone3+wetsuit",
-        "https://sportano.com/en/search?q=zone3+vision",
-        "https://sportano.com/en/search?q=zone3+terraprene",
-        "https://sportano.com/en/search?q=WS24MVIS101",
-        "https://sportano.com/en/search?q=WS24WVIS101",
-        "https://sportano.com/en/search?q=5056305737726",
-        "https://sportano.com/en/search?q=5056305739447",
-        "https://sportano.com/en/search?q=zone3+vanquish",
-        "https://sportano.com/en/search?q=WS22WVAN101",
-        "https://sportano.com/en/search?q=zone3+aspire",
-        "https://sportano.com/en/search?q=WS25WASP101",
-        "https://sportano.com/en/search?q=zone3+active+flex",
-        "https://sportano.com/en/search?q=WS25MACTF101",
-        "https://sportano.com/en/search?q=WS25WACTF101",
-        "https://sportano.com/en/search?q=zone3+glide",
-        "https://sportano.com/en/search?q=zone3+ascend",
-        "https://sportano.com/en/search?q=WS26WGLISL101",
-        "https://sportano.com/en/search?q=zone3+versa",
-        "https://sportano.com/en/search?q=WS25MSRV101",
-        "https://sportano.com/en/search?q=WS25WSRV101"
+        "https://sportano.com/en/search?q=zone3+wetsuit"
     ],
     ("ES", "Wetsuit Outlet"): [
         "https://www.wetsuitoutlet.es/es-es/marcas/zone3",
@@ -544,12 +532,37 @@ def parse_html_fast_stdlib(html_str, base_url, zprod=None):
     return info
 
 async def fetch_via_zyte(page, url, country):
-    zdata = await asyncio.to_thread(fetch_zyte_raw_sync, url, country)
-    if not zdata:
+    global ZYTE_CONCURRENCY_SEM
+    if not ZYTE_API_KEY or not url:
         return None
-    html_str = zdata.get("browserHtml") or ""
-    zprod = zdata.get("product") or {}
-    return parse_html_fast_stdlib(html_str, url, zprod)
+    cache_key = (country, url)
+    if cache_key in ZYTE_PAGE_CACHE:
+        return ZYTE_PAGE_CACHE[cache_key]
+    if ZYTE_CONCURRENCY_SEM is None:
+        ZYTE_CONCURRENCY_SEM = asyncio.Semaphore(6)
+    async with ZYTE_CONCURRENCY_SEM:
+        if cache_key in ZYTE_PAGE_CACHE:
+            return ZYTE_PAGE_CACHE[cache_key]
+        zdata = await asyncio.to_thread(fetch_zyte_raw_sync, url, country)
+        if not zdata:
+            return None
+        html_str = zdata.get("browserHtml") or ""
+        zprod = zdata.get("product") or {}
+        parsed = parse_html_fast_stdlib(html_str, url, zprod)
+        ZYTE_PAGE_CACHE[cache_key] = parsed
+        return parsed
+
+async def prefetch_zyte_batch(page, urls, country):
+    """Pre-warms ZYTE_PAGE_CACHE concurrently (up to 6 parallel requests) for a list of URLs."""
+    if not ZYTE_API_KEY or not urls:
+        return
+    dedup = []
+    for u in urls:
+        if u and (country, u) not in ZYTE_PAGE_CACHE and u not in dedup:
+            dedup.append(u)
+    if not dedup:
+        return
+    await asyncio.gather(*(fetch_via_zyte(page, u, country) for u in dedup), return_exceptions=True)
 
 def is_operator_pdp_url(href, expected_dom):
     if not href or is_generic_category_url(href):
@@ -580,15 +593,19 @@ def is_operator_pdp_url(href, expected_dom):
     return True
 
 async def fetch_discovery_links(page, url, country, expected_dom, force_zyte=False):
-    """Fetches product links from a catalog/search URL. Automatically falls back to Zyte if Playwright is soft-blocked (HTTP 200 with 0 PDP links)."""
+    """Fetches product links from a catalog/search URL with session caching and automatic Zyte soft-block rescue."""
+    cache_key = (country, url)
+    if cache_key in DISCOVERY_LINKS_CACHE:
+        return DISCOVERY_LINKS_CACHE[cache_key], force_zyte
     links = []
+    used_zyte = force_zyte
     if not force_zyte:
         try:
-            resp = await page.goto(url, wait_until="domcontentloaded", timeout=18000)
+            resp = await page.goto(url, wait_until="domcontentloaded", timeout=12000)
             if resp and resp.status == 200:
-                await page.wait_for_timeout(1400)
+                await page.wait_for_timeout(1000)
                 await page.evaluate("window.scrollTo(0, document.body.scrollHeight / 2)")
-                await page.wait_for_timeout(500)
+                await page.wait_for_timeout(400)
                 links = await page.evaluate("""() => {
                     return Array.from(document.querySelectorAll('a[href]')).map(a => {
                         const card = a.closest('article, li, [class*="product"], [class*="item"], [class*="card"], [class*="tile"]');
@@ -604,13 +621,15 @@ async def fetch_discovery_links(page, url, country, expected_dom, force_zyte=Fal
 
     pdp_count = sum(1 for l in links if is_operator_pdp_url(l.get("href", ""), expected_dom))
     if pdp_count == 0 and ZYTE_API_KEY:
+        used_zyte = True
         zinfo = await fetch_via_zyte(page, url, country)
         if zinfo and zinfo.get("links"):
             links.extend(zinfo["links"])
-    return links
+    DISCOVERY_LINKS_CACHE[cache_key] = links
+    return links, used_zyte
 
 async def discover_missing_pdps(page_es, page_uk, tracking, today_str, domain_blocks=None):
-    """Deep Auto-Discovery engine: direct candidate probes + operator catalog/search + automatic Zyte soft-block rescue + DuckDuckGo uddg unwrapping."""
+    """Fast, time-bounded Deep Auto-Discovery engine with concurrent Zyte batching and deduplicated search caching."""
     domain_blocks = domain_blocks or {}
     missing_by_op = {}
     for row in tracking:
@@ -623,24 +642,35 @@ async def discover_missing_pdps(page_es, page_uk, tracking, today_str, domain_bl
     discovered_total = 0
 
     for (country, operator), rows in missing_by_op.items():
+        if is_time_budget_exceeded(margin_sec=45):
+            print(f"[Time Budget] Stopping Auto-Discovery cleanly before ({country}, {operator}) to guarantee commit.")
+            break
+
         cat_urls = OPERATOR_CATALOG_URLS.get((country, operator), [])
         expected_dom = OPERATOR_DOMAIN_FILTER.get((country, operator), "")
         page = page_uk if country == "UK" else page_es
-        dom_is_blocked = any( expected_dom in d and cnt >= 2 for d, cnt in domain_blocks.items() )
+        dom_is_blocked = any(expected_dom in d and cnt >= 1 for d, cnt in domain_blocks.items())
         collected_links = []
 
         # 0. Direct candidate probes for priority missing SKUs
+        if dom_is_blocked and ZYTE_API_KEY:
+            all_probes = [u for r in rows for u in DIRECT_CANDIDATE_PROBES.get((country, operator, r["code"]), [])]
+            await prefetch_zyte_batch(page, all_probes, country)
+
         for row in list(rows):
+            if is_time_budget_exceeded(margin_sec=45):
+                break
             probe_urls = DIRECT_CANDIDATE_PROBES.get((country, operator, row["code"]), [])
             for p_url in probe_urls:
                 try:
                     page_title_h1 = ""
                     if not dom_is_blocked:
-                        resp = await page.goto(p_url, wait_until="domcontentloaded", timeout=15000)
+                        resp = await page.goto(p_url, wait_until="domcontentloaded", timeout=10000)
                         if resp and resp.status == 200:
-                            await page.wait_for_timeout(1000)
+                            await page.wait_for_timeout(800)
                             page_title_h1 = await page.evaluate("() => (document.title || '') + ' | ' + Array.from(document.querySelectorAll('h1')).map(e => e.innerText).join(' ')")
                     if (not page_title_h1 or "moment" in page_title_h1.lower()) and ZYTE_API_KEY:
+                        dom_is_blocked = True
                         zinfo = await fetch_via_zyte(page, p_url, country)
                         if zinfo:
                             page_title_h1 = f"{zinfo.get('title', '')} | {zinfo.get('h1', '')}"
@@ -656,17 +686,80 @@ async def discover_missing_pdps(page_es, page_uk, tracking, today_str, domain_bl
                 except Exception:
                     continue
 
-        if not rows:
+        if not rows or is_time_budget_exceeded(margin_sec=45):
             continue
 
-        # 1. Scan operator catalog & targeted model/EAN search URLs (with automatic Zyte fallback whenever 0 PDP links are returned)
-        for c_url in cat_urls:
-            c_links = await fetch_discovery_links(page, c_url, country, expected_dom, force_zyte=dom_is_blocked)
-            collected_links.extend(c_links)
+        # 1. Build deduplicated list of catalog + targeted search URLs for the missing models of this operator
+        op_discovery_urls = list(cat_urls)
+        for row in rows:
+            code = row["code"]
+            model_name = row["model"]
+            ean = MODEL_EANS.get(code, "")
+            kw_main = (MODEL_KEYWORDS.get(code) or [""])[0]
+            is_w = ("W" in code[4:6] or "women" in model_name.lower())
+            gender_en = "women" if is_w else "men"
+            gender_es = "mujer" if is_w else "hombre"
+            op_search_templates = {
+                ("ES", "Alltricks"): [
+                    f"https://www.alltricks.es/s?k=zone3+{kw_main}+{gender_es}",
+                    f"https://www.alltricks.es/s?k=zone3+{kw_main}"
+                ],
+                ("ES", "Wetsuit Outlet"): [
+                    f"https://www.wetsuitoutlet.es/es-es/search?q=zone3+{kw_main}",
+                    f"https://www.wetsuitoutlet.es/en-es/search?q=zone3+{kw_main}+{gender_en}"
+                ],
+                ("UK", "Wetsuit Outlet"): [
+                    f"https://www.wetsuitoutlet.co.uk/search?q=zone3+{kw_main}+{gender_en}",
+                    f"https://www.wetsuitoutlet.co.uk/search?q={code[:8]}"
+                ],
+                ("ES", "Sportano"): [
+                    f"https://sportano.com/en/search?q={code}",
+                    f"https://sportano.com/en/search?q=zone3+{kw_main}+{gender_en}"
+                ],
+                ("ES", "Deporvillage"): [
+                    f"https://www.deporvillage.com/catalogsearch/result/?q=zone3+{kw_main}",
+                    f"https://www.deporvillage.com/catalogsearch/result/?q={ean}"
+                ],
+                ("UK", "Deporvillage"): [
+                    f"https://www.deporvillage.co.uk/catalogsearch/result/?q=zone3+{kw_main}",
+                    f"https://www.deporvillage.co.uk/catalogsearch/result/?q={ean}"
+                ],
+                ("ES", "Bike 24"): [
+                    f"https://www.bike24.es/buscar?searchTerm=zone3+{kw_main}"
+                ],
+                ("ES", "Triathlon24"): [
+                    f"https://www.triathlon24.nl/search/zone3+{kw_main}/"
+                ],
+                ("UK", "Sigma"): [
+                    f"https://www.sigmasports.com/search?query=zone3+{kw_main}"
+                ],
+                ("UK", "Sportshoes"): [
+                    f"https://www.sportsshoes.com/products/?q=zone3%20{kw_main}"
+                ]
+            }
+            for s_u in op_search_templates.get((country, operator), []):
+                if s_u not in op_discovery_urls:
+                    op_discovery_urls.append(s_u)
+
+        # If domain is blocked in Playwright, prefetch all discovery URLs for this operator concurrently via Zyte (6 at a time)!
+        if dom_is_blocked and ZYTE_API_KEY:
+            await prefetch_zyte_batch(page, op_discovery_urls, country)
+
+        for d_url in op_discovery_urls:
+            if is_time_budget_exceeded(margin_sec=45):
+                break
+            d_links, used_zyte = await fetch_discovery_links(page, d_url, country, expected_dom, force_zyte=dom_is_blocked)
+            if used_zyte and not dom_is_blocked:
+                dom_is_blocked = True
+                # Immediately prefetch remaining discovery URLs for this operator in parallel via Zyte
+                await prefetch_zyte_batch(page, op_discovery_urls, country)
+            collected_links.extend(d_links)
 
         # Match collected links against remaining missing rows
         inspected_candidates = {}
         for row in rows:
+            if is_time_budget_exceeded(margin_sec=35):
+                break
             code = row["code"]
             model_name = row["model"]
             found_url = None
@@ -686,93 +779,28 @@ async def discover_missing_pdps(page_es, page_uk, tracking, today_str, domain_bl
                         href = f"{href}{sep}country={'uk' if country == 'UK' else 'es'}"
                     found_url = href
                     break
-                # If link URL/text contains the model keyword (e.g. 'vanquish', 'aspire', 'vision') but lacked gender in the short card text, queue for PDP title check
                 kws = MODEL_KEYWORDS.get(code, [])
                 comb_low = f"{link['text']} {href}".lower()
                 if kws and any(k in comb_low for k in kws) and href not in partial_candidates:
                     partial_candidates.append(href)
 
-            # 1b. Direct Operator Internal Search by exact SKU, EAN & Model keyword across ALL operators
-            if not found_url:
-                ean = MODEL_EANS.get(code, "")
-                kw_main = (MODEL_KEYWORDS.get(code) or [""])[0]
-                is_w = ("W" in code[4:6] or "women" in model_name.lower())
-                gender_en = "women" if is_w else "men"
-                gender_es = "mujer" if is_w else "hombre"
-                op_search_templates = {
-                    ("ES", "Alltricks"): [
-                        f"https://www.alltricks.es/s?k=zone3+{kw_main}+{gender_es}",
-                        f"https://www.alltricks.es/s?k=zone3+{kw_main}",
-                        f"https://www.alltricks.es/s?k={code}"
-                    ],
-                    ("ES", "Wetsuit Outlet"): [
-                        f"https://www.wetsuitoutlet.es/es-es/search?q=zone3+{kw_main}",
-                        f"https://www.wetsuitoutlet.es/en-es/search?q=zone3+{kw_main}+{gender_en}",
-                        f"https://www.wetsuitoutlet.es/en-es/search?q={code[:8]}"
-                    ],
-                    ("UK", "Wetsuit Outlet"): [
-                        f"https://www.wetsuitoutlet.co.uk/search?q=zone3+{kw_main}+{gender_en}",
-                        f"https://www.wetsuitoutlet.co.uk/search?q={code[:8]}"
-                    ],
-                    ("ES", "Sportano"): [
-                        f"https://sportano.com/en/search?q={code}",
-                        f"https://sportano.com/en/search?q=zone3+{kw_main}+{gender_en}"
-                    ],
-                    ("ES", "Deporvillage"): [
-                        f"https://www.deporvillage.com/catalogsearch/result/?q=zone3+{kw_main}",
-                        f"https://www.deporvillage.com/catalogsearch/result/?q={ean}"
-                    ],
-                    ("UK", "Deporvillage"): [
-                        f"https://www.deporvillage.co.uk/catalogsearch/result/?q=zone3+{kw_main}",
-                        f"https://www.deporvillage.co.uk/catalogsearch/result/?q={ean}"
-                    ],
-                    ("ES", "Bike 24"): [
-                        f"https://www.bike24.es/buscar?searchTerm=zone3+{kw_main}"
-                    ],
-                    ("ES", "Triathlon24"): [
-                        f"https://www.triathlon24.nl/search/zone3+{kw_main}/"
-                    ],
-                    ("UK", "Sigma"): [
-                        f"https://www.sigmasports.com/search?query=zone3+{kw_main}"
-                    ],
-                    ("UK", "Sportshoes"): [
-                        f"https://www.sportsshoes.com/products/?q=zone3%20{kw_main}"
-                    ]
-                }
-                for s_url in op_search_templates.get((country, operator), []):
-                    if found_url:
-                        break
-                    s_links = await fetch_discovery_links(page, s_url, country, expected_dom, force_zyte=dom_is_blocked)
-                    collected_links.extend(s_links)
-                    for slink in s_links:
-                        href = slink["href"].split("#")[0]
-                        if not is_operator_pdp_url(href, expected_dom):
-                            continue
-                        mkt_ok, _ = validate_market_url(href, country)
-                        if not mkt_ok:
-                            continue
-                        id_ok, _ = validate_product_identity(slink["text"], href, code, model_name)
-                        if id_ok:
-                            found_url = href
-                            break
-                        kws = MODEL_KEYWORDS.get(code, [])
-                        if kws and any(k in f"{slink['text']} {href}".lower() for k in kws) and href not in partial_candidates:
-                            partial_candidates.append(href)
-
-            # 1c. Inspect up to 2 partial candidate PDPs (where model keyword matched on the operator's domain, to verify H1/SKU inside the PDP)
+            # Inspect up to 2 partial candidate PDPs (where model keyword matched on the operator's domain, to verify H1/SKU inside the PDP)
             if not found_url and partial_candidates:
+                if dom_is_blocked and ZYTE_API_KEY:
+                    await prefetch_zyte_batch(page, partial_candidates[:2], country)
                 for cand_href in partial_candidates[:2]:
                     if cand_href not in inspected_candidates:
                         p_title_h1 = ""
                         if not dom_is_blocked:
                             try:
-                                r_c = await page.goto(cand_href, wait_until="domcontentloaded", timeout=15000)
+                                r_c = await page.goto(cand_href, wait_until="domcontentloaded", timeout=10000)
                                 if r_c and r_c.status == 200:
-                                    await page.wait_for_timeout(900)
+                                    await page.wait_for_timeout(700)
                                     p_title_h1 = await page.evaluate("() => (document.title || '') + ' | ' + Array.from(document.querySelectorAll('h1')).map(e => e.innerText).join(' ')")
                             except Exception:
                                 pass
                         if (not p_title_h1 or "moment" in p_title_h1.lower()) and ZYTE_API_KEY:
+                            dom_is_blocked = True
                             z_c = await fetch_via_zyte(page, cand_href, country)
                             if z_c:
                                 p_title_h1 = f"{z_c.get('title', '')} | {z_c.get('h1', '')}"
@@ -783,50 +811,6 @@ async def discover_missing_pdps(page_es, page_uk, tracking, today_str, domain_bl
                         if id_ok:
                             found_url = cand_href
                             break
-
-            # 2. Fallback: DuckDuckGo HTML search (`site:<operator_domain> zone3 <model>`) with `uddg=` unwrapping and Zyte fallback
-            if not found_url and expected_dom:
-                ean = MODEL_EANS.get(code, "")
-                kw_main = (MODEL_KEYWORDS.get(code) or [""])[0]
-                is_w = ("W" in code[4:6] or "women" in model_name.lower())
-                g_tok = "mujer OR women" if (country == "ES" and is_w) else ("hombre OR men" if country == "ES" else ("womens OR women" if is_w else "mens OR men"))
-                for q_str in [f"site:{expected_dom} zone3 {kw_main} {g_tok}", f"site:{expected_dom} {code} OR {ean}"]:
-                    if found_url:
-                        break
-                    try:
-                        ddg_url = f"https://html.duckduckgo.com/html/?q={quote_plus(q_str)}"
-                        ddg_links = []
-                        resp = await page.goto(ddg_url, wait_until="domcontentloaded", timeout=15000)
-                        if resp and resp.status == 200:
-                            await page.wait_for_timeout(800)
-                            ddg_links = await page.evaluate("""() => {
-                                return Array.from(document.querySelectorAll('a.result__a, a[href*="uddg="]')).map(a => ({
-                                    href: a.href,
-                                    text: (a.innerText || '').trim()
-                                }));
-                            }""")
-                        if not ddg_links and ZYTE_API_KEY:
-                            z_ddg = await fetch_via_zyte(page, ddg_url, country)
-                            if z_ddg and z_ddg.get("links"):
-                                ddg_links = z_ddg["links"]
-                        for dlink in ddg_links:
-                            raw_h = dlink["href"]
-                            if "uddg=" in raw_h:
-                                m_u = re.search(r'uddg=([^&"\s]+)', raw_h)
-                                if m_u:
-                                    raw_h = unquote(m_u.group(1))
-                            href = raw_h.split("#")[0]
-                            if not is_operator_pdp_url(href, expected_dom):
-                                continue
-                            mkt_ok, _ = validate_market_url(href, country)
-                            if not mkt_ok:
-                                continue
-                            id_ok, _ = validate_product_identity(dlink["text"], href, code, model_name)
-                            if id_ok:
-                                found_url = href
-                                break
-                    except Exception:
-                        pass
 
             if found_url:
                 row["url"] = found_url
@@ -1136,28 +1120,23 @@ def evaluate_page_info_candidates(page_info, row, source_prefix=""):
     return round(best_price, 2), final_oos, "VERIFIED", best_evidence
 
 def get_canonical_url_candidates(url, country):
-    """Returns primary URL plus clean locale-prefixed fallback variants (e.g. Wetsuit Outlet /es-es/ and /en-es/ without legacy osCommerce query strings)."""
+    """Returns primary URL plus at most 1 clean locale-prefixed fallback variant for Wetsuit Outlet."""
     u = url.strip()
     if not u:
         return []
     cands = [u]
     if "wetsuitoutlet.es/" in u.lower():
         base_no_q = u.split("?")[0]
-        # If URL had a non-Spanish/non-English slug (like Danish 'svommedragt...sortbla-p-38382.html'), also add the standard English/Spanish slug for that product ID
-        m_pid = re.search(r"-(p-\d+\.html)$", base_no_q, flags=re.I)
         path_part = re.sub(r"^https?://(?:www\.)?wetsuitoutlet\.es/(?:(?:es-es|en-es)/)?", "", base_no_q, flags=re.I)
-        for cand_u in [
-            f"https://www.wetsuitoutlet.es/es-es/{path_part}",
-            f"https://www.wetsuitoutlet.es/en-es/{path_part}",
-            base_no_q
-        ]:
-            if cand_u not in cands:
-                cands.append(cand_u)
+        pref = "en-es" if "-mens-" in path_part or "-womens-" in path_part else "es-es"
+        cand_u = f"https://www.wetsuitoutlet.es/{pref}/{path_part}"
+        if cand_u not in cands:
+            cands.append(cand_u)
     elif "wetsuitoutlet.co.uk/" in u.lower() and "?" in u:
         base_no_q = u.split("?")[0]
         if base_no_q not in cands:
             cands.append(base_no_q)
-    return cands
+    return cands[:2]
 
 async def extract_verified_pdp_price(page, row, force_zyte_only=False):
     url = row.get("url", "").strip()
@@ -1172,20 +1151,22 @@ async def extract_verified_pdp_price(page, row, force_zyte_only=False):
 
     # If domain already tripped the Playwright circuit breaker and ZYTE_API_KEY is configured, go straight to Zyte
     if force_zyte_only and ZYTE_API_KEY:
+        last_st, last_ev = "BLOCKED_HTTP", "Accés bloquejat i sense resposta vàlida de Zyte API"
         for cand_u in get_canonical_url_candidates(url, country):
-            for attempt in range(2):
+            z_info = await fetch_via_zyte(page, cand_u, country)
+            if z_info is None:
+                await asyncio.sleep(0.4)
                 z_info = await fetch_via_zyte(page, cand_u, country)
-                if z_info:
-                    r_copy = dict(row)
-                    r_copy["url"] = cand_u
-                    z_price, z_oos, z_status, z_ev = evaluate_page_info_candidates(z_info, r_copy, source_prefix="[Zyte] ")
-                    if z_status in ("VERIFIED", "OUT_OF_STOCK"):
-                        if cand_u != url:
-                            row["url"] = cand_u
-                        return z_price, z_oos, z_status, z_ev
-                if attempt == 0:
-                    await asyncio.sleep(0.6)
-        return None, False, "BLOCKED_HTTP", "Accés bloquejat i sense resposta vàlida de Zyte API"
+            if z_info:
+                r_copy = dict(row)
+                r_copy["url"] = cand_u
+                z_price, z_oos, z_status, z_ev = evaluate_page_info_candidates(z_info, r_copy, source_prefix="[Zyte] ")
+                last_st, last_ev = z_status, z_ev
+                if z_status in ("VERIFIED", "OUT_OF_STOCK"):
+                    if cand_u != url:
+                        row["url"] = cand_u
+                    return z_price, z_oos, z_status, z_ev
+        return None, False, last_st, last_ev
 
     status_code = "ERROR"
     evidence_str = ""
@@ -1252,18 +1233,19 @@ async def extract_verified_pdp_price(page, row, force_zyte_only=False):
     if ZYTE_API_KEY and status_code in ("BLOCKED_HTTP", "BLOCKED_CAPTCHA", "HTTP_ERROR", "NO_VALID_PRICE", "IDENTITY_MISMATCH", "ERROR"):
         url_cands = get_canonical_url_candidates(url, country)
         for cand_u in url_cands:
-            for attempt in range(2):
+            z_info = await fetch_via_zyte(page, cand_u, country)
+            if z_info is None:
+                await asyncio.sleep(0.4)
                 z_info = await fetch_via_zyte(page, cand_u, country)
-                if z_info:
-                    r_copy = dict(row)
-                    r_copy["url"] = cand_u
-                    z_price, z_oos, z_status, z_ev = evaluate_page_info_candidates(z_info, r_copy, source_prefix="[Zyte] ")
-                    if z_status in ("VERIFIED", "OUT_OF_STOCK"):
-                        if cand_u != url:
-                            row["url"] = cand_u
-                        return z_price, z_oos, z_status, z_ev
-                if attempt == 0:
-                    await asyncio.sleep(0.6)
+            if z_info:
+                r_copy = dict(row)
+                r_copy["url"] = cand_u
+                z_price, z_oos, z_status, z_ev = evaluate_page_info_candidates(z_info, r_copy, source_prefix="[Zyte] ")
+                status_code, evidence_str = z_status, z_ev
+                if z_status in ("VERIFIED", "OUT_OF_STOCK"):
+                    if cand_u != url:
+                        row["url"] = cand_u
+                    return z_price, z_oos, z_status, z_ev
 
     return None, False, status_code, evidence_str
 
@@ -1422,6 +1404,12 @@ async def main():
                 continue
 
             page = page_uk if row["country"] == "UK" else page_es
+            if playwright_blocked_for_dom and ZYTE_API_KEY:
+                rem_urls = [
+                    r.get("url", "").strip() for r in tracking
+                    if r.get("country") == row["country"] and get_domain(r.get("url", "")) == dom and not is_generic_category_url(r.get("url", ""))
+                ]
+                await prefetch_zyte_batch(page, rem_urls, row["country"])
             min_price, is_oos, status_code, evidence_str = await extract_verified_pdp_price(
                 page, row, force_zyte_only=playwright_blocked_for_dom
             )
