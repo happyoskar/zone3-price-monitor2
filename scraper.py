@@ -399,7 +399,7 @@ def fetch_zyte_raw_sync(url, country):
             },
             method="POST"
         )
-        with urllib.request.urlopen(req, timeout=28) as resp:
+        with urllib.request.urlopen(req, timeout=45) as resp:
             if resp.status != 200:
                 return None
             return json.loads(resp.read().decode("utf-8"))
@@ -409,50 +409,60 @@ def fetch_zyte_raw_sync(url, country):
 def parse_html_fast_stdlib(html_str, base_url, zprod=None):
     """Instant (<5ms) pure-Python stdlib parser for Zyte HTML. Never blocks on external scripts."""
     if not html_str:
-        info = {"title": "", "h1": "", "ldNodes": [], "metaCurr": "", "metaPrice": "", "domPrices": [], "bodyText": "", "links": []}
+        info = {"title": "", "h1": "", "ldNodes": [], "metaCurr": "", "metaPrice": "", "domPrices": [], "bodyText": "", "links": [], "hasExRentalOption": False}
     else:
         m_title = re.search(r"<title[^>]*>(.*?)</title>", html_str, flags=re.I | re.S)
         title = re.sub(r"\s+", " ", m_title.group(1)).strip() if m_title else ""
+
+        m_head = re.search(r"<head[^>]*>(.*?)</head>", html_str, flags=re.I | re.S)
+        head_html = m_head.group(1) if m_head else html_str[:12000]
 
         h1_matches = re.findall(r"<h1[^>]*>(.*?)</h1>", html_str, flags=re.I | re.S)
         h1_list = [re.sub(r"<[^>]+>", " ", h).strip() for h in h1_matches]
         h1 = re.sub(r"\s+", " ", " | ".join(filter(None, h1_list))).strip()
 
-        ld_nodes = re.findall(r'<script[^>]*type=["\']application/ld\+json["\'][^>]*>(.*?)</script>', html_str, flags=re.I | re.S)
+        # Truncate HTML BEFORE bottom Related/Carousel/Ex-Rental sections first so ldNodes & itemprop="price" never leak from related cards
+        m_h1_raw = re.search(r"<h1[^>]*>", html_str, flags=re.I)
+        h1_raw_idx = m_h1_raw.start() if m_h1_raw else 0
+        m_raw_cut = re.search(
+            r'(?:id=["\'](?:tab-related|tab-similar|related-products)["\']|data-list-name=["\'][^"\']*(?:Related|Viewed|Similar)[^"\']*["\']|class=["\'][^"\']*(?:productCarousel|related-products|similar-products|cross-sell|upsell)[^"\']*["\']|>\s*(?:Related Products|Customers Also Viewed|You May Also Need|More Like This|Similar Products)\s*<)',
+            html_str[h1_raw_idx:],
+            flags=re.I
+        )
+        truncated_raw_html = html_str[:h1_raw_idx + m_raw_cut.start()] if m_raw_cut else html_str
+
+        ld_nodes = re.findall(r'<script[^>]*type=["\']application/ld\+json["\'][^>]*>(.*?)</script>', truncated_raw_html, flags=re.I | re.S)
 
         meta_curr = ""
-        m_mc = re.search(r'<meta[^>]+(?:property|name|itemprop)=["\'](?:product:price:currency|og:price:currency|priceCurrency)["\'][^>]+content=["\']([^"\']+)["\']', html_str, flags=re.I)
+        m_mc = re.search(r'<meta[^>]+(?:property|name|itemprop)=["\'](?:product:price:currency|og:price:currency|priceCurrency)["\'][^>]+content=["\']([^"\']+)["\']', head_html, flags=re.I)
         if not m_mc:
-            m_mc = re.search(r'<meta[^>]+content=["\']([^"\']+)["\'][^>]+(?:property|name|itemprop)=["\'](?:product:price:currency|og:price:currency|priceCurrency)["\']', html_str, flags=re.I)
+            m_mc = re.search(r'<meta[^>]+content=["\']([^"\']+)["\'][^>]+(?:property|name|itemprop)=["\'](?:product:price:currency|og:price:currency|priceCurrency)["\']', head_html, flags=re.I)
         if m_mc:
             meta_curr = m_mc.group(1).strip()
 
+        # Only read OpenGraph / Product price meta tags from <head> (never body card itemprop="price" here)
         meta_price = ""
-        m_mp = re.search(r'<meta[^>]+(?:property|name|itemprop)=["\'](?:product:price:amount|og:price:amount|price)["\'][^>]+content=["\']([^"\']+)["\']', html_str, flags=re.I)
+        m_mp = re.search(r'<meta[^>]+(?:property|name)=["\'](?:product:price:amount|og:price:amount)["\'][^>]+content=["\']([^"\']+)["\']', head_html, flags=re.I)
         if not m_mp:
-            m_mp = re.search(r'<meta[^>]+content=["\']([^"\']+)["\'][^>]+(?:property|name|itemprop)=["\'](?:product:price:amount|og:price:amount|price)["\']', html_str, flags=re.I)
+            m_mp = re.search(r'<meta[^>]+content=["\']([^"\']+)["\'][^>]+(?:property|name)=["\'](?:product:price:amount|og:price:amount)["\']', head_html, flags=re.I)
         if m_mp:
             meta_price = m_mp.group(1).strip()
 
-        # Strip out related/recommended/carousel/footer/aside/strikeout blocks AND truncate before bottom Related/Carousel/Ex-Rental sections
-        main_html = re.sub(r"<(script|style|noscript|aside|footer|nav|header|del|s)[^>]*>.*?</\1>", " ", html_str, flags=re.I | re.S)
-        m_h1_pos = re.search(r"<h1[^>]*>", main_html, flags=re.I)
-        h1_idx = m_h1_pos.start() if m_h1_pos else 0
-        m_rel_cut = re.search(
-            r'(?:id=["\'](?:tab-related|tab-similar|related-products)["\']|class=["\'][^"\']*(?:productCarousel|related-products|similar-products|cross-sell|upsell)[^"\']*["\']|>\s*(?:Related Products|Customers Also Viewed|You May Also Need|More Like This|Similar Products)\s*<)',
-            main_html[h1_idx:],
-            flags=re.I
-        )
-        if m_rel_cut:
-            main_html = main_html[:h1_idx + m_rel_cut.start()]
+        # Strip out related/recommended/carousel/footer/aside/strikeout/rrp/withoutTax blocks on truncated main HTML
+        main_html = re.sub(r"<(script|style|noscript|aside|footer|nav|header|del|s)[^>]*>.*?</\1>", " ", truncated_raw_html, flags=re.I | re.S)
         main_html = re.sub(
-            r'<(div|section|ul)[^>]+(?:class|id|data-testid)=["\'][^"\']*(?:related|recommend|carousel|slider|upsell|cross-sell|similar|also-bought|alternatives|old-price|price-old|rrp|strike)[^"\']*["\'][^>]*>.*?</\1>',
+            r'<(div|section|ul|span)[^>]+(?:class|id|data-testid)=["\'][^"\']*(?:related|recommend|carousel|slider|upsell|cross-sell|similar|also-bought|alternatives|old-price|price-old|rrp|non-sale|withoutTax|strike)[^"\']*["\'][^>]*>.*?</\1>',
             " ",
             main_html,
             flags=re.I | re.S
         )
+
+        # Detect if the main product form/options mix an Ex-Rental / Ex-Demo / Second-Hand variant inside the same PDP
+        used_ctx_tokens = ("ex-rental", "ex rental", "ex-demo", "ex demo", "second-hand", "second hand", "refurbished", "b-stock", "grade b")
+        main_text_only = re.sub(r"<[^>]+>", " ", main_html[h1_raw_idx:] if h1_raw_idx < len(main_html) else main_html).lower()
+        has_ex_rental_opt = any(ut in main_text_only for ut in used_ctx_tokens)
+
         dom_prices = []
-        used_ctx_tokens = ("ex-rental", "ex rental", "ex-demo", "ex demo", "second-hand", "second hand", "refurbished", "b-stock")
         for m_p in re.finditer(r'id=["\'](?:js-precio|productPrice|product-price)["\'][^>]*>([^<]+)<', main_html, flags=re.I):
             dom_prices.append({"selector": "#productPrice", "text": m_p.group(1).strip(), "attrCurr": meta_curr})
         for m_ip in re.finditer(r'itemprop=["\']price["\'][^>]*content=["\']([^"\']+)["\']', main_html, flags=re.I):
@@ -463,12 +473,12 @@ def parse_html_fast_stdlib(html_str, base_url, zprod=None):
             txt_dt = re.sub(r"<[^>]+>", " ", m_dt.group(1)).strip()
             if txt_dt and len(txt_dt) < 35:
                 dom_prices.append({"selector": "[data-testid=product-price]", "text": txt_dt, "attrCurr": meta_curr})
-        for m_cls in re.finditer(r'class=["\'][^"\']*(?:product-detail-price|pdp-price|product-page-price|price--main|price--withoutTax|product-price__price|now-price|price-now)[^"\']*["\'][^>]*>(.*?)</(?:span|div|p|strong)>', main_html, flags=re.I | re.S):
+        for m_cls in re.finditer(r'class=["\'][^"\']*(?:product-detail-price|pdp-price|product-page-price|price--main|price--withTax|product-price__price|now-price|price-now)[^"\']*["\'][^>]*>(.*?)</(?:span|div|p|strong)>', main_html, flags=re.I | re.S):
             ctx_prev = main_html[max(0, m_cls.start() - 450):m_cls.start()].lower()
             if any(ut in ctx_prev for ut in used_ctx_tokens):
                 continue
             txt_cls = re.sub(r"<[^>]+>", " ", m_cls.group(1)).strip()
-            if txt_cls and len(txt_cls) < 35:
+            if txt_cls and len(txt_cls) < 40:
                 dom_prices.append({"selector": ".pdp-price", "text": txt_cls, "attrCurr": meta_curr})
 
         # Extract links including title, aria-label, inner img alt, surrounding card text (for empty stretched-link overlays),
@@ -540,7 +550,8 @@ def parse_html_fast_stdlib(html_str, base_url, zprod=None):
             "metaPrice": meta_price,
             "domPrices": dom_prices,
             "bodyText": body_text,
-            "links": links
+            "links": links,
+            "hasExRentalOption": has_ex_rental_opt
         }
 
     if isinstance(zprod, dict) and zprod.get("name"):
@@ -551,17 +562,19 @@ def parse_html_fast_stdlib(html_str, base_url, zprod=None):
     info["zyteProduct"] = zprod or {}
     return info
 
-async def fetch_via_zyte(page, url, country):
+async def fetch_via_zyte(page, url, country, is_pdp=True, force_refresh=False):
     global ZYTE_CONCURRENCY_SEM
     if not ZYTE_API_KEY or not url:
         return None
     cache_key = (country, url)
+    if force_refresh and cache_key in ZYTE_PAGE_CACHE:
+        del ZYTE_PAGE_CACHE[cache_key]
     if cache_key in ZYTE_PAGE_CACHE:
         return ZYTE_PAGE_CACHE[cache_key]
     if ZYTE_CONCURRENCY_SEM is None:
-        ZYTE_CONCURRENCY_SEM = asyncio.Semaphore(4)
+        ZYTE_CONCURRENCY_SEM = asyncio.Semaphore(3)
     async with ZYTE_CONCURRENCY_SEM:
-        if cache_key in ZYTE_PAGE_CACHE:
+        if not force_refresh and cache_key in ZYTE_PAGE_CACHE:
             return ZYTE_PAGE_CACHE[cache_key]
         parsed = None
         for attempt in range(2):
@@ -571,16 +584,22 @@ async def fetch_via_zyte(page, url, country):
                 zprod = zdata.get("product") or {}
                 parsed = parse_html_fast_stdlib(html_str, url, zprod)
                 t_low = f"{parsed.get('title', '')} | {parsed.get('h1', '')}".lower()
-                is_valid_content = bool(parsed.get("h1") or zprod.get("price") or parsed.get("ldNodes") or len(parsed.get("links", [])) > 3) and not any(c in t_low for c in ["just a moment", "un momento", "attention required", "access denied"])
+                not_challenged = not any(c in t_low for c in ["just a moment", "un momento", "attention required", "access denied", "404", "not found", "no encontrada"])
+                if is_pdp:
+                    has_price_signal = bool(zprod.get("price") or parsed.get("ldNodes") or parsed.get("metaPrice") or parsed.get("domPrices"))
+                    has_oos_signal = any(w in (parsed.get("bodyText") or "").lower() for w in ["agotado", "out of stock", "fuera de stock", "sold out", "no disponible"])
+                    is_valid_content = bool(parsed.get("h1") and (has_price_signal or has_oos_signal)) and not_challenged
+                else:
+                    is_valid_content = bool(parsed.get("h1") or len(parsed.get("links", [])) > 3) and not_challenged
                 if is_valid_content:
                     ZYTE_PAGE_CACHE[cache_key] = parsed
                     return parsed
             if attempt == 0:
-                await asyncio.sleep(0.8)
+                await asyncio.sleep(1.2)
         return parsed
 
-async def prefetch_zyte_batch(page, urls, country):
-    """Pre-warms ZYTE_PAGE_CACHE concurrently (up to 6 parallel requests) for a list of URLs."""
+async def prefetch_zyte_batch(page, urls, country, is_pdp=True):
+    """Pre-warms ZYTE_PAGE_CACHE concurrently (up to 3 parallel requests) for a list of URLs."""
     if not ZYTE_API_KEY or not urls:
         return
     dedup = []
@@ -589,7 +608,7 @@ async def prefetch_zyte_batch(page, urls, country):
             dedup.append(u)
     if not dedup:
         return
-    await asyncio.gather(*(fetch_via_zyte(page, u, country) for u in dedup), return_exceptions=True)
+    await asyncio.gather(*(fetch_via_zyte(page, u, country, is_pdp=is_pdp) for u in dedup), return_exceptions=True)
 
 def is_operator_pdp_url(href, expected_dom):
     if not href or is_generic_category_url(href):
@@ -649,23 +668,24 @@ async def fetch_discovery_links(page, url, country, expected_dom, force_zyte=Fal
     pdp_count = sum(1 for l in links if is_operator_pdp_url(l.get("href", ""), expected_dom))
     if pdp_count == 0 and ZYTE_API_KEY:
         used_zyte = True
-        zinfo = await fetch_via_zyte(page, url, country)
+        zinfo = await fetch_via_zyte(page, url, country, is_pdp=False)
         if zinfo and zinfo.get("links"):
             links.extend(zinfo["links"])
     DISCOVERY_LINKS_CACHE[cache_key] = links
     return links, used_zyte
 
-async def discover_missing_pdps(page_es, page_uk, tracking, today_str, domain_blocks=None):
-    """Fast, time-bounded Deep Auto-Discovery engine with concurrent Zyte batching and deduplicated search caching."""
+async def discover_missing_pdps(page_es, page_uk, tracking, today_str, domain_blocks=None, broken_row_ids=None):
+    """Fast, time-bounded Deep Auto-Discovery engine with concurrent Zyte batching and self-healing for HTTP 404 URLs."""
     global PHASE2_START_MONOTONIC
     PHASE2_START_MONOTONIC = time.monotonic()
     domain_blocks = domain_blocks or {}
+    broken_row_ids = broken_row_ids or set()
     missing_by_op = {}
     for row in tracking:
         if row.get("id") == "UK-DEP-WS21WADV101":
             continue
         st = row.get("status", "")
-        if st in ("UNMAPPED", "NOT_LISTED", "PENDING_PDP") or not row.get("url"):
+        if st in ("UNMAPPED", "NOT_LISTED", "PENDING_PDP") or not row.get("url") or row.get("id") in broken_row_ids:
             missing_by_op.setdefault((row["country"], row["operator"]), []).append(row)
 
     discovered_total = 0
@@ -691,6 +711,8 @@ async def discover_missing_pdps(page_es, page_uk, tracking, today_str, domain_bl
                 break
             probe_urls = DIRECT_CANDIDATE_PROBES.get((country, operator, row["code"]), [])
             for p_url in probe_urls:
+                if p_url == row.get('url') and row.get('id') in broken_row_ids:
+                    continue
                 try:
                     page_title_h1 = ""
                     if not dom_is_blocked:
@@ -772,7 +794,7 @@ async def discover_missing_pdps(page_es, page_uk, tracking, today_str, domain_bl
 
         # If domain is blocked in Playwright, prefetch all discovery URLs for this operator concurrently via Zyte (6 at a time)!
         if dom_is_blocked and ZYTE_API_KEY:
-            await prefetch_zyte_batch(page, op_discovery_urls, country)
+            await prefetch_zyte_batch(page, op_discovery_urls, country, is_pdp=False)
 
         for d_url in op_discovery_urls:
             if is_time_budget_exceeded(margin_sec=45):
@@ -781,7 +803,7 @@ async def discover_missing_pdps(page_es, page_uk, tracking, today_str, domain_bl
             if used_zyte and not dom_is_blocked:
                 dom_is_blocked = True
                 # Immediately prefetch remaining discovery URLs for this operator in parallel via Zyte
-                await prefetch_zyte_batch(page, op_discovery_urls, country)
+                await prefetch_zyte_batch(page, op_discovery_urls, country, is_pdp=False)
             collected_links.extend(d_links)
 
         # Match collected links against remaining missing rows
@@ -841,9 +863,11 @@ async def discover_missing_pdps(page_es, page_uk, tracking, today_str, domain_bl
                             found_url = cand_href
                             break
 
-            if found_url:
+            if found_url and found_url != row.get("url"):
                 row["url"] = found_url
-                row["status"] = "PENDING_URL"
+                row["_rediscovered_today"] = True
+                if row.get("status") != "VERIFIED":
+                    row["status"] = "PENDING_URL"
                 row["evidence"] = f"Auto-Discovery ({today_str}): Fitxa PDP localitzada per a {operator} ({country})"
                 discovered_total += 1
             else:
@@ -920,9 +944,12 @@ def evaluate_page_info_candidates(page_info, row, source_prefix=""):
     elif m_curr in ("£", "GBP"):
         m_curr = "GBP"
 
-    # 0. Zyte Automatic Product Extraction (individually validated for product identity & currency)
+    has_ex_rental_opt = bool(page_info.get("hasExRentalOption", False))
+    used_tokens = ("ex-rental", "ex rental", "ex-demo", "ex demo", "second-hand", "second hand", "refurbished", "b-stock", "grade b", "usedcondition", "refurbishedcondition", "damagedcondition")
+
+    # 0. Zyte Automatic Product Extraction (skipped if PDP mixes an Ex-Rental dropdown option with New options)
     zprod = page_info.get("zyteProduct") or {}
-    if isinstance(zprod, dict) and zprod.get("price"):
+    if isinstance(zprod, dict) and zprod.get("price") and not has_ex_rental_opt:
         z_name = str(zprod.get("name") or "").strip()
         z_sku = str(zprod.get("sku") or zprod.get("mpn") or zprod.get("gtin") or "").strip()
         z_id_ok, _ = validate_product_identity(f"{z_name} {z_sku}" if z_name else title_h1, url, code, model_name)
@@ -970,6 +997,9 @@ def evaluate_page_info_candidates(page_info, row, source_prefix=""):
                 if "product" in t:
                     prod_name = str(item.get("name", "")).strip()
                     prod_sku = str(item.get("sku", "") or item.get("mpn", "") or item.get("gtin13", "")).strip()
+                    item_cond = str(item.get("itemCondition", "")).lower()
+                    if any(ut in f"{prod_name} {prod_sku} {item_cond}".lower() for ut in used_tokens):
+                        continue
                     variant_size = str(item.get("size", "") or item.get("color", "")).strip()
                     if prod_name:
                         ld_ok, _ = validate_product_identity(f"{prod_name} {prod_sku}", url, code, model_name)
@@ -985,6 +1015,9 @@ def evaluate_page_info_candidates(page_info, row, source_prefix=""):
                         offers = []
                     for off in offers:
                         if not isinstance(off, dict):
+                            continue
+                        off_meta_low = f"{off.get('name','')} {off.get('sku','')} {off.get('description','')} {off.get('itemCondition','')}".lower()
+                        if any(ut in off_meta_low for ut in used_tokens):
                             continue
                         curr = str(off.get("priceCurrency", "") or m_curr or "").upper().strip()
                         if curr in ("€", "EUR"):
@@ -1004,7 +1037,10 @@ def evaluate_page_info_candidates(page_info, row, source_prefix=""):
                         elif "outofstock" in avail or "discontinued" in avail:
                             detected_oos = True
                             is_off_oos = True
-                        for p_key in ["price", "lowPrice", "highPrice"]:
+                        # If PDP mixes an Ex-Rental option inside the dropdown alongside New options, lowPrice/price on AggregateOffer reflects the Ex-Rental floor; prefer highPrice
+                        has_both_low_high = ("lowPrice" in off and "highPrice" in off and normalize_price(off.get("highPrice")) != normalize_price(off.get("lowPrice")))
+                        allowed_p_keys = ["highPrice"] if (has_ex_rental_opt and has_both_low_high) else (["price", "lowPrice", "highPrice"] if not has_ex_rental_opt else ["highPrice"])
+                        for p_key in allowed_p_keys:
                             if p_key in off:
                                 val = normalize_price(off[p_key])
                                 if val and (pvp * min_allowed_ratio) <= val <= (pvp * 1.20):
@@ -1022,10 +1058,10 @@ def evaluate_page_info_candidates(page_info, row, source_prefix=""):
         except Exception:
             pass
 
-    # 2. OpenGraph / Microdata
+    # 2. OpenGraph / Microdata (skipped if PDP mixes an Ex-Rental option inside the same page)
     if m_curr and m_curr != expected_curr:
         currency_mismatch = True
-    elif page_info.get("metaPrice") and (m_curr == expected_curr or has_local_domain_currency):
+    elif page_info.get("metaPrice") and not has_ex_rental_opt and (m_curr == expected_curr or has_local_domain_currency):
         val = normalize_price(page_info["metaPrice"])
         if val:
             candidates.append((
@@ -1035,7 +1071,7 @@ def evaluate_page_info_candidates(page_info, row, source_prefix=""):
                 f"{source_prefix}Meta OG [{market_tag}] ({val:.2f} {expected_sym}) · H1: '{page_info.get('h1', '')[:40]}'"
             ))
 
-    # 3. Main Product DOM elements (excluding all carousels/related blocks)
+    # 3. Main Product DOM elements (excluding all carousels/related/Ex-Rental blocks)
     for dp in page_info.get("domPrices", []):
         txt = dp["text"]
         if forbidden_sym in txt:
@@ -1050,15 +1086,22 @@ def evaluate_page_info_candidates(page_info, row, source_prefix=""):
         )
         if not has_explicit_curr:
             continue
-        for m in re.finditer(r"([\d]{2,3}(?:[.,]\d{1,2})?)", txt):
-            val = normalize_price(m.group(1))
-            if val:
-                candidates.append((
-                    3,
-                    False,
-                    val,
-                    f"{source_prefix}DOM Principal {dp['selector']} [{market_tag}] ({val:.2f} {expected_sym}) · H1: '{page_info.get('h1', '')[:38]}'"
-                ))
+        extracted_nums = [normalize_price(m.group(1)) for m in re.finditer(r"([\d]{2,3}(?:[.,]\d{1,2})?)", txt)]
+        extracted_nums = [v for v in extracted_nums if v is not None]
+        if not extracted_nums:
+            continue
+        # If the DOM element shows a price range (e.g. "£355.97 - £593.97") on a page with an Ex-Rental option, take the upper New price!
+        if has_ex_rental_opt and len(extracted_nums) >= 2 and ("-" in txt or "–" in txt):
+            extracted_nums = [max(extracted_nums)]
+        elif has_ex_rental_opt and len(extracted_nums) == 1 and extracted_nums[0] < (pvp * 0.62):
+            continue
+        for val in extracted_nums:
+            candidates.append((
+                3,
+                False,
+                val,
+                f"{source_prefix}DOM Principal {dp['selector']} [{market_tag}] ({val:.2f} {expected_sym}) · H1: '{page_info.get('h1', '')[:38]}'"
+            ))
 
     # 4. Promo Code / Coupon Price Detection on PDP:
     #    - Case 4A: The page explicitly displays the discounted price with a promo code (e.g., Sportano "598,49 € with code: BLACKBELT") ->
@@ -1148,22 +1191,58 @@ def evaluate_page_info_candidates(page_info, row, source_prefix=""):
     final_oos = True if (best_cand_oos or (detected_oos and not detected_instock)) else False
     return round(best_price, 2), final_oos, "VERIFIED", best_evidence
 
+WETSUIT_OUTLET_ES_EN_MAP = {
+    "p-53917.html": "https://www.wetsuitoutlet.es/en-es/2026-zone3-mens-aspire-wetsuit-ws25masp-black-chalk-p-53917.html",
+    "p-48572.html": "https://www.wetsuitoutlet.es/en-es/2026-zone3-mens-terraprene-vision-back-zip-swim-wetsuit-ws24mvis101-black-forest-green-p-48572.html",
+    "p-48600.html": "https://www.wetsuitoutlet.es/en-es/2026-zone3-womens-terraprene-vision-back-zip-swim-wetsuit-ws24wvis101-black-eucalyptus-green-p-48600.html",
+    "p-38382.html": "https://www.wetsuitoutlet.es/en-es/2026-zone3-mens-advance-swim-wetsuit-ws21madv-black-blue-p-38382.html",
+    "p-38383.html": "https://www.wetsuitoutlet.es/en-es/2026-zone3-womens-advance-swim-wetsuit-ws21wadv-black-turquoise-p-38383.html",
+    "p-40555.html": "https://www.wetsuitoutlet.es/en-es/2026-zone3-mens-agile-swim-wetsuit-ws21magi116-black-silver-gunmetal-p-40555.html",
+    "p-40559.html": "https://www.wetsuitoutlet.es/en-es/2026-zone3-womens-agile-swim-wetsuit-ws21wagi114-black-pink-turquoise-p-40559.html",
+    "p-56135.html": "https://www.wetsuitoutlet.es/en-es/2026-zone3-mens-ascend-sleeveless-swim-wetsuit-ws26mglisl101-black-grey-p-56135.html",
+    "p-56136.html": "https://www.wetsuitoutlet.es/en-es/2026-zone3-womens-ascend-sleeveless-wetsuit-ws26wglisl101-black-grey-p-56136.html",
+    "p-52492.html": "https://www.wetsuitoutlet.es/en-es/2026-zone3-mens-active-flex-swim-wetsuit-ws25mactf101-black-orange-p-52492.html",
+    "p-52493.html": "https://www.wetsuitoutlet.es/en-es/2026-zone3-womens-active-flex-swim-wetsuit-ws25wactf101-black-orange-p-52493.html"
+}
+
+WETSUIT_OUTLET_ES_LEGACY_MAP = {
+    "p-53917.html": "https://www.wetsuitoutlet.es/2026-zone3-hombres-aspire-neopreno-ws25masp-black-chalk-p-53917.html?currency=EUR",
+    "p-48572.html": "https://www.wetsuitoutlet.es/2026-zone3-hombres-terraprene-vision-back-zip-swim-neopreno-ws24mvis101-black-forest-green-p-48572.html?currency=EUR",
+    "p-48600.html": "https://www.wetsuitoutlet.es/2026-zone3-mujer-terraprene-vision-back-zip-swim-neopreno-ws24wvis101-black-eucalyptus-green-p-48600.html?currency=EUR",
+    "p-38383.html": "https://www.wetsuitoutlet.es/2026-zone3-mujer-advance-swim-neopreno-ws21wadv-black-turquoise-p-38383.html?currency=EUR",
+    "p-40555.html": "https://www.wetsuitoutlet.es/2026-zone3-hombres-agile-swim-neopreno-ws21magi116-black-silver-gunmetal-p-40555.html?currency=EUR",
+    "p-40559.html": "https://www.wetsuitoutlet.es/2026-zone3-mujer-agile-swim-neopreno-ws21wagi114-black-pink-turquoise-p-40559.html?currency=EUR",
+    "p-56135.html": "https://www.wetsuitoutlet.es/2026-zone3-hombres-traje-neopreno-sin-mangas-ascend-ws26mglisl101-black-grey-p-56135.html?currency=EUR",
+    "p-56136.html": "https://www.wetsuitoutlet.es/2026-zone3-mujer-traje-neopreno-sin-mangas-ascend-ws26wglisl101-black-grey-p-56136.html?currency=EUR",
+    "p-52492.html": "https://www.wetsuitoutlet.es/2026-zone3-hombres-active-flex-swim-neopreno-ws25mactf101-black-orange-p-52492.html?currency=EUR",
+    "p-52493.html": "https://www.wetsuitoutlet.es/2026-zone3-mujer-active-flex-swim-neopreno-ws25wactf101-black-orange-p-52493.html?currency=EUR"
+}
+
 def get_canonical_url_candidates(url, country):
-    """Returns clean canonical URL first (e.g. Wetsuit Outlet /en-es/ or /es-es/ without legacy query strings or Danish slugs)."""
+    """Returns ordered candidate URLs without mutating or losing fallback paths on repeated calls."""
     u = url.strip()
     if not u:
         return []
     if "wetsuitoutlet.es/" in u.lower():
-        if "svommedragt" in u.lower() and "p-38382.html" in u.lower():
-            u = "https://www.wetsuitoutlet.es/en-es/2026-zone3-mens-advance-swim-wetsuit-ws21madv-black-blue-p-38382.html"
-        base_no_q = u.split("?")[0]
-        path_part = re.sub(r"^https?://(?:www\.)?wetsuitoutlet\.es/(?:(?:es-es|en-es)/)?", "", base_no_q, flags=re.I)
-        pref = "en-es" if ("-mens-" in path_part or "-womens-" in path_part or "-swim-wetsuit-" in path_part) else "es-es"
-        cand_u = f"https://www.wetsuitoutlet.es/{pref}/{path_part}"
-        cands = [cand_u]
-        if base_no_q not in cands:
-            cands.append(base_no_q)
-        return cands[:2]
+        cands = []
+        m_pid = re.search(r"-(p-\d+\.html)", u, flags=re.I)
+        pid = m_pid.group(1).lower() if m_pid else ""
+        # 1. Verified /en-es/ English slug (confirmed working 200 OK in EUR on wetsuitoutlet.es)
+        if pid and pid in WETSUIT_OUTLET_ES_EN_MAP:
+            cands.append(WETSUIT_OUTLET_ES_EN_MAP[pid])
+        # 2. Original URL if it is NOT a broken /es-es/hombres or Danish svommedragt path
+        if "svommedragt" not in u.lower() and "/es-es/2026-zone3-hombres-" not in u.lower() and "/es-es/2026-zone3-mujer-" not in u.lower():
+            if u not in cands:
+                cands.append(u)
+        # 3. Legacy root Spanish URL with ?currency=EUR (confirmed working via 301 redirect on 19/11)
+        if pid and pid in WETSUIT_OUTLET_ES_LEGACY_MAP:
+            leg_u = WETSUIT_OUTLET_ES_LEGACY_MAP[pid]
+            if leg_u not in cands:
+                cands.append(leg_u)
+            leg_no_q = leg_u.split("?")[0]
+            if leg_no_q not in cands:
+                cands.append(leg_no_q)
+        return cands[:3] if cands else [u]
     elif "wetsuitoutlet.co.uk/" in u.lower() and "?" in u:
         base_no_q = u.split("?")[0]
         return [base_no_q, u][:2]
@@ -1172,34 +1251,36 @@ def get_canonical_url_candidates(url, country):
 async def extract_verified_pdp_price(page, row, force_zyte_only=False):
     raw_url = row.get("url", "").strip()
     country = row["country"]
-    cands_init = get_canonical_url_candidates(raw_url, country)
-    url = cands_init[0] if cands_init else raw_url
-    if url != raw_url:
-        row["url"] = url
+    url_candidates = get_canonical_url_candidates(raw_url, country)
+    primary_url = url_candidates[0] if url_candidates else raw_url
 
-    if is_generic_category_url(url):
+    if is_generic_category_url(primary_url):
         return None, False, "PENDING_PDP", "En quarantena: URL de categoria genèrica (cal fitxa individual PDP)"
 
-    mkt_ok, mkt_msg = validate_market_url(url, country)
+    mkt_ok, mkt_msg = validate_market_url(primary_url, country)
     if not mkt_ok:
         return None, False, "MARKET_MISMATCH", mkt_msg
 
     # If domain already tripped the Playwright circuit breaker and ZYTE_API_KEY is configured, go straight to Zyte
     if force_zyte_only and ZYTE_API_KEY:
         last_st, last_ev = "BLOCKED_HTTP", "Accés bloquejat i sense resposta vàlida de Zyte API"
-        for cand_u in get_canonical_url_candidates(url, country):
-            z_info = await fetch_via_zyte(page, cand_u, country)
+        for cand_u in url_candidates:
+            z_info = await fetch_via_zyte(page, cand_u, country, is_pdp=True)
             if z_info is None:
-                await asyncio.sleep(0.4)
-                z_info = await fetch_via_zyte(page, cand_u, country)
+                await asyncio.sleep(0.6)
+                z_info = await fetch_via_zyte(page, cand_u, country, is_pdp=True, force_refresh=True)
             if z_info:
                 r_copy = dict(row)
                 r_copy["url"] = cand_u
                 z_price, z_oos, z_status, z_ev = evaluate_page_info_candidates(z_info, r_copy, source_prefix="[Zyte] ")
+                # If cached Zyte page had a transient incomplete render, force one fresh uncached Zyte fetch
+                if z_status in ("NO_VALID_PRICE", "BLOCKED_CAPTCHA"):
+                    z_info_retry = await fetch_via_zyte(page, cand_u, country, is_pdp=True, force_refresh=True)
+                    if z_info_retry:
+                        z_price, z_oos, z_status, z_ev = evaluate_page_info_candidates(z_info_retry, r_copy, source_prefix="[Zyte] ")
                 last_st, last_ev = z_status, z_ev
                 if z_status in ("VERIFIED", "OUT_OF_STOCK"):
-                    if cand_u != url:
-                        row["url"] = cand_u
+                    row["url"] = cand_u
                     return z_price, z_oos, z_status, z_ev
         return None, False, last_st, last_ev
 
@@ -1212,81 +1293,115 @@ async def extract_verified_pdp_price(page, row, force_zyte_only=False):
         else:
             await page.set_extra_http_headers({"Accept-Language": "es-ES,es;q=0.9"})
 
-        resp = await page.goto(url, wait_until="domcontentloaded", timeout=18000)
-        if not resp:
-            status_code, evidence_str = "HTTP_ERROR", "Timeout sense resposta HTTP"
-        elif resp.status in (403, 429, 503):
-            status_code, evidence_str = "BLOCKED_HTTP", f"Accés bloquejat per l'operador (HTTP {resp.status})"
-        elif resp.status >= 400:
-            status_code, evidence_str = "HTTP_ERROR", f"Error HTTP {resp.status}"
-        else:
-            await page.wait_for_timeout(600)
-            page_info = await page.evaluate("""() => {
-                const title = document.title || "";
-                const h1 = Array.from(document.querySelectorAll("h1")).map(e => e.innerText.trim()).join(" | ");
-                const ldNodes = Array.from(document.querySelectorAll('script[type="application/ld+json"]')).map(s => s.innerText);
-                const metaCurr = (document.querySelector('meta[property="product:price:currency"], meta[property="og:price:currency"], [itemprop="priceCurrency"]') || {}).content || "";
-                const metaPrice = (document.querySelector('meta[property="product:price:amount"], meta[property="og:price:amount"], meta[itemprop="price"]') || {}).content || "";
+        for cand_u in url_candidates[:2]:
+            resp = await page.goto(cand_u, wait_until="domcontentloaded", timeout=18000)
+            if not resp:
+                status_code, evidence_str = "HTTP_ERROR", "Timeout sense resposta HTTP"
+                continue
+            elif resp.status in (403, 429, 503):
+                status_code, evidence_str = "BLOCKED_HTTP", f"Accés bloquejat per l'operador (HTTP {resp.status})"
+                break
+            elif resp.status >= 400:
+                status_code, evidence_str = "HTTP_ERROR", f"Error HTTP {resp.status}"
+                continue
+            else:
+                await page.wait_for_timeout(600)
+                page_info = await page.evaluate("""() => {
+                    const forbiddenContainers = [
+                        '.related', '.recommendations', '.cross-sell', '.upsell', '.similar-products',
+                        '.product-carousel', '.productCarousel', '.also-bought', '.alternatives', 'aside', 'footer', 'nav', 'header',
+                        '#tab-related', '#tab-similar', '[data-list-name*="Related"]', '[data-list-name*="Viewed"]',
+                        '[data-testid*="recommend"]', '[data-testid*="carousel"]', '[data-testid*="related"]',
+                        '[class*="recommend"]', '[class*="related"]', '[class*="carousel"]', '[class*="slider"]',
+                        '[class*="cross"]', '[class*="upsell"]', '[class*="similar"]', '[class*="other-products"]',
+                        '[id*="related"]', '[id*="recommend"]', '[id*="carousel"]'
+                    ].join(', ');
 
-                const forbiddenContainers = [
-                    '.related', '.recommendations', '.cross-sell', '.upsell', '.similar-products',
-                    '.product-carousel', '.also-bought', '.alternatives', 'aside', 'footer', 'nav', 'header',
-                    '[data-testid*="recommend"]', '[data-testid*="carousel"]', '[data-testid*="related"]',
-                    '[class*="recommend"]', '[class*="related"]', '[class*="carousel"]', '[class*="slider"]',
-                    '[class*="cross"]', '[class*="upsell"]', '[class*="similar"]', '[class*="other-products"]',
-                    '[id*="related"]', '[id*="recommend"]', '[id*="carousel"]'
-                ].join(', ');
+                    const title = document.title || "";
+                    const h1 = Array.from(document.querySelectorAll("h1")).map(e => e.innerText.trim()).join(" | ");
+                    const ldNodes = Array.from(document.querySelectorAll('script[type="application/ld+json"]'))
+                        .filter(s => !s.closest(forbiddenContainers))
+                        .map(s => s.innerText);
 
-                const selectors = [
-                    '#js-precio', '#productPrice', '[data-testid="product-price"]',
-                    '.product-detail-price', '.pdp-price', '.product-page-price',
-                    '.price--main', '.price--withoutTax', '.product-price__price'
-                ];
-                const domPrices = [];
-                selectors.forEach(sel => {
-                    document.querySelectorAll(sel).forEach(el => {
-                        if (el.closest('del, s, .old-price, .price-old, .rrp, .strike')) return;
-                        if (el.closest(forbiddenContainers)) return;
-                        const cardCtx = el.closest('article, li, .card, .productCarousel-slide, [class*="productCard"]');
-                        if (cardCtx && /ex-rental|ex rental|ex-demo|second-hand|refurbished/i.test(cardCtx.innerText || '')) return;
-                        const txt = (el.innerText || el.getAttribute("content") || "").trim();
-                        const attrCurr = (el.getAttribute("data-currency") || el.getAttribute("currency") || "").trim();
-                        if (txt) domPrices.push({ selector: sel, text: txt, attrCurr });
+                    const metaCurrEl = Array.from(document.querySelectorAll('head meta[property="product:price:currency"], head meta[property="og:price:currency"], [itemprop="priceCurrency"]'))
+                        .find(el => !el.closest(forbiddenContainers));
+                    const metaCurr = metaCurrEl ? (metaCurrEl.content || metaCurrEl.getAttribute("content") || "") : "";
+
+                    // Only read head OG/product price or main-product itemprop=price outside forbidden/Ex-Rental cards
+                    let metaPrice = (document.querySelector('head meta[property="product:price:amount"], head meta[property="og:price:amount"]') || {}).content || "";
+                    if (!metaPrice) {
+                        const ipEl = Array.from(document.querySelectorAll('meta[itemprop="price"], [itemprop="price"][content]')).find(el => {
+                            if (el.closest(forbiddenContainers)) return false;
+                            const cardCtx = el.closest('article, li, .card, .productCarousel-slide, [class*="productCard"]');
+                            if (cardCtx && /ex-rental|ex rental|ex-demo|second-hand|refurbished|grade b|b-stock/i.test(cardCtx.innerText || '')) return false;
+                            return true;
+                        });
+                        if (ipEl) metaPrice = ipEl.getAttribute("content") || "";
+                    }
+
+                    const mainScope = document.querySelector('.productView, [data-testid="product-detail"], main') || document.body;
+                    const optEls = mainScope ? Array.from(mainScope.querySelectorAll('.productView-options, form[data-cart-item-add], .product-options, [class*="option"], label, select'))
+                        .filter(el => !el.closest(forbiddenContainers)) : [];
+                    const optText = optEls.map(e => e.innerText || "").join(" ");
+                    const hasExRentalOption = /ex-rental|ex rental|ex-demo|ex demo|second-hand|second hand|refurbished|grade b|b-stock/i.test(optText);
+
+                    const selectors = [
+                        '#js-precio', '#productPrice', '[data-testid="product-price"]',
+                        '.product-detail-price', '.pdp-price', '.product-page-price',
+                        '[data-product-price-with-tax]', '.price--withTax', '.price--main', '.product-price__price'
+                    ];
+                    const domPrices = [];
+                    selectors.forEach(sel => {
+                        document.querySelectorAll(sel).forEach(el => {
+                            if (el.closest('del, s, .old-price, .price-old, .rrp, .price--rrp, .price--non-sale, .price--withoutTax, [data-product-price-without-tax], .strike')) return;
+                            if (el.closest(forbiddenContainers)) return;
+                            const cardCtx = el.closest('article, li, .card, .productCarousel-slide, [class*="productCard"]');
+                            if (cardCtx && /ex-rental|ex rental|ex-demo|second-hand|refurbished|grade b|b-stock/i.test(cardCtx.innerText || '')) return;
+                            const txt = (el.innerText || el.getAttribute("content") || "").trim();
+                            const attrCurr = (el.getAttribute("data-currency") || el.getAttribute("currency") || "").trim();
+                            if (txt) domPrices.push({ selector: sel, text: txt, attrCurr });
+                        });
                     });
-                });
 
-                const bodyText = (document.body ? document.body.innerText : "").slice(0, 4500);
-                return { title, h1, ldNodes, metaCurr, metaPrice, domPrices, bodyText };
-            }""")
+                    const bodyText = (document.body ? document.body.innerText : "").slice(0, 4500);
+                    return { title, h1, ldNodes, metaCurr, metaPrice, domPrices, bodyText, hasExRentalOption };
+                }""")
 
-            price_val, is_oos, status_code, evidence_str = evaluate_page_info_candidates(page_info, row, source_prefix="")
-            if status_code == "VERIFIED" or status_code == "OUT_OF_STOCK":
-                return price_val, is_oos, status_code, evidence_str
+                r_copy = dict(row)
+                r_copy["url"] = cand_u
+                price_val, is_oos, status_code, evidence_str = evaluate_page_info_candidates(page_info, r_copy, source_prefix="")
+                if status_code in ("VERIFIED", "OUT_OF_STOCK"):
+                    row["url"] = cand_u
+                    return price_val, is_oos, status_code, evidence_str
 
     except Exception as e:
         status_code, evidence_str = "ERROR", f"Error de lectura: {str(e)[:60]}"
 
-    # Hybrid Zyte Fallback: if Playwright hit anti-bot (403/429/503/Captcha), soft challenge redirect (IDENTITY_MISMATCH) or empty JS render and ZYTE_API_KEY is available
+    # Hybrid Zyte Fallback: if Playwright hit anti-bot (403/429/503/Captcha), HTTP 404 on primary, soft challenge redirect (IDENTITY_MISMATCH) or empty JS render
     if ZYTE_API_KEY and status_code in ("BLOCKED_HTTP", "BLOCKED_CAPTCHA", "HTTP_ERROR", "NO_VALID_PRICE", "IDENTITY_MISMATCH", "ERROR"):
-        url_cands = get_canonical_url_candidates(url, country)
-        for cand_u in url_cands:
-            z_info = await fetch_via_zyte(page, cand_u, country)
+        for cand_u in url_candidates:
+            z_info = await fetch_via_zyte(page, cand_u, country, is_pdp=True)
             if z_info is None:
-                await asyncio.sleep(0.4)
-                z_info = await fetch_via_zyte(page, cand_u, country)
+                await asyncio.sleep(0.6)
+                z_info = await fetch_via_zyte(page, cand_u, country, is_pdp=True, force_refresh=True)
             if z_info:
                 r_copy = dict(row)
                 r_copy["url"] = cand_u
                 z_price, z_oos, z_status, z_ev = evaluate_page_info_candidates(z_info, r_copy, source_prefix="[Zyte] ")
+                if z_status in ("NO_VALID_PRICE", "BLOCKED_CAPTCHA"):
+                    z_info_retry = await fetch_via_zyte(page, cand_u, country, is_pdp=True, force_refresh=True)
+                    if z_info_retry:
+                        z_price, z_oos, z_status, z_ev = evaluate_page_info_candidates(z_info_retry, r_copy, source_prefix="[Zyte] ")
                 status_code, evidence_str = z_status, z_ev
                 if z_status in ("VERIFIED", "OUT_OF_STOCK"):
-                    if cand_u != url:
-                        row["url"] = cand_u
+                    row["url"] = cand_u
                     return z_price, z_oos, z_status, z_ev
 
     return None, False, status_code, evidence_str
 
 def save_all_state(tracking, history):
+    for r in tracking:
+        r.pop("_rediscovered_today", None)
     """Atomically persists tracking.json, history.json, and embedded index.html data so progress is never lost on timeout."""
     history.sort(key=lambda x: (str(x.get("timestamp", "")), str(x.get("run_slot", "")), x.get("country", ""), x.get("operator", ""), x.get("code", "")))
     with open("data/tracking.json", "w", encoding="utf-8") as f:
@@ -1340,14 +1455,18 @@ async def main():
         if "advance-plus" in str(h.get("url", "")).lower() or (h.get("country") == "UK" and h.get("operator") == "Deporvillage" and h.get("code") == "WS21WADV101" and float(p_val) > 300):
             h["audit_status"] = "QUARANTINED_MODEL_MISMATCH"
             continue
-        if h.get("country") == "UK" and h.get("operator") == "My Triathlon" and h.get("code") in ("WS22MVAN101", "WS22WVAN101") and abs(float(p_val) - 349.97) < 1.0:
-            # Heal Ex-Rental Vanquish-X price back to the verified new-product price on My Triathlon UK
-            healed_p = 558.97
-            pvp_h = float(h.get("pvp", 699.0))
-            h["price"] = healed_p
-            h["disc_imp"] = round(pvp_h - healed_p, 2)
-            h["disc_pct"] = round(((pvp_h - healed_p) / pvp_h) * 100, 1)
-            p_val = healed_p
+        if h.get("country") == "UK" and h.get("operator") == "My Triathlon" and h.get("code") in ("WS22MVAN101", "WS22WVAN101") and float(p_val) < 420.0:
+            if str(h.get("timestamp", ""))[:10] == "2026-11-19":
+                healed_p = 558.97
+                pvp_h = float(h.get("pvp", 699.0))
+                h["price"] = healed_p
+                h["disc_imp"] = round(pvp_h - healed_p, 2)
+                h["disc_pct"] = round(((pvp_h - healed_p) / pvp_h) * 100, 1)
+                p_val = healed_p
+            else:
+                h["audit_status"] = "QUARANTINED_EX_RENTAL"
+                h["quarantine_reason"] = "Exclòs automàticament: Preu Vanquish-X < £420 a My Triathlon UK correspon a unitat Ex-Rental."
+                continue
         d_str = str(h.get("timestamp", ""))[:10]
         if not d_str:
             continue
@@ -1417,6 +1536,7 @@ async def main():
         zyte_rescued_count = 0
         quarantined_count = 0
         circuit_skipped = 0
+        broken_row_ids = set()
 
         # PHASE 1 (Priority): Price Verification on all mapped PDPs first (clean session, zero rate-limit saturation)
         for row in tracking:
@@ -1451,11 +1571,13 @@ async def main():
 
             page = page_uk if row["country"] == "UK" else page_es
             if playwright_blocked_for_dom and ZYTE_API_KEY:
-                rem_urls = [
-                    r.get("url", "").strip() for r in tracking
-                    if r.get("country") == row["country"] and get_domain(r.get("url", "")) == dom and not is_generic_category_url(r.get("url", ""))
-                ]
-                await prefetch_zyte_batch(page, rem_urls, row["country"])
+                rem_urls = []
+                for r in tracking:
+                    if r.get("country") == row["country"] and get_domain(r.get("url", "")) == dom and not is_generic_category_url(r.get("url", "")):
+                        c_list = get_canonical_url_candidates(r.get("url", ""), r["country"])
+                        if c_list:
+                            rem_urls.append(c_list[0])
+                await prefetch_zyte_batch(page, rem_urls, row["country"], is_pdp=True)
             min_price, is_oos, status_code, evidence_str = await extract_verified_pdp_price(
                 page, row, force_zyte_only=playwright_blocked_for_dom
             )
@@ -1538,6 +1660,8 @@ async def main():
                 row["evidence"] = effective_evidence
                 updated_count += 1
             else:
+                if status_code in ("HTTP_ERROR", "IDENTITY_MISMATCH"):
+                    broken_row_ids.add(row["id"])
                 if status_code == "OUT_OF_STOCK":
                     row["out_of_stock"] = True
                 if row.get("price") is not None and row.get("status") == "VERIFIED":
@@ -1548,14 +1672,74 @@ async def main():
                     row["freshness"] = "NONE"
                     row["evidence"] = f"Revisat ({run_slot}): {evidence_str}"
 
-        # Checkpoint all Phase 1 PDP price readings to disk immediately before starting Phase 2 Auto-Discovery
+        # PHASE 1.5 (Zero-Loss Self-Evaluation & Immediate Rescue Pass):
+        # Priority #1 rule: check if any previously VERIFIED PDP failed to read today, diagnose why, and run an immediate fresh Zyte/Playwright rescue pass before Phase 2!
+        lost_rows = [
+            r for r in tracking
+            if r.get("status") == "VERIFIED" and r.get("last_read") != today_str and r.get("url") and not is_generic_category_url(r.get("url", ""))
+        ]
+        if lost_rows:
+            print(f"[SELF-EVAL ZERO-LOSS CHECK] {len(lost_rows)} previously VERIFIED PDPs missed in Phase 1. Running immediate Rescue Pass...")
+            rescued_in_pass = 0
+            for r_lost in lost_rows:
+                if is_time_budget_exceeded(margin_sec=60):
+                    break
+                print(f"  -> Diagnosing {r_lost['id']} ({r_lost['operator']} {r_lost['country']}): {r_lost.get('evidence', '')[:95]}")
+                # Clear any cached Zyte entry for all candidate URLs of this row so rescue is 100% fresh
+                for cand_u in get_canonical_url_candidates(r_lost["url"], r_lost["country"]):
+                    ZYTE_PAGE_CACHE.pop((r_lost["country"], cand_u), None)
+                page = page_uk if r_lost["country"] == "UK" else page_es
+                r_price, r_oos, r_st, r_ev = await extract_verified_pdp_price(
+                    page, r_lost, force_zyte_only=bool(ZYTE_API_KEY)
+                )
+                if r_st == "VERIFIED" and r_price is not None and r_price > 0:
+                    rescued_in_pass += 1
+                    updated_count += 1
+                    if "[Zyte]" in r_ev:
+                        zyte_rescued_count += 1
+                    broken_row_ids.discard(r_lost["id"])
+                    r_lost["price"] = r_price
+                    r_lost["disc_imp"] = round(r_lost["pvp"] - r_price, 2)
+                    r_lost["disc_pct"] = round((r_lost["disc_imp"] / r_lost["pvp"]) * 100, 1)
+                    r_lost["status"] = "VERIFIED"
+                    r_lost["freshness"] = "LIVE_TODAY"
+                    r_lost["last_read"] = today_str
+                    r_lost["out_of_stock"] = bool(r_oos)
+                    r_lost["is_from"] = False
+                    r_lost["evidence"] = f"[Zero-Loss Rescue] {r_ev}"
+                    history.append({
+                        "timestamp": today_str,
+                        "run_slot": run_slot,
+                        "timestamp_iso": now_iso,
+                        "country": r_lost["country"],
+                        "currency": r_lost["currency"],
+                        "operator": r_lost["operator"],
+                        "code": r_lost["code"],
+                        "model": r_lost["model"],
+                        "pvp": r_lost["pvp"],
+                        "price": r_price,
+                        "disc_imp": r_lost["disc_imp"],
+                        "disc_pct": r_lost["disc_pct"],
+                        "out_of_stock": bool(r_oos),
+                        "is_from": False,
+                        "url": r_lost["url"],
+                        "audit_status": "VALID",
+                        "evidence": r_lost["evidence"]
+                    })
+                    print(f"     [RESCUED] {r_lost['id']} -> {r_price} {r_lost['currency']}")
+                elif r_st in ("HTTP_ERROR", "IDENTITY_MISMATCH", "NO_VALID_PRICE"):
+                    broken_row_ids.add(r_lost["id"])
+            print(f"[SELF-EVAL ZERO-LOSS RESULT] Rescued {rescued_in_pass}/{len(lost_rows)} missed PDPs; remaining {len(broken_row_ids)} sent to Phase 2 URL self-healing.")
+
+        # Checkpoint all Phase 1 + 1.5 PDP price readings to disk immediately before starting Phase 2 Auto-Discovery
         save_all_state(tracking, history)
 
-        # PHASE 2: Auto-Discovery of remaining unmapped PDP URLs (runs after mapped PDPs are safely read)
-        discovered_count = await discover_missing_pdps(page_es, page_uk, tracking, today_str, domain_blocks=domain_blocks)
+        # PHASE 2: Auto-Discovery of remaining unmapped PDP URLs + self-healing of any HTTP 404 URLs from Phase 1
+        discovered_count = await discover_missing_pdps(page_es, page_uk, tracking, today_str, domain_blocks=domain_blocks, broken_row_ids=broken_row_ids)
         if discovered_count > 0:
             for row in tracking:
-                if row.get("status") == "PENDING_URL" and row.get("url") and f"({today_str})" in str(row.get("evidence", "")):
+                if (row.get("_rediscovered_today") or (row.get("status") == "PENDING_URL" and f"({today_str})" in str(row.get("evidence", "")))) and row.get("url"):
+                    row.pop("_rediscovered_today", None)
                     dom = get_domain(row["url"])
                     page = page_uk if row["country"] == "UK" else page_es
                     min_price, is_oos, status_code, evidence_str = await extract_verified_pdp_price(
@@ -1598,7 +1782,10 @@ async def main():
 
     save_all_state(tracking, history)
 
-    print(f"Scan finished ({now_iso}). Auto-discovered PDPs: {discovered_count} | Live today: {updated_count} (Zyte rescued: {zyte_rescued_count}) | Quarantined: {quarantined_count} | Circuit-breaker skipped: {circuit_skipped} | Total history: {len(history)}")
+    still_missed = [r for r in tracking if r.get("status") == "VERIFIED" and r.get("last_read") != today_str]
+    print(f"Scan finished ({now_iso}). Auto-discovered PDPs: {discovered_count} | Live today: {updated_count} (Zyte rescued: {zyte_rescued_count}) | Still historical (<{today_str}): {len(still_missed)} | Total history: {len(history)}")
+    for sm in still_missed:
+        print(f"  [UNREAD HISTORICAL] {sm['id']} (last_read={sm.get('last_read')}): {sm.get('evidence', '')[:100]}")
 
 if __name__ == "__main__":
     asyncio.run(main())
