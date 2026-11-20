@@ -1430,6 +1430,8 @@ def save_all_state(tracking, history):
     with open("index.html", "r", encoding="utf-8") as f:
         html_doc = f.read()
 
+    quarantined_total = sum(1 for h in history if h.get("audit_status", "VALID") != "VALID")
+    html_doc = re.sub(r"(?:const|let) QUARANTINED_COUNT = \d+;", f"let QUARANTINED_COUNT = {quarantined_total};", html_doc)
     html_doc = re.sub(r"(?:const|let) DATA_ROWS = \[.*?\];", lambda _: "let DATA_ROWS = " + json.dumps(tracking, ensure_ascii=False) + ";", html_doc, flags=re.S)
     html_doc = re.sub(r"(?:const|let) HISTORY_COMPACT = \[.*?\];", lambda _: "let HISTORY_COMPACT = " + json.dumps(history_compact, ensure_ascii=False) + ";", html_doc, flags=re.S)
     with open("index.html", "w", encoding="utf-8") as f:
@@ -1456,17 +1458,9 @@ async def main():
             h["audit_status"] = "QUARANTINED_MODEL_MISMATCH"
             continue
         if h.get("country") == "UK" and h.get("operator") == "My Triathlon" and h.get("code") in ("WS22MVAN101", "WS22WVAN101") and float(p_val) < 420.0:
-            if str(h.get("timestamp", ""))[:10] == "2026-11-19":
-                healed_p = 558.97
-                pvp_h = float(h.get("pvp", 699.0))
-                h["price"] = healed_p
-                h["disc_imp"] = round(pvp_h - healed_p, 2)
-                h["disc_pct"] = round(((pvp_h - healed_p) / pvp_h) * 100, 1)
-                p_val = healed_p
-            else:
-                h["audit_status"] = "QUARANTINED_EX_RENTAL"
-                h["quarantine_reason"] = "Exclòs automàticament: Preu Vanquish-X < £420 a My Triathlon UK correspon a unitat Ex-Rental."
-                continue
+            h["audit_status"] = "QUARANTINED_EX_RENTAL"
+            h["quarantine_reason"] = "Exclòs automàticament a dades originals: Preu Vanquish-X < £420 a My Triathlon UK correspon a variant Ex-Rental (lloguer/segona mà)."
+            continue
         d_str = str(h.get("timestamp", ""))[:10]
         if not d_str:
             continue

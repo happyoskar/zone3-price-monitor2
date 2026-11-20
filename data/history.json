@@ -1055,25 +1055,6 @@
     "country": "UK",
     "currency": "GBP",
     "operator": "Deporvillage",
-    "code": "WS21WADV101",
-    "model": "Women's Advance Wetsuit",
-    "pvp": 299,
-    "price": 282.97,
-    "disc_imp": 16.03,
-    "disc_pct": 5.4,
-    "out_of_stock": false,
-    "is_from": false,
-    "url": "https://www.deporvillage.co.uk/zone3-advance-plus-wetsuit-black-grey-blue-women",
-    "audit_status": "QUARANTINED_PREVIOUS_RUN",
-    "run_slot": "2026-10-11-AM",
-    "evidence": "Lectura històrica validada a fitxa individual (PDP)",
-    "quarantine_reason": "Conservat en quarantena per traçabilitat: lectura capturada amb la versió anterior del lector sense validació estricta de bloc principal."
-  },
-  {
-    "timestamp": "2026-10-11",
-    "country": "UK",
-    "currency": "GBP",
-    "operator": "Deporvillage",
     "code": "WS21WAGI114",
     "model": "Women's Agile Wetsuit",
     "pvp": 219,
@@ -1508,6 +1489,25 @@
     "audit_status": "VALID",
     "run_slot": "2026-10-11-AM",
     "evidence": "Lectura històrica validada a fitxa individual (PDP)"
+  },
+  {
+    "timestamp": "2026-10-11",
+    "country": "UK",
+    "currency": "GBP",
+    "operator": "Deporvillage",
+    "code": "WS21WADV101",
+    "model": "Women's Advance Wetsuit",
+    "pvp": 299,
+    "price": 282.97,
+    "disc_imp": 16.03,
+    "disc_pct": 5.4,
+    "out_of_stock": false,
+    "is_from": false,
+    "url": "https://www.deporvillage.co.uk/zone3-advance-plus-wetsuit-black-grey-blue-women",
+    "audit_status": "QUARANTINED_PREVIOUS_RUN",
+    "run_slot": "2026-10-11-AM",
+    "evidence": "Lectura històrica validada a fitxa individual (PDP)",
+    "quarantine_reason": "Conservat en quarantena per traçabilitat: lectura capturada amb la versió anterior del lector sense validació estricta de bloc principal."
   },
   {
     "timestamp": "2026-10-12",
@@ -28492,27 +28492,6 @@
   },
   {
     "timestamp": "2026-11-15",
-    "country": "UK",
-    "currency": "GBP",
-    "operator": "Deporvillage",
-    "code": "WS21WADV101",
-    "model": "Women's Advance Wetsuit",
-    "pvp": 299,
-    "price": 264.51,
-    "disc_imp": 34.49,
-    "disc_pct": 11.5,
-    "out_of_stock": false,
-    "is_from": false,
-    "url": "https://www.deporvillage.co.uk/zone3-advance-plus-wetsuit-black-grey-blue-women",
-    "audit_status": "QUARANTINED_PREVIOUS_RUN",
-    "run_slot": "2026-11-15-AM",
-    "evidence": "Lectura històrica validada a fitxa individual (PDP)",
-    "previous_url": "https://www.deporvillage.net/zone3-advance-plus-wetsuit-black-grey-blue-women",
-    "audit_note": "URL normalitzada del domini genèric .net al domini local de mercat (.com / .co.uk) mantenint la fitxa PDP exacta",
-    "quarantine_reason": "Conservat en quarantena per traçabilitat: lectura capturada amb la versió anterior del lector sense validació estricta de bloc principal."
-  },
-  {
-    "timestamp": "2026-11-15",
     "run_slot": "2026-11-15-AM",
     "country": "UK",
     "currency": "GBP",
@@ -29397,6 +29376,27 @@
     "audit_status": "VALID",
     "run_slot": "2026-11-15-AM",
     "evidence": "Lectura històrica validada a fitxa individual (PDP)"
+  },
+  {
+    "timestamp": "2026-11-15",
+    "country": "UK",
+    "currency": "GBP",
+    "operator": "Deporvillage",
+    "code": "WS21WADV101",
+    "model": "Women's Advance Wetsuit",
+    "pvp": 299,
+    "price": 264.51,
+    "disc_imp": 34.49,
+    "disc_pct": 11.5,
+    "out_of_stock": false,
+    "is_from": false,
+    "url": "https://www.deporvillage.co.uk/zone3-advance-plus-wetsuit-black-grey-blue-women",
+    "audit_status": "QUARANTINED_PREVIOUS_RUN",
+    "run_slot": "2026-11-15-AM",
+    "evidence": "Lectura històrica validada a fitxa individual (PDP)",
+    "previous_url": "https://www.deporvillage.net/zone3-advance-plus-wetsuit-black-grey-blue-women",
+    "audit_note": "URL normalitzada del domini genèric .net al domini local de mercat (.com / .co.uk) mantenint la fitxa PDP exacta",
+    "quarantine_reason": "Conservat en quarantena per traçabilitat: lectura capturada amb la versió anterior del lector sense validació estricta de bloc principal."
   },
   {
     "timestamp": "2026-11-16",
@@ -32199,28 +32199,6 @@
   {
     "timestamp": "2026-11-18",
     "run_slot": "2026-11-18-PM",
-    "timestamp_iso": "2026-11-18T19:31:53Z",
-    "country": "UK",
-    "currency": "GBP",
-    "operator": "Deporvillage",
-    "code": "WS21WADV101",
-    "model": "Women's Advance Wetsuit",
-    "pvp": 299,
-    "price": 279.13,
-    "disc_imp": 19.87,
-    "disc_pct": 6.6,
-    "out_of_stock": false,
-    "is_from": false,
-    "url": "https://www.deporvillage.co.uk/zone3-advance-plus-wetsuit-black-grey-blue-women",
-    "audit_status": "QUARANTINED_PREVIOUS_RUN",
-    "evidence": "[Zyte] Zyte Product API [GBP | Mercat UK] (279.13 £) · 'Zone3 Advance+ Wetsuit Black Grey Blue W'",
-    "previous_price": 264.51,
-    "previous_date": "2026-11-15",
-    "quarantine_reason": "Conservat en quarantena per traçabilitat: lectura capturada amb la versió anterior del lector sense validació estricta de bloc principal."
-  },
-  {
-    "timestamp": "2026-11-18",
-    "run_slot": "2026-11-18-PM",
     "timestamp_iso": "2026-11-18T13:58:00Z",
     "country": "UK",
     "currency": "GBP",
@@ -33435,6 +33413,28 @@
     "evidence": "PDP Verificada (GBP 154.95) · SKU/Model validat a fitxa individual"
   },
   {
+    "timestamp": "2026-11-18",
+    "run_slot": "2026-11-18-PM",
+    "timestamp_iso": "2026-11-18T19:31:53Z",
+    "country": "UK",
+    "currency": "GBP",
+    "operator": "Deporvillage",
+    "code": "WS21WADV101",
+    "model": "Women's Advance Wetsuit",
+    "pvp": 299,
+    "price": 279.13,
+    "disc_imp": 19.87,
+    "disc_pct": 6.6,
+    "out_of_stock": false,
+    "is_from": false,
+    "url": "https://www.deporvillage.co.uk/zone3-advance-plus-wetsuit-black-grey-blue-women",
+    "audit_status": "QUARANTINED_PREVIOUS_RUN",
+    "evidence": "[Zyte] Zyte Product API [GBP | Mercat UK] (279.13 £) · 'Zone3 Advance+ Wetsuit Black Grey Blue W'",
+    "previous_price": 264.51,
+    "previous_date": "2026-11-15",
+    "quarantine_reason": "Conservat en quarantena per traçabilitat: lectura capturada amb la versió anterior del lector sense validació estricta de bloc principal."
+  },
+  {
     "timestamp": "2026-11-19",
     "run_slot": "2026-11-19-AM",
     "timestamp_iso": "2026-11-19T07:35:00Z",
@@ -33454,26 +33454,6 @@
     "evidence": "PDP Verificada (EUR 527.99 vs PVP 689.00€) · Fitxa TradeInn #141564545 (WS25MASP101)",
     "previous_price": 534.99,
     "previous_date": "2026-11-18"
-  },
-  {
-    "timestamp": "2026-11-19",
-    "run_slot": "2026-11-19-AM",
-    "timestamp_iso": "2026-11-19T08:10:54Z",
-    "country": "UK",
-    "currency": "GBP",
-    "operator": "Deporvillage",
-    "code": "WS21WADV101",
-    "model": "Women's Advance Wetsuit",
-    "pvp": 299,
-    "price": 323.06,
-    "disc_imp": -24.06,
-    "disc_pct": -8,
-    "out_of_stock": false,
-    "is_from": false,
-    "url": "https://www.deporvillage.co.uk/zone3-thermal-advance-wetsuit-black-gold-women",
-    "audit_status": "QUARANTINED_MODEL_MISMATCH",
-    "evidence": "[Zyte] Zyte Product API [GBP | Mercat UK] (323.06 £) · 'Zone3 Thermal Advance wetsuit black gold'",
-    "quarantine_reason": "Conservat en quarantena per traçabilitat: lectura capturada amb la versió anterior del lector sense validació estricta de bloc principal."
   },
   {
     "timestamp": "2026-11-19",
@@ -35259,7 +35239,8 @@
     "is_from": false,
     "url": "https://mytriathlon.co.uk/zone3-vanquish-x-wetsuit-mens-black-orange-2025/",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (GBP 558.97) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (GBP 558.97) · SKU/Model validat a fitxa individual",
+    "audit_note": "Preu verificat d'unitat nova (£558.97, -20.0%); descartada variant Ex-Rental (lloguer/2a mà) del mateix selector."
   },
   {
     "timestamp": "2026-11-19",
@@ -35278,7 +35259,8 @@
     "is_from": false,
     "url": "https://mytriathlon.co.uk/zone3-vanquish-x-wetsuit-womens-black-2025/",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (GBP 558.97) · SKU/Model validat a fitxa individual"
+    "evidence": "PDP Verificada (GBP 558.97) · SKU/Model validat a fitxa individual",
+    "audit_note": "Preu verificat d'unitat nova (£558.97, -20.0%); descartada variant Ex-Rental (lloguer/2a mà) del mateix selector."
   },
   {
     "timestamp": "2026-11-19",
@@ -36307,6 +36289,26 @@
     "evidence": "PDP Verificada (GBP 154.95) · SKU/Model validat a fitxa individual"
   },
   {
+    "timestamp": "2026-11-19",
+    "run_slot": "2026-11-19-AM",
+    "timestamp_iso": "2026-11-19T08:10:54Z",
+    "country": "UK",
+    "currency": "GBP",
+    "operator": "Deporvillage",
+    "code": "WS21WADV101",
+    "model": "Women's Advance Wetsuit",
+    "pvp": 299,
+    "price": 323.06,
+    "disc_imp": -24.06,
+    "disc_pct": -8,
+    "out_of_stock": false,
+    "is_from": false,
+    "url": "https://www.deporvillage.co.uk/zone3-thermal-advance-wetsuit-black-gold-women",
+    "audit_status": "QUARANTINED_MODEL_MISMATCH",
+    "evidence": "[Zyte] Zyte Product API [GBP | Mercat UK] (323.06 £) · 'Zone3 Thermal Advance wetsuit black gold'",
+    "quarantine_reason": "Conservat en quarantena per traçabilitat: lectura capturada amb la versió anterior del lector sense validació estricta de bloc principal."
+  },
+  {
     "timestamp": "2026-11-20",
     "run_slot": "2026-11-20-AM",
     "country": "ES",
@@ -36322,8 +36324,7 @@
     "is_from": false,
     "url": "https://www.alltricks.es/F-46286-combinaisons-_-maillots-de-bain/P-3121130-traje_de_neopreno_para_triatlon_zone3_advance_negro_azul",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (EUR 269.99) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (EUR 269.99) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -36341,8 +36342,7 @@
     "is_from": false,
     "url": "https://www.alltricks.es/F-46286-combinaisons-_-maillots-de-bain/P-2240827-traje_de_neopreno_zone3__agiletriathlon_negro_plata",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (EUR 213.99) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (EUR 213.99) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -36360,8 +36360,7 @@
     "is_from": false,
     "url": "https://www.alltricks.es/F-46286-combinaisons-_-maillots-de-bain/P-2754766-traje_de_neopreno_zone3_advance_para_triatlon_de_mujer_negro_azul",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (EUR 306.99) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (EUR 306.99) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -36379,8 +36378,7 @@
     "is_from": false,
     "url": "https://www.alltricks.es/F-46286-combinaisons-_-maillots-de-bain/P-3121131-traje_de_neopreno_para_triatlon_zone3_agile_para_mujer_negro_rosa",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (EUR 183.99) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (EUR 183.99) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -36398,8 +36396,7 @@
     "is_from": false,
     "url": "https://www.alltricks.es/F-46286-combinaisons-_-maillots-de-bain/P-3249848-traje_de_neopreno_zone3_vision_negro_verde_para_hombre",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (EUR 353.99) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (EUR 353.99) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -36417,8 +36414,7 @@
     "is_from": false,
     "url": "https://www.alltricks.es/F-46286-combinaisons-_-maillots-de-bain/P-3277845-traje_de_neopreno_zone3_aspire_negro_gris_para_hombre",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (EUR 502.99) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (EUR 502.99) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -36436,8 +36432,7 @@
     "is_from": false,
     "url": "https://www.alltricks.es/F-46286-combinaisons-_-maillots-de-bain/P-3282574-traje_de_neopreno_zone3_active_flex_negro_naranja_para_mujer",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (EUR 183.99) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (EUR 183.99) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -36455,8 +36450,7 @@
     "is_from": false,
     "url": "https://www.bike24.es/productos/449867",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (EUR 199.99) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (EUR 199.99) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -36474,8 +36468,7 @@
     "is_from": false,
     "url": "https://www.bike24.es/productos/449868",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (EUR 183.99) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (EUR 183.99) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -36493,8 +36486,7 @@
     "is_from": false,
     "url": "https://www.bike24.es/productos/449872",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (EUR 199.99) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (EUR 199.99) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -36512,8 +36504,7 @@
     "is_from": false,
     "url": "https://www.bike24.es/productos/466636",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (EUR 199.99) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (EUR 199.99) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -36531,8 +36522,7 @@
     "is_from": false,
     "url": "https://www.bike24.es/productos/575211",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (EUR 588.99) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (EUR 588.99) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -36550,8 +36540,7 @@
     "is_from": false,
     "url": "https://www.bike24.es/productos/575232",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (EUR 595.99) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (EUR 595.99) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -36569,8 +36558,7 @@
     "is_from": false,
     "url": "https://www.bike24.es/productos/795725",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (EUR 373.99) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (EUR 373.99) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -36588,8 +36576,7 @@
     "is_from": false,
     "url": "https://www.bike24.es/productos/795724",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (EUR 374.99) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (EUR 374.99) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -36607,8 +36594,7 @@
     "is_from": false,
     "url": "https://www.bike24.es/productos/905641?origin=PDP_rc_man",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (EUR 166.99) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (EUR 166.99) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -36626,8 +36612,7 @@
     "is_from": false,
     "url": "https://www.bike24.es/productos/905637",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (EUR 481.99) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (EUR 481.99) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -36645,8 +36630,7 @@
     "is_from": false,
     "url": "https://www.bike24.es/productos/905642",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (EUR 194.99) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (EUR 194.99) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -36664,8 +36648,7 @@
     "is_from": false,
     "url": "https://www.bike24.es/productos/1004856",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (EUR 481.99) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (EUR 481.99) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -36683,13 +36666,11 @@
     "is_from": false,
     "url": "https://www.bike24.es/productos/1004857",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (EUR 144.99) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (EUR 144.99) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
     "run_slot": "2026-11-20-AM",
-    "timestamp_iso": "2026-11-20T08:22:31Z",
     "country": "ES",
     "currency": "EUR",
     "operator": "Deporvillage",
@@ -36703,7 +36684,7 @@
     "is_from": false,
     "url": "https://www.deporvillage.com/traje-de-neopreno-zone3-advance",
     "audit_status": "VALID",
-    "evidence": "[Zyte] Zyte Product API [EUR | Mercat ES] (279.95 €) · 'Traje de neopreno Zone3 Advance negro gr'"
+    "evidence": "PDP Verificada (EUR 279.95) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -36721,8 +36702,7 @@
     "is_from": false,
     "url": "https://www.deporvillage.com/traje-de-neopreno-zone3-agile",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (EUR 189.95) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (EUR 189.95) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -36740,8 +36720,7 @@
     "is_from": false,
     "url": "https://www.deporvillage.com/traje-de-neopreno-zone3-advance-mujer",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (EUR 309.00) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (EUR 309.00) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -36759,8 +36738,7 @@
     "is_from": false,
     "url": "https://www.deporvillage.com/traje-de-neopreno-zone3-agile-mujer",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (EUR 221.95) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (EUR 221.95) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -36778,8 +36756,7 @@
     "is_from": false,
     "url": "https://www.deporvillage.com/traje-neopreno-zone3-vanquish-x",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (EUR 607.00) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (EUR 607.00) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -36797,46 +36774,43 @@
     "is_from": false,
     "url": "https://www.deporvillage.com/traje-neopreno-zone3-vanquish-x-mujer",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (EUR 677.00) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (EUR 677.00) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
     "run_slot": "2026-11-20-AM",
-    "timestamp_iso": "2026-11-20T08:22:31Z",
     "country": "ES",
     "currency": "EUR",
     "operator": "Deporvillage",
     "code": "WS24MVIS101",
     "model": "Men's Vision Wetsuit",
     "pvp": 499,
-    "price": 432.0,
-    "disc_imp": 67.0,
+    "price": 432,
+    "disc_imp": 67,
     "disc_pct": 13.4,
     "out_of_stock": false,
     "is_from": false,
     "url": "https://www.deporvillage.com/traje-de-neopreno-zone3-terraprene-vision",
     "audit_status": "VALID",
-    "evidence": "[Zyte] Zyte Product API [EUR | Mercat ES] (432.00 €) · 'Traje de neopreno Zone3 Terraprene Visio'"
+    "evidence": "PDP Verificada (EUR 432.00) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
     "run_slot": "2026-11-20-AM",
-    "timestamp_iso": "2026-11-20T08:22:31Z",
     "country": "ES",
     "currency": "EUR",
     "operator": "Deporvillage",
     "code": "WS24WVIS101",
     "model": "Women's Vision Wetsuit",
     "pvp": 499,
-    "price": 413.0,
-    "disc_imp": 86.0,
+    "price": 413,
+    "disc_imp": 86,
     "disc_pct": 17.2,
     "out_of_stock": false,
     "is_from": false,
     "url": "https://www.deporvillage.com/traje-de-neopreno-zone3-terraprene-vision-mujer",
     "audit_status": "VALID",
-    "evidence": "[Zyte] Zyte Product API [EUR | Mercat ES] (413.00 €) · 'Traje de neopreno Zone3 Terraprene Visio'"
+    "evidence": "PDP Verificada (EUR 413.00) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -36854,8 +36828,7 @@
     "is_from": false,
     "url": "https://www.deporvillage.com/traje-neopreno-zone3-active-flex",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (EUR 190.95) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (EUR 190.95) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -36873,8 +36846,7 @@
     "is_from": false,
     "url": "https://www.deporvillage.com/traje-neopreno-zone3-aspire-2",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (EUR 500.00) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (EUR 500.00) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -36892,8 +36864,7 @@
     "is_from": false,
     "url": "https://www.deporvillage.com/traje-neopreno-zone3-versa-swimrun",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (EUR 238.95) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (EUR 238.95) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -36911,8 +36882,7 @@
     "is_from": false,
     "url": "https://www.deporvillage.com/traje-neopreno-zone3-active-flex-mujer",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (EUR 202.95) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (EUR 202.95) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -36930,8 +36900,7 @@
     "is_from": false,
     "url": "https://www.deporvillage.com/traje-neopreno-zone3-aspire-mujer-2",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (EUR 497.00) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (EUR 497.00) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -36949,8 +36918,7 @@
     "is_from": false,
     "url": "https://sportano.com/p/118144/zone3-advence-men-s-triathlon-wetsuit-black-ws21madv101",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (EUR 259.99 vs RRP 369.99€) · SKU WS21MADV101 validat a fitxa #118144 · [EUR | Sportano.com EU->ES]",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (EUR 259.99 vs RRP 369.99€) · SKU WS21MADV101 validat a fitxa #118144 · [EUR | Sportano.com EU->ES]"
   },
   {
     "timestamp": "2026-11-20",
@@ -36968,8 +36936,7 @@
     "is_from": false,
     "url": "https://sportano.com/p/118163/men-s-zone3-agile-triathlon-wetsuit-black-ws21magi116",
     "audit_status": "VALID",
-    "evidence": "[Zyte] Preu amb codi 'BLACKBELT' mostrat a la fitxa [EUR | Sportano.com EU->ES] (178.49 €) · Fitxa #118163 · [🎟️ Codi 'BLACKBELT' aplicat · Preu base sense codi: 209.99 €]",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "[Zyte] Preu amb codi 'BLACKBELT' mostrat a la fitxa [EUR | Sportano.com EU->ES] (178.49 €) · Fitxa #118163 · [🎟️ Codi 'BLACKBELT' aplicat · Preu base sense codi: 209.99 €]"
   },
   {
     "timestamp": "2026-11-20",
@@ -36987,8 +36954,7 @@
     "is_from": false,
     "url": "https://sportano.com/p/118145/women-s-zone3-advence-triathlon-wetsuit-ws21wadv101",
     "audit_status": "VALID",
-    "evidence": "[Zyte] Preu amb codi 'BLACKBELT' mostrat a la fitxa [EUR | Sportano.com EU->ES] (256.49 €) · Fitxa #118145 · [🎟️ Codi 'BLACKBELT' aplicat · Preu base sense codi: 269.99 €]",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "[Zyte] Preu amb codi 'BLACKBELT' mostrat a la fitxa [EUR | Sportano.com EU->ES] (256.49 €) · Fitxa #118145 · [🎟️ Codi 'BLACKBELT' aplicat · Preu base sense codi: 269.99 €]"
   },
   {
     "timestamp": "2026-11-20",
@@ -37006,8 +36972,7 @@
     "is_from": false,
     "url": "https://sportano.com/p/56809/women-s-zone3-agile-triathlon-wetsuit-black-ws21wagi114",
     "audit_status": "VALID",
-    "evidence": "[Zyte] Preu amb codi 'BLACKBELT' mostrat a la fitxa [EUR | Sportano.com EU->ES] (199.49 €) · Fitxa #56809 · [🎟️ Codi 'BLACKBELT' aplicat · Preu base sense codi: 209.99 € · Descartat 79.99€ (>50% desc.)]",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "[Zyte] Preu amb codi 'BLACKBELT' mostrat a la fitxa [EUR | Sportano.com EU->ES] (199.49 €) · Fitxa #56809 · [🎟️ Codi 'BLACKBELT' aplicat · Preu base sense codi: 209.99 € · Descartat 79.99€ (>50% desc.)]"
   },
   {
     "timestamp": "2026-11-20",
@@ -37025,8 +36990,7 @@
     "is_from": false,
     "url": "https://sportano.com/p/118161/zone3-vanquish-x-men-s-triathlon-wetsuit-black-ws22mvan101",
     "audit_status": "VALID",
-    "evidence": "[Zyte] Preu amb codi 'BLACKBELT' mostrat a la fitxa [EUR | Sportano.com EU->ES] (598.49 €) · Fitxa #118161 · [🎟️ Codi 'BLACKBELT' aplicat · Preu base sense codi: 629.99 €]",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "[Zyte] Preu amb codi 'BLACKBELT' mostrat a la fitxa [EUR | Sportano.com EU->ES] (598.49 €) · Fitxa #118161 · [🎟️ Codi 'BLACKBELT' aplicat · Preu base sense codi: 629.99 €]"
   },
   {
     "timestamp": "2026-11-20",
@@ -37044,8 +37008,7 @@
     "is_from": false,
     "url": "https://sportano.com/p/610052/men-s-triathlon-wetsuit-zone3-aspire-black-chalk",
     "audit_status": "VALID",
-    "evidence": "[Zyte] Preu amb codi 'BLACKBELT' mostrat a la fitxa [EUR | Sportano.com EU->ES] (465.49 €) · Fitxa #610052 · [🎟️ Codi 'BLACKBELT' aplicat · Preu base sense codi: 489.99 €]",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "[Zyte] Preu amb codi 'BLACKBELT' mostrat a la fitxa [EUR | Sportano.com EU->ES] (465.49 €) · Fitxa #610052 · [🎟️ Codi 'BLACKBELT' aplicat · Preu base sense codi: 489.99 €]"
   },
   {
     "timestamp": "2026-11-20",
@@ -37063,8 +37026,7 @@
     "is_from": false,
     "url": "https://sportano.com/p/940553/men-s-triathlon-wetsuit-zone3-glide-sleeveless-wetsuit-black-grey",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (EUR 143.99 vs RRP 179.00€) · SKU WS26MGLISL101 validat a fitxa #940553 · [EUR | Sportano.com EU->ES]",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (EUR 143.99 vs RRP 179.00€) · SKU WS26MGLISL101 validat a fitxa #940553 · [EUR | Sportano.com EU->ES]"
   },
   {
     "timestamp": "2026-11-20",
@@ -37082,8 +37044,7 @@
     "is_from": false,
     "url": "https://www.tradeinn.com/swiminn/es/zone3-traje-de-neopreno-de-manga-larga-advance/137937160/p?country=es",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (EUR 291.99) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (EUR 291.99) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -37101,8 +37062,7 @@
     "is_from": false,
     "url": "https://www.tradeinn.com/swiminn/es/zone3-traje-de-neopreno-de-manga-larga-agile/137937162/p?country=es",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (EUR 228.99) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (EUR 228.99) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -37120,9 +37080,7 @@
     "is_from": false,
     "url": "https://www.tradeinn.com/swiminn/es/zone3-traje-de-neopreno-de-manga-larga-para-mujer-advance/137937161/p?country=es",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (EUR 279.99) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "intraday_higher_price": 283.99,
-    "audit_note": "Mantingut preu mínim diari (279.99); lectura posterior a 2026-11-20-AM: 283.99"
+    "evidence": "PDP Verificada (EUR 279.99) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -37140,9 +37098,7 @@
     "is_from": false,
     "url": "https://www.tradeinn.com/swiminn/es/zone3-traje-de-neopreno-de-manga-larga-para-mujer-agile/137937163/p?country=es",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (EUR 228.99) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "intraday_higher_price": 230.99,
-    "audit_note": "Mantingut preu mínim diari (228.99); lectura posterior a 2026-11-20-AM: 230.99"
+    "evidence": "PDP Verificada (EUR 228.99) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -37160,8 +37116,7 @@
     "is_from": false,
     "url": "https://www.tradeinn.com/swiminn/es/zone3-traje-de-neopreno-de-manga-larga-vanquish-x/138472238/p?country=es",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (EUR 664.49) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (EUR 664.49) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -37179,8 +37134,7 @@
     "is_from": false,
     "url": "https://www.tradeinn.com/swiminn/es/zone3-traje-de-neopreno-de-manga-larga-para-mujer-vanquish-x/138472237/p?country=es",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (EUR 670.99) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (EUR 670.99) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -37219,8 +37173,7 @@
     "is_from": false,
     "url": "https://www.tradeinn.com/swiminn/es/zone3-traje-de-neopreno-de-manga-larga-para-mujer-terraprene-vision/140374092/p?country=es",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (EUR 386.99) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (EUR 386.99) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -37280,8 +37233,7 @@
     "is_from": false,
     "url": "https://www.tradeinn.com/swiminn/es/zone3-traje-de-neopreno-de-manga-larga-para-mujer-active-flex/141564543/p?country=es",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (EUR 206.49) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (EUR 206.49) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -37299,8 +37251,7 @@
     "is_from": false,
     "url": "https://www.tradeinn.com/swiminn/es/zone3-traje-de-neopreno-de-manga-larga-para-mujer-aspire/141564550/p?country=es",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (EUR 534.99) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (EUR 534.99) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -37318,8 +37269,7 @@
     "is_from": false,
     "url": "https://www.tradeinn.com/swiminn/es/zone3-traje-de-neopreno-sin-mangas-ascend/142771415/p?country=es",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (EUR 150.99) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (EUR 150.99) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -37337,9 +37287,7 @@
     "is_from": false,
     "url": "https://www.tradeinn.com/swiminn/es/zone3-traje-de-neopreno-sin-mangas-para-mujer-ascend/142771416/p?country=es",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (EUR 144.99) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "intraday_higher_price": 150.0,
-    "audit_note": "Mantingut preu mínim diari (144.99); lectura posterior a 2026-11-20-AM: 150.00"
+    "evidence": "PDP Verificada (EUR 144.99) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -37357,8 +37305,7 @@
     "is_from": false,
     "url": "https://www.triathlon24.nl/zone3-advance-wetsuit-lange-mouw-heren/",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (EUR 294.95) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (EUR 294.95) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -37376,8 +37323,7 @@
     "is_from": false,
     "url": "https://www.triathlon24.nl/zone3-agile-fullsleeve-wetsuit-heren/",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (EUR 206.95) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (EUR 206.95) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -37395,8 +37341,7 @@
     "is_from": false,
     "url": "https://www.triathlon24.nl/zone3-advance-wetsuit-lange-mouw-dames/",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (EUR 249.95) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (EUR 249.95) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -37414,8 +37359,7 @@
     "is_from": false,
     "url": "https://www.triathlon24.nl/zone3-agile-fullsleeve-wetsuit-dames/",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (EUR 206.95) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (EUR 206.95) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -37433,8 +37377,7 @@
     "is_from": false,
     "url": "https://www.triathlon24.nl/zone3-terraprene-vision-wetsuit-lange-mouw-heren/",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (EUR 349.95) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (EUR 349.95) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -37452,8 +37395,7 @@
     "is_from": false,
     "url": "https://www.triathlon24.nl/zone3-terraprene-vision-wetsuit-lange-mouw-dames/",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (EUR 349.95) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (EUR 349.95) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -37471,8 +37413,7 @@
     "is_from": false,
     "url": "https://www.triathlon24.nl/zone3-active-flex-wetsuit-lange-mouw-heren/",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (EUR 169.95) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (EUR 169.95) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -37490,8 +37431,7 @@
     "is_from": false,
     "url": "https://www.triathlon24.nl/zone3-aspire-fullsleeve-wetsuit-heren/",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (EUR 429.95) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (EUR 429.95) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -37509,8 +37449,7 @@
     "is_from": false,
     "url": "https://www.triathlon24.nl/zone3-active-flex-wetsuit-lange-mouw-dames/",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (EUR 169.95) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (EUR 169.95) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -37528,8 +37467,7 @@
     "is_from": false,
     "url": "https://www.triathlon24.nl/zone3-aspire-wetsuit-lange-mouw-zwart-roze-dames/",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (EUR 429.95) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (EUR 429.95) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -37547,13 +37485,11 @@
     "is_from": false,
     "url": "https://www.wetsuitoutlet.es/en-es/2026-zone3-mens-advance-swim-wetsuit-ws21madv-black-blue-p-38382.html",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (EUR 259.95) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (EUR 259.95) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
     "run_slot": "2026-11-20-AM",
-    "timestamp_iso": "2026-11-20T08:22:31Z",
     "country": "ES",
     "currency": "EUR",
     "operator": "Wetsuit Outlet",
@@ -37567,12 +37503,11 @@
     "is_from": false,
     "url": "https://www.wetsuitoutlet.es/en-es/2026-zone3-mens-agile-swim-wetsuit-ws21magi116-black-silver-gunmetal-p-40555.html",
     "audit_status": "VALID",
-    "evidence": "[Zyte] Zyte Product API [EUR | Mercat ES] (195.99 €) · 'Mens Agile Swim Wetsuit' · [Nota cupó: detectat codi promocional 'BLACK' a la web sense preu final descomptat explícit]"
+    "evidence": "PDP Verificada (EUR 195.99) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
     "run_slot": "2026-11-20-AM",
-    "timestamp_iso": "2026-11-20T08:22:31Z",
     "country": "ES",
     "currency": "EUR",
     "operator": "Wetsuit Outlet",
@@ -37586,14 +37521,11 @@
     "is_from": false,
     "url": "https://www.wetsuitoutlet.es/en-es/2026-zone3-womens-advance-swim-wetsuit-ws21wadv-black-turquoise-p-38383.html",
     "audit_status": "VALID",
-    "evidence": "[Zyte] Zyte Product API [EUR | Mercat ES] (264.95 €) · 'Womens Advance Swim Wetsuit' · [Nota cupó: detectat codi promocional 'BLACK' a la web sense preu final descomptat explícit]",
-    "previous_price": 324.99,
-    "previous_date": "2026-11-19"
+    "evidence": "PDP Verificada (EUR 264.95) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
     "run_slot": "2026-11-20-AM",
-    "timestamp_iso": "2026-11-20T08:22:31Z",
     "country": "ES",
     "currency": "EUR",
     "operator": "Wetsuit Outlet",
@@ -37607,12 +37539,11 @@
     "is_from": false,
     "url": "https://www.wetsuitoutlet.es/en-es/2026-zone3-womens-agile-swim-wetsuit-ws21wagi114-black-pink-turquoise-p-40559.html",
     "audit_status": "VALID",
-    "evidence": "[Zyte] Zyte Product API [EUR | Mercat ES] (254.99 €) · 'Womens Agile Swim Wetsuit' · [Nota cupó: detectat codi promocional 'BLACK' a la web sense preu final descomptat explícit]"
+    "evidence": "PDP Verificada (EUR 254.99) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
     "run_slot": "2026-11-20-AM",
-    "timestamp_iso": "2026-11-20T08:22:31Z",
     "country": "ES",
     "currency": "EUR",
     "operator": "Wetsuit Outlet",
@@ -37626,12 +37557,11 @@
     "is_from": false,
     "url": "https://www.wetsuitoutlet.es/en-es/2026-zone3-mens-terraprene-vision-back-zip-swim-wetsuit-ws24mvis101-black-forest-green-p-48572.html",
     "audit_status": "VALID",
-    "evidence": "[Zyte] Zyte Product API [EUR | Mercat ES] (469.99 €) · 'Mens Terraprene Vision Back Zip Swim Wet' · [Nota cupó: detectat codi promocional 'BLACK' a la web sense preu final descomptat explícit]"
+    "evidence": "PDP Verificada (EUR 469.99) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
     "run_slot": "2026-11-20-AM",
-    "timestamp_iso": "2026-11-20T08:22:31Z",
     "country": "ES",
     "currency": "EUR",
     "operator": "Wetsuit Outlet",
@@ -37645,12 +37575,11 @@
     "is_from": false,
     "url": "https://www.wetsuitoutlet.es/en-es/2026-zone3-womens-terraprene-vision-back-zip-swim-wetsuit-ws24wvis101-black-eucalyptus-green-p-48600.html",
     "audit_status": "VALID",
-    "evidence": "[Zyte] Zyte Product API [EUR | Mercat ES] (469.99 €) · 'Womens Terraprene Vision Back Zip Swim W' · [Nota cupó: detectat codi promocional 'BLACK' a la web sense preu final descomptat explícit]"
+    "evidence": "PDP Verificada (EUR 469.99) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
     "run_slot": "2026-11-20-AM",
-    "timestamp_iso": "2026-11-20T08:22:31Z",
     "country": "ES",
     "currency": "EUR",
     "operator": "Wetsuit Outlet",
@@ -37664,12 +37593,11 @@
     "is_from": false,
     "url": "https://www.wetsuitoutlet.es/en-es/2026-zone3-mens-active-flex-swim-wetsuit-ws25mactf101-black-orange-p-52492.html",
     "audit_status": "VALID",
-    "evidence": "[Zyte] Zyte Product API [EUR | Mercat ES] (194.99 €) · 'Mens Active-Flex Swim Wetsuit' · [Nota cupó: detectat codi promocional 'BLACK' a la web sense preu final descomptat explícit]"
+    "evidence": "PDP Verificada (EUR 194.99) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
     "run_slot": "2026-11-20-AM",
-    "timestamp_iso": "2026-11-20T08:22:31Z",
     "country": "ES",
     "currency": "EUR",
     "operator": "Wetsuit Outlet",
@@ -37683,12 +37611,11 @@
     "is_from": false,
     "url": "https://www.wetsuitoutlet.es/en-es/2026-zone3-mens-aspire-wetsuit-ws25masp-black-chalk-p-53917.html",
     "audit_status": "VALID",
-    "evidence": "JSON-LD price [EUR | Mercat ES] (649.99 €) · Producte: '2026 ZONE3 Mens Aspire Wetsuit WS25MASP ' · [Nota cupó: detectat codi promocional 'BLACK' a la web sense preu final descomptat explícit]"
+    "evidence": "PDP Verificada (EUR 649.99) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
     "run_slot": "2026-11-20-AM",
-    "timestamp_iso": "2026-11-20T08:22:31Z",
     "country": "ES",
     "currency": "EUR",
     "operator": "Wetsuit Outlet",
@@ -37702,12 +37629,11 @@
     "is_from": false,
     "url": "https://www.wetsuitoutlet.es/en-es/2026-zone3-womens-active-flex-swim-wetsuit-ws25wactf101-black-orange-p-52493.html",
     "audit_status": "VALID",
-    "evidence": "[Zyte] Zyte Product API [EUR | Mercat ES] (194.99 €) · 'Womens Active-Flex Swim Wetsuit' · [Nota cupó: detectat codi promocional 'BLACK' a la web sense preu final descomptat explícit]"
+    "evidence": "PDP Verificada (EUR 194.99) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
     "run_slot": "2026-11-20-AM",
-    "timestamp_iso": "2026-11-20T08:22:31Z",
     "country": "ES",
     "currency": "EUR",
     "operator": "Wetsuit Outlet",
@@ -37716,19 +37642,16 @@
     "pvp": 179,
     "price": 144.99,
     "disc_imp": 34.01,
-    "disc_pct": 19.0,
+    "disc_pct": 19,
     "out_of_stock": false,
     "is_from": false,
     "url": "https://www.wetsuitoutlet.es/en-es/2026-zone3-mens-ascend-sleeveless-swim-wetsuit-ws26mglisl101-black-grey-p-56135.html",
     "audit_status": "VALID",
-    "evidence": "[Zyte] Zyte Product API [EUR | Mercat ES] (144.99 €) · 'Mens Ascend Sleeveless Swim Wetsuit' · [Nota cupó: detectat codi promocional 'BLACK' a la web sense preu final descomptat explícit]",
-    "previous_price": 158.99,
-    "previous_date": "2026-11-19"
+    "evidence": "PDP Verificada (EUR 144.99) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
     "run_slot": "2026-11-20-AM",
-    "timestamp_iso": "2026-11-20T08:22:31Z",
     "country": "ES",
     "currency": "EUR",
     "operator": "Wetsuit Outlet",
@@ -37742,9 +37665,7 @@
     "is_from": false,
     "url": "https://www.wetsuitoutlet.es/en-es/2026-zone3-womens-ascend-sleeveless-wetsuit-ws26wglisl101-black-grey-p-56136.html",
     "audit_status": "VALID",
-    "evidence": "[Zyte] Zyte Product API [EUR | Mercat ES] (149.99 €) · 'Womens Ascend Sleeveless Wetsuit' · [Nota cupó: detectat codi promocional 'BLACK' a la web sense preu final descomptat explícit]",
-    "previous_price": 179.99,
-    "previous_date": "2026-11-19"
+    "evidence": "PDP Verificada (EUR 149.99) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -37762,8 +37683,7 @@
     "is_from": false,
     "url": "https://www.deporvillage.co.uk/zone3-advance-wetsuit-black-grey-blue",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (GBP 253.77) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (GBP 253.77) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -37781,8 +37701,7 @@
     "is_from": false,
     "url": "https://www.deporvillage.co.uk/zone3-agile-wetsuit-black-grey",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (GBP 176.93) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (GBP 176.93) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -37800,8 +37719,7 @@
     "is_from": false,
     "url": "https://www.deporvillage.co.uk/zone3-agile-wetsuit-black-pink-women",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (GBP 200.31) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (GBP 200.31) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -37819,8 +37737,7 @@
     "is_from": false,
     "url": "https://www.deporvillage.co.uk/zone3-vanquish-x-wetsuit-black-orange",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (GBP 536.76) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (GBP 536.76) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -37838,8 +37755,7 @@
     "is_from": false,
     "url": "https://www.deporvillage.co.uk/zone3-vanquish-x-wetsuit-black-orange-women",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (GBP 613.56) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (GBP 613.56) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -37857,8 +37773,7 @@
     "is_from": false,
     "url": "https://www.deporvillage.co.uk/zone3-terraprene-vision-wetsuit-black-green",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (GBP 389.84) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (GBP 389.84) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -37876,8 +37791,7 @@
     "is_from": false,
     "url": "https://www.deporvillage.co.uk/zone3-terraprene-vision-wetsuit-black-green-women",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (GBP 372.31) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (GBP 372.31) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -37895,8 +37809,7 @@
     "is_from": false,
     "url": "https://www.deporvillage.co.uk/zone3-active-flex-wetsuit-black-orange",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (GBP 171.92) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (GBP 171.92) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -37914,8 +37827,7 @@
     "is_from": false,
     "url": "https://www.deporvillage.co.uk/zone3-aspire-wetsuit-black-yellow",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (GBP 384.00) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (GBP 384.00) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -37933,8 +37845,7 @@
     "is_from": false,
     "url": "https://www.deporvillage.co.uk/zone3-versa-swimrun-wetsuit-black-orange-102335",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (GBP 215.48) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (GBP 215.48) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -37952,8 +37863,7 @@
     "is_from": false,
     "url": "https://www.deporvillage.co.uk/zone3-active-flex-wetsuit-black-orange-women",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (GBP 182.77) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (GBP 182.77) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -37971,8 +37881,7 @@
     "is_from": false,
     "url": "https://www.deporvillage.co.uk/zone3-aspire-wetsuit-black-pink-women",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (GBP 459.96) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (GBP 459.96) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -37990,8 +37899,7 @@
     "is_from": false,
     "url": "https://www.deporvillage.co.uk/zone3-versa-swimrun-wetsuit-black-orange-women",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (GBP 146.88) · Lectura 2026-11-20-AM",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (GBP 146.88) · Lectura 2026-11-20-AM"
   },
   {
     "timestamp": "2026-11-20",
@@ -38009,8 +37917,7 @@
     "is_from": false,
     "url": "https://mytriathlon.co.uk/zone3-mens-advance-wetsuit-black-blue-gunmetal-2025/",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (GBP 185.97) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (GBP 185.97) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -38028,8 +37935,7 @@
     "is_from": false,
     "url": "https://mytriathlon.co.uk/zone3-mens-agile-wetsuit-black-silver-gunmetal-2025/",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (GBP 185.97) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (GBP 185.97) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -38047,8 +37953,7 @@
     "is_from": false,
     "url": "https://mytriathlon.co.uk/zone3-womens-advance-wetsuit-black-turquoise-gunmetal-2025/",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (GBP 185.97) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (GBP 185.97) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -38066,8 +37971,7 @@
     "is_from": false,
     "url": "https://mytriathlon.co.uk/zone3-agile-wetsuit-womens-black-turquoise-pink-2025/",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (GBP 185.97) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (GBP 185.97) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -38085,49 +37989,8 @@
     "is_from": false,
     "url": "https://mytriathlon.co.uk/zone3-vanquish-x-wetsuit-mens-black-orange-2025/",
     "audit_status": "QUARANTINED_EX_RENTAL",
-    "quarantine_reason": "Exclòs en auditoria v10.9: Preu £355.97 correspon a unitat Ex-Rental (segona mà) i no a producte nou.",
-    "evidence": "Quarantena Ex-Rental (355.97 £)"
-  },
-  {
-    "timestamp": "2026-11-20",
-    "run_slot": "2026-11-20-AM",
-    "timestamp_iso": "2026-11-20T00:47:17Z",
-    "country": "UK",
-    "currency": "GBP",
-    "operator": "My Triathlon",
-    "code": "WS22MVAN101",
-    "model": "Men's Vanquish-X Wetsuit",
-    "pvp": 699,
-    "price": 355.97,
-    "disc_imp": 343.03,
-    "disc_pct": 49.1,
-    "out_of_stock": false,
-    "is_from": false,
-    "url": "https://mytriathlon.co.uk/zone3-vanquish-x-wetsuit-mens-black-orange-2025/",
-    "audit_status": "QUARANTINED_EX_RENTAL",
-    "evidence": "Meta OG [GBP | Mercat UK] (355.97 £) · H1: 'ZONE3 - Vanquish X Wetsuit - Men's - Bla'",
-    "previous_price": 349.97,
-    "previous_date": "2026-11-19",
-    "quarantine_reason": "Exclòs automàticament: Preu Vanquish-X < £420 a My Triathlon UK correspon a unitat Ex-Rental."
-  },
-  {
-    "timestamp": "2026-11-20",
-    "run_slot": "2026-11-20-AM",
-    "timestamp_iso": "2026-11-20T08:22:31Z",
-    "country": "UK",
-    "currency": "GBP",
-    "operator": "My Triathlon",
-    "code": "WS22MVAN101",
-    "model": "Men's Vanquish-X Wetsuit",
-    "pvp": 699,
-    "price": 355.97,
-    "disc_imp": 343.03,
-    "disc_pct": 49.1,
-    "out_of_stock": false,
-    "is_from": false,
-    "url": "https://mytriathlon.co.uk/zone3-vanquish-x-wetsuit-mens-black-orange-2025/",
-    "audit_status": "VALID",
-    "evidence": "Meta OG [GBP | Mercat UK] (355.97 £) · H1: 'ZONE3 - Vanquish X Wetsuit - Men's - Bla'"
+    "quarantine_reason": "Exclòs d'anàlisi de producte nou (auditoria v11.0): El preu mínim detectat el 20/11 (£355.97, -49.1%) correspon a una opció 'Ex-Rental' (unitat de lloguer/segona mà) barrejada dins del mateix selector de la PDP de My Triathlon UK. A tracking.json es conserva l'última lectura verificada d'unitat nova (2026-11-19: £558.97, -20.0%) com a HISTORICAL_PDP.",
+    "evidence": "Quarantena auditada a dades originals: variant Ex-Rental (£355.97) exclosa; es manté històric d'unitat nova (£558.97 del 2026-11-19)."
   },
   {
     "timestamp": "2026-11-20",
@@ -38145,49 +38008,8 @@
     "is_from": false,
     "url": "https://mytriathlon.co.uk/zone3-vanquish-x-wetsuit-womens-black-2025/",
     "audit_status": "QUARANTINED_EX_RENTAL",
-    "quarantine_reason": "Exclòs en auditoria v10.9: Preu £355.97 correspon a unitat Ex-Rental (segona mà) i no a producte nou.",
-    "evidence": "Quarantena Ex-Rental (355.97 £)"
-  },
-  {
-    "timestamp": "2026-11-20",
-    "run_slot": "2026-11-20-AM",
-    "timestamp_iso": "2026-11-20T00:47:17Z",
-    "country": "UK",
-    "currency": "GBP",
-    "operator": "My Triathlon",
-    "code": "WS22WVAN101",
-    "model": "Women's Vanquish-X Wetsuit",
-    "pvp": 699,
-    "price": 355.97,
-    "disc_imp": 343.03,
-    "disc_pct": 49.1,
-    "out_of_stock": false,
-    "is_from": false,
-    "url": "https://mytriathlon.co.uk/zone3-vanquish-x-wetsuit-womens-black-2025/",
-    "audit_status": "QUARANTINED_EX_RENTAL",
-    "evidence": "Meta OG [GBP | Mercat UK] (355.97 £) · H1: 'ZONE3 - Vanquish X Wetsuit - Women's - B'",
-    "previous_price": 349.97,
-    "previous_date": "2026-11-19",
-    "quarantine_reason": "Exclòs automàticament: Preu Vanquish-X < £420 a My Triathlon UK correspon a unitat Ex-Rental."
-  },
-  {
-    "timestamp": "2026-11-20",
-    "run_slot": "2026-11-20-AM",
-    "timestamp_iso": "2026-11-20T08:22:31Z",
-    "country": "UK",
-    "currency": "GBP",
-    "operator": "My Triathlon",
-    "code": "WS22WVAN101",
-    "model": "Women's Vanquish-X Wetsuit",
-    "pvp": 699,
-    "price": 355.97,
-    "disc_imp": 343.03,
-    "disc_pct": 49.1,
-    "out_of_stock": false,
-    "is_from": false,
-    "url": "https://mytriathlon.co.uk/zone3-vanquish-x-wetsuit-womens-black-2025/",
-    "audit_status": "VALID",
-    "evidence": "Meta OG [GBP | Mercat UK] (355.97 £) · H1: 'ZONE3 - Vanquish X Wetsuit - Women's - B'"
+    "quarantine_reason": "Exclòs d'anàlisi de producte nou (auditoria v11.0): El preu mínim detectat el 20/11 (£355.97, -49.1%) correspon a una opció 'Ex-Rental' (unitat de lloguer/segona mà) barrejada dins del mateix selector de la PDP de My Triathlon UK. A tracking.json es conserva l'última lectura verificada d'unitat nova (2026-11-19: £558.97, -20.0%) com a HISTORICAL_PDP.",
+    "evidence": "Quarantena auditada a dades originals: variant Ex-Rental (£355.97) exclosa; es manté històric d'unitat nova (£558.97 del 2026-11-19)."
   },
   {
     "timestamp": "2026-11-20",
@@ -38205,8 +38027,7 @@
     "is_from": false,
     "url": "https://mytriathlon.co.uk/zone3-terraprene-vision-wetsuit-mens-black-turquoise-2025/",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (GBP 358.97) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (GBP 358.97) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -38224,8 +38045,7 @@
     "is_from": false,
     "url": "https://mytriathlon.co.uk/zone3-terraprene-vision-wetsuit-womens-black-lilac-2025/",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (GBP 358.97) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (GBP 358.97) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -38243,8 +38063,7 @@
     "is_from": false,
     "url": "https://mytriathlon.co.uk/zone3-active-flex-wetsuit-mens-black-orange-2025/",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (GBP 169.97) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (GBP 169.97) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -38262,8 +38081,7 @@
     "is_from": false,
     "url": "https://mytriathlon.co.uk/zone3-aspire-wetsuit-mens-black-chalk-2025/",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (GBP 466.97) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (GBP 466.97) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -38281,8 +38099,7 @@
     "is_from": false,
     "url": "https://mytriathlon.co.uk/zone3-versa-swimrun-wetsuit-mens-black-orange-2025/",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (GBP 196.97) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (GBP 196.97) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -38300,8 +38117,7 @@
     "is_from": false,
     "url": "https://mytriathlon.co.uk/zone3-active-flex-wetsuit-womens-black-orange-2025/",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (GBP 160.97) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (GBP 160.97) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -38319,8 +38135,7 @@
     "is_from": false,
     "url": "https://mytriathlon.co.uk/zone3-aspire-wetsuit-womens-black-chalk-2025/",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (GBP 466.97) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (GBP 466.97) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -38338,8 +38153,7 @@
     "is_from": false,
     "url": "https://mytriathlon.co.uk/zone3-versa-swimrun-wetsuit-womens-black-orange-2025/",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (GBP 199.97) · Lectura 2026-11-20-AM",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (GBP 199.97) · Lectura 2026-11-20-AM"
   },
   {
     "timestamp": "2026-11-20",
@@ -38357,8 +38171,7 @@
     "is_from": false,
     "url": "https://mytriathlon.co.uk/zone3-ascend-sleeveless-wetsuit-mens-black-grey-2026/",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (GBP 154.97) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (GBP 154.97) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -38376,8 +38189,7 @@
     "is_from": false,
     "url": "https://mytriathlon.co.uk/zone3-ascend-sleeveless-wetsuit-womens-black-grey-2026/",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (GBP 154.95) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (GBP 154.95) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -38395,8 +38207,7 @@
     "is_from": false,
     "url": "https://www.sigmasports.com/item/Zone3/Advance-Wetsuit/TM3R",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (GBP 253.00) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (GBP 253.00) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -38414,8 +38225,7 @@
     "is_from": false,
     "url": "https://www.sigmasports.com/item/Zone3/Advance-Womens-Wetsuit/TMED",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (GBP 258.00) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (GBP 258.00) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -38433,8 +38243,7 @@
     "is_from": false,
     "url": "https://www.sigmasports.com/item/Zone3/Vanquish-X-Wetsuit/X5AZ",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (GBP 584.00) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (GBP 584.00) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -38452,8 +38261,7 @@
     "is_from": false,
     "url": "https://www.sigmasports.com/item/Zone3/Vanquish-X-Womens-Wetsuit/X5B9",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (GBP 632.00) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (GBP 632.00) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -38471,8 +38279,7 @@
     "is_from": false,
     "url": "https://www.sigmasports.com/item/Zone3/Aspire-Mens-Swimming---Triathlon-Wetsuit/14FCK",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (GBP 446.00) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (GBP 446.00) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -38490,8 +38297,7 @@
     "is_from": false,
     "url": "https://www.sigmasports.com/item/Zone3/Womens-Aspire-Wetsuit/14FCW",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (GBP 452.00) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (GBP 452.00) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -38509,8 +38315,7 @@
     "is_from": false,
     "url": "https://www.sportsshoes.com/product/zne93/zone3-advance-wetsuit---aw26",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (GBP 209.29) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (GBP 209.29) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -38528,8 +38333,7 @@
     "is_from": false,
     "url": "https://www.sportsshoes.com/product/zne94/zone3-agile-wetsuit---aw26",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (GBP 197.09) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (GBP 197.09) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -38547,8 +38351,7 @@
     "is_from": false,
     "url": "https://www.sportsshoes.com/product/zne110/zone3-advance-women's-wetsuit---aw26",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (GBP 209.29) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (GBP 209.29) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -38566,8 +38369,7 @@
     "is_from": false,
     "url": "https://www.sportsshoes.com/product/zne111/zone3-agile-women's-wetsuit---aw26",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (GBP 197.09) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (GBP 197.09) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -38585,8 +38387,7 @@
     "is_from": false,
     "url": "https://www.sportsshoes.com/product/zne533/zone3-vanquish-x-men's-wetsuit---aw26",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (GBP 489.30) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (GBP 489.30) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -38604,8 +38405,7 @@
     "is_from": false,
     "url": "https://www.sportsshoes.com/product/zne534/zone3-vanquish-x-women's-wetsuit---aw26",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (GBP 489.30) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (GBP 489.30) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -38623,8 +38423,7 @@
     "is_from": false,
     "url": "https://www.sportsshoes.com/product/zne435/zone3-terraprene-vision-wetsuit---aw26",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (GBP 359.09) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (GBP 359.09) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -38642,8 +38441,7 @@
     "is_from": false,
     "url": "https://www.sportsshoes.com/product/zne448/zone3-terraprene-vision-women's-wetsuit---aw26",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (GBP 359.09) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (GBP 359.09) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -38661,8 +38459,7 @@
     "is_from": false,
     "url": "https://www.sportsshoes.com/product/zne477/zone3-active-flex-wetsuit---aw26",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (GBP 170.09) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (GBP 170.09) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -38680,8 +38477,7 @@
     "is_from": false,
     "url": "https://www.sportsshoes.com/product/zne485/zone3-active-flex-women's-wetsuit---aw26",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (GBP 170.09) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (GBP 170.09) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -38699,8 +38495,7 @@
     "is_from": false,
     "url": "https://www.sportsshoes.com/product/zne113/zone3-zone-3-versa-swim-run-femme-wetsuit---ss21",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (GBP 170.09) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (GBP 170.09) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -38718,8 +38513,7 @@
     "is_from": false,
     "url": "https://www.tradeinn.com/swiminn/en/zone3-advance-long-sleeve-neoprene-wetsuit/137937160/p?country=uk",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (GBP 247.49) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (GBP 247.49) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -38737,9 +38531,7 @@
     "is_from": false,
     "url": "https://www.tradeinn.com/swiminn/en/zone3-agile-long-sleeve-neoprene-wetsuit/137937162/p?country=uk",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (GBP 193.99) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "intraday_higher_price": 195.99,
-    "audit_note": "Mantingut preu mínim diari (193.99); lectura posterior a 2026-11-20-AM: 195.99"
+    "evidence": "PDP Verificada (GBP 193.99) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -38757,9 +38549,7 @@
     "is_from": false,
     "url": "https://www.tradeinn.com/swiminn/en/zone3-advance-woman-long-sleeve-neoprene-wetsuit/137937161/p?country=uk",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (GBP 237.99) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "intraday_higher_price": 240.99,
-    "audit_note": "Mantingut preu mínim diari (237.99); lectura posterior a 2026-11-20-AM: 240.99"
+    "evidence": "PDP Verificada (GBP 237.99) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -38777,8 +38567,7 @@
     "is_from": false,
     "url": "https://www.tradeinn.com/swiminn/en/zone3-agile-woman-long-sleeve-neoprene-wetsuit/137937163/p?country=uk",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (GBP 193.99) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (GBP 193.99) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -38796,8 +38585,7 @@
     "is_from": false,
     "url": "https://www.tradeinn.com/swiminn/en/zone3-vanquish-x-long-sleeve-neoprene-wetsuit/138472238/p?country=uk",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (GBP 562.99) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (GBP 562.99) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -38815,8 +38603,7 @@
     "is_from": false,
     "url": "https://www.tradeinn.com/swiminn/en/zone3-vanquish-x-woman-long-sleeve-neoprene-wetsuit/138472237/p?country=uk",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (GBP 575.99) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (GBP 575.99) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -38834,8 +38621,7 @@
     "is_from": false,
     "url": "https://www.tradeinn.com/swiminn/en/zone3-terraprene-vision-long-sleeve-neoprene-wetsuit/140374093/p?country=uk",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (GBP 328.49) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (GBP 328.49) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -38853,8 +38639,7 @@
     "is_from": false,
     "url": "https://www.tradeinn.com/swiminn/en/zone3-terraprene-vision-woman-long-sleeve-neoprene-wetsuit/140374092/p?country=uk",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (GBP 328.49) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (GBP 328.49) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -38893,9 +38678,7 @@
     "is_from": false,
     "url": "https://www.tradeinn.com/swiminn/en/zone3-aspire-long-sleeve-neoprene-wetsuit/141564545/p?country=uk",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (GBP 447.49) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "intraday_higher_price": 452.99,
-    "audit_note": "Mantingut preu mínim diari (447.49); lectura posterior a 2026-11-20-AM: 452.99"
+    "evidence": "PDP Verificada (GBP 447.49) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -38913,8 +38696,7 @@
     "is_from": false,
     "url": "https://www.tradeinn.com/swiminn/en/zone3-active-flex-woman-long-sleeve-neoprene-wetsuit/141564543/p?country=uk",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (GBP 174.99) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (GBP 174.99) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -38953,9 +38735,7 @@
     "is_from": false,
     "url": "https://www.tradeinn.com/swiminn/en/zone3-ascend-sleeveless-neoprene-wetsuit/142771415/p?country=uk",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (GBP 126.99) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "intraday_higher_price": 127.99,
-    "audit_note": "Mantingut preu mínim diari (126.99); lectura posterior a 2026-11-20-AM: 127.99"
+    "evidence": "PDP Verificada (GBP 126.99) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -38973,9 +38753,7 @@
     "is_from": false,
     "url": "https://www.tradeinn.com/swiminn/en/zone3-ascend-woman-sleeveless-neoprene-wetsuit/142771416/p?country=uk",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (GBP 122.99) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "intraday_higher_price": 127.49,
-    "audit_note": "Mantingut preu mínim diari (122.99); lectura posterior a 2026-11-20-AM: 127.49"
+    "evidence": "PDP Verificada (GBP 122.99) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -38993,8 +38771,7 @@
     "is_from": false,
     "url": "https://www.wetsuitoutlet.co.uk/2026-zone3-mens-advance-swim-wetsuit-ws21madv-black-blue-p-38382.html?currency=GBP",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (GBP 224.95) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (GBP 224.95) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -39012,8 +38789,7 @@
     "is_from": false,
     "url": "https://www.wetsuitoutlet.co.uk/2026-zone3-mens-agile-swim-wetsuit-ws21magi116-black-silver-gunmetal-p-40555.html?currency=GBP",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (GBP 174.95) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (GBP 174.95) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -39031,8 +38807,7 @@
     "is_from": false,
     "url": "https://www.wetsuitoutlet.co.uk/2026-zone3-womens-advance-swim-wetsuit-ws21wadv-black-turquoise-p-38383.html?currency=GBP",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (GBP 224.95) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (GBP 224.95) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -39050,8 +38825,7 @@
     "is_from": false,
     "url": "https://www.wetsuitoutlet.co.uk/2026-zone3-womens-agile-swim-wetsuit-ws21wagi114-black-pink-turquoise-p-40559.html?currency=GBP",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (GBP 174.95) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (GBP 174.95) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -39069,8 +38843,7 @@
     "is_from": false,
     "url": "https://www.wetsuitoutlet.co.uk/2026-zone3-mens-terraprene-vision-back-zip-swim-wetsuit-ws24mvis101-black-forest-green-p-48572.html?currency=GBP",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (GBP 259.95) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (GBP 259.95) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -39088,8 +38861,7 @@
     "is_from": false,
     "url": "https://www.wetsuitoutlet.co.uk/2026-zone3-womens-terraprene-vision-back-zip-swim-wetsuit-ws24wvis101-black-eucalyptus-green-p-48600.html?currency=GBP",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (GBP 279.95) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (GBP 279.95) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -39107,8 +38879,7 @@
     "is_from": false,
     "url": "https://www.wetsuitoutlet.co.uk/2026-zone3-mens-active-flex-swim-wetsuit-ws25mactf101-black-orange-p-52492.html?currency=GBP",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (GBP 159.95) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (GBP 159.95) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -39126,8 +38897,7 @@
     "is_from": false,
     "url": "https://www.wetsuitoutlet.co.uk/2026-zone3-mens-aspire-wetsuit-ws25masp-black-chalk-p-53917.html?currency=GBP",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (GBP 549.95) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (GBP 549.95) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -39145,8 +38915,7 @@
     "is_from": false,
     "url": "https://www.wetsuitoutlet.co.uk/2026-zone3-womens-active-flex-swim-wetsuit-ws25wactf101-black-orange-p-52493.html?currency=GBP",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (GBP 159.95) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (GBP 159.95) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -39164,8 +38933,7 @@
     "is_from": false,
     "url": "https://www.wetsuitoutlet.co.uk/2026-zone3-mens-ascend-sleeveless-swim-wetsuit-ws26mglisl101-black-grey-p-56135.html?currency=GBP",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (GBP 131.99) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (GBP 131.99) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   },
   {
     "timestamp": "2026-11-20",
@@ -39183,7 +38951,6 @@
     "is_from": false,
     "url": "https://www.wetsuitoutlet.co.uk/2026-zone3-womens-ascend-sleeveless-wetsuit-ws26wglisl101-black-grey-p-56136.html?currency=GBP",
     "audit_status": "VALID",
-    "evidence": "PDP Verificada (GBP 154.95) · SKU/Model validat a fitxa individual (2026-11-20-AM)",
-    "timestamp_iso": "2026-11-20T08:22:31Z"
+    "evidence": "PDP Verificada (GBP 154.95) · SKU/Model validat a fitxa individual (2026-11-20-AM)"
   }
 ]
