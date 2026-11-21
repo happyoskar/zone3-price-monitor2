@@ -189,6 +189,18 @@ DIRECT_CANDIDATE_PROBES = {
         "https://www.bike24.es/productos/905643",
         "https://www.bike24.es/productos/905644"
     ],
+    ("ES", "Deporvillage", "WS22MVAN101"): [
+        "https://www.deporvillage.com/traje-neopreno-zone3-vanquish-x",
+        "https://www.deporvillage.com/traje-neopreno-zone3-vanquish-x-negro-naranja",
+        "https://www.deporvillage.com/traje-de-neopreno-zone3-vanquish-x",
+        "https://www.deporvillage.com/traje-neopreno-zone3-vanquish-x-2"
+    ],
+    ("ES", "Deporvillage", "WS22WVAN101"): [
+        "https://www.deporvillage.com/traje-neopreno-zone3-vanquish-x-mujer",
+        "https://www.deporvillage.com/traje-neopreno-zone3-vanquish-x-negro-naranja-mujer",
+        "https://www.deporvillage.com/traje-de-neopreno-zone3-vanquish-x-mujer",
+        "https://www.deporvillage.com/traje-neopreno-zone3-vanquish-x-mujer-2"
+    ],
     ("ES", "Deporvillage", "WS26MGLISL101"): [
         "https://www.deporvillage.com/traje-neopreno-zone3-ascend-sin-mangas",
         "https://www.deporvillage.com/traje-de-neopreno-zone3-ascend-sin-mangas",
@@ -425,10 +437,252 @@ def fetch_zyte_raw_sync(url, country):
     except Exception:
         return None
 
-def parse_html_fast_stdlib(html_str, base_url, zprod=None):
-    """Instant (<5ms) pure-Python stdlib parser for Zyte HTML. Never blocks on external scripts."""
+
+NEXTJS_SALE_PRICE_KEYS = (
+    "finalprice", "saleprice", "specialprice", "discountedprice",
+    "currentprice", "pricewithtax", "sellingprice", "offerprice",
+    "netprice", "ourprice", "activeprice", "price", "lowprice"
+)
+NEXTJS_FORBIDDEN_PRICE_KEYS = (
+    "old", "orig", "rrp", "pvp", "msrp", "cross", "strike", "recommend",
+    "previous", "was", "listprice", "withouttax", "shipping", "delivery",
+    "installment", "quota", "iva", "taxamount", "discount", "saving"
+)
+
+def extract_nextjs_hydration_raw(html_str):
+    """Extracts __NEXT_DATA__ JSON string and decoded Next.js App Router RSC (__next_f) chunks."""
     if not html_str:
-        info = {"title": "", "h1": "", "ldNodes": [], "metaCurr": "", "metaPrice": "", "domPrices": [], "bodyText": "", "links": [], "hasExRentalOption": False}
+        return "", ""
+    next_data_str = ""
+    m_nd = re.search(r'<script[^>]+id=["\']__NEXT_DATA__["\'][^>]*>(.*?)</script>', html_str, flags=re.I | re.S)
+    if m_nd:
+        next_data_str = m_nd.group(1).strip()
+
+    rsc_chunks = []
+    if "__next_f" in html_str:
+        for m_rsc in re.finditer(r'self\.__next_f\.push\(\[\s*\d+\s*,\s*"((?:\\.|[^"\\])*)"\s*\]\)', html_str, flags=re.S):
+            raw_chunk = m_rsc.group(1)
+            try:
+                decoded = json.loads(f'"{raw_chunk}"')
+            except Exception:
+                decoded = (
+                    raw_chunk
+                    .replace('\\"', '"')
+                    .replace('\\/', '/')
+                    .replace('\\n', ' ')
+                    .replace('\\\\', '\\')
+                )
+            if any(tok in decoded.lower() for tok in ("price", "pvp", "ws2", "zone3", "vanquish", "aspire", "vision", "advance", "agile", "versa", "ascend", "stock", "instock", "agotado")):
+                rsc_chunks.append(decoded)
+    rsc_joined = "\n".join(rsc_chunks)[:220000]
+    return next_data_str, rsc_joined
+
+def extract_nextjs_candidates_for_row(page_info, row):
+    """Safely extracts main-product sale prices & stock from Next.js (__NEXT_DATA__ and __next_f RSC) verifying SKU/slug/model identity."""
+    results = []
+    code = row["code"]
+    model_name = row["model"]
+    url = row.get("url", "").strip()
+    expected_curr = row["currency"]
+    pvp = float(row["pvp"])
+    ean = MODEL_EANS.get(code, "")
+    parsed_u = urlparse(url)
+    url_slug = parsed_u.path.strip("/").split("/")[-1].lower() if parsed_u.path else ""
+
+    next_data_str = page_info.get("nextDataJson") or ""
+    rsc_text = page_info.get("nextRscText") or ""
+
+    def _is_forbidden_key(k_low):
+        return any(bad in k_low for bad in NEXTJS_FORBIDDEN_PRICE_KEYS)
+
+    def _extract_numeric_price_from_obj(val_obj):
+        if isinstance(val_obj, (int, float)) and not isinstance(val_obj, bool):
+            return float(val_obj)
+        if isinstance(val_obj, str):
+            if re.match(r"^\s*[\d]{2,4}(?:[.,]\d{1,2})?\s*(?:€|£|EUR|GBP)?\s*$", val_obj, flags=re.I):
+                return normalize_price(val_obj)
+            return None
+        if isinstance(val_obj, dict):
+            for sub_k in ("finalPrice", "salePrice", "specialPrice", "discountedPrice", "currentPrice", "priceWithTax", "value", "amount", "gross", "raw", "price"):
+                if sub_k in val_obj and not _is_forbidden_key(sub_k.lower()):
+                    sub_v = _extract_numeric_price_from_obj(val_obj[sub_k])
+                    if sub_v is not None:
+                        return sub_v
+        return None
+
+    # 1. Walk structured __NEXT_DATA__ JSON
+    if next_data_str:
+        try:
+            nd_root = json.loads(next_data_str)
+
+            def _walk_nd(node, inherited_ident="", inherited_curr="", in_related=False, depth=0):
+                if depth > 22 or in_related:
+                    return
+                if isinstance(node, list):
+                    for elem in node[:80]:
+                        _walk_nd(elem, inherited_ident, inherited_curr, in_related, depth + 1)
+                    return
+                if not isinstance(node, dict):
+                    return
+
+                # Skip related / carousel / cross-sell branches
+                local_ident_parts = []
+                for id_k in ("name", "title", "productName", "sku", "reference", "ref", "mpn", "ean", "gtin", "gtin13", "slug", "url", "urlKey", "canonicalUrl"):
+                    v = node.get(id_k)
+                    if isinstance(v, str) and v.strip():
+                        local_ident_parts.append(v.strip())
+                local_ident = " ".join(local_ident_parts)
+                eff_ident = f"{inherited_ident} {local_ident}".strip()
+                eff_low = eff_ident.lower()
+
+                local_curr = str(node.get("currency") or node.get("currencyCode") or node.get("priceCurrency") or inherited_curr or "").upper().strip()
+                if local_curr in ("€", "EUR"):
+                    local_curr = "EUR"
+                elif local_curr in ("£", "GBP"):
+                    local_curr = "GBP"
+
+                # Check stock signals on this object
+                is_oos = False
+                has_instock = False
+                for st_k in ("inStock", "isAvailable", "available", "hasStock"):
+                    if st_k in node and isinstance(node[st_k], bool):
+                        if node[st_k]:
+                            has_instock = True
+                        else:
+                            is_oos = True
+                if "availability" in node and isinstance(node["availability"], str):
+                    av_l = node["availability"].lower()
+                    if "outofstock" in av_l or "discontinued" in av_l:
+                        is_oos = True
+                    elif "instock" in av_l:
+                        has_instock = True
+                if "stock" in node and isinstance(node["stock"], (int, float)) and not isinstance(node["stock"], bool):
+                    if node["stock"] <= 0 and not has_instock:
+                        is_oos = True
+                    elif node["stock"] > 0:
+                        has_instock = True
+
+                # Verify this dict belongs to our target product (by exact SKU/EAN/slug or validated product identity)
+                has_exact_ref = (
+                    code.lower() in eff_low
+                    or (ean and ean in eff_low)
+                    or (url_slug and len(url_slug) >= 12 and url_slug in eff_low)
+                )
+                id_valid = has_exact_ref
+                if not id_valid and local_ident:
+                    kws = MODEL_KEYWORDS.get(code, [])
+                    if kws and any(kw in eff_low for kw in kws):
+                        ok_id, _ = validate_product_identity(eff_ident, url if has_exact_ref else "", code, model_name)
+                        if not ok_id:
+                            # Allow gender inheritance from canonical URL only when product name matches model keywords and doesn't contradict gender
+                            ok_with_u, _ = validate_product_identity(eff_ident, url, code, model_name)
+                            id_valid = ok_with_u
+                        else:
+                            id_valid = True
+
+                if id_valid and not any(ut in eff_low for ut in USED_ITEM_TOKENS):
+                    # Extract best sale price on this node (preferring explicit sale/final keys over generic 'price' if 'price' equals RRP)
+                    node_prices = []
+                    for k, v in node.items():
+                        k_low = k.lower()
+                        if _is_forbidden_key(k_low):
+                            continue
+                        if k_low in NEXTJS_SALE_PRICE_KEYS or k_low in ("prices", "pricing", "priceinfo", "offer", "offers"):
+                            p_num = _extract_numeric_price_from_obj(v)
+                            if p_num is not None and (pvp * 0.20) <= p_num <= (pvp * 1.20):
+                                prio_k = 0 if k_low in ("finalprice", "saleprice", "specialprice", "discountedprice", "currentprice", "pricewithtax", "sellingprice") else 1
+                                node_prices.append((prio_k, p_num, k))
+                    if node_prices:
+                        node_prices.sort(key=lambda x: (1 if (x[1] >= pvp * 0.995 and len(node_prices) > 1) else 0, x[0], x[1]))
+                        best_np = node_prices[0]
+                        sz_lbl = str(node.get("size") or node.get("sizeName") or node.get("label") or "").strip()
+                        results.append({
+                            "price": best_np[1],
+                            "oos": bool(is_oos and not has_instock),
+                            "currency": local_curr,
+                            "size": sz_lbl,
+                            "source": f"Next.js __NEXT_DATA__ ({best_np[2]})"
+                        })
+
+                for k, v in node.items():
+                    k_low = k.lower()
+                    child_related = any(rk in k_low for rk in ("related", "recommend", "similar", "crosssell", "upsell", "alsobought", "carousel", "alternatives"))
+                    _walk_nd(v, eff_ident if (local_ident or has_exact_ref) else inherited_ident, local_curr, child_related, depth + 1)
+
+            _walk_nd(nd_root)
+        except Exception:
+            pass
+
+    # 2. Parse Next.js App Router RSC stream (self.__next_f.push) anchored around the target SKU / EAN / URL slug
+    if rsc_text:
+        rsc_low = rsc_text.lower()
+        anchors = []
+        for token in filter(None, [f"z3-{code.lower()}", code.lower(), ean.lower() if ean else "", url_slug]):
+            if len(token) >= 8:
+                for m_anc in re.finditer(re.escape(token), rsc_low):
+                    anchors.append(m_anc.start())
+        # Deduplicate nearby anchor positions into windows around the main product payload
+        anchors.sort()
+        windows = []
+        for pos in anchors:
+            w_start = max(0, pos - 3500)
+            w_end = min(len(rsc_text), pos + 6500)
+            # Truncate window if a related/recommended products key starts inside it after the anchor
+            tail_slice = rsc_low[pos:w_end]
+            m_rel = re.search(r'"(?:relatedproducts|recommendedproducts|similarproducts|crosssell|upsell|recommendations|alternatives)"\s*:', tail_slice)
+            if m_rel:
+                w_end = pos + m_rel.start()
+            if windows and w_start <= windows[-1][1]:
+                windows[-1] = (windows[-1][0], max(windows[-1][1], w_end))
+            else:
+                windows.append((w_start, w_end))
+
+        rsc_price_patterns = [
+            (0, r'"(finalPrice|salePrice|specialPrice|discountedPrice|currentPrice|priceWithTax|sellingPrice)"\s*:\s*(?:\{\s*"(?:value|amount|raw|gross)"\s*:\s*)?"?([\d]{2,4}(?:\.\d{1,2})?)"?'),
+            (1, r'"(price|lowPrice)"\s*:\s*(?:\{\s*"(?:value|amount|raw|gross)"\s*:\s*)?"?([\d]{2,4}(?:\.\d{1,2})?)"?')
+        ]
+        for (w_s, w_e) in windows:
+            win_txt = rsc_text[w_s:w_e]
+            win_low = win_txt.lower()
+            if any(ut in win_low for ut in USED_ITEM_TOKENS):
+                continue
+            win_curr = ""
+            m_wc = re.search(r'"(?:priceCurrency|currency|currencyCode)"\s*:\s*"(EUR|GBP|€|£)"', win_txt, flags=re.I)
+            if m_wc:
+                c_raw = m_wc.group(1).upper()
+                win_curr = "EUR" if c_raw in ("EUR", "€") else "GBP"
+
+            win_has_instock = bool(re.search(r'"(?:inStock|isAvailable|available)"\s*:\s*true|schema\.org/InStock|"stock"\s*:\s*[1-9]', win_txt, flags=re.I))
+            win_has_oos = bool(re.search(r'"(?:inStock|isAvailable|available)"\s*:\s*false|schema\.org/OutOfStock', win_txt, flags=re.I))
+            win_oos = bool(win_has_oos and not win_has_instock)
+
+            found_in_win = []
+            for prio_p, pat in rsc_price_patterns:
+                for mp in re.finditer(pat, win_txt, flags=re.I):
+                    # Ensure not inside an unclosed oldPrice/rrp wrapper object like `"oldPrice":{"price":859}`
+                    ctx_before = win_txt[max(0, mp.start() - 45):mp.start()].lower()
+                    if "}" not in ctx_before and re.search(r'"[^"]*(?:old|orig|rrp|pvp|msrp|cross|strike|recommend|previous|was|withouttax|shipping)[^"]*"\s*:\s*\{\s*$', ctx_before):
+                        continue
+                    p_val = normalize_price(mp.group(2))
+                    if p_val is not None and (pvp * 0.20) <= p_val <= (pvp * 1.20):
+                        found_in_win.append((prio_p, p_val, mp.group(1)))
+            if found_in_win:
+                found_in_win.sort(key=lambda x: (1 if (x[1] >= pvp * 0.995 and len(found_in_win) > 1) else 0, x[0], x[1]))
+                for _, pv, pk in found_in_win[:3]:
+                    results.append({
+                        "price": pv,
+                        "oos": win_oos,
+                        "currency": win_curr,
+                        "size": "",
+                        "source": f"Next.js RSC __next_f ({pk})"
+                    })
+
+    return results
+
+def parse_html_fast_stdlib(html_str, base_url, zprod=None):
+    """Instant (<5ms) pure-Python stdlib parser for Zyte HTML with full Next.js (__NEXT_DATA__ / __next_f) & bottom JSON-LD support."""
+    if not html_str:
+        info = {"title": "", "h1": "", "ldNodes": [], "ldPrimaryCount": 0, "nextDataJson": "", "nextRscText": "", "metaCurr": "", "metaPrice": "", "domPrices": [], "bodyText": "", "links": [], "hasExRentalOption": False}
     else:
         m_title = re.search(r"<title[^>]*>(.*?)</title>", html_str, flags=re.I | re.S)
         title = re.sub(r"\s+", " ", m_title.group(1)).strip() if m_title else ""
@@ -439,18 +693,29 @@ def parse_html_fast_stdlib(html_str, base_url, zprod=None):
         h1_matches = re.findall(r"<h1[^>]*>(.*?)</h1>", html_str, flags=re.I | re.S)
         h1_list = [re.sub(r"<[^>]+>", " ", h).strip() for h in h1_matches]
         h1 = re.sub(r"\s+", " ", " | ".join(filter(None, h1_list))).strip()
+        # Fallback H1 from main product image alt if SPA delayed H1 tag in static snapshot
+        if not h1:
+            m_alt_h1 = re.search(r'<img[^>]+alt=["\']([^"\']*zone3[^"\']*?)\s*-\s*#1["\']', html_str, flags=re.I)
+            if m_alt_h1:
+                h1 = m_alt_h1.group(1).strip()
 
-        # Truncate HTML BEFORE bottom Related/Carousel/Ex-Rental sections first so ldNodes & itemprop="price" never leak from related cards
+        # Truncate DOM HTML BEFORE bottom Related/Carousel sections for DOM microdata only,
+        # while keeping ALL JSON-LD scripts across the entire document (Next.js injects JSON-LD at the bottom of <body>!)
         m_h1_raw = re.search(r"<h1[^>]*>", html_str, flags=re.I)
         h1_raw_idx = m_h1_raw.start() if m_h1_raw else 0
         m_raw_cut = re.search(
-            r'(?:id=["\'](?:tab-related|tab-similar|related-products)["\']|data-list-name=["\'][^"\']*(?:Related|Viewed|Similar)[^"\']*["\']|class=["\'][^"\']*(?:productCarousel|related-products|similar-products|cross-sell|upsell)[^"\']*["\']|>\s*(?:Related Products|Customers Also Viewed|You May Also Need|More Like This|Similar Products)\s*<)',
+            r'(?:id=["\'](?:tab-related|tab-similar|related-products)["\']|data-list-name=["\'][^"\']*(?:Related|Viewed|Similar)[^"\']*["\']|class=["\'][^"\']*(?:productCarousel|related-products|similar-products|cross-sell|upsell)[^"\']*["\']|>\s*(?:Related Products|Customers Also Viewed|You May Also Need|More Like This|Similar Products|Productos relacionados|También te puede interesar)\s*<)',
             html_str[h1_raw_idx:],
             flags=re.I
         )
         truncated_raw_html = html_str[:h1_raw_idx + m_raw_cut.start()] if m_raw_cut else html_str
 
-        ld_nodes = re.findall(r'<script[^>]*type=["\']application/ld\+json["\'][^>]*>(.*?)</script>', truncated_raw_html, flags=re.I | re.S)
+        ld_primary = re.findall(r'<script[^>]*type=["\']application/ld\+json["\'][^>]*>(.*?)</script>', truncated_raw_html, flags=re.I | re.S)
+        ld_tail = re.findall(r'<script[^>]*type=["\']application/ld\+json["\'][^>]*>(.*?)</script>', html_str[len(truncated_raw_html):], flags=re.I | re.S) if len(truncated_raw_html) < len(html_str) else []
+        ld_nodes = ld_primary + ld_tail
+        ld_primary_count = len(ld_primary)
+
+        next_data_str, next_rsc_txt = extract_nextjs_hydration_raw(html_str)
 
         meta_curr = ""
         m_mc = re.search(r'<meta[^>]+(?:property|name|itemprop)=["\'](?:product:price:currency|og:price:currency|priceCurrency)["\'][^>]+content=["\']([^"\']+)["\']', head_html, flags=re.I)
@@ -470,7 +735,7 @@ def parse_html_fast_stdlib(html_str, base_url, zprod=None):
         # Strip out related/recommended/carousel/footer/aside/strikeout/rrp/withoutTax blocks on truncated main HTML
         main_html = re.sub(r"<(script|style|noscript|aside|footer|nav|header|del|s)[^>]*>.*?</\1>", " ", truncated_raw_html, flags=re.I | re.S)
         main_html = re.sub(
-            r'<(div|section|ul|span)[^>]+(?:class|id|data-testid)=["\'][^"\']*(?:related|recommend|carousel|slider|upsell|cross-sell|similar|also-bought|alternatives|old-price|price-old|rrp|non-sale|withoutTax|strike)[^"\']*["\'][^>]*>.*?</\1>',
+            r'<(div|section|ul|span)[^>]+(?:class|id|data-testid)=["\'][^"\']*(?:related|recommend|productCarousel|related-carousel|related-slider|upsell|cross-sell|similar|also-bought|alternatives|old-price|price-old|rrp|non-sale|withoutTax|strike)[^"\']*["\'][^>]*>.*?</\1>',
             " ",
             main_html,
             flags=re.I | re.S
@@ -552,7 +817,7 @@ def parse_html_fast_stdlib(html_str, base_url, zprod=None):
 
         # Also extract PDP URLs embedded in JSON-LD ItemList or hydration state (Alltricks /P-, Wetsuit Outlet -p-, Sportano /p/, Sigma /item/, Sportshoes /product/)
         for m_json_u in re.finditer(
-            r'["\']((?:https?:\\?/\\?/[^"\']*?|\\?/(?:es-es/|en-es/)?)(?:F-\d+-[^"\']*?/P-\d+-[^"\']+|[^"\']*?-p-\d+\.html|p/\d+/[^"\']+|item/Zone3/[^"\']+|product/zne\d+/[^"\']+|zone3-[^"\']+))["\']',
+            r'["\']((?:https?:\\?/\\?/[^"\']*?|\\?/(?:es-es/|en-es/)?)(?:F-\d+-[^"\']*?/P-\d+-[^"\']+|[^"\']*?-p-\d+\.html|p/\d+/[^"\']+|item/Zone3/[^"\']+|product/zne\d+/[^"\']+|traje-(?:de-)?neopreno-zone3-[^"\']+|zone3-[^"\']+))["\']',
             html_str,
             flags=re.I
         ):
@@ -571,6 +836,9 @@ def parse_html_fast_stdlib(html_str, base_url, zprod=None):
             "title": title,
             "h1": h1,
             "ldNodes": ld_nodes,
+            "ldPrimaryCount": ld_primary_count,
+            "nextDataJson": next_data_str,
+            "nextRscText": next_rsc_txt,
             "metaCurr": meta_curr,
             "metaPrice": meta_price,
             "domPrices": dom_prices,
@@ -611,7 +879,7 @@ async def fetch_via_zyte(page, url, country, is_pdp=True, force_refresh=False):
                 t_low = f"{parsed.get('title', '')} | {parsed.get('h1', '')}".lower()
                 not_challenged = not any(c in t_low for c in ["just a moment", "un momento", "attention required", "access denied", "404", "not found", "no encontrada"])
                 if is_pdp:
-                    has_price_signal = bool(zprod.get("price") or parsed.get("ldNodes") or parsed.get("metaPrice") or parsed.get("domPrices"))
+                    has_price_signal = bool(zprod.get("price") or parsed.get("ldNodes") or parsed.get("nextDataJson") or parsed.get("nextRscText") or parsed.get("metaPrice") or parsed.get("domPrices"))
                     has_oos_signal = any(w in (parsed.get("bodyText") or "").lower() for w in ["agotado", "out of stock", "fuera de stock", "sold out", "no disponible"])
                     is_valid_content = bool(parsed.get("h1") and (has_price_signal or has_oos_signal)) and not_challenged
                 else:
@@ -1020,8 +1288,14 @@ def evaluate_page_info_candidates(page_info, row, source_prefix=""):
                     f"{source_prefix}Zyte Product API [{market_tag}] ({z_val:.2f} {expected_sym}) · '{(z_name or page_info.get('h1', ''))[:40]}'"
                 )
 
-    # 1. Structured JSON-LD Product / ProductGroup / hasVariant offers
-    for raw_ld in page_info.get("ldNodes", []):
+    # 1. Structured JSON-LD Product / ProductGroup / hasVariant offers (including bottom-of-body Next.js scripts)
+    ld_nodes_list = page_info.get("ldNodes", [])
+    ld_primary_cnt = page_info.get("ldPrimaryCount", len(ld_nodes_list))
+    parsed_main_u = urlparse(url)
+    main_slug = parsed_main_u.path.strip("/").split("/")[-1].lower() if parsed_main_u.path else ""
+
+    for ld_idx, raw_ld in enumerate(ld_nodes_list):
+        is_tail_ld = (ld_idx >= ld_primary_cnt)
         try:
             data = json.loads(raw_ld)
             items = data if isinstance(data, list) else [data]
@@ -1037,14 +1311,30 @@ def evaluate_page_info_candidates(page_info, row, source_prefix=""):
                 t = str(item.get("@type", "")).lower()
                 if "product" in t:
                     prod_name = str(item.get("name", "")).strip()
-                    prod_sku = str(item.get("sku", "") or item.get("mpn", "") or item.get("gtin13", "")).strip()
+                    prod_sku = str(item.get("sku", "") or item.get("mpn", "") or item.get("gtin13", "") or item.get("productID", "")).strip()
+                    prod_url = str(item.get("url", "") or item.get("@id", "")).strip()
+                    if not prod_url and isinstance(item.get("offers"), dict):
+                        prod_url = str(item["offers"].get("url", "")).strip()
                     item_cond = str(item.get("itemCondition", "")).lower()
                     if any(ut in f"{prod_name} {prod_sku} {item_cond}".lower() for ut in used_tokens):
                         continue
                     variant_size = str(item.get("size", "") or item.get("color", "")).strip()
-                    if prod_name:
-                        ld_ok, _ = validate_product_identity(f"{prod_name} {prod_sku}", url, code, model_name)
-                        if not ld_ok:
+
+                    # Strict per-node identity check so bottom JSON-LD works on Next.js while related-product JSON-LD never leaks
+                    node_sig_low = f"{prod_name} {prod_sku} {prod_url}".lower()
+                    exact_sku_in_ld = (code.lower() in node_sig_low) or (ean and ean in node_sig_low)
+                    if is_tail_ld and not (prod_name or prod_sku or prod_url):
+                        continue
+                    if not exact_sku_in_ld:
+                        if prod_name:
+                            # First verify model keyword is inside the JSON-LD node itself (not borrowed from page URL!)
+                            m_kws = MODEL_KEYWORDS.get(code, [])
+                            if m_kws and not any(kw in node_sig_low for kw in m_kws):
+                                continue
+                            ld_ok, _ = validate_product_identity(f"{prod_name} {prod_sku}", prod_url or url, code, model_name)
+                            if not ld_ok:
+                                continue
+                        elif is_tail_ld and not (main_slug and len(main_slug) >= 12 and main_slug in prod_url.lower()):
                             continue
                     offers = item.get("offers", [])
                     if isinstance(offers, dict):
@@ -1107,6 +1397,30 @@ def evaluate_page_info_candidates(page_info, row, source_prefix=""):
                                     register_candidate_or_tray(1, is_off_oos, val, ev_ld)
         except Exception:
             pass
+
+    # 1.5 Next.js Hydration State (__NEXT_DATA__ & App Router self.__next_f.push)
+    if not is_mixed_ex_rental_pdp and (page_info.get("nextDataJson") or page_info.get("nextRscText")):
+        next_cands = extract_nextjs_candidates_for_row(page_info, row)
+        for nc in next_cands:
+            nc_curr = nc.get("currency") or m_curr or (expected_curr if has_local_domain_currency else "")
+            if nc_curr and nc_curr != expected_curr:
+                currency_mismatch = True
+                continue
+            if nc_curr == expected_curr:
+                nc_val = float(nc["price"])
+                nc_oos = bool(nc.get("oos", False))
+                if nc_oos:
+                    detected_oos = True
+                else:
+                    detected_instock = True
+                    if (pvp * min_allowed_ratio) <= nc_val <= (pvp * 1.20):
+                        instock_variant_prices.append((nc_val, nc.get("size", "")))
+                register_candidate_or_tray(
+                    1,
+                    nc_oos,
+                    nc_val,
+                    f"{source_prefix}{nc['source']} [{market_tag}] ({nc_val:.2f} {expected_sym}) · '{page_info.get('h1', '')[:38]}'"
+                )
 
     # 2. OpenGraph / Microdata (skipped if PDP mixes an Ex-Rental option inside the same page)
     if m_curr and m_curr != expected_curr:
@@ -1367,23 +1681,73 @@ async def extract_verified_pdp_price(page, row, force_zyte_only=False):
                 status_code, evidence_str = "HTTP_ERROR", f"Error HTTP {resp.status}"
                 continue
             else:
-                await page.wait_for_timeout(600)
+                is_depor_or_next = ("deporvillage." in cand_u.lower())
+                if is_depor_or_next:
+                    try:
+                        await page.evaluate("""() => {
+                            const btn = document.querySelector('#onetrust-accept-btn-handler');
+                            if (btn) btn.click();
+                        }""")
+                    except Exception:
+                        pass
+                try:
+                    await page.wait_for_function(
+                        """() => {
+                            const h1 = document.querySelector('h1');
+                            const hasH1 = Boolean(h1 && h1.innerText && h1.innerText.trim().length > 3);
+                            const hasLd = Array.from(document.querySelectorAll('script[type="application/ld+json"]')).some(s => /price|Offer/i.test(s.innerText || ''));
+                            const hasNext = Boolean(document.getElementById('__NEXT_DATA__') || (window.__next_f && window.__next_f.length));
+                            const mainTxt = (document.querySelector('main') || document.body || {}).innerText || '';
+                            const hasPriceOrOos = /(\\d{2,3}[.,]\\d{2}\\s*[€£]|[€£]\\s*\\d{2,3}[.,]\\d{2}|agotado|out of stock|no disponible)/i.test(mainTxt);
+                            return hasH1 && (hasLd || hasPriceOrOos || hasNext);
+                        }""",
+                        timeout=(4800 if is_depor_or_next else 2200)
+                    )
+                except Exception:
+                    pass
+                await page.wait_for_timeout(750 if is_depor_or_next else 450)
+
                 page_info = await page.evaluate("""() => {
                     const forbiddenContainers = [
                         '.related', '.recommendations', '.cross-sell', '.upsell', '.similar-products',
                         '.product-carousel', '.productCarousel', '.also-bought', '.alternatives', 'aside', 'footer', 'nav', 'header',
                         '#tab-related', '#tab-similar', '[data-list-name*="Related"]', '[data-list-name*="Viewed"]',
                         '[data-testid*="recommend"]', '[data-testid*="carousel"]', '[data-testid*="related"]',
-                        '[class*="recommend"]', '[class*="related"]', '[class*="carousel"]', '[class*="slider"]',
-                        '[class*="cross"]', '[class*="upsell"]', '[class*="similar"]', '[class*="other-products"]',
-                        '[id*="related"]', '[id*="recommend"]', '[id*="carousel"]'
+                        '[class*="recommend"]', '[class*="related"]', '[class*="related-carousel"]', '[class*="related-slider"]',
+                        '[class*="cross-sell"]', '[class*="upsell"]', '[class*="similar"]', '[class*="other-products"]',
+                        '[id*="related"]', '[id*="recommend"]'
                     ].join(', ');
 
+                    const ldForbiddenContainers = '#tab-related, #tab-similar, .related-products, .similar-products, .cross-sell, .upsell, aside, footer';
+
                     const title = document.title || "";
-                    const h1 = Array.from(document.querySelectorAll("h1")).map(e => e.innerText.trim()).join(" | ");
+                    let h1 = Array.from(document.querySelectorAll("h1")).map(e => e.innerText.trim()).filter(Boolean).join(" | ");
+                    if (!h1) {
+                        const mainImg = document.querySelector('img[alt*="Zone3" i][alt*="#1"]');
+                        if (mainImg) h1 = (mainImg.getAttribute('alt') || '').replace(/\\s*-\\s*#1.*$/, '').trim();
+                    }
                     const ldNodes = Array.from(document.querySelectorAll('script[type="application/ld+json"]'))
-                        .filter(s => !s.closest(forbiddenContainers))
+                        .filter(s => !s.closest(ldForbiddenContainers))
                         .map(s => s.innerText);
+
+                    let nextDataJson = "";
+                    const ndEl = document.getElementById('__NEXT_DATA__');
+                    if (ndEl && ndEl.textContent) {
+                        nextDataJson = ndEl.textContent.slice(0, 250000);
+                    } else if (window.__NEXT_DATA__) {
+                        try { nextDataJson = JSON.stringify(window.__NEXT_DATA__).slice(0, 250000); } catch (e) {}
+                    }
+
+                    let nextRscText = "";
+                    if (Array.isArray(window.__next_f) && window.__next_f.length) {
+                        try {
+                            nextRscText = window.__next_f
+                                .map(chunk => Array.isArray(chunk) && typeof chunk[1] === 'string' ? chunk[1] : '')
+                                .filter(s => /price|pvp|ws2|zone3|stock|agotado/i.test(s))
+                                .join('\\n')
+                                .slice(0, 220000);
+                        } catch (e) {}
+                    }
 
                     const metaCurrEl = Array.from(document.querySelectorAll('head meta[property="product:price:currency"], head meta[property="og:price:currency"], [itemprop="priceCurrency"]'))
                         .find(el => !el.closest(forbiddenContainers));
@@ -1425,8 +1789,33 @@ async def extract_verified_pdp_price(page, row, force_zyte_only=False):
                         });
                     });
 
-                    const bodyText = (document.body ? document.body.innerText : "").slice(0, 4500);
-                    return { title, h1, ldNodes, metaCurr, metaPrice, domPrices, bodyText, hasExRentalOption };
+                    // Next.js / Deporvillage H1 Buy-Box visual price fallback (checks non-strikethrough € / £ near H1)
+                    if (domPrices.length === 0) {
+                        const h1El = document.querySelector('h1');
+                        let box = h1El ? h1El.parentElement : null;
+                        for (let step = 0; step < 4 && box && box !== document.body; step++) {
+                            if (/€|£/.test(box.innerText || '')) break;
+                            box = box.parentElement;
+                        }
+                        if (box && !box.closest(forbiddenContainers)) {
+                            Array.from(box.querySelectorAll('span, div, p, strong')).forEach(el => {
+                                if (el.children.length > 1) return;
+                                if (el.closest('del, s, .old-price, .price-old, .rrp, .strike')) return;
+                                if (el.closest(forbiddenContainers)) return;
+                                const clsLow = String(el.className || '').toLowerCase();
+                                if (/old|rrp|pvp|cross|strike|recommend|before|prev|discount|save|pct|badge/.test(clsLow)) return;
+                                const st = window.getComputedStyle(el);
+                                if (st && st.textDecorationLine && st.textDecorationLine.includes('line-through')) return;
+                                const t = (el.innerText || '').trim();
+                                if (t.length >= 4 && t.length <= 18 && /(^\d{2,3}[.,]\d{2}\s*[€£]$|^[€£]\s*\d{2,3}[.,]\d{2}$|^\d{2,3}\s*[€£]$)/.test(t) && !/49\s*€/.test(t)) {
+                                    domPrices.push({ selector: 'nextjs-buybox', text: t, attrCurr: metaCurr });
+                                }
+                            });
+                        }
+                    }
+
+                    const bodyText = (document.body ? document.body.innerText : "").slice(0, 6000);
+                    return { title, h1, ldNodes, ldPrimaryCount: ldNodes.length, nextDataJson, nextRscText, metaCurr, metaPrice, domPrices, bodyText, hasExRentalOption };
                 }""")
 
                 r_copy = dict(row)
@@ -1752,7 +2141,7 @@ async def main():
     domain_blocks = {}
     CIRCUIT_BREAKER_LIMIT = 1 if ZYTE_API_KEY else 2
 
-    print(f"Starting Zone3 RetentionGuard v11.1 ({now_iso}) | Opció C (<=65% Nou) | Baseline T-1 ({prev_scan_date}): {len(t_minus_1_keys)} lectures | Zyte: {'ENABLED' if ZYTE_API_KEY else 'PLAYWRIGHT_ONLY'}")
+    print(f"Starting Zone3 RetentionGuard v11.2 (Next.js + Full JSON-LD) ({now_iso}) | Opció C (<=65% Nou) | Baseline T-1 ({prev_scan_date}): {len(t_minus_1_keys)} lectures | Zyte: {'ENABLED' if ZYTE_API_KEY else 'PLAYWRIGHT_ONLY'}")
 
     async with async_playwright() as p:
         browser = await p.chromium.launch(
@@ -1913,7 +2302,7 @@ async def main():
                     upsert_non_valid_tray_entry(history, r_lost, r_price, r_oos, r_st, r_ev, today_str, run_slot, now_iso)
                     r_lost["retention_status"] = r_st
                     r_lost["evidence"] = f"Lectura històrica ({r_lost.get('last_read', '')}) · [Rescue {run_slot}: {r_ev}]"
-                elif r_st in ("HTTP_ERROR", "IDENTITY_MISMATCH"):
+                elif r_st in ("HTTP_ERROR", "IDENTITY_MISMATCH") or (r_st == "NO_VALID_PRICE" and is_t1):
                     broken_row_ids.add(r_lost["id"])
                 elif r_st == "OUT_OF_STOCK":
                     r_lost["out_of_stock"] = True
