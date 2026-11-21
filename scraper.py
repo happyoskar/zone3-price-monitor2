@@ -14,9 +14,28 @@ START_MONOTONIC = time.monotonic()
 PHASE2_START_MONOTONIC = None
 PHASE2_BUDGET_SEC = 360       # 6-minute dedicated budget exclusively for Phase 2 Auto-Discovery
 MAX_TOTAL_RUNTIME_SEC = 1080  # 18-minute global safety cap
+MAX_CLEAN_NEW_DISC_PCT = 65.0          # Opció C: fins al 65.0% automàtic en fitxes 100% d'unitat nova
+CLEAN_NEW_MIN_RATIO = 0.35             # 1.0 - 0.65
+MIXED_EX_RENTAL_MIN_RATIO = 0.60       # Bloqueig estructural en fitxes amb selector mixt Ex-Rental (p. ex. < £420 a Vanquish-X)
 ZYTE_CONCURRENCY_SEM = None
 ZYTE_PAGE_CACHE = {}
 DISCOVERY_LINKS_CACHE = {}
+COMPLETED_DISCOVERY_OPS = set()
+
+USED_ITEM_TOKENS = (
+    "ex-rental", "ex rental", "ex-hire", "ex hire", "ex-demo", "ex demo",
+    "second-hand", "second hand", "segunda mano", "pre-owned", "pre owned",
+    "reacondicionado", "refurbished", "b-stock", "grade b", "used wetsuit",
+    "usedcondition", "refurbishedcondition", "damagedcondition"
+)
+
+def is_ex_rental_anomaly(country, operator, code, price_val, pvp_val=None):
+    if price_val is None:
+        return False
+    p = float(price_val)
+    if country == "UK" and operator == "My Triathlon" and code in ("WS22MVAN101", "WS22WVAN101") and p < 420.0:
+        return True
+    return False
 
 def is_time_budget_exceeded(margin_sec=0):
     now_m = time.monotonic()
@@ -346,7 +365,7 @@ def validate_product_identity(text_to_check, url, code, model_name):
     if "ADV" in code and any(plus_tok in raw_combined or plus_tok in combined for plus_tok in ["advance+", "advance plus", "advance-plus", "advence+", "advence plus"]):
         return False, "Versió Advance+ / Advance Plus exclosa (el model monitoritzat és l'Advance estàndard)"
 
-    if any(used_tok in raw_combined or used_tok in combined for used_tok in ["ex-rental", "ex rental", "ex-demo", "ex demo", "second hand", "second-hand", "segunda mano", "reacondicionado", "refurbished", "b-stock", "used wetsuit"]):
+    if any(used_tok in raw_combined or used_tok in combined for used_tok in USED_ITEM_TOKENS):
         return False, "Producte de 2a mà / Ex-Rental exclòs (només producte nou)"
 
     if any(re.search(r"\b" + re.escape(bad) + r"\b", combined) for bad in ["goggles", "gafas", "gloves", "guantes", "socks", "calcetines", "buoy", "boya", "cap", "caps", "gorro", "trisuit", "kneeskin", "jammer"]):
@@ -458,17 +477,23 @@ def parse_html_fast_stdlib(html_str, base_url, zprod=None):
         )
 
         # Detect if the main product form/options mix an Ex-Rental / Ex-Demo / Second-Hand variant inside the same PDP
-        used_ctx_tokens = ("ex-rental", "ex rental", "ex-demo", "ex demo", "second-hand", "second hand", "refurbished", "b-stock", "grade b")
+        used_ctx_tokens = USED_ITEM_TOKENS
         main_text_only = re.sub(r"<[^>]+>", " ", main_html[h1_raw_idx:] if h1_raw_idx < len(main_html) else main_html).lower()
         has_ex_rental_opt = any(ut in main_text_only for ut in used_ctx_tokens)
 
         dom_prices = []
         for m_p in re.finditer(r'id=["\'](?:js-precio|productPrice|product-price)["\'][^>]*>([^<]+)<', main_html, flags=re.I):
             dom_prices.append({"selector": "#productPrice", "text": m_p.group(1).strip(), "attrCurr": meta_curr})
-        for m_ip in re.finditer(r'itemprop=["\']price["\'][^>]*content=["\']([^"\']+)["\']', main_html, flags=re.I):
+        for m_ip in re.finditer(r'(?:itemprop=["\']price["\'][^>]*content=["\']([^"\']+)["\']|content=["\']([^"\']+)["\'][^>]*itemprop=["\']price["\'])', main_html, flags=re.I):
+            ip_val = (m_ip.group(1) or m_ip.group(2) or "").strip()
             ctx_prev = main_html[max(0, m_ip.start() - 450):m_ip.start()].lower()
-            if not any(ut in ctx_prev for ut in used_ctx_tokens):
-                dom_prices.append({"selector": "[itemprop=price]", "text": m_ip.group(1).strip(), "attrCurr": meta_curr})
+            if ip_val and not any(ut in ctx_prev for ut in used_ctx_tokens):
+                dom_prices.append({"selector": "[itemprop=price]", "text": ip_val, "attrCurr": meta_curr})
+        for m_dpa in re.finditer(r'data-price-type=["\']finalPrice["\'][^>]*data-price-amount=["\']([\d.]+)["\']|data-price-amount=["\']([\d.]+)["\'][^>]*data-price-type=["\']finalPrice["\']', main_html, flags=re.I):
+            dpa_val = (m_dpa.group(1) or m_dpa.group(2) or "").strip()
+            ctx_prev = main_html[max(0, m_dpa.start() - 450):m_dpa.start()].lower()
+            if dpa_val and not any(ut in ctx_prev for ut in used_ctx_tokens):
+                dom_prices.append({"selector": "[data-price-amount]", "text": dpa_val, "attrCurr": meta_curr})
         for m_dt in re.finditer(r'data-testid=["\'](?:product-price|price|current-price|final-price)["\'][^>]*>(.*?)</(?:span|div|p|strong)>', main_html, flags=re.I | re.S):
             txt_dt = re.sub(r"<[^>]+>", " ", m_dt.group(1)).strip()
             if txt_dt and len(txt_dt) < 35:
@@ -678,6 +703,7 @@ async def discover_missing_pdps(page_es, page_uk, tracking, today_str, domain_bl
     """Fast, time-bounded Deep Auto-Discovery engine with concurrent Zyte batching and self-healing for HTTP 404 URLs."""
     global PHASE2_START_MONOTONIC
     PHASE2_START_MONOTONIC = time.monotonic()
+    COMPLETED_DISCOVERY_OPS.clear()
     domain_blocks = domain_blocks or {}
     broken_row_ids = broken_row_ids or set()
     missing_by_op = {}
@@ -875,6 +901,9 @@ async def discover_missing_pdps(page_es, page_uk, tracking, today_str, domain_bl
                     row["status"] = "UNMAPPED"
                     row["evidence"] = f"Cerca automàtica a {operator} ({today_str}): cap fitxa PDP localitzada (no confirma absència comercial)"
 
+        if not is_time_budget_exceeded(margin_sec=35) and len(collected_links) > 0:
+            COMPLETED_DISCOVERY_OPS.add((country, operator))
+
     return discovered_total
 
 def evaluate_page_info_candidates(page_info, row, source_prefix=""):
@@ -914,10 +943,12 @@ def evaluate_page_info_candidates(page_info, row, source_prefix=""):
 
     ean = MODEL_EANS.get(code, "")
     has_exact_sku = (code.lower() in f"{title_h1} {url} {body_low}".lower()) or (ean and ean in body_low)
-    # Regla d'auditoria: descartar descomptes superiors al 50% (pressuposant error, liquidació residual o unitat de 2a mà / outlet B-stock)
-    min_allowed_ratio = 0.50
+    # Opció C (v11.1): Doble banda + bloqueig estructural d'Ex-Rental + Safata REVIEW_DEEP_DISCOUNT (>65%)
+    has_ex_rental_opt = bool(page_info.get("hasExRentalOption", False))
+    is_mixed_ex_rental_pdp = has_ex_rental_opt or (country == "UK" and operator == "My Triathlon" and code in ("WS22MVAN101", "WS22WVAN101"))
+    min_allowed_ratio = MIXED_EX_RENTAL_MIN_RATIO if is_mixed_ex_rental_pdp else CLEAN_NEW_MIN_RATIO
+    used_tokens = USED_ITEM_TOKENS
 
-    # Market tag for evidence (explicitly clarifying EU-wide .com / .nl stores shipping in EUR to ES)
     u_low = url.lower()
     if country == "ES" and "sportano.com" in u_low:
         market_tag = f"{expected_curr} | Sportano.com EU->ES"
@@ -930,6 +961,8 @@ def evaluate_page_info_candidates(page_info, row, source_prefix=""):
     jsonld_base_prices = []
     instock_variant_prices = []
     oos_variant_prices = []
+    ex_rental_rejected = []
+    deep_discount_rejected = []
     detected_oos = False
     detected_instock = False
     currency_mismatch = False
@@ -944,12 +977,20 @@ def evaluate_page_info_candidates(page_info, row, source_prefix=""):
     elif m_curr in ("£", "GBP"):
         m_curr = "GBP"
 
-    has_ex_rental_opt = bool(page_info.get("hasExRentalOption", False))
-    used_tokens = ("ex-rental", "ex rental", "ex-demo", "ex demo", "second-hand", "second hand", "refurbished", "b-stock", "grade b", "usedcondition", "refurbishedcondition", "damagedcondition")
+    def register_candidate_or_tray(prio, is_oos_flag, val, ev_text):
+        if val is None or val <= 0 or val > (pvp * 1.20):
+            return
+        if is_ex_rental_anomaly(country, operator, code, val, pvp) or (is_mixed_ex_rental_pdp and val < (pvp * MIXED_EX_RENTAL_MIN_RATIO)):
+            ex_rental_rejected.append((val, ev_text))
+            return
+        if val < (pvp * CLEAN_NEW_MIN_RATIO):
+            deep_discount_rejected.append((val, ev_text))
+            return
+        candidates.append((prio, is_oos_flag, val, ev_text))
 
     # 0. Zyte Automatic Product Extraction (skipped if PDP mixes an Ex-Rental dropdown option with New options)
     zprod = page_info.get("zyteProduct") or {}
-    if isinstance(zprod, dict) and zprod.get("price") and not has_ex_rental_opt:
+    if isinstance(zprod, dict) and zprod.get("price") and not is_mixed_ex_rental_pdp:
         z_name = str(zprod.get("name") or "").strip()
         z_sku = str(zprod.get("sku") or zprod.get("mpn") or zprod.get("gtin") or "").strip()
         z_id_ok, _ = validate_product_identity(f"{z_name} {z_sku}" if z_name else title_h1, url, code, model_name)
@@ -972,12 +1013,12 @@ def evaluate_page_info_candidates(page_info, row, source_prefix=""):
                 detected_oos = True
                 is_z_oos = True
             if z_val:
-                candidates.append((
+                register_candidate_or_tray(
                     1,
                     is_z_oos,
                     z_val,
                     f"{source_prefix}Zyte Product API [{market_tag}] ({z_val:.2f} {expected_sym}) · '{(z_name or page_info.get('h1', ''))[:40]}'"
-                ))
+                )
 
     # 1. Structured JSON-LD Product / ProductGroup / hasVariant offers
     for raw_ld in page_info.get("ldNodes", []):
@@ -1018,6 +1059,10 @@ def evaluate_page_info_candidates(page_info, row, source_prefix=""):
                             continue
                         off_meta_low = f"{off.get('name','')} {off.get('sku','')} {off.get('description','')} {off.get('itemCondition','')}".lower()
                         if any(ut in off_meta_low for ut in used_tokens):
+                            for pk in ("price", "lowPrice"):
+                                vp = normalize_price(off.get(pk))
+                                if vp:
+                                    ex_rental_rejected.append((vp, "JSON-LD variant marcada com Ex-Rental"))
                             continue
                         curr = str(off.get("priceCurrency", "") or m_curr or "").upper().strip()
                         if curr in ("€", "EUR"):
@@ -1037,39 +1082,44 @@ def evaluate_page_info_candidates(page_info, row, source_prefix=""):
                         elif "outofstock" in avail or "discontinued" in avail:
                             detected_oos = True
                             is_off_oos = True
-                        # If PDP mixes an Ex-Rental option inside the dropdown alongside New options, lowPrice/price on AggregateOffer reflects the Ex-Rental floor; prefer highPrice
-                        has_both_low_high = ("lowPrice" in off and "highPrice" in off and normalize_price(off.get("highPrice")) != normalize_price(off.get("lowPrice")))
-                        allowed_p_keys = ["highPrice"] if (has_ex_rental_opt and has_both_low_high) else (["price", "lowPrice", "highPrice"] if not has_ex_rental_opt else ["highPrice"])
+                        low_v = normalize_price(off.get("lowPrice"))
+                        high_v = normalize_price(off.get("highPrice"))
+                        has_both_low_high = (low_v is not None and high_v is not None and low_v != high_v)
+                        if is_mixed_ex_rental_pdp and has_both_low_high:
+                            if low_v < (pvp * MIXED_EX_RENTAL_MIN_RATIO):
+                                ex_rental_rejected.append((low_v, "AggregateOffer lowPrice Ex-Rental"))
+                            allowed_p_keys = ["highPrice"]
+                        elif is_mixed_ex_rental_pdp:
+                            allowed_p_keys = ["highPrice", "price"]
+                        else:
+                            allowed_p_keys = ["price", "lowPrice", "highPrice"]
                         for p_key in allowed_p_keys:
                             if p_key in off:
                                 val = normalize_price(off[p_key])
-                                if val and (pvp * min_allowed_ratio) <= val <= (pvp * 1.20):
-                                    if not is_off_oos and p_key in ("price", "lowPrice"):
-                                        instock_variant_prices.append((val, off_size))
-                                        jsonld_base_prices.append(val)
-                                    elif is_off_oos:
-                                        oos_variant_prices.append((val, off_size))
-                                    candidates.append((
-                                        1,
-                                        is_off_oos,
-                                        val,
-                                        f"{source_prefix}JSON-LD {p_key} [{market_tag}] ({val:.2f} {expected_sym}) · Producte: '{(prod_name or page_info.get('h1', ''))[:40]}'"
-                                    ))
+                                if val is not None:
+                                    ev_ld = f"{source_prefix}JSON-LD {p_key} [{market_tag}] ({val:.2f} {expected_sym}) · Producte: '{(prod_name or page_info.get('h1', ''))[:40]}'"
+                                    if (pvp * min_allowed_ratio) <= val <= (pvp * 1.20) and not is_ex_rental_anomaly(country, operator, code, val, pvp):
+                                        if not is_off_oos and p_key in ("price", "lowPrice", "highPrice"):
+                                            instock_variant_prices.append((val, off_size))
+                                            jsonld_base_prices.append(val)
+                                        elif is_off_oos:
+                                            oos_variant_prices.append((val, off_size))
+                                    register_candidate_or_tray(1, is_off_oos, val, ev_ld)
         except Exception:
             pass
 
     # 2. OpenGraph / Microdata (skipped if PDP mixes an Ex-Rental option inside the same page)
     if m_curr and m_curr != expected_curr:
         currency_mismatch = True
-    elif page_info.get("metaPrice") and not has_ex_rental_opt and (m_curr == expected_curr or has_local_domain_currency):
+    elif page_info.get("metaPrice") and not is_mixed_ex_rental_pdp and (m_curr == expected_curr or has_local_domain_currency):
         val = normalize_price(page_info["metaPrice"])
         if val:
-            candidates.append((
+            register_candidate_or_tray(
                 2,
                 False,
                 val,
                 f"{source_prefix}Meta OG [{market_tag}] ({val:.2f} {expected_sym}) · H1: '{page_info.get('h1', '')[:40]}'"
-            ))
+            )
 
     # 3. Main Product DOM elements (excluding all carousels/related/Ex-Rental blocks)
     for dp in page_info.get("domPrices", []):
@@ -1090,24 +1140,19 @@ def evaluate_page_info_candidates(page_info, row, source_prefix=""):
         extracted_nums = [v for v in extracted_nums if v is not None]
         if not extracted_nums:
             continue
-        # If the DOM element shows a price range (e.g. "£355.97 - £593.97") on a page with an Ex-Rental option, take the upper New price!
-        if has_ex_rental_opt and len(extracted_nums) >= 2 and ("-" in txt or "–" in txt):
+        if is_mixed_ex_rental_pdp and len(extracted_nums) >= 2 and ("-" in txt or "–" in txt):
+            for low_ex in [x for x in extracted_nums if x < max(extracted_nums)]:
+                ex_rental_rejected.append((low_ex, "DOM rang Ex-Rental"))
             extracted_nums = [max(extracted_nums)]
-        elif has_ex_rental_opt and len(extracted_nums) == 1 and extracted_nums[0] < (pvp * 0.62):
-            continue
         for val in extracted_nums:
-            candidates.append((
+            register_candidate_or_tray(
                 3,
                 False,
                 val,
                 f"{source_prefix}DOM Principal {dp['selector']} [{market_tag}] ({val:.2f} {expected_sym}) · H1: '{page_info.get('h1', '')[:38]}'"
-            ))
+            )
 
-    # 4. Promo Code / Coupon Price Detection on PDP:
-    #    - Case 4A: The page explicitly displays the discounted price with a promo code (e.g., Sportano "598,49 € with code: BLACKBELT") ->
-    #      Use the displayed discounted price as priority 1 and annotate both the promo code and the base price in the tooltip.
-    #    - Case 4B: The page mentions a promo code/coupon discount (e.g. "extra 10% off with code X") without displaying the resulting discounted price ->
-    #      Keep the base price and add a hidden tooltip note that a coupon exists.
+    # 4. Promo Code / Coupon Price Detection on PDP
     explicit_promo_price = None
     detected_promo_code = None
     m_code_name = re.search(r"(?:with code|con el código|amb el codi|code|código|cupón|coupon)[:\s]+([A-Z0-9_-]{4,16})", body_text_raw, flags=re.I)
@@ -1116,7 +1161,6 @@ def evaluate_page_info_candidates(page_info, row, source_prefix=""):
         if cand_code not in ("ZONE3", "WETSUIT", "NEOPRENE", "HTML", "JSON", "TRUE", "FALSE") and not cand_code.startswith("WS2"):
             detected_promo_code = cand_code
 
-    # Look for explicit price near promo code in body text (e.g. "598,49 € with code BLACKBELT" or "with code BLACKBELT: 598.49 €")
     promo_patterns = [
         r"([\d]{2,3}[.,]\d{2})\s*(?:€|EUR|£|GBP)?\s*(?:with code|con código|con el código|amb codi)[:\s]*([A-Z0-9_-]{4,16})?",
         r"(?:with code|con código|con el código|amb codi)[:\s]*([A-Z0-9_-]{4,16})?[^\d]{0,25}([\d]{2,3}[.,]\d{2})\s*(?:€|EUR|£|GBP)"
@@ -1127,7 +1171,7 @@ def evaluate_page_info_candidates(page_info, row, source_prefix=""):
             p_raw = g1 if (g1 and re.match(r"^[\d.,]+$", g1)) else g2
             c_raw = g2 if p_raw == g1 else g1
             p_val = normalize_price(p_raw)
-            if p_val and (pvp * min_allowed_ratio) <= p_val <= (pvp * 1.15):
+            if p_val and (pvp * min_allowed_ratio) <= p_val <= (pvp * 1.15) and not is_ex_rental_anomaly(country, operator, code, p_val, pvp):
                 explicit_promo_price = p_val
                 if c_raw and len(c_raw) >= 4:
                     detected_promo_code = c_raw.upper()
@@ -1135,37 +1179,47 @@ def evaluate_page_info_candidates(page_info, row, source_prefix=""):
 
     if explicit_promo_price and not (detected_oos and not detected_instock):
         code_lbl = f" '{detected_promo_code}'" if detected_promo_code else ""
-        candidates.append((
+        register_candidate_or_tray(
             1,
             False,
             explicit_promo_price,
             f"{source_prefix}Preu amb codi{code_lbl} mostrat a la fitxa [{market_tag}] ({explicit_promo_price:.2f} {expected_sym})"
-        ))
+        )
 
     body_has_oos_text = any(w in body_low for w in ["agotado", "out of stock", "fuera de stock", "sold out", "no disponible", "currently unavailable", "product temporarily unavailable", "temporarily unavailable"])
     if body_has_oos_text and not detected_instock:
         detected_oos = True
 
-    valid_candidates = [(prio, is_oos_cand, p, ev) for (prio, is_oos_cand, p, ev) in candidates if (pvp * min_allowed_ratio) <= p <= (pvp * 1.20)]
+    valid_candidates = [
+        (prio, is_oos_cand, p, ev)
+        for (prio, is_oos_cand, p, ev) in candidates
+        if (pvp * min_allowed_ratio) <= p <= (pvp * 1.20) and not is_ex_rental_anomaly(country, operator, code, p, pvp)
+    ]
 
-    # If there are in-stock candidates, filter out any candidate that is explicitly marked out-of-stock
     instock_candidates = [c for c in valid_candidates if not c[1]]
     if instock_candidates:
         valid_candidates = instock_candidates
 
     if not valid_candidates:
+        if deep_discount_rejected and not is_mixed_ex_rental_pdp:
+            deep_discount_rejected.sort(key=lambda x: x[0])
+            dp_val, dp_ev = deep_discount_rejected[0]
+            dp_pct = round(((pvp - dp_val) / pvp) * 100, 1)
+            return round(dp_val, 2), detected_oos, "REVIEW_DEEP_DISCOUNT", f"Safata Opció C (>{MAX_CLEAN_NEW_DISC_PCT:.0f}%, -{dp_pct:.1f}%): {dp_ev}"
+        if ex_rental_rejected:
+            ex_rental_rejected.sort(key=lambda x: x[0])
+            ex_val, _ = ex_rental_rejected[0]
+            ex_pct = round(((pvp - ex_val) / pvp) * 100, 1)
+            return round(ex_val, 2), detected_oos, "QUARANTINED_EX_RENTAL", f"Bloqueig Opció C Ex-Rental ({ex_val:.2f} {expected_sym}, -{ex_pct:.1f}%): sense preu d'unitat nova disponible"
         if currency_mismatch:
             return None, False, "CURRENCY_MISMATCH", f"Moneda de la pàgina no coincideix amb {expected_curr} ({country})"
         if detected_oos:
-            return None, True, "OUT_OF_STOCK", f"Producte esgotat a la fitxa ({(page_info.get('h1') or page_info.get('title') or '')[:35]})"
+            return None, True, "OUT_OF_STOCK", f"Producte esgotat sense preu visible ({(page_info.get('h1') or page_info.get('title') or '')[:35]})"
         return None, False, "NO_VALID_PRICE", f"Cap preu principal ({expected_curr}) validat a la fitxa"
 
-    # Sort by: (is_undiscounted_rrp_metadata, priority, lowest_price)
-    # This ensures that if a metadata tag holds the full RRP (>= 99.5% of PVP) while another verified main-product source holds the active sale price, the active sale price is selected.
     valid_candidates.sort(key=lambda x: (1 if (x[2] >= pvp * 0.995 and len(valid_candidates) > 1) else 0, x[0], x[2]))
     _, best_cand_oos, best_price, best_evidence = valid_candidates[0]
 
-    # Add coupon badge & tooltip note if the selected price is a promo-code price and we also know the higher base price (e.g. Sportano BLACKBELT)
     base_ref_prices = [round(p, 2) for p in jsonld_base_prices if round(p, 2) > round(best_price, 2) + 0.5]
     if base_ref_prices and (explicit_promo_price or detected_promo_code or "sportano.com" in u_low):
         base_p = min(base_ref_prices)
@@ -1179,7 +1233,6 @@ def evaluate_page_info_candidates(page_info, row, source_prefix=""):
         if "Nota cupó" not in best_evidence:
             best_evidence += f" · [Nota cupó: detectat codi promocional '{detected_promo_code}' a la web sense preu final descomptat explícit]"
 
-    # Subtle note in tooltip if multiple in-stock sizes have different prices (and not already a base vs promo difference)
     unique_instock_prices = sorted(list(set(round(p, 2) for (p, _) in instock_variant_prices)))
     if len(unique_instock_prices) > 1 and not base_ref_prices:
         min_p = unique_instock_prices[0]
@@ -1187,6 +1240,9 @@ def evaluate_page_info_candidates(page_info, row, source_prefix=""):
         min_sizes = [sz for (p, sz) in instock_variant_prices if round(p, 2) == min_p and sz]
         sz_note = f" ({min_sizes[0][:18]})" if min_sizes else ""
         best_evidence += f" · [Nota talles: preu mínim en talla específica{sz_note}; altres talles en estoc fins a {max_p:.2f} {expected_sym}]"
+
+    if ex_rental_rejected:
+        best_evidence += f" · [Opció C: variant Ex-Rental ({min(x[0] for x in ex_rental_rejected):.2f} {expected_sym}) descartada; llegit preu d'unitat nova]"
 
     final_oos = True if (best_cand_oos or (detected_oos and not detected_instock)) else False
     return round(best_price, 2), final_oos, "VERIFIED", best_evidence
@@ -1246,6 +1302,12 @@ def get_canonical_url_candidates(url, country):
     elif "wetsuitoutlet.co.uk/" in u.lower() and "?" in u:
         base_no_q = u.split("?")[0]
         return [base_no_q, u][:2]
+    elif country == "ES" and "deporvillage.com/" in u.lower():
+        es_mirror = re.sub(r"https?://(?:www\.)?deporvillage\.com/", "https://www.deporvillage.es/", u, flags=re.I)
+        return [u, es_mirror] if es_mirror != u else [u]
+    elif country == "ES" and "deporvillage.es/" in u.lower():
+        com_mirror = re.sub(r"https?://(?:www\.)?deporvillage\.es/", "https://www.deporvillage.com/", u, flags=re.I)
+        return [u, com_mirror] if com_mirror != u else [u]
     return [u]
 
 async def extract_verified_pdp_price(page, row, force_zyte_only=False):
@@ -1343,12 +1405,12 @@ async def extract_verified_pdp_price(page, row, force_zyte_only=False):
                     const optEls = mainScope ? Array.from(mainScope.querySelectorAll('.productView-options, form[data-cart-item-add], .product-options, [class*="option"], label, select'))
                         .filter(el => !el.closest(forbiddenContainers)) : [];
                     const optText = optEls.map(e => e.innerText || "").join(" ");
-                    const hasExRentalOption = /ex-rental|ex rental|ex-demo|ex demo|second-hand|second hand|refurbished|grade b|b-stock/i.test(optText);
+                    const hasExRentalOption = /ex-rental|ex rental|ex-hire|ex hire|ex-demo|ex demo|second-hand|second hand|pre-owned|pre owned|refurbished|grade b|b-stock/i.test(optText);
 
                     const selectors = [
                         '#js-precio', '#productPrice', '[data-testid="product-price"]',
                         '.product-detail-price', '.pdp-price', '.product-page-price',
-                        '[data-product-price-with-tax]', '.price--withTax', '.price--main', '.product-price__price'
+                        '[data-product-price-with-tax]', '[data-price-type="finalPrice"]', '.price--withTax', '.price--main', '.product-price__price'
                     ];
                     const domPrices = [];
                     selectors.forEach(sel => {
@@ -1357,7 +1419,7 @@ async def extract_verified_pdp_price(page, row, force_zyte_only=False):
                             if (el.closest(forbiddenContainers)) return;
                             const cardCtx = el.closest('article, li, .card, .productCarousel-slide, [class*="productCard"]');
                             if (cardCtx && /ex-rental|ex rental|ex-demo|second-hand|refurbished|grade b|b-stock/i.test(cardCtx.innerText || '')) return;
-                            const txt = (el.innerText || el.getAttribute("content") || "").trim();
+                            const txt = (el.innerText || el.getAttribute("content") || el.getAttribute("data-price-amount") || "").trim();
                             const attrCurr = (el.getAttribute("data-currency") || el.getAttribute("currency") || "").trim();
                             if (txt) domPrices.push({ selector: sel, text: txt, attrCurr });
                         });
@@ -1399,17 +1461,172 @@ async def extract_verified_pdp_price(page, row, force_zyte_only=False):
 
     return None, False, status_code, evidence_str
 
+def enforce_history_hygiene(history):
+    """Applies Option C & structural hygiene across all history entries (both before and after scanning)."""
+    for h in history:
+        if h.get("audit_status", "VALID") != "VALID":
+            continue
+        p_val = h.get("price")
+        d_pct = h.get("disc_pct")
+        if p_val is None or float(p_val) <= 0:
+            h["audit_status"] = "QUARANTINED_INVALID_PRICE"
+            continue
+        if "advance-plus" in str(h.get("url", "")).lower() or (h.get("country") == "UK" and h.get("operator") == "Deporvillage" and h.get("code") == "WS21WADV101" and float(p_val) > 300):
+            h["audit_status"] = "QUARANTINED_MODEL_MISMATCH"
+            continue
+        if is_ex_rental_anomaly(h.get("country"), h.get("operator"), h.get("code"), p_val, h.get("pvp")):
+            h["audit_status"] = "QUARANTINED_EX_RENTAL"
+            h["quarantine_reason"] = h.get("quarantine_reason") or "Exclòs automàticament (Opció C v11.1): Preu Vanquish-X < £420 a My Triathlon UK correspon a variant Ex-Rental (lloguer/segona mà)."
+            continue
+        if d_pct is not None and float(d_pct) > MAX_CLEAN_NEW_DISC_PCT:
+            h["audit_status"] = "REVIEW_DEEP_DISCOUNT"
+            h["quarantine_reason"] = h.get("quarantine_reason") or f"Safata Opció C: descompte superior al {MAX_CLEAN_NEW_DISC_PCT:.0f}% pendent de validació manual."
+
+def upsert_valid_history_entry(history, row, effective_price, effective_oos, effective_evidence, today_str, run_slot, now_iso):
+    """Consolidates same-day readings using the Daily Lowest Price rule without creating duplicate VALID rows."""
+    existing_same_day = next(
+        (
+            h for h in history
+            if str(h.get("timestamp", ""))[:10] == today_str
+            and h.get("country") == row["country"]
+            and h.get("operator") == row["operator"]
+            and h.get("code") == row["code"]
+            and h.get("audit_status", "VALID") == "VALID"
+        ),
+        None
+    )
+    prev_price = row.get("price")
+    prev_date = row.get("last_read", "")
+
+    if existing_same_day and existing_same_day.get("price") is not None:
+        old_day_price = float(existing_same_day["price"])
+        if effective_price < old_day_price:
+            existing_same_day["intraday_higher_price"] = old_day_price
+            existing_same_day["audit_note"] = f"Preu mínim diari actualitzat a {run_slot} ({effective_price:.2f} vs lectura prèvia d'avui {old_day_price:.2f})"
+            existing_same_day["price"] = effective_price
+            existing_same_day["disc_imp"] = round(row["pvp"] - effective_price, 2)
+            existing_same_day["disc_pct"] = round((existing_same_day["disc_imp"] / row["pvp"]) * 100, 1)
+            existing_same_day["out_of_stock"] = bool(effective_oos)
+            existing_same_day["is_from"] = False
+            existing_same_day["evidence"] = effective_evidence
+            existing_same_day["run_slot"] = run_slot
+            existing_same_day["timestamp_iso"] = now_iso
+        elif effective_price > old_day_price:
+            existing_same_day["intraday_higher_price"] = effective_price
+            existing_same_day["audit_note"] = f"Mantingut preu mínim diari ({old_day_price:.2f}); lectura posterior a {run_slot}: {effective_price:.2f}"
+            effective_price = old_day_price
+            effective_oos = bool(existing_same_day.get("out_of_stock", False))
+            effective_evidence = f"{existing_same_day.get('evidence', effective_evidence)} · [Mínim diari mantingut a {run_slot}]"
+        else:
+            existing_same_day["timestamp_iso"] = now_iso
+    else:
+        new_entry = {
+            "timestamp": today_str,
+            "run_slot": run_slot,
+            "timestamp_iso": now_iso,
+            "country": row["country"],
+            "currency": row["currency"],
+            "operator": row["operator"],
+            "code": row["code"],
+            "model": row["model"],
+            "pvp": row["pvp"],
+            "price": effective_price,
+            "disc_imp": round(row["pvp"] - effective_price, 2),
+            "disc_pct": round(((row["pvp"] - effective_price) / row["pvp"]) * 100, 1),
+            "out_of_stock": bool(effective_oos),
+            "is_from": False,
+            "url": row.get("url", ""),
+            "audit_status": "VALID",
+            "evidence": effective_evidence
+        }
+        if prev_price is not None and prev_price != effective_price and prev_date != today_str:
+            new_entry["previous_price"] = prev_price
+            new_entry["previous_date"] = prev_date
+        history.append(new_entry)
+
+    row["price"] = effective_price
+    row["disc_imp"] = round(row["pvp"] - effective_price, 2)
+    row["disc_pct"] = round((row["disc_imp"] / row["pvp"]) * 100, 1)
+    row["status"] = "VERIFIED"
+    row["freshness"] = "LIVE_TODAY"
+    row["retention_status"] = "LIVE_TODAY"
+    row["last_read"] = today_str
+    row["out_of_stock"] = bool(effective_oos)
+    row["is_from"] = False
+    row["evidence"] = effective_evidence
+
+def upsert_non_valid_tray_entry(history, row, tray_price, tray_oos, tray_status, tray_evidence, today_str, run_slot, now_iso):
+    """Records REVIEW_DEEP_DISCOUNT (>65%) or QUARANTINED_EX_RENTAL in history.json without polluting VALID."""
+    if tray_price is None or tray_price <= 0:
+        return
+    existing_tray = next(
+        (
+            h for h in history
+            if str(h.get("timestamp", ""))[:10] == today_str
+            and h.get("country") == row["country"]
+            and h.get("operator") == row["operator"]
+            and h.get("code") == row["code"]
+            and h.get("audit_status") == tray_status
+        ),
+        None
+    )
+    disc_imp = round(row["pvp"] - tray_price, 2)
+    disc_pct = round((disc_imp / row["pvp"]) * 100, 1)
+    q_reason = (
+        f"Safata Opció C: descompte del {disc_pct:.1f}% ({tray_price:.2f} {row['currency']}) supera el llindar automàtic del {MAX_CLEAN_NEW_DISC_PCT:.0f}%; pendent de validació manual."
+        if tray_status == "REVIEW_DEEP_DISCOUNT"
+        else f"Bloqueig Opció C: preu ({tray_price:.2f} {row['currency']}, -{disc_pct:.1f}%) identificat com a variant Ex-Rental / 2a mà."
+    )
+    if existing_tray:
+        existing_tray["price"] = tray_price
+        existing_tray["disc_imp"] = disc_imp
+        existing_tray["disc_pct"] = disc_pct
+        existing_tray["evidence"] = tray_evidence
+        existing_tray["timestamp_iso"] = now_iso
+    else:
+        history.append({
+            "timestamp": today_str,
+            "run_slot": run_slot,
+            "timestamp_iso": now_iso,
+            "country": row["country"],
+            "currency": row["currency"],
+            "operator": row["operator"],
+            "code": row["code"],
+            "model": row["model"],
+            "pvp": row["pvp"],
+            "price": tray_price,
+            "disc_imp": disc_imp,
+            "disc_pct": disc_pct,
+            "out_of_stock": bool(tray_oos),
+            "is_from": False,
+            "url": row.get("url", ""),
+            "audit_status": tray_status,
+            "quarantine_reason": q_reason,
+            "evidence": tray_evidence
+        })
+
 def save_all_state(tracking, history):
+    """Atomically persists tracking.json, history.json, and embedded index.html data with Option C & RetentionGuard."""
     for r in tracking:
         r.pop("_rediscovered_today", None)
-    """Atomically persists tracking.json, history.json, and embedded index.html data so progress is never lost on timeout."""
+        r.pop("_last_scan_code", None)
+
+    enforce_history_hygiene(history)
     history.sort(key=lambda x: (str(x.get("timestamp", "")), str(x.get("run_slot", "")), x.get("country", ""), x.get("operator", ""), x.get("code", "")))
+
     with open("data/tracking.json", "w", encoding="utf-8") as f:
         json.dump(tracking, f, indent=2, ensure_ascii=False)
     with open("data/history.json", "w", encoding="utf-8") as f:
         json.dump(history, f, indent=2, ensure_ascii=False)
 
-    valid_history = [h for h in history if h.get("audit_status", "VALID") == "VALID" and h.get("price") is not None and float(h.get("disc_pct", 0)) <= 50.0]
+    valid_history = [
+        h for h in history
+        if h.get("audit_status", "VALID") == "VALID"
+        and h.get("price") is not None
+        and float(h.get("price")) > 0
+        and float(h.get("disc_pct", 0)) <= MAX_CLEAN_NEW_DISC_PCT
+        and not is_ex_rental_anomaly(h.get("country"), h.get("operator"), h.get("code"), h.get("price"), h.get("pvp"))
+    ]
     daily_min_map = {}
     for h in valid_history:
         d_str = str(h.get("timestamp", ""))[:10]
@@ -1427,11 +1644,36 @@ def save_all_state(tracking, history):
             ]
     history_compact = list(daily_min_map.values())
 
+    all_valid_dates = sorted(list({x[0] for x in history_compact if x[0]}))
+    latest_date = all_valid_dates[-1] if all_valid_dates else ""
+    cutoff_tray_date = all_valid_dates[-2] if len(all_valid_dates) >= 2 else latest_date
+    review_tray = [
+        {
+            "date": str(h.get("timestamp", ""))[:10],
+            "country": h.get("country"),
+            "currency": h.get("currency"),
+            "operator": h.get("operator"),
+            "code": h.get("code"),
+            "model": h.get("model"),
+            "pvp": h.get("pvp"),
+            "price": h.get("price"),
+            "disc_pct": h.get("disc_pct"),
+            "audit_status": h.get("audit_status"),
+            "url": h.get("url", ""),
+            "evidence": h.get("evidence", "")
+        }
+        for h in history
+        if h.get("audit_status") in ("REVIEW_DEEP_DISCOUNT", "QUARANTINED_EX_RENTAL")
+        and (not cutoff_tray_date or str(h.get("timestamp", ""))[:10] >= cutoff_tray_date)
+    ]
+
     with open("index.html", "r", encoding="utf-8") as f:
         html_doc = f.read()
 
     quarantined_total = sum(1 for h in history if h.get("audit_status", "VALID") != "VALID")
     html_doc = re.sub(r"(?:const|let) QUARANTINED_COUNT = \d+;", f"let QUARANTINED_COUNT = {quarantined_total};", html_doc)
+    if "REVIEW_TRAY =" in html_doc:
+        html_doc = re.sub(r"(?:const|let) REVIEW_TRAY = \[.*?\];", lambda _: "let REVIEW_TRAY = " + json.dumps(review_tray, ensure_ascii=False) + ";", html_doc, flags=re.S)
     html_doc = re.sub(r"(?:const|let) DATA_ROWS = \[.*?\];", lambda _: "let DATA_ROWS = " + json.dumps(tracking, ensure_ascii=False) + ";", html_doc, flags=re.S)
     html_doc = re.sub(r"(?:const|let) HISTORY_COMPACT = \[.*?\];", lambda _: "let HISTORY_COMPACT = " + json.dumps(history_compact, ensure_ascii=False) + ";", html_doc, flags=re.S)
     with open("index.html", "w", encoding="utf-8") as f:
@@ -1443,28 +1685,42 @@ async def main():
     with open("data/history.json", "r", encoding="utf-8") as f:
         history = json.load(f)
 
-    # Auto-reconcile tracking.json from history.json before scanning:
-    # ensures that if history.json has a more recent valid reading (or a lower valid price on the same latest date),
-    # tracking.json never regresses to an older date.
+    enforce_history_hygiene(history)
+
+    now_dt = datetime.utcnow()
+    today_str = now_dt.strftime("%Y-%m-%d")
+    slot_suffix = "AM" if now_dt.hour < 14 else "PM"
+    run_slot = f"{today_str}-{slot_suffix}"
+    now_iso = now_dt.strftime("%Y-%m-%dT%H:%M:%SZ")
+
     latest_hist_by_key = {}
+    prior_dates = sorted({
+        str(h.get("timestamp", ""))[:10]
+        for h in history
+        if h.get("audit_status", "VALID") == "VALID"
+        and h.get("price") is not None
+        and float(h.get("price")) > 0
+        and float(h.get("disc_pct", 0)) <= MAX_CLEAN_NEW_DISC_PCT
+        and str(h.get("timestamp", ""))[:10] < today_str
+    })
+    prev_scan_date = prior_dates[-1] if prior_dates else ""
+    t_minus_1_keys = set()
+
     for h in history:
         if h.get("audit_status", "VALID") != "VALID":
             continue
         p_val = h.get("price")
         d_pct = h.get("disc_pct")
-        if p_val is None or float(p_val) <= 0 or (d_pct is not None and float(d_pct) > 50.0):
+        if p_val is None or float(p_val) <= 0 or (d_pct is not None and float(d_pct) > MAX_CLEAN_NEW_DISC_PCT):
             continue
-        if "advance-plus" in str(h.get("url", "")).lower() or (h.get("country") == "UK" and h.get("operator") == "Deporvillage" and h.get("code") == "WS21WADV101" and float(p_val) > 300):
-            h["audit_status"] = "QUARANTINED_MODEL_MISMATCH"
-            continue
-        if h.get("country") == "UK" and h.get("operator") == "My Triathlon" and h.get("code") in ("WS22MVAN101", "WS22WVAN101") and float(p_val) < 420.0:
-            h["audit_status"] = "QUARANTINED_EX_RENTAL"
-            h["quarantine_reason"] = "Exclòs automàticament a dades originals: Preu Vanquish-X < £420 a My Triathlon UK correspon a variant Ex-Rental (lloguer/segona mà)."
+        if is_ex_rental_anomaly(h.get("country"), h.get("operator"), h.get("code"), p_val, h.get("pvp")):
             continue
         d_str = str(h.get("timestamp", ""))[:10]
         if not d_str:
             continue
         k = (h.get("country"), h.get("operator"), h.get("code"))
+        if d_str == prev_scan_date:
+            t_minus_1_keys.add(k)
         cur = latest_hist_by_key.get(k)
         if not cur or d_str > cur["date"] or (d_str == cur["date"] and float(p_val) < cur["price"]):
             latest_hist_by_key[k] = {
@@ -1482,7 +1738,8 @@ async def main():
         if best_h and row.get("url") and not is_generic_category_url(row.get("url", "")):
             r_date = str(row.get("last_read") or "").strip()
             r_price = row.get("price")
-            if row.get("status") != "VERIFIED" or best_h["date"] > r_date or (best_h["date"] == r_date and (r_price is None or best_h["price"] < float(r_price))):
+            is_cur_ex = is_ex_rental_anomaly(row.get("country"), row.get("operator"), row.get("code"), r_price, row.get("pvp"))
+            if is_cur_ex or row.get("status") != "VERIFIED" or best_h["date"] > r_date or (best_h["date"] == r_date and (r_price is None or best_h["price"] < float(r_price))):
                 row["price"] = round(best_h["price"], 2)
                 row["disc_imp"] = round(float(row["pvp"]) - row["price"], 2)
                 row["disc_pct"] = round((row["disc_imp"] / float(row["pvp"])) * 100, 1)
@@ -1492,16 +1749,10 @@ async def main():
                 if best_h["evidence"]:
                     row["evidence"] = best_h["evidence"]
 
-    now_dt = datetime.utcnow()
-    today_str = now_dt.strftime("%Y-%m-%d")
-    slot_suffix = "AM" if now_dt.hour < 14 else "PM"
-    run_slot = f"{today_str}-{slot_suffix}"
-    now_iso = now_dt.strftime("%Y-%m-%dT%H:%M:%SZ")
-
     domain_blocks = {}
     CIRCUIT_BREAKER_LIMIT = 1 if ZYTE_API_KEY else 2
 
-    print(f"Starting Zone3 Audit Scraper v9 ({now_iso}) | Zyte Hybrid Fallback: {'ENABLED' if ZYTE_API_KEY else 'NOT_SET (using Playwright Stealth)'}")
+    print(f"Starting Zone3 RetentionGuard v11.1 ({now_iso}) | Opció C (<=65% Nou) | Baseline T-1 ({prev_scan_date}): {len(t_minus_1_keys)} lectures | Zyte: {'ENABLED' if ZYTE_API_KEY else 'PLAYWRIGHT_ONLY'}")
 
     async with async_playwright() as p:
         browser = await p.chromium.launch(
@@ -1532,7 +1783,7 @@ async def main():
         circuit_skipped = 0
         broken_row_ids = set()
 
-        # PHASE 1 (Priority): Price Verification on all mapped PDPs first (clean session, zero rate-limit saturation)
+        # PHASE 1: Primary PDP Price Verification
         for row in tracking:
             row["is_from"] = False
             url = row.get("url", "").strip()
@@ -1540,6 +1791,7 @@ async def main():
                 if row.get("status") not in ("NOT_LISTED", "UNMAPPED"):
                     row["status"] = "UNMAPPED"
                 row["freshness"] = "NONE"
+                row["retention_status"] = "NONE"
                 if not row.get("evidence"):
                     row["evidence"] = "Cerca automàtica: cap fitxa PDP localitzada al catàleg de l'operador"
                 continue
@@ -1547,6 +1799,7 @@ async def main():
             if is_generic_category_url(url):
                 row["status"] = "PENDING_PDP"
                 row["freshness"] = "NONE"
+                row["retention_status"] = "NONE"
                 row["price"] = None
                 row["disc_imp"] = None
                 row["disc_pct"] = None
@@ -1559,8 +1812,9 @@ async def main():
 
             if playwright_blocked_for_dom and not ZYTE_API_KEY:
                 circuit_skipped += 1
+                row["_last_scan_code"] = "CIRCUIT_SKIPPED"
                 row["freshness"] = "HISTORICAL_PDP" if (row.get("status") == "VERIFIED" and row.get("last_read") != today_str) else row.get("freshness", "NONE")
-                row["evidence"] = f"Aturada preventiva (Circuit Breaker) a {dom} per bloqueig HTTP/Captcha · Configura ZYTE_API_KEY per rescatar-lo · Lectura del {row.get('last_read') or 'històric'}"
+                row["evidence"] = f"Aturada preventiva (Circuit Breaker) a {dom} · Lectura del {row.get('last_read') or 'històric'}"
                 continue
 
             page = page_uk if row["country"] == "UK" else page_es
@@ -1572,9 +1826,11 @@ async def main():
                         if c_list:
                             rem_urls.append(c_list[0])
                 await prefetch_zyte_batch(page, rem_urls, row["country"], is_pdp=True)
+
             min_price, is_oos, status_code, evidence_str = await extract_verified_pdp_price(
                 page, row, force_zyte_only=playwright_blocked_for_dom
             )
+            row["_last_scan_code"] = status_code
 
             if status_code in ("BLOCKED_HTTP", "BLOCKED_CAPTCHA", "NO_VALID_PRICE"):
                 domain_blocks[dom] = domain_blocks.get(dom, 0) + 1
@@ -1583,81 +1839,19 @@ async def main():
                 if "[Zyte]" in evidence_str:
                     zyte_rescued_count += 1
                     domain_blocks[dom] = domain_blocks.get(dom, 0) + 1
-                prev_price = row.get("price")
-                prev_date = row.get("last_read", "")
-
-                # Daily Lowest Price Rule (AM/PM consolidation):
-                # If we already read a LOWER price earlier today for this model/operator/country, keep the lower price of today
-                effective_price = min_price
-                effective_oos = bool(is_oos)
-                effective_evidence = evidence_str
-
-                existing_same_day = next(
-                    (h for h in history if str(h.get("timestamp", ""))[:10] == today_str and h.get("country") == row["country"] and h.get("operator") == row["operator"] and h.get("code") == row["code"] and h.get("audit_status", "VALID") == "VALID"),
-                    None
-                )
-
-                if existing_same_day and existing_same_day.get("price") is not None and float(existing_same_day["price"]) >= (row["pvp"] * 0.50):
-                    old_day_price = float(existing_same_day["price"])
-                    if min_price < old_day_price:
-                        existing_same_day["intraday_higher_price"] = old_day_price
-                        existing_same_day["audit_note"] = f"Preu mínim diari actualitzat a {run_slot} ({min_price:.2f} vs lectura prèvia d'avui {old_day_price:.2f})"
-                        existing_same_day["price"] = min_price
-                        existing_same_day["disc_imp"] = round(row["pvp"] - min_price, 2)
-                        existing_same_day["disc_pct"] = round((existing_same_day["disc_imp"] / row["pvp"]) * 100, 1)
-                        existing_same_day["out_of_stock"] = bool(is_oos)
-                        existing_same_day["is_from"] = False
-                        existing_same_day["evidence"] = evidence_str
-                        existing_same_day["run_slot"] = run_slot
-                        existing_same_day["timestamp_iso"] = now_iso
-                    elif min_price > old_day_price:
-                        effective_price = old_day_price
-                        effective_oos = bool(existing_same_day.get("out_of_stock", False))
-                        existing_same_day["intraday_higher_price"] = min_price
-                        existing_same_day["audit_note"] = f"Mantingut preu mínim diari ({old_day_price:.2f}); lectura posterior a {run_slot}: {min_price:.2f}"
-                        effective_evidence = f"{existing_same_day.get('evidence', evidence_str)} · [Mínim diari mantingut davant {min_price:.2f} a {run_slot}]"
-                    else:
-                        existing_same_day["timestamp_iso"] = now_iso
-                else:
-                    new_entry = {
-                        "timestamp": today_str,
-                        "run_slot": run_slot,
-                        "timestamp_iso": now_iso,
-                        "country": row["country"],
-                        "currency": row["currency"],
-                        "operator": row["operator"],
-                        "code": row["code"],
-                        "model": row["model"],
-                        "pvp": row["pvp"],
-                        "price": effective_price,
-                        "disc_imp": round(row["pvp"] - effective_price, 2),
-                        "disc_pct": round(((row["pvp"] - effective_price) / row["pvp"]) * 100, 1),
-                        "out_of_stock": effective_oos,
-                        "is_from": False,
-                        "url": url,
-                        "audit_status": "VALID",
-                        "evidence": effective_evidence
-                    }
-                    if prev_price is not None and prev_price != effective_price and prev_date != today_str:
-                        new_entry["previous_price"] = prev_price
-                        new_entry["previous_date"] = prev_date
-                    history.append(new_entry)
-
-                row["price"] = effective_price
-                row["disc_imp"] = round(row["pvp"] - effective_price, 2)
-                row["disc_pct"] = round((row["disc_imp"] / row["pvp"]) * 100, 1)
-                row["status"] = "VERIFIED"
-                row["freshness"] = "LIVE_TODAY"
-                row["last_read"] = today_str
-                row["out_of_stock"] = effective_oos
-                row["is_from"] = False
-                row["evidence"] = effective_evidence
+                upsert_valid_history_entry(history, row, min_price, is_oos, evidence_str, today_str, run_slot, now_iso)
                 updated_count += 1
+            elif status_code in ("REVIEW_DEEP_DISCOUNT", "QUARANTINED_EX_RENTAL"):
+                upsert_non_valid_tray_entry(history, row, min_price, is_oos, status_code, evidence_str, today_str, run_slot, now_iso)
+                row["freshness"] = "LIVE_TODAY" if row.get("last_read") == today_str else "HISTORICAL_PDP"
+                row["retention_status"] = status_code
+                row["evidence"] = f"Lectura històrica ({row.get('last_read', '')}) · [{run_slot}: {evidence_str}]"
             else:
                 if status_code in ("HTTP_ERROR", "IDENTITY_MISMATCH"):
                     broken_row_ids.add(row["id"])
                 if status_code == "OUT_OF_STOCK":
                     row["out_of_stock"] = True
+                    row["retention_status"] = "OOS_NO_PRICE"
                 if row.get("price") is not None and row.get("status") == "VERIFIED":
                     row["freshness"] = "LIVE_TODAY" if row.get("last_read") == today_str else "HISTORICAL_PDP"
                     row["evidence"] = f"Lectura històrica ({row.get('last_read', '')}) · Revisió avui ({run_slot}): {evidence_str}"
@@ -1666,69 +1860,70 @@ async def main():
                     row["freshness"] = "NONE"
                     row["evidence"] = f"Revisat ({run_slot}): {evidence_str}"
 
-        # PHASE 1.5 (Zero-Loss Self-Evaluation & Immediate Rescue Pass):
-        # Priority #1 rule: check if any previously VERIFIED PDP failed to read today, diagnose why, and run an immediate fresh Zyte/Playwright rescue pass before Phase 2!
+        # PHASE 1.5 (RetentionGuard T vs T-1 Dual-Channel Rescue Pass):
         lost_rows = [
             r for r in tracking
-            if r.get("status") == "VERIFIED" and r.get("last_read") != today_str and r.get("url") and not is_generic_category_url(r.get("url", ""))
+            if r.get("status") == "VERIFIED"
+            and r.get("last_read") != today_str
+            and r.get("url")
+            and not is_generic_category_url(r.get("url", ""))
+            and r.get("retention_status") not in ("REVIEW_DEEP_DISCOUNT", "QUARANTINED_EX_RENTAL")
         ]
+        lost_rows.sort(key=lambda r: (0 if (r["country"], r["operator"], r["code"]) in t_minus_1_keys else 1, r["id"]))
+
         if lost_rows:
-            print(f"[SELF-EVAL ZERO-LOSS CHECK] {len(lost_rows)} previously VERIFIED PDPs missed in Phase 1. Running immediate Rescue Pass...")
+            print(f"[RETENTION T vs T-1 RESCUE] {len(lost_rows)} VERIFIED PDPs unread in Phase 1 ({sum(1 for r in lost_rows if (r['country'], r['operator'], r['code']) in t_minus_1_keys)} from T-1). Running Dual-Channel Rescue...")
             rescued_in_pass = 0
             for r_lost in lost_rows:
-                if is_time_budget_exceeded(margin_sec=60):
+                if is_time_budget_exceeded(margin_sec=65):
                     break
-                print(f"  -> Diagnosing {r_lost['id']} ({r_lost['operator']} {r_lost['country']}): {r_lost.get('evidence', '')[:95]}")
-                # Clear any cached Zyte entry for all candidate URLs of this row so rescue is 100% fresh
+                is_t1 = (r_lost["country"], r_lost["operator"], r_lost["code"]) in t_minus_1_keys
+                tag_t1 = "[T-1 PRIORITY]" if is_t1 else "[HIST]"
+                print(f"  -> {tag_t1} Rescuing {r_lost['id']} ({r_lost['operator']} {r_lost['country']}): {r_lost.get('evidence', '')[:90]}")
+
                 for cand_u in get_canonical_url_candidates(r_lost["url"], r_lost["country"]):
                     ZYTE_PAGE_CACHE.pop((r_lost["country"], cand_u), None)
+
                 page = page_uk if r_lost["country"] == "UK" else page_es
-                r_price, r_oos, r_st, r_ev = await extract_verified_pdp_price(
-                    page, r_lost, force_zyte_only=bool(ZYTE_API_KEY)
-                )
+                r_price, r_oos, r_st, r_ev = None, False, "ERROR", ""
+
+                # Channel A: Fresh uncached Zyte API across all canonical & mirror URLs
+                if ZYTE_API_KEY:
+                    r_price, r_oos, r_st, r_ev = await extract_verified_pdp_price(page, r_lost, force_zyte_only=True)
+
+                # Channel B: Direct Playwright Stealth fallback (even when ZYTE_API_KEY is set, in case Zyte rendered incomplete DOM!)
+                if r_st not in ("VERIFIED", "REVIEW_DEEP_DISCOUNT", "QUARANTINED_EX_RENTAL"):
+                    await asyncio.sleep(0.8)
+                    pw_price, pw_oos, pw_st, pw_ev = await extract_verified_pdp_price(page, r_lost, force_zyte_only=False)
+                    if pw_st in ("VERIFIED", "REVIEW_DEEP_DISCOUNT", "QUARANTINED_EX_RENTAL") or not ZYTE_API_KEY:
+                        r_price, r_oos, r_st, r_ev = pw_price, pw_oos, pw_st, pw_ev
+
+                r_lost["_last_scan_code"] = r_st
+
                 if r_st == "VERIFIED" and r_price is not None and r_price > 0:
                     rescued_in_pass += 1
                     updated_count += 1
                     if "[Zyte]" in r_ev:
                         zyte_rescued_count += 1
                     broken_row_ids.discard(r_lost["id"])
-                    r_lost["price"] = r_price
-                    r_lost["disc_imp"] = round(r_lost["pvp"] - r_price, 2)
-                    r_lost["disc_pct"] = round((r_lost["disc_imp"] / r_lost["pvp"]) * 100, 1)
-                    r_lost["status"] = "VERIFIED"
-                    r_lost["freshness"] = "LIVE_TODAY"
-                    r_lost["last_read"] = today_str
-                    r_lost["out_of_stock"] = bool(r_oos)
-                    r_lost["is_from"] = False
-                    r_lost["evidence"] = f"[Zero-Loss Rescue] {r_ev}"
-                    history.append({
-                        "timestamp": today_str,
-                        "run_slot": run_slot,
-                        "timestamp_iso": now_iso,
-                        "country": r_lost["country"],
-                        "currency": r_lost["currency"],
-                        "operator": r_lost["operator"],
-                        "code": r_lost["code"],
-                        "model": r_lost["model"],
-                        "pvp": r_lost["pvp"],
-                        "price": r_price,
-                        "disc_imp": r_lost["disc_imp"],
-                        "disc_pct": r_lost["disc_pct"],
-                        "out_of_stock": bool(r_oos),
-                        "is_from": False,
-                        "url": r_lost["url"],
-                        "audit_status": "VALID",
-                        "evidence": r_lost["evidence"]
-                    })
+                    upsert_valid_history_entry(history, r_lost, r_price, r_oos, f"[RetentionGuard Rescue] {r_ev}", today_str, run_slot, now_iso)
                     print(f"     [RESCUED] {r_lost['id']} -> {r_price} {r_lost['currency']}")
-                elif r_st in ("HTTP_ERROR", "IDENTITY_MISMATCH", "NO_VALID_PRICE"):
+                elif r_st in ("REVIEW_DEEP_DISCOUNT", "QUARANTINED_EX_RENTAL"):
+                    broken_row_ids.discard(r_lost["id"])
+                    upsert_non_valid_tray_entry(history, r_lost, r_price, r_oos, r_st, r_ev, today_str, run_slot, now_iso)
+                    r_lost["retention_status"] = r_st
+                    r_lost["evidence"] = f"Lectura històrica ({r_lost.get('last_read', '')}) · [Rescue {run_slot}: {r_ev}]"
+                elif r_st in ("HTTP_ERROR", "IDENTITY_MISMATCH"):
                     broken_row_ids.add(r_lost["id"])
-            print(f"[SELF-EVAL ZERO-LOSS RESULT] Rescued {rescued_in_pass}/{len(lost_rows)} missed PDPs; remaining {len(broken_row_ids)} sent to Phase 2 URL self-healing.")
+                elif r_st == "OUT_OF_STOCK":
+                    r_lost["out_of_stock"] = True
+                    r_lost["retention_status"] = "OOS_NO_PRICE"
+            print(f"[RETENTION RESCUE RESULT] Rescued {rescued_in_pass}/{len(lost_rows)} missed PDPs; {len(broken_row_ids)} broken URLs sent to Phase 2 catalog check.")
 
-        # Checkpoint all Phase 1 + 1.5 PDP price readings to disk immediately before starting Phase 2 Auto-Discovery
+        # Checkpoint Phase 1 + 1.5 before Phase 2
         save_all_state(tracking, history)
 
-        # PHASE 2: Auto-Discovery of remaining unmapped PDP URLs + self-healing of any HTTP 404 URLs from Phase 1
+        # PHASE 2: Auto-Discovery of remaining unmapped PDP URLs + catalog delisting verification for HTTP 404/redirected URLs
         discovered_count = await discover_missing_pdps(page_es, page_uk, tracking, today_str, domain_blocks=domain_blocks, broken_row_ids=broken_row_ids)
         if discovered_count > 0:
             for row in tracking:
@@ -1739,47 +1934,53 @@ async def main():
                     min_price, is_oos, status_code, evidence_str = await extract_verified_pdp_price(
                         page, row, force_zyte_only=(domain_blocks.get(dom, 0) >= CIRCUIT_BREAKER_LIMIT)
                     )
+                    row["_last_scan_code"] = status_code
                     if status_code == "VERIFIED" and min_price is not None and min_price > 0:
                         if "[Zyte]" in evidence_str:
                             zyte_rescued_count += 1
-                        row["price"] = min_price
-                        row["disc_imp"] = round(row["pvp"] - min_price, 2)
-                        row["disc_pct"] = round((row["disc_imp"] / row["pvp"]) * 100, 1)
-                        row["status"] = "VERIFIED"
-                        row["freshness"] = "LIVE_TODAY"
-                        row["last_read"] = today_str
-                        row["out_of_stock"] = bool(is_oos)
-                        row["is_from"] = False
-                        row["evidence"] = evidence_str
+                        upsert_valid_history_entry(history, row, min_price, is_oos, evidence_str, today_str, run_slot, now_iso)
                         updated_count += 1
-                        history.append({
-                            "timestamp": today_str,
-                            "run_slot": run_slot,
-                            "timestamp_iso": now_iso,
-                            "country": row["country"],
-                            "currency": row["currency"],
-                            "operator": row["operator"],
-                            "code": row["code"],
-                            "model": row["model"],
-                            "pvp": row["pvp"],
-                            "price": min_price,
-                            "disc_imp": row["disc_imp"],
-                            "disc_pct": row["disc_pct"],
-                            "out_of_stock": bool(is_oos),
-                            "is_from": False,
-                            "url": row["url"],
-                            "audit_status": "VALID",
-                            "evidence": evidence_str
-                        })
+                    elif status_code in ("REVIEW_DEEP_DISCOUNT", "QUARANTINED_EX_RENTAL"):
+                        upsert_non_valid_tray_entry(history, row, min_price, is_oos, status_code, evidence_str, today_str, run_slot, now_iso)
+                        row["retention_status"] = status_code
 
         await browser.close()
 
+    # Final T vs T-1 Retention Audit Classification
+    t1_losses_unjustified = []
+    t1_delisted_confirmed = []
+    for row in tracking:
+        if row.get("status") != "VERIFIED":
+            continue
+        k = (row["country"], row["operator"], row["code"])
+        if row.get("last_read") == today_str:
+            row["retention_status"] = "LIVE_TODAY"
+            continue
+        last_code = row.get("_last_scan_code", "")
+        if row.get("retention_status") == "DELISTED_CONFIRMED" and last_code in ("HTTP_ERROR", "IDENTITY_MISMATCH", "NO_VALID_PRICE", ""):
+            if k in t_minus_1_keys:
+                t1_delisted_confirmed.append(row["id"])
+            continue
+        if row["id"] in broken_row_ids and (row["country"], row["operator"]) in COMPLETED_DISCOVERY_OPS:
+            row["retention_status"] = "DELISTED_CONFIRMED"
+            row["evidence"] = f"Lectura històrica ({row.get('last_read', '')}: {row['currency']} {row['price']:.2f}) · [{today_str}: Desllistat confirmat — fitxa inactiva i model absent al catàleg de {row['operator']}]"
+            if k in t_minus_1_keys:
+                t1_delisted_confirmed.append(row["id"])
+        elif row.get("retention_status") not in ("REVIEW_DEEP_DISCOUNT", "QUARANTINED_EX_RENTAL", "OOS_NO_PRICE"):
+            if k in t_minus_1_keys:
+                row["retention_status"] = "UNJUSTIFIED_LOSS"
+                t1_losses_unjustified.append(row["id"])
+            else:
+                row["retention_status"] = "HISTORICAL_WATCH"
+
     save_all_state(tracking, history)
 
-    still_missed = [r for r in tracking if r.get("status") == "VERIFIED" and r.get("last_read") != today_str]
-    print(f"Scan finished ({now_iso}). Auto-discovered PDPs: {discovered_count} | Live today: {updated_count} (Zyte rescued: {zyte_rescued_count}) | Still historical (<{today_str}): {len(still_missed)} | Total history: {len(history)}")
-    for sm in still_missed:
-        print(f"  [UNREAD HISTORICAL] {sm['id']} (last_read={sm.get('last_read')}): {sm.get('evidence', '')[:100]}")
+    print(
+        f"[RETENTION T vs T-1 SUMMARY] Baseline {prev_scan_date}: {len(t_minus_1_keys)} | "
+        f"Valid Today ({today_str}): {updated_count} | "
+        f"Confirmed Delisted: {len(t1_delisted_confirmed)} {t1_delisted_confirmed} | "
+        f"Unjustified T-1 Losses: {len(t1_losses_unjustified)} {t1_losses_unjustified}"
+    )
 
 if __name__ == "__main__":
     asyncio.run(main())
