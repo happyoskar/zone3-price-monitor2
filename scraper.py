@@ -5,7 +5,19 @@ import os
 import re
 import time
 import urllib.request
-from datetime import datetime
+from datetime import datetime, timezone, timedelta
+try:
+    from zoneinfo import ZoneInfo
+except ImportError:
+    ZoneInfo = None
+
+def get_madrid_now():
+    if ZoneInfo is not None:
+        try:
+            return datetime.now(ZoneInfo("Europe/Madrid"))
+        except Exception:
+            pass
+    return datetime.now(timezone(timedelta(hours=1)))
 from urllib.parse import urlparse, quote_plus, unquote
 from playwright.async_api import async_playwright
 
@@ -2076,11 +2088,11 @@ async def main():
 
     enforce_history_hygiene(history)
 
-    now_dt = datetime.utcnow()
+    now_dt = get_madrid_now()
     today_str = now_dt.strftime("%Y-%m-%d")
     slot_suffix = "AM" if now_dt.hour < 14 else "PM"
     run_slot = f"{today_str}-{slot_suffix}"
-    now_iso = now_dt.strftime("%Y-%m-%dT%H:%M:%SZ")
+    now_iso = now_dt.isoformat(timespec="seconds")
 
     latest_hist_by_key = {}
     prior_dates = sorted({
@@ -2141,7 +2153,7 @@ async def main():
     domain_blocks = {}
     CIRCUIT_BREAKER_LIMIT = 1 if ZYTE_API_KEY else 2
 
-    print(f"Starting Zone3 RetentionGuard v11.2 (Next.js + Full JSON-LD) ({now_iso}) | Opció C (<=65% Nou) | Baseline T-1 ({prev_scan_date}): {len(t_minus_1_keys)} lectures | Zyte: {'ENABLED' if ZYTE_API_KEY else 'PLAYWRIGHT_ONLY'}")
+    print(f"Starting Zone3 RetentionGuard v11.3 (Europe/Madrid + Next.js + Opció C) ({now_iso}) | Opció C (<=65% Nou) | Baseline T-1 ({prev_scan_date}): {len(t_minus_1_keys)} lectures | Zyte: {'ENABLED' if ZYTE_API_KEY else 'PLAYWRIGHT_ONLY'}")
 
     async with async_playwright() as p:
         browser = await p.chromium.launch(
