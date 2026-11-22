@@ -35,7 +35,7 @@
     "last_read": "2026-11-22",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "[Zyte] Next.js RSC __next_f (price) [EUR | Mercat ES] (607.00 €) · 'Traje neopreno Zone3 Vanquish-X negro '",
+    "evidence": "[Zyte] Zyte Product API [EUR | Mercat ES] (607.00 €) · 'Traje neopreno Zone3 Vanquish-X negro na'",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY"
   },
@@ -117,7 +117,7 @@
     "last_read": "2026-11-19",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Lectura històrica (2026-11-19) · Revisió avui (2026-11-22-AM): Cap preu principal (EUR) validat a la fitxa",
+    "evidence": "Lectura històrica (2026-11-19) · Revisió avui (2026-11-22-PM): Cap preu principal (EUR) validat a la fitxa",
     "freshness": "HISTORICAL_PDP",
     "retention_status": "DELISTED_CONFIRMED"
   },
@@ -177,7 +177,7 @@
     "last_read": "2026-11-22",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "[Zyte] Next.js RSC __next_f (price) [EUR | Mercat ES] (677.00 €) · 'Traje neopreno Zone3 Vanquish-X negro '",
+    "evidence": "[Zyte] Zyte Product API [EUR | Mercat ES] (677.00 €) · 'Traje neopreno Zone3 Vanquish-X negro na'",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY"
   },
@@ -257,7 +257,7 @@
     "last_read": "2026-11-19",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Lectura històrica (2026-11-19) · Revisió avui (2026-11-22-AM): Cap preu principal (EUR) validat a la fitxa",
+    "evidence": "Lectura històrica (2026-11-19) · Revisió avui (2026-11-22-PM): Cap preu principal (EUR) validat a la fitxa",
     "freshness": "HISTORICAL_PDP",
     "retention_status": "DELISTED_CONFIRMED"
   },
@@ -297,7 +297,7 @@
     "last_read": "2026-11-22",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "[Zyte] Zyte Product API [EUR | Mercat ES] (527.99 €) · 'ZONE3 Traje de neopreno de manga larga A' · [Nota cupó: detectat codi promocional 'BF15' a la web sense preu final descomptat explícit]",
+    "evidence": "[Zyte] Zyte Product API [EUR | Mercat ES] (527.99 €) · 'ZONE3 Traje de neopreno de manga larga A' · [Nota cupó: detectat codi promocional 'BF15' a la web sense preu final descomptat explícit] · [Mínim diari mantingut a 2026-11-22-PM]",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY"
   },
@@ -419,7 +419,7 @@
     "last_read": "2026-11-22",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "JSON-LD lowPrice [EUR | Mercat ES] (502.99 €) · Producte: 'Traje de neopreno Zone3 Aspire negro/gri'",
+    "evidence": "[Zyte] JSON-LD highPrice [EUR | Mercat ES] (502.99 €) · Producte: 'Traje de neopreno Zone3 Aspire negro/gri'",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY"
   },
@@ -711,15 +711,15 @@
     "code": "WS24WVIS101",
     "model": "Women's Vision Wetsuit",
     "pvp": 499,
-    "price": 391.99,
-    "disc_imp": 107.01,
-    "disc_pct": 21.4,
+    "price": 386.99,
+    "disc_imp": 112.01,
+    "disc_pct": 22.4,
     "url": "https://www.tradeinn.com/swiminn/es/zone3-traje-de-neopreno-de-manga-larga-para-mujer-terraprene-vision/140374092/p?country=es",
     "status": "VERIFIED",
     "last_read": "2026-11-22",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "[Zyte] Zyte Product API [EUR | Mercat ES] (391.99 €) · 'ZONE3 Traje de neopreno de manga larga p'",
+    "evidence": "[Zyte] Zyte Product API [EUR | Mercat ES] (386.99 €) · 'ZONE3 Traje de neopreno de manga larga p' · [Nota cupó: detectat codi promocional 'BF15' a la web sense preu final descomptat explícit]",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY"
   },
@@ -739,7 +739,7 @@
     "last_read": "2026-11-22",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "[Zyte] Next.js RSC __next_f (price) [EUR | Mercat ES] (413.00 €) · 'Traje de neopreno Zone3 Terraprene Vis'",
+    "evidence": "[Zyte] Zyte Product API [EUR | Mercat ES] (413.00 €) · 'Traje de neopreno Zone3 Terraprene Visio'",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY"
   },
@@ -859,7 +859,7 @@
     "last_read": "2026-11-22",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "[Zyte] Zyte Product API [EUR | Mercat ES] (287.99 €) · 'ZONE3 Traje de neopreno de manga larga A' · [Nota cupó: detectat codi promocional 'BF15' a la web sense preu final descomptat explícit]",
+    "evidence": "[Zyte] Zyte Product API [EUR | Mercat ES] (287.99 €) · 'ZONE3 Traje de neopreno de manga larga A' · [Nota cupó: detectat codi promocional 'BF15' a la web sense preu final descomptat explícit] · [Mínim diari mantingut a 2026-11-22-PM]",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY"
   },
@@ -879,7 +879,7 @@
     "last_read": "2026-11-22",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "[Zyte] Zyte Product API [EUR | Mercat ES] (279.95 €) · 'Traje de neopreno Zone3 Advance negro gr'",
+    "evidence": "[Zyte] Next.js RSC __next_f (price) [EUR | Mercat ES] (279.95 €) · 'Traje de neopreno Zone3 Advance negro '",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY"
   },
@@ -1201,7 +1201,7 @@
     "last_read": "2026-11-22",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "JSON-LD price [EUR | Sportano.com EU->ES] (178.49 €) · Producte: 'Men's ZONE3 Agile triathlon wetsuit blac' · [Nota cupó: detectat codi promocional 'SELF-LOCKING' a la web sense preu final descomptat explícit]",
+    "evidence": "JSON-LD price [EUR | Sportano.com EU->ES] (178.49 €) · Producte: 'Men's ZONE3 Agile triathlon wetsuit blac'",
     "freshness": "LIVE_TODAY",
     "base_price": 209.99,
     "promo_code": "BLACKBELT",
@@ -1275,15 +1275,15 @@
     "code": "WS21WAGI114",
     "model": "Women's Agile Wetsuit",
     "pvp": 259,
-    "price": 230.99,
-    "disc_imp": 28.01,
-    "disc_pct": 10.8,
+    "price": 228.99,
+    "disc_imp": 30.01,
+    "disc_pct": 11.6,
     "url": "https://www.tradeinn.com/swiminn/es/zone3-traje-de-neopreno-de-manga-larga-para-mujer-agile/137937163/p?country=es",
     "status": "VERIFIED",
     "last_read": "2026-11-22",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "[Zyte] Zyte Product API [EUR | Mercat ES] (230.99 €) · 'ZONE3 Traje de neopreno de manga larga p' · [Nota cupó: detectat codi promocional 'BF15' a la web sense preu final descomptat explícit]",
+    "evidence": "[Zyte] Zyte Product API [EUR | Mercat ES] (228.99 €) · 'ZONE3 Traje de neopreno de manga larga p' · [Nota cupó: detectat codi promocional 'BF15' a la web sense preu final descomptat explícit]",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY"
   },
@@ -1445,7 +1445,7 @@
     "last_read": "",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Revisat (2026-11-22-AM): Cap preu principal (EUR) validat a la fitxa",
+    "evidence": "Revisat (2026-11-22-PM): Cap preu principal (EUR) validat a la fitxa",
     "freshness": "NONE"
   },
   {
@@ -1524,7 +1524,7 @@
     "last_read": "",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Revisat (2026-11-22-AM): Cap preu principal (EUR) validat a la fitxa",
+    "evidence": "Revisat (2026-11-22-PM): Cap preu principal (EUR) validat a la fitxa",
     "freshness": "NONE"
   },
   {
@@ -1555,15 +1555,15 @@
     "code": "WS26WGLISL101",
     "model": "Women's Ascend Sleeveless Wetsuit",
     "pvp": 179,
-    "price": 150.99,
-    "disc_imp": 28.01,
-    "disc_pct": 15.6,
+    "price": 149.49,
+    "disc_imp": 29.51,
+    "disc_pct": 16.5,
     "url": "https://www.tradeinn.com/swiminn/es/zone3-traje-de-neopreno-sin-mangas-para-mujer-ascend/142771416/p?country=es",
     "status": "VERIFIED",
     "last_read": "2026-11-22",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "[Zyte] Zyte Product API [EUR | Mercat ES] (150.99 €) · 'ZONE3 Traje de neopreno sin mangas para ' · [Nota cupó: detectat codi promocional 'BF15' a la web sense preu final descomptat explícit]",
+    "evidence": "[Zyte] Zyte Product API [EUR | Mercat ES] (149.49 €) · 'ZONE3 Traje de neopreno sin mangas para ' · [Nota cupó: detectat codi promocional 'BF15' a la web sense preu final descomptat explícit]",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY"
   },
@@ -1583,7 +1583,7 @@
     "last_read": "",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Revisat (2026-11-22-AM): Cap preu principal (EUR) validat a la fitxa",
+    "evidence": "Revisat (2026-11-22-PM): Cap preu principal (EUR) validat a la fitxa",
     "freshness": "NONE"
   },
   {
@@ -1602,7 +1602,7 @@
     "last_read": "2026-10-11",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Lectura històrica (2026-10-11) · Revisió avui (2026-11-22-AM): Cap preu principal (EUR) validat a la fitxa",
+    "evidence": "Lectura històrica (2026-10-11) · Revisió avui (2026-11-22-PM): Cap preu principal (EUR) validat a la fitxa",
     "freshness": "HISTORICAL_PDP",
     "retention_status": "HISTORICAL_WATCH"
   },
@@ -1662,7 +1662,7 @@
     "last_read": "",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Revisat (2026-11-22-AM): Cap preu principal (EUR) validat a la fitxa",
+    "evidence": "Revisat (2026-11-22-PM): Cap preu principal (EUR) validat a la fitxa",
     "freshness": "NONE"
   },
   {
@@ -1701,7 +1701,7 @@
     "last_read": "2026-11-22",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "[Zyte] Zyte Product API [EUR | Mercat ES] (199.99 €) · 'ZONE3 Traje de neopreno de manga larga A' · [Nota cupó: detectat codi promocional 'BF15' a la web sense preu final descomptat explícit]",
+    "evidence": "[Zyte] Zyte Product API [EUR | Mercat ES] (199.99 €) · 'ZONE3 Traje de neopreno de manga larga A' · [Nota cupó: detectat codi promocional 'BF15' a la web sense preu final descomptat explícit] · [Mínim diari mantingut a 2026-11-22-PM]",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY"
   },
@@ -1981,7 +1981,7 @@
     "last_read": "",
     "out_of_stock": true,
     "is_from": false,
-    "evidence": "Revisat (2026-11-22-AM): Cap preu principal (EUR) validat a la fitxa",
+    "evidence": "Revisat (2026-11-22-PM): Cap preu principal (EUR) validat a la fitxa",
     "freshness": "NONE"
   },
   {
@@ -2140,7 +2140,7 @@
     "last_read": "",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Revisat (2026-11-22-AM): Cap preu principal (EUR) validat a la fitxa",
+    "evidence": "Revisat (2026-11-22-PM): Cap preu principal (EUR) validat a la fitxa",
     "freshness": "NONE"
   },
   {
@@ -2551,7 +2551,7 @@
     "last_read": "",
     "out_of_stock": true,
     "is_from": false,
-    "evidence": "Lectura històrica () · [2026-11-22-AM: Safata Opció C (>65%, -81.8%): JSON-LD price [GBP | Mercat UK] (99.99 £) · Producte: 'ZONE3 Zone 3 Aspire Wetsuit']",
+    "evidence": "Lectura històrica () · [2026-11-22-PM: Safata Opció C (>65%, -81.8%): JSON-LD price [GBP | Mercat UK] (99.99 £) · Producte: 'ZONE3 Zone 3 Aspire Wetsuit']",
     "freshness": "HISTORICAL_PDP",
     "retention_status": "REVIEW_DEEP_DISCOUNT"
   },
@@ -2731,7 +2731,7 @@
     "last_read": "",
     "out_of_stock": true,
     "is_from": false,
-    "evidence": "Revisat (2026-11-22-AM): Producte esgotat sense preu visible (ZONE3\nThermo-Tech Changing Robe)",
+    "evidence": "Revisat (2026-11-22-PM): Producte esgotat sense preu visible (ZONE3\nThermo-Tech Changing Robe)",
     "freshness": "NONE",
     "retention_status": "OOS_NO_PRICE"
   },
@@ -2871,7 +2871,7 @@
     "last_read": "2026-11-22",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "[Zyte] Zyte Product API [GBP | Mercat UK] (324.49 £) · 'ZONE3 Terraprene Vision woman long sleev' · [Nota cupó: detectat codi promocional 'BF15' a la web sense preu final descomptat explícit]",
+    "evidence": "[Zyte] Zyte Product API [GBP | Mercat UK] (324.49 £) · 'ZONE3 Terraprene Vision woman long sleev' · [Nota cupó: detectat codi promocional 'BF15' a la web sense preu final descomptat explícit] · [Mínim diari mantingut a 2026-11-22-PM]",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY"
   },
@@ -3351,7 +3351,7 @@
     "last_read": "2026-11-22",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "[Zyte] Zyte Product API [GBP | Mercat UK] (193.99 £) · 'ZONE3 Agile woman long sleeve neoprene w' · [Nota cupó: detectat codi promocional 'BF15' a la web sense preu final descomptat explícit]",
+    "evidence": "[Zyte] Zyte Product API [GBP | Mercat UK] (193.99 £) · 'ZONE3 Agile woman long sleeve neoprene w' · [Nota cupó: detectat codi promocional 'BF15' a la web sense preu final descomptat explícit] · [Mínim diari mantingut a 2026-11-22-PM]",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY"
   },
@@ -3511,7 +3511,7 @@
     "last_read": "2026-11-19",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Lectura històrica (2026-11-19) · Revisió avui (2026-11-22-AM): Model d'home però la fitxa indica Women/Mujer ('ZONE3 Lava Long Distance Women's Tri Sho')",
+    "evidence": "Lectura històrica (2026-11-19) · Revisió avui (2026-11-22-PM): Model d'home però la fitxa indica Women/Mujer ('ZONE3 Lava Long Distance Women's Tri Sho')",
     "freshness": "HISTORICAL_PDP",
     "retention_status": "HISTORICAL_WATCH"
   },
@@ -3591,7 +3591,7 @@
     "last_read": "2026-11-22",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "[Zyte] Zyte Product API [GBP | Mercat UK] (126.99 £) · 'ZONE3 Ascend woman sleeveless neoprene w' · [Nota cupó: detectat codi promocional 'BF15' a la web sense preu final descomptat explícit]",
+    "evidence": "[Zyte] Zyte Product API [GBP | Mercat UK] (126.99 £) · 'ZONE3 Ascend woman sleeveless neoprene w' · [Nota cupó: detectat codi promocional 'BF15' a la web sense preu final descomptat explícit] · [Mínim diari mantingut a 2026-11-22-PM]",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY"
   },
@@ -3951,7 +3951,7 @@
     "last_read": "",
     "out_of_stock": true,
     "is_from": false,
-    "evidence": "Revisat (2026-11-22-AM): Cap preu principal (GBP) validat a la fitxa",
+    "evidence": "Revisat (2026-11-22-PM): Cap preu principal (GBP) validat a la fitxa",
     "freshness": "NONE"
   },
   {
@@ -3990,7 +3990,7 @@
     "last_read": "2026-11-19",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Lectura històrica (2026-11-19) · Revisió avui (2026-11-22-AM): Model d'home però la fitxa indica Women/Mujer ('ZONE3 Zone 3 Aspect Women's Wetsuit | Sp')",
+    "evidence": "Lectura històrica (2026-11-19) · Revisió avui (2026-11-22-PM): Model d'home però la fitxa indica Women/Mujer ('ZONE3 Zone 3 Aspect Women's Wetsuit | Sp')",
     "freshness": "HISTORICAL_PDP",
     "retention_status": "HISTORICAL_WATCH"
   },
