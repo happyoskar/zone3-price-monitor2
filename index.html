@@ -134,7 +134,7 @@
     </div>
   </section>
 
-  <!-- Semàfor de Retenció Diària (T vs T-1) · Shortlist (13) + Secundaris Opció 1 (4) · v12.3 -->
+  <!-- Semàfor de Retenció Diària (T vs T-1) · Shortlist (13) + Secundaris Opció 1 (4) · v12.2 -->
   <section class="max-w-7xl mx-auto w-full px-4 sm:px-6 pt-3.5">
     <div id="retention-guard-banner" class="rounded-xl border p-3.5 shadow-sm transition-colors bg-white border-slate-200">
       <div class="text-xs text-slate-500">Calculant auditoria de retenció diària (T vs T-1) i safata Opció C...</div>
@@ -365,19 +365,7 @@
     const ES_OPS = [...ES_SHORTLIST_OPS, ...ES_SECONDARY_OPS];
     const UK_OPS = [...UK_SHORTLIST_OPS, ...UK_SECONDARY_OPS];
 
-    let MEM_STORE = {};
-    function sGet(k) {
-      try { return sGet(k); } catch (e) { return MEM_STORE[k] || null; }
-    }
-    function sSet(k, v) {
-      MEM_STORE[k] = v;
-      try { sSet(k, v); } catch (e) {}
-    }
-    function sDel(k) {
-      delete MEM_STORE[k];
-      try { sDel(k); } catch (e) {}
-    }
-    let showSecondaryOps = sGet('z3_show_secondary') !== '0';
+    let showSecondaryOps = localStorage.getItem('z3_show_secondary') !== '0';
 
     function isSecondaryOp(country, op) {
       if (country === 'ES') return ES_SECONDARY_OPS.includes(op);
@@ -405,7 +393,7 @@
 
     function toggleSecondaryOperators() {
       showSecondaryOps = !showSecondaryOps;
-      sSet('z3_show_secondary', showSecondaryOps ? '1' : '0');
+      localStorage.setItem('z3_show_secondary', showSecondaryOps ? '1' : '0');
       syncSecondaryToggleBtn();
       renderMatrix();
       if (!document.getElementById('view-timeline').classList.contains('hidden')) renderModelDeepDive();
@@ -1469,14 +1457,14 @@
     }
 
     async function triggerWorkflowRun(skipConfirm = false) {
-      let token = sGet('z3_gh_token') || '';
+      let token = localStorage.getItem('z3_gh_token') || '';
       if (!token) {
         const input = prompt(
           `Per llançar les lectures amb 1 clic a ${GH_OWNER}/${GH_REPO}, enganxa el teu Token de GitHub (amb permís Actions/workflow o repo):`
         );
         if (!input || !input.trim()) return;
         token = input.trim();
-        sSet('z3_gh_token', token);
+        localStorage.setItem('z3_gh_token', token);
       }
 
       const btn = document.getElementById('btn-run-workflow');
@@ -1652,7 +1640,7 @@ ${err.message}`);
       renderMatrix();
       if (!document.getElementById('view-urls').classList.contains('hidden')) renderUrlTable();
 
-      const token = sGet('z3_gh_token') || '';
+      const token = localStorage.getItem('z3_gh_token') || '';
       if (!token) {
         alert('Canvi aplicat en pantalla. Per desar-lo directament a GitHub, configura primer el teu Token al botó "🔑 Token".');
         return;
@@ -1691,7 +1679,7 @@ ${err.message}`);
     }
 
     function configureGitHubToken() {
-      const current = sGet('z3_gh_token') || '';
+      const current = localStorage.getItem('z3_gh_token') || '';
       const masked = current ? (current.slice(0, 7) + '...' + current.slice(-4)) : 'Cap token desat';
       const input = prompt(
         `Clau d'accés de GitHub (Personal Access Token) actual: ${masked}\n\n` +
@@ -1702,17 +1690,17 @@ ${err.message}`);
       if (input !== null) {
         const clean = input.trim();
         if (clean) {
-          sSet('z3_gh_token', clean);
+          localStorage.setItem('z3_gh_token', clean);
           alert('Token de GitHub desat correctament en aquest navegador.');
         } else {
-          sDel('z3_gh_token');
+          localStorage.removeItem('z3_gh_token');
           alert('Token esborrat del navegador.');
         }
       }
     }
 
     function triggerZipSync() {
-      let token = sGet('z3_gh_token') || '';
+      let token = localStorage.getItem('z3_gh_token') || '';
       if (!token) {
         const input = prompt(
           `Primera configuració (només cal fer-ho 1 vegada):\n\n` +
@@ -1720,7 +1708,7 @@ ${err.message}`);
         );
         if (!input || !input.trim()) return;
         token = input.trim();
-        sSet('z3_gh_token', token);
+        localStorage.setItem('z3_gh_token', token);
       }
       const fileInput = document.getElementById('zip-upload-input');
       fileInput.value = '';
@@ -1776,7 +1764,7 @@ ${err.message}`);
         if (foundFiles['data/tracking.json']) {
           try {
             const incomingTr = JSON.parse(foundFiles['data/tracking.json']);
-            const curTr = await fetchLiveJsonForMerge('data/tracking.json', sGet('z3_gh_token') || '');
+            const curTr = await fetchLiveJsonForMerge('data/tracking.json', localStorage.getItem('z3_gh_token') || '');
             if (curTr) {
               if (Array.isArray(curTr)) {
                 const curMap = {};
@@ -1810,7 +1798,7 @@ ${err.message}`);
         if (foundFiles['data/history.json']) {
           try {
             const incomingHist = JSON.parse(foundFiles['data/history.json']);
-            const curHist = await fetchLiveJsonForMerge('data/history.json', sGet('z3_gh_token') || '');
+            const curHist = await fetchLiveJsonForMerge('data/history.json', localStorage.getItem('z3_gh_token') || '');
             if (curHist) {
               if (Array.isArray(curHist)) {
                 const incomingKeys = new Set(incomingHist.map(h => `${String(h.timestamp||'').slice(0,10)}|${h.country}|${h.operator}|${h.code}|${h.audit_status||'VALID'}`));
@@ -1900,7 +1888,7 @@ ${err.message}`);
         );
         if (!confirmPush) return;
 
-        const token = sGet('z3_gh_token') || '';
+        const token = localStorage.getItem('z3_gh_token') || '';
         const headers = {
           'Authorization': `Bearer ${token}`,
           'Accept': 'application/vnd.github+json',

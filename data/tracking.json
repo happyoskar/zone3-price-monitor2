@@ -28,8 +28,8 @@
     "code": "WS22MVAN101",
     "model": "Men's Vanquish-X Wetsuit",
     "pvp": 859,
-    "price": 607.0,
-    "disc_imp": 252.0,
+    "price": 607,
+    "disc_imp": 252,
     "disc_pct": 29.3,
     "url": "https://www.deporvillage.com/traje-neopreno-zone3-vanquish-x",
     "status": "VERIFIED",
@@ -103,8 +103,7 @@
     "is_from": false,
     "evidence": "Cap fitxa PDP localitzada al catàleg/cercador de l'operador (es re-comprova automàticament)",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "ES-TRI-WS22MVAN101",
@@ -122,7 +121,7 @@
     "last_read": "2026-11-19",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Lectura històrica (2026-11-19) · Revisió avui (2026-11-24-PM): Cap preu principal (EUR) validat a la fitxa",
+    "evidence": "Lectura històrica PDP (2026-11-19: EUR 667.95) · [20/11: Model retirat temporalment del catàleg actiu de Triathlon24]",
     "freshness": "HISTORICAL_PDP",
     "retention_status": "DELISTED_CONFIRMED",
     "tier": "SHORTLIST"
@@ -143,10 +142,9 @@
     "last_read": "",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Cerca automàtica a Alltricks (2026-11-24): cap fitxa PDP localitzada (no confirma absència comercial)",
+    "evidence": "Cap fitxa PDP localitzada al catàleg/cercador de l'operador (es re-comprova automàticament)",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "ES-TRA-WS22WVAN101",
@@ -177,8 +175,8 @@
     "code": "WS22WVAN101",
     "model": "Women's Vanquish-X Wetsuit",
     "pvp": 859,
-    "price": 677.0,
-    "disc_imp": 182.0,
+    "price": 677,
+    "disc_imp": 182,
     "disc_pct": 21.2,
     "url": "https://www.deporvillage.com/traje-neopreno-zone3-vanquish-x-mujer",
     "status": "VERIFIED",
@@ -229,8 +227,7 @@
     "is_from": false,
     "evidence": "Cap fitxa PDP localitzada al catàleg/cercador de l'operador (es re-comprova automàticament)",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "ES-WET-WS22WVAN101",
@@ -250,8 +247,7 @@
     "is_from": false,
     "evidence": "Cap fitxa PDP localitzada al catàleg/cercador de l'operador (es re-comprova automàticament)",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "ES-TRI-WS22WVAN101",
@@ -269,7 +265,7 @@
     "last_read": "2026-11-19",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Lectura històrica (2026-11-19) · Revisió avui (2026-11-24-PM): Cap preu principal (EUR) validat a la fitxa",
+    "evidence": "Lectura històrica PDP (2026-11-19: EUR 559.95) · [20/11: Model retirat temporalment del catàleg actiu de Triathlon24]",
     "freshness": "HISTORICAL_PDP",
     "retention_status": "DELISTED_CONFIRMED",
     "tier": "SHORTLIST"
@@ -290,10 +286,9 @@
     "last_read": "",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Cerca automàtica a Alltricks (2026-11-24): cap fitxa PDP localitzada (no confirma absència comercial)",
+    "evidence": "Cap fitxa PDP localitzada al catàleg/cercador de l'operador (es re-comprova automàticament)",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "ES-TRA-WS25MASP101",
@@ -324,8 +319,8 @@
     "code": "WS25MASP101",
     "model": "Men's Aspire Wetsuit",
     "pvp": 689,
-    "price": 586.0,
-    "disc_imp": 103.0,
+    "price": 586,
+    "disc_imp": 103,
     "disc_pct": 14.9,
     "url": "https://www.deporvillage.com/traje-neopreno-zone3-aspire-2",
     "status": "VERIFIED",
@@ -347,7 +342,7 @@
     "pvp": 689,
     "price": 481.99,
     "disc_imp": 207.01,
-    "disc_pct": 30.0,
+    "disc_pct": 30,
     "url": "https://www.bike24.es/productos/905637",
     "status": "VERIFIED",
     "last_read": "2026-11-24",
@@ -473,8 +468,8 @@
     "code": "WS25WASP101",
     "model": "Women's Aspire Wetsuit",
     "pvp": 689,
-    "price": 497.0,
-    "disc_imp": 192.0,
+    "price": 497,
+    "disc_imp": 192,
     "disc_pct": 27.9,
     "url": "https://www.deporvillage.com/traje-neopreno-zone3-aspire-mujer-2",
     "status": "VERIFIED",
@@ -496,7 +491,7 @@
     "pvp": 689,
     "price": 481.99,
     "disc_imp": 207.01,
-    "disc_pct": 30.0,
+    "disc_pct": 30,
     "url": "https://www.bike24.es/productos/1004856",
     "status": "VERIFIED",
     "last_read": "2026-11-24",
@@ -525,8 +520,7 @@
     "is_from": false,
     "evidence": "Cap fitxa PDP localitzada al catàleg/cercador de l'operador (es re-comprova automàticament)",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "ES-WET-WS25WASP101",
@@ -546,8 +540,7 @@
     "is_from": false,
     "evidence": "Cap fitxa PDP localitzada al catàleg/cercador de l'operador (es re-comprova automàticament)",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "ES-TRI-WS25WASP101",
@@ -586,10 +579,9 @@
     "last_read": "",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Cerca automàtica a Alltricks (2026-11-24): cap fitxa PDP localitzada (no confirma absència comercial)",
+    "evidence": "Cap fitxa PDP localitzada al catàleg/cercador de l'operador (es re-comprova automàticament)",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "ES-TRA-WS24MVIS101",
@@ -620,8 +612,8 @@
     "code": "WS24MVIS101",
     "model": "Men's Vision Wetsuit",
     "pvp": 499,
-    "price": 432.0,
-    "disc_imp": 67.0,
+    "price": 432,
+    "disc_imp": 67,
     "disc_pct": 13.4,
     "url": "https://www.deporvillage.com/traje-de-neopreno-zone3-terraprene-vision",
     "status": "VERIFIED",
@@ -672,8 +664,7 @@
     "is_from": false,
     "evidence": "Cap fitxa PDP localitzada al catàleg/cercador de l'operador (es re-comprova automàticament)",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "ES-WET-WS24MVIS101",
@@ -767,8 +758,8 @@
     "code": "WS24WVIS101",
     "model": "Women's Vision Wetsuit",
     "pvp": 499,
-    "price": 401.0,
-    "disc_imp": 98.0,
+    "price": 401,
+    "disc_imp": 98,
     "disc_pct": 19.6,
     "url": "https://www.deporvillage.com/traje-de-neopreno-zone3-terraprene-vision-mujer",
     "status": "VERIFIED",
@@ -819,8 +810,7 @@
     "is_from": false,
     "evidence": "Cap fitxa PDP localitzada al catàleg/cercador de l'operador (es re-comprova automàticament)",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "ES-WET-WS24WVIS101",
@@ -880,10 +870,9 @@
     "last_read": "",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Cerca automàtica a Alltricks (2026-11-24): cap fitxa PDP localitzada (no confirma absència comercial)",
+    "evidence": "Cap fitxa PDP localitzada al catàleg/cercador de l'operador (es re-comprova automàticament)",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "ES-TRA-WS21MADV101",
@@ -1042,7 +1031,7 @@
     "pvp": 369,
     "price": 283.99,
     "disc_imp": 85.01,
-    "disc_pct": 23.0,
+    "disc_pct": 23,
     "url": "https://www.tradeinn.com/swiminn/es/zone3-traje-de-neopreno-de-manga-larga-para-mujer-advance/137937161/p?country=es",
     "status": "VERIFIED",
     "last_read": "2026-11-24",
@@ -1061,8 +1050,8 @@
     "code": "WS21WADV101",
     "model": "Women's Advance Wetsuit",
     "pvp": 369,
-    "price": 309.0,
-    "disc_imp": 60.0,
+    "price": 309,
+    "disc_imp": 60,
     "disc_pct": 16.3,
     "url": "https://www.deporvillage.com/traje-de-neopreno-zone3-advance-mujer",
     "status": "VERIFIED",
@@ -1233,7 +1222,7 @@
     "pvp": 259,
     "price": 183.99,
     "disc_imp": 75.01,
-    "disc_pct": 29.0,
+    "disc_pct": 29,
     "url": "https://www.bike24.es/productos/449868",
     "status": "VERIFIED",
     "last_read": "2026-11-24",
@@ -1403,7 +1392,7 @@
     "pvp": 259,
     "price": 188.99,
     "disc_imp": 70.01,
-    "disc_pct": 27.0,
+    "disc_pct": 27,
     "url": "https://sportano.com/p/56809/women-s-zone3-agile-triathlon-wetsuit-black-ws21wagi114",
     "status": "VERIFIED",
     "last_read": "2026-11-24",
@@ -1468,7 +1457,7 @@
     "pvp": 259,
     "price": 183.99,
     "disc_imp": 75.01,
-    "disc_pct": 29.0,
+    "disc_pct": 29,
     "url": "https://www.alltricks.es/F-46286-combinaisons-_-maillots-de-bain/P-3121131-traje_de_neopreno_para_triatlon_zone3_agile_para_mujer_negro_rosa",
     "status": "VERIFIED",
     "last_read": "2026-11-24",
@@ -1531,7 +1520,7 @@
     "pvp": 179,
     "price": 144.99,
     "disc_imp": 34.01,
-    "disc_pct": 19.0,
+    "disc_pct": 19,
     "url": "https://www.bike24.es/productos/1004857",
     "status": "VERIFIED",
     "last_read": "2026-11-24",
@@ -1573,7 +1562,7 @@
     "pvp": 179,
     "price": 144.99,
     "disc_imp": 34.01,
-    "disc_pct": 19.0,
+    "disc_pct": 19,
     "url": "https://www.wetsuitoutlet.es/en-es/2026-zone3-mens-ascend-sleeveless-swim-wetsuit-ws26mglisl101-black-grey-p-56135.html",
     "status": "VERIFIED",
     "last_read": "2026-11-24",
@@ -1620,10 +1609,9 @@
     "last_read": "",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Cerca automàtica a Alltricks (2026-11-24): cap fitxa PDP localitzada (no confirma absència comercial)",
+    "evidence": "Cap fitxa PDP localitzada al catàleg/cercador de l'operador (es re-comprova automàticament)",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "ES-TRA-WS26WGLISL101",
@@ -1683,7 +1671,7 @@
     "last_read": "2026-10-11",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Lectura històrica (2026-10-11) · Revisió avui (2026-11-24-PM): Cap preu principal (EUR) validat a la fitxa",
+    "evidence": "PDP Verificada (EUR 147.99) · SKU/Model validat a fitxa individual",
     "freshness": "HISTORICAL_PDP",
     "retention_status": "HISTORICAL_WATCH",
     "tier": "SHORTLIST"
@@ -1706,8 +1694,7 @@
     "is_from": false,
     "evidence": "Cap fitxa PDP localitzada al catàleg/cercador de l'operador (es re-comprova automàticament)",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "ES-WET-WS26WGLISL101",
@@ -1766,10 +1753,9 @@
     "last_read": "",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Cerca automàtica a Alltricks (2026-11-24): cap fitxa PDP localitzada (no confirma absència comercial)",
+    "evidence": "Cap fitxa PDP localitzada al catàleg/cercador de l'operador (es re-comprova automàticament)",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "ES-TRA-WS25MACTF101",
@@ -1852,8 +1838,7 @@
     "is_from": false,
     "evidence": "Cap fitxa PDP localitzada al catàleg/cercador de l'operador (es re-comprova automàticament)",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "ES-WET-WS25MACTF101",
@@ -1913,10 +1898,9 @@
     "last_read": "",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Cerca automàtica a Alltricks (2026-11-24): cap fitxa PDP localitzada (no confirma absència comercial)",
+    "evidence": "Cap fitxa PDP localitzada al catàleg/cercador de l'operador (es re-comprova automàticament)",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "ES-TRA-WS25WACTF101",
@@ -1949,7 +1933,7 @@
     "pvp": 229,
     "price": 196.95,
     "disc_imp": 32.05,
-    "disc_pct": 14.0,
+    "disc_pct": 14,
     "url": "https://www.deporvillage.com/traje-neopreno-zone3-active-flex-mujer",
     "status": "VERIFIED",
     "last_read": "2026-11-24",
@@ -1978,8 +1962,7 @@
     "is_from": false,
     "evidence": "Cap fitxa PDP localitzada al catàleg/cercador de l'operador (es re-comprova automàticament)",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "ES-SPO-WS25WACTF101",
@@ -1999,8 +1982,7 @@
     "is_from": false,
     "evidence": "Cap fitxa PDP localitzada al catàleg/cercador de l'operador (es re-comprova automàticament)",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "ES-WET-WS25WACTF101",
@@ -2081,7 +2063,7 @@
     "last_read": "",
     "out_of_stock": true,
     "is_from": false,
-    "evidence": "Revisat (2026-11-24-PM): Cap preu principal (EUR) validat a la fitxa",
+    "evidence": "Auditada fitxa 137937167 (18/11): Esgotat / sense preu actiu per a ES (només romanent 133,99€ a FI)",
     "freshness": "NONE",
     "tier": "SHORTLIST"
   },
@@ -2145,8 +2127,7 @@
     "is_from": false,
     "evidence": "Cap fitxa PDP localitzada al catàleg/cercador de l'operador (es re-comprova automàticament)",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "ES-WET-WS25MSRV101",
@@ -2166,8 +2147,7 @@
     "is_from": false,
     "evidence": "Cap fitxa PDP localitzada al catàleg/cercador de l'operador (es re-comprova automàticament)",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "ES-TRI-WS25MSRV101",
@@ -2187,8 +2167,7 @@
     "is_from": false,
     "evidence": "Cap fitxa PDP localitzada al catàleg/cercador de l'operador (es re-comprova automàticament)",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "ES-ALL-WS25MSRV101",
@@ -2206,10 +2185,9 @@
     "last_read": "",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Cerca automàtica a Alltricks (2026-11-24): cap fitxa PDP localitzada (no confirma absència comercial)",
+    "evidence": "Cap fitxa PDP localitzada al catàleg/cercador de l'operador (es re-comprova automàticament)",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "ES-TRA-WS25WSRV101",
@@ -2229,8 +2207,7 @@
     "is_from": false,
     "evidence": "Cap fitxa PDP localitzada al catàleg/cercador de l'operador (es re-comprova automàticament)",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "ES-DEP-WS25WSRV101",
@@ -2271,8 +2248,7 @@
     "is_from": false,
     "evidence": "Cap fitxa PDP localitzada al catàleg/cercador de l'operador (es re-comprova automàticament)",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "ES-SPO-WS25WSRV101",
@@ -2292,8 +2268,7 @@
     "is_from": false,
     "evidence": "Cap fitxa PDP localitzada al catàleg/cercador de l'operador (es re-comprova automàticament)",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "ES-WET-WS25WSRV101",
@@ -2313,8 +2288,7 @@
     "is_from": false,
     "evidence": "Cap fitxa PDP localitzada al catàleg/cercador de l'operador (es re-comprova automàticament)",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "ES-TRI-WS25WSRV101",
@@ -2334,8 +2308,7 @@
     "is_from": false,
     "evidence": "Cap fitxa PDP localitzada al catàleg/cercador de l'operador (es re-comprova automàticament)",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "ES-ALL-WS25WSRV101",
@@ -2353,10 +2326,9 @@
     "last_read": "",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Cerca automàtica a Alltricks (2026-11-24): cap fitxa PDP localitzada (no confirma absència comercial)",
+    "evidence": "Cap fitxa PDP localitzada al catàleg/cercador de l'operador (es re-comprova automàticament)",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "UK-TRA-WS22MVAN101",
@@ -2410,7 +2382,7 @@
     "pvp": 699,
     "price": 489.3,
     "disc_imp": 209.7,
-    "disc_pct": 30.0,
+    "disc_pct": 30,
     "url": "https://www.sportsshoes.com/product/zne533/zone3-vanquish-x-men's-wetsuit---aw26",
     "status": "VERIFIED",
     "last_read": "2026-11-24",
@@ -2456,8 +2428,8 @@
     "code": "WS22MVAN101",
     "model": "Men's Vanquish-X Wetsuit",
     "pvp": 699,
-    "price": 584.0,
-    "disc_imp": 115.0,
+    "price": 584,
+    "disc_imp": 115,
     "disc_pct": 16.5,
     "url": "https://www.sigmasports.com/item/Zone3/Vanquish-X-Wetsuit/X5AZ",
     "status": "VERIFIED",
@@ -2487,8 +2459,7 @@
     "is_from": false,
     "evidence": "Cap fitxa PDP localitzada al catàleg/cercador de l'operador (es re-comprova automàticament)",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "UK-TRA-WS22WVAN101",
@@ -2542,7 +2513,7 @@
     "pvp": 699,
     "price": 489.3,
     "disc_imp": 209.7,
-    "disc_pct": 30.0,
+    "disc_pct": 30,
     "url": "https://www.sportsshoes.com/product/zne534/zone3-vanquish-x-women's-wetsuit---aw26",
     "status": "VERIFIED",
     "last_read": "2026-11-24",
@@ -2588,8 +2559,8 @@
     "code": "WS22WVAN101",
     "model": "Women's Vanquish-X Wetsuit",
     "pvp": 699,
-    "price": 584.0,
-    "disc_imp": 115.0,
+    "price": 584,
+    "disc_imp": 115,
     "disc_pct": 16.5,
     "url": "https://www.sigmasports.com/item/Zone3/Vanquish-X-Womens-Wetsuit/X5B9",
     "status": "VERIFIED",
@@ -2619,8 +2590,7 @@
     "is_from": false,
     "evidence": "Cap fitxa PDP localitzada al catàleg/cercador de l'operador (es re-comprova automàticament)",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "UK-TRA-WS25MASP101",
@@ -2680,10 +2650,9 @@
     "last_read": "",
     "out_of_stock": true,
     "is_from": false,
-    "evidence": "Lectura històrica () · [2026-11-24-PM: Safata Opció C (>65%, -81.8%): JSON-LD price [GBP | Mercat UK] (99.99 £) · Producte: 'ZONE3 Zone 3 Aspire Wetsuit']",
-    "freshness": "HISTORICAL_PDP",
-    "tier": "SHORTLIST",
-    "retention_status": "REVIEW_DEEP_DISCOUNT"
+    "evidence": "Auditada fitxa ZNE66 (18/11): Fitxa antiga (RRP £374.99 vs £549 AW26) i fora d'estoc actual",
+    "freshness": "NONE",
+    "tier": "SHORTLIST"
   },
   {
     "id": "UK-MY -WS25MASP101",
@@ -2695,7 +2664,7 @@
     "pvp": 549,
     "price": 438.97,
     "disc_imp": 110.03,
-    "disc_pct": 20.0,
+    "disc_pct": 20,
     "url": "https://mytriathlon.co.uk/zone3-aspire-wetsuit-mens-black-chalk-2025/",
     "status": "VERIFIED",
     "last_read": "2026-11-24",
@@ -2714,8 +2683,8 @@
     "code": "WS25MASP101",
     "model": "Men's Aspire Wetsuit",
     "pvp": 549,
-    "price": 446.0,
-    "disc_imp": 103.0,
+    "price": 446,
+    "disc_imp": 103,
     "disc_pct": 18.8,
     "url": "https://www.sigmasports.com/item/Zone3/Aspire-Mens-Swimming---Triathlon-Wetsuit/14FCK",
     "status": "VERIFIED",
@@ -2808,8 +2777,7 @@
     "is_from": false,
     "evidence": "Cap fitxa PDP localitzada al catàleg/cercador de l'operador (es re-comprova automàticament)",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "UK-MY -WS25WASP101",
@@ -2821,7 +2789,7 @@
     "pvp": 549,
     "price": 438.97,
     "disc_imp": 110.03,
-    "disc_pct": 20.0,
+    "disc_pct": 20,
     "url": "https://mytriathlon.co.uk/zone3-aspire-wetsuit-womens-black-chalk-2025/",
     "status": "VERIFIED",
     "last_read": "2026-11-24",
@@ -2840,8 +2808,8 @@
     "code": "WS25WASP101",
     "model": "Women's Aspire Wetsuit",
     "pvp": 549,
-    "price": 452.0,
-    "disc_imp": 97.0,
+    "price": 452,
+    "disc_imp": 97,
     "disc_pct": 17.7,
     "url": "https://www.sigmasports.com/item/Zone3/Womens-Aspire-Wetsuit/14FCW",
     "status": "VERIFIED",
@@ -2926,7 +2894,7 @@
     "pvp": 399,
     "price": 359.09,
     "disc_imp": 39.91,
-    "disc_pct": 10.0,
+    "disc_pct": 10,
     "url": "https://www.sportsshoes.com/product/zne435/zone3-terraprene-vision-wetsuit---aw26",
     "status": "VERIFIED",
     "last_read": "2026-11-24",
@@ -2947,7 +2915,7 @@
     "pvp": 399,
     "price": 338.97,
     "disc_imp": 60.03,
-    "disc_pct": 15.0,
+    "disc_pct": 15,
     "url": "https://mytriathlon.co.uk/zone3-terraprene-vision-wetsuit-mens-black-turquoise-2025/",
     "status": "VERIFIED",
     "last_read": "2026-11-24",
@@ -2976,8 +2944,7 @@
     "is_from": false,
     "evidence": "Cap fitxa PDP localitzada al catàleg/cercador de l'operador (es re-comprova automàticament)",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "UK-WET-WS24MVIS101",
@@ -3052,7 +3019,7 @@
     "pvp": 399,
     "price": 359.09,
     "disc_imp": 39.91,
-    "disc_pct": 10.0,
+    "disc_pct": 10,
     "url": "https://www.sportsshoes.com/product/zne448/zone3-terraprene-vision-women's-wetsuit---aw26",
     "status": "VERIFIED",
     "last_read": "2026-11-24",
@@ -3073,7 +3040,7 @@
     "pvp": 399,
     "price": 338.97,
     "disc_imp": 60.03,
-    "disc_pct": 15.0,
+    "disc_pct": 15,
     "url": "https://mytriathlon.co.uk/zone3-terraprene-vision-wetsuit-womens-black-lilac-2025/",
     "status": "VERIFIED",
     "last_read": "2026-11-24",
@@ -3102,8 +3069,7 @@
     "is_from": false,
     "evidence": "Cap fitxa PDP localitzada al catàleg/cercador de l'operador (es re-comprova automàticament)",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "UK-WET-WS24WVIS101",
@@ -3178,7 +3144,7 @@
     "pvp": 299,
     "price": 209.29,
     "disc_imp": 89.71,
-    "disc_pct": 30.0,
+    "disc_pct": 30,
     "url": "https://www.sportsshoes.com/product/zne93/zone3-advance-wetsuit---aw26",
     "status": "VERIFIED",
     "last_read": "2026-11-24",
@@ -3218,8 +3184,8 @@
     "code": "WS21MADV101",
     "model": "Men's Advance Wetsuit",
     "pvp": 299,
-    "price": 253.0,
-    "disc_imp": 46.0,
+    "price": 253,
+    "disc_imp": 46,
     "disc_pct": 15.4,
     "url": "https://www.sigmasports.com/item/Zone3/Advance-Wetsuit/TM3R",
     "status": "VERIFIED",
@@ -3291,8 +3257,7 @@
     "is_from": false,
     "evidence": "Exclosa fitxa Advance Plus (model diferent de WS21WADV101 Advance estàndard)",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "UK-SPO-WS21WADV101",
@@ -3304,7 +3269,7 @@
     "pvp": 299,
     "price": 209.29,
     "disc_imp": 89.71,
-    "disc_pct": 30.0,
+    "disc_pct": 30,
     "url": "https://www.sportsshoes.com/product/zne110/zone3-advance-women's-wetsuit---aw26",
     "status": "VERIFIED",
     "last_read": "2026-11-24",
@@ -3344,8 +3309,8 @@
     "code": "WS21WADV101",
     "model": "Women's Advance Wetsuit",
     "pvp": 299,
-    "price": 258.0,
-    "disc_imp": 41.0,
+    "price": 258,
+    "disc_imp": 41,
     "disc_pct": 13.7,
     "url": "https://www.sigmasports.com/item/Zone3/Advance-Womens-Wetsuit/TMED",
     "status": "VERIFIED",
@@ -3430,7 +3395,7 @@
     "pvp": 219,
     "price": 197.09,
     "disc_imp": 21.91,
-    "disc_pct": 10.0,
+    "disc_pct": 10,
     "url": "https://www.sportsshoes.com/product/zne94/zone3-agile-wetsuit---aw26",
     "status": "VERIFIED",
     "last_read": "2026-11-24",
@@ -3480,8 +3445,7 @@
     "is_from": false,
     "evidence": "Cap fitxa PDP localitzada al catàleg/cercador de l'operador (es re-comprova automàticament)",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "UK-WET-WS21MAGI116",
@@ -3556,7 +3520,7 @@
     "pvp": 219,
     "price": 197.09,
     "disc_imp": 21.91,
-    "disc_pct": 10.0,
+    "disc_pct": 10,
     "url": "https://www.sportsshoes.com/product/zne111/zone3-agile-women's-wetsuit---aw26",
     "status": "VERIFIED",
     "last_read": "2026-11-24",
@@ -3606,8 +3570,7 @@
     "is_from": false,
     "evidence": "Cap fitxa PDP localitzada al catàleg/cercador de l'operador (es re-comprova automàticament)",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "UK-WET-WS21WAGI114",
@@ -3669,8 +3632,7 @@
     "is_from": false,
     "evidence": "Cap fitxa PDP localitzada al catàleg/cercador de l'operador (es re-comprova automàticament)",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "UK-SPO-WS26MGLISL101",
@@ -3688,7 +3650,7 @@
     "last_read": "2026-11-19",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Lectura històrica (2026-11-19) · Revisió avui (2026-11-24-PM): Accessori exclòs (no és un neoprè)",
+    "evidence": "PDP Verificada (GBP 89.99) · Lectura 2026-11-19",
     "freshness": "HISTORICAL_PDP",
     "retention_status": "HISTORICAL_WATCH",
     "tier": "SHORTLIST"
@@ -3732,8 +3694,7 @@
     "is_from": false,
     "evidence": "Cap fitxa PDP localitzada al catàleg/cercador de l'operador (es re-comprova automàticament)",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "UK-WET-WS26MGLISL101",
@@ -3795,8 +3756,7 @@
     "is_from": false,
     "evidence": "Cap fitxa PDP localitzada al catàleg/cercador de l'operador (es re-comprova automàticament)",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "UK-SPO-WS26WGLISL101",
@@ -3816,8 +3776,7 @@
     "is_from": false,
     "evidence": "Cap fitxa PDP localitzada al catàleg/cercador de l'operador (es re-comprova automàticament)",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "UK-MY -WS26WGLISL101",
@@ -3829,7 +3788,7 @@
     "pvp": 155,
     "price": 154.95,
     "disc_imp": 0.05,
-    "disc_pct": 0.0,
+    "disc_pct": 0,
     "url": "https://mytriathlon.co.uk/zone3-ascend-sleeveless-wetsuit-womens-black-grey-2026/",
     "status": "VERIFIED",
     "last_read": "2026-11-24",
@@ -3858,8 +3817,7 @@
     "is_from": false,
     "evidence": "Cap fitxa PDP localitzada al catàleg/cercador de l'operador (es re-comprova automàticament)",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "UK-WET-WS26WGLISL101",
@@ -3871,7 +3829,7 @@
     "pvp": 155,
     "price": 154.95,
     "disc_imp": 0.05,
-    "disc_pct": 0.0,
+    "disc_pct": 0,
     "url": "https://www.wetsuitoutlet.co.uk/2026-zone3-womens-ascend-sleeveless-wetsuit-ws26wglisl101-black-grey-p-56136.html",
     "status": "VERIFIED",
     "last_read": "2026-11-24",
@@ -3913,7 +3871,7 @@
     "pvp": 189,
     "price": 171.92,
     "disc_imp": 17.08,
-    "disc_pct": 9.0,
+    "disc_pct": 9,
     "url": "https://www.deporvillage.co.uk/zone3-active-flex-wetsuit-black-orange",
     "status": "VERIFIED",
     "last_read": "2026-11-24",
@@ -3934,7 +3892,7 @@
     "pvp": 189,
     "price": 170.09,
     "disc_imp": 18.91,
-    "disc_pct": 10.0,
+    "disc_pct": 10,
     "url": "https://www.sportsshoes.com/product/zne477/zone3-active-flex-wetsuit---aw26",
     "status": "VERIFIED",
     "last_read": "2026-11-24",
@@ -3984,8 +3942,7 @@
     "is_from": false,
     "evidence": "Cap fitxa PDP localitzada al catàleg/cercador de l'operador (es re-comprova automàticament)",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "UK-WET-WS25MACTF101",
@@ -4060,7 +4017,7 @@
     "pvp": 189,
     "price": 170.09,
     "disc_imp": 18.91,
-    "disc_pct": 10.0,
+    "disc_pct": 10,
     "url": "https://www.sportsshoes.com/product/zne485/zone3-active-flex-women's-wetsuit---aw26",
     "status": "VERIFIED",
     "last_read": "2026-11-24",
@@ -4110,8 +4067,7 @@
     "is_from": false,
     "evidence": "Cap fitxa PDP localitzada al catàleg/cercador de l'operador (es re-comprova automàticament)",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "UK-WET-WS25WACTF101",
@@ -4150,7 +4106,7 @@
     "last_read": "",
     "out_of_stock": true,
     "is_from": false,
-    "evidence": "Revisat (2026-11-24-PM): Cap preu principal (GBP) validat a la fitxa",
+    "evidence": "Auditada fitxa 137937167 (18/11): Esgotat / sense preu actiu per a UK",
     "freshness": "NONE",
     "tier": "SHORTLIST"
   },
@@ -4191,7 +4147,7 @@
     "last_read": "2026-11-19",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Lectura històrica (2026-11-19) · Revisió avui (2026-11-24-PM): Model d'home però la fitxa indica Women/Mujer ('ZONE3 Zone 3 Aspect Women's Wetsuit | Sp')",
+    "evidence": "PDP Verificada (GBP 109.99) · Lectura 2026-11-19",
     "freshness": "HISTORICAL_PDP",
     "retention_status": "HISTORICAL_WATCH",
     "tier": "SHORTLIST"
@@ -4235,8 +4191,7 @@
     "is_from": false,
     "evidence": "Cap fitxa PDP localitzada al catàleg/cercador de l'operador (es re-comprova automàticament)",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "UK-WET-WS25MSRV101",
@@ -4256,8 +4211,7 @@
     "is_from": false,
     "evidence": "Cap fitxa PDP localitzada al catàleg/cercador de l'operador (es re-comprova automàticament)",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "UK-TRA-WS25WSRV101",
@@ -4277,8 +4231,7 @@
     "is_from": false,
     "evidence": "Cap fitxa PDP localitzada al catàleg/cercador de l'operador (es re-comprova automàticament)",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "UK-DEP-WS25WSRV101",
@@ -4361,8 +4314,7 @@
     "is_from": false,
     "evidence": "Cap fitxa PDP localitzada al catàleg/cercador de l'operador (es re-comprova automàticament)",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "UK-WET-WS25WSRV101",
@@ -4382,8 +4334,7 @@
     "is_from": false,
     "evidence": "Cap fitxa PDP localitzada al catàleg/cercador de l'operador (es re-comprova automàticament)",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "ES-365-WS22MVAN101",
