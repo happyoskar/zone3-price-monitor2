@@ -24,8 +24,18 @@ from playwright.async_api import async_playwright
 ZYTE_API_KEY = os.environ.get("ZYTE_API_KEY", "").strip()
 START_MONOTONIC = time.monotonic()
 PHASE2_START_MONOTONIC = None
-PHASE2_BUDGET_SEC = 360       # 6-minute dedicated budget exclusively for Phase 2 Auto-Discovery
-MAX_TOTAL_RUNTIME_SEC = 1080  # 18-minute global safety cap
+PHASE2_BUDGET_SEC = 720       # 12-minute dedicated budget for Phase 2 Auto-Discovery (17 operator columns)
+MAX_TOTAL_RUNTIME_SEC = 2400  # 40-minute global safety cap inside 60-minute GitHub Actions workflow
+
+SECONDARY_OPERATORS = {
+    ("ES", "365Rider"),
+    ("ES", "ProSwimwear"),
+    ("UK", "Start Fitness"),
+    ("UK", "ProSwimwear"),
+}
+
+def is_secondary_operator(country, operator):
+    return (country, operator) in SECONDARY_OPERATORS
 MAX_CLEAN_NEW_DISC_PCT = 65.0          # Opció C: fins al 65.0% automàtic en fitxes 100% d'unitat nova
 CLEAN_NEW_MIN_RATIO = 0.35             # 1.0 - 0.65
 MIXED_EX_RENTAL_MIN_RATIO = 0.60       # Bloqueig estructural en fitxes amb selector mixt Ex-Rental (p. ex. < £420 a Vanquish-X)
@@ -74,7 +84,11 @@ GENERIC_URL_PATTERNS = [
     "swimming-triathlon",
     "zone3%3awomen",
     "/store/zone-3/",
-    "/marcas/zone3"
+    "/marcas/zone3",
+    "/brand/6-zone3",
+    "/collections/zone3",
+    "/product-category/",
+    "/zone3-wetsuits"
 ]
 
 OPERATOR_CATALOG_URLS = {
@@ -186,6 +200,31 @@ OPERATOR_CATALOG_URLS = {
         "https://www.wetsuitoutlet.co.uk/advanced_search_result.php?keywords=zone3+vanquish",
         "https://www.wetsuitoutlet.co.uk/advanced_search_result.php?keywords=zone3+aspire",
         "https://www.wetsuitoutlet.co.uk/advanced_search_result.php?keywords=zone3+versa"
+    ],
+    ("ES", "365Rider"): [
+        "https://www.365rider.com/brand/6-zone3",
+        "https://www.365rider.com/es/brand/6-zone3",
+        "https://www.365rider.com/busqueda?controller=search&s=zone3+neopreno",
+        "https://www.365rider.com/jolisearch?s=zone3+neopreno"
+    ],
+    ("ES", "ProSwimwear"): [
+        "https://www.proswimwear.es/product-category/brands/zone3/zone3-wetsuits/",
+        "https://www.proswimwear.es/product-category/brands/zone3/zone3-wetsuits/page/2/",
+        "https://www.proswimwear.es/brands/zone3/zone3-wetsuits.html",
+        "https://www.proswimwear.es/?s=zone3+neopreno&post_type=product",
+        "https://www.proswimwear.es/catalogsearch/result/?q=zone3+wetsuit"
+    ],
+    ("UK", "Start Fitness"): [
+        "https://startfitness.co.uk/collections/zone3",
+        "https://www.startfitness.co.uk/collections/zone3",
+        "https://startfitness.co.uk/search?q=zone3+wetsuit&type=product"
+    ],
+    ("UK", "ProSwimwear"): [
+        "https://www.proswimwear.co.uk/product-category/brands/zone3/zone3-wetsuits/",
+        "https://www.proswimwear.co.uk/product-category/brands/zone3/zone3-wetsuits/page/2/",
+        "https://www.proswimwear.co.uk/brands/zone3/zone3-wetsuits.html",
+        "https://www.proswimwear.co.uk/?s=zone3+wetsuit&post_type=product",
+        "https://www.proswimwear.co.uk/catalogsearch/result/?q=zone3+wetsuit"
     ]
 }
 
@@ -289,7 +328,11 @@ OPERATOR_DOMAIN_FILTER = {
     ("UK", "Sportshoes"): "sportsshoes.com",
     ("UK", "My Triathlon"): "mytriathlon.co.uk",
     ("UK", "Sigma"): "sigmasports.com",
-    ("UK", "Wetsuit Outlet"): "wetsuitoutlet.co.uk"
+    ("UK", "Wetsuit Outlet"): "wetsuitoutlet.co.uk",
+    ("ES", "365Rider"): "365rider.com",
+    ("ES", "ProSwimwear"): "proswimwear.es",
+    ("UK", "Start Fitness"): "startfitness.co.uk",
+    ("UK", "ProSwimwear"): "proswimwear.co.uk"
 }
 
 MODEL_KEYWORDS = {
@@ -345,7 +388,7 @@ def is_generic_category_url(u):
         return True
     if any(p in u_low for p in GENERIC_URL_PATTERNS):
         return True
-    if any(x in u_low for x in ["/search", "catalogsearch", "searchterm=", "?q=", "/s?k=", "advanced_search_result"]):
+    if any(x in u_low for x in ["/search", "catalogsearch", "searchterm=", "?q=", "/s?k=", "advanced_search_result", "controller=search", "jolisearch", "?s=", "&post_type=product"]):
         return True
     return False
 
@@ -392,8 +435,11 @@ def validate_product_identity(text_to_check, url, code, model_name):
     if any(used_tok in raw_combined or used_tok in combined for used_tok in USED_ITEM_TOKENS):
         return False, "Producte de 2a mà / Ex-Rental exclòs (només producte nou)"
 
-    if any(re.search(r"\b" + re.escape(bad) + r"\b", combined) for bad in ["goggles", "gafas", "gloves", "guantes", "socks", "calcetines", "buoy", "boya", "cap", "caps", "gorro", "trisuit", "kneeskin", "jammer"]):
+    if any(re.search(r"\b" + re.escape(bad) + r"\b", combined) for bad in ["goggles", "gafas", "gloves", "guantes", "socks", "calcetines", "buoy", "boya", "cap", "caps", "gorro", "trisuit", "kneeskin", "jammer", "parka", "jacket", "shorts", "pants", "backpack", "bag"]):
         return False, "Accessori exclòs (no és un neoprè)"
+
+    if re.search(r"\b(?:201[5-9]|2020)\b", combined):
+        return False, "Model de temporada antiga (2015-2020) exclòs"
 
     is_womens_model = "W" in code[4:6] or "women" in model_name.lower()
     has_female_word = any(re.search(r"\b" + w + r"\b", combined) for w in FEMALE_TOKENS)
@@ -415,6 +461,8 @@ def validate_market_url(url, country):
             return False, "URL TradeInn amb paràmetre country=es en mercat UK"
         if country == "ES" and "country=uk" in u_low:
             return False, "URL TradeInn amb paràmetre country=uk en mercat ES"
+    if "365rider.com" in u_low and country == "ES" and "/gb/" in u_low:
+        return False, "URL 365Rider amb ruta /gb/ en mercat ES"
     return True, f"Mercat {country} validat a la URL"
 
 def fetch_zyte_raw_sync(url, country):
@@ -775,7 +823,7 @@ def parse_html_fast_stdlib(html_str, base_url, zprod=None):
             txt_dt = re.sub(r"<[^>]+>", " ", m_dt.group(1)).strip()
             if txt_dt and len(txt_dt) < 35:
                 dom_prices.append({"selector": "[data-testid=product-price]", "text": txt_dt, "attrCurr": meta_curr})
-        for m_cls in re.finditer(r'class=["\'][^"\']*(?:product-detail-price|pdp-price|product-page-price|price--main|price--withTax|product-price__price|now-price|price-now)[^"\']*["\'][^>]*>(.*?)</(?:span|div|p|strong)>', main_html, flags=re.I | re.S):
+        for m_cls in re.finditer(r'class=["\'][^"\']*(?:product-detail-price|pdp-price|product-page-price|price--main|price--withTax|product-price__price|now-price|price-now|current-price-value)[^"\']*["\'][^>]*>(.*?)</(?:span|div|p|strong)>', main_html, flags=re.I | re.S):
             ctx_prev = main_html[max(0, m_cls.start() - 450):m_cls.start()].lower()
             if any(ut in ctx_prev for ut in used_ctx_tokens):
                 continue
@@ -829,7 +877,7 @@ def parse_html_fast_stdlib(html_str, base_url, zprod=None):
 
         # Also extract PDP URLs embedded in JSON-LD ItemList or hydration state (Alltricks /P-, Wetsuit Outlet -p-, Sportano /p/, Sigma /item/, Sportshoes /product/)
         for m_json_u in re.finditer(
-            r'["\']((?:https?:\\?/\\?/[^"\']*?|\\?/(?:es-es/|en-es/)?)(?:F-\d+-[^"\']*?/P-\d+-[^"\']+|[^"\']*?-p-\d+\.html|p/\d+/[^"\']+|item/Zone3/[^"\']+|product/zne\d+/[^"\']+|traje-(?:de-)?neopreno-zone3-[^"\']+|zone3-[^"\']+))["\']',
+            r'["\']((?:https?:\\?/\\?/[^"\']*?|\\?/(?:es-es/|en-es/|es/)?)(?:F-\d+-[^"\']*?/P-\d+-[^"\']+|[^"\']*?-p-\d+\.html|\d+-[^"\']*zone3[^"\']*\.html|products/[^"\']*zone3[^"\']+|product/[^"\']*zone3[^"\']+|p/\d+/[^"\']+|item/Zone3/[^"\']+|product/zne\d+/[^"\']+|traje-(?:de-)?neopreno-zone3-[^"\']+|zone3-[^"\']+))["\']',
             html_str,
             flags=re.I
         ):
@@ -941,6 +989,12 @@ def is_operator_pdp_url(href, expected_dom):
         return "zone3-" in h_low
     if "mytriathlon.co.uk" in h_low:
         return "zone3-" in h_low
+    if "365rider.com" in h_low:
+        return h_low.endswith(".html") and bool(re.search(r"/\d+-", h_low))
+    if "startfitness.co.uk" in h_low:
+        return ("/products/" in h_low or ("zone3" in h_low and "/collections/" not in h_low)) and "/search" not in h_low and not h_low.rstrip("/").endswith("/zone3")
+    if "proswimwear." in h_low:
+        return ("zone3" in h_low or "/product/" in h_low) and not any(x in h_low for x in ["catalogsearch", "product-category", "/brands/", "?s=", "/search", "zone3.html", "zone3-wetsuits", "/page/"])
     return True
 
 async def fetch_discovery_links(page, url, country, expected_dom, force_zyte=False):
@@ -996,7 +1050,11 @@ async def discover_missing_pdps(page_es, page_uk, tracking, today_str, domain_bl
 
     discovered_total = 0
 
-    for (country, operator), rows in missing_by_op.items():
+    ordered_op_groups = sorted(
+        missing_by_op.items(),
+        key=lambda kv: (1 if is_secondary_operator(kv[0][0], kv[0][1]) else 0, kv[0][0], kv[0][1])
+    )
+    for (country, operator), rows in ordered_op_groups:
         if is_time_budget_exceeded(margin_sec=45):
             print(f"[Time Budget] Stopping Auto-Discovery cleanly before ({country}, {operator}) to guarantee commit.")
             break
@@ -1092,6 +1150,22 @@ async def discover_missing_pdps(page_es, page_uk, tracking, today_str, domain_bl
                 ],
                 ("UK", "Sportshoes"): [
                     f"https://www.sportsshoes.com/products/?q=zone3%20{kw_main}"
+                ],
+                ("ES", "365Rider"): [
+                    f"https://www.365rider.com/busqueda?controller=search&s=zone3+{kw_main}",
+                    f"https://www.365rider.com/busqueda?controller=search&s={code}"
+                ],
+                ("ES", "ProSwimwear"): [
+                    f"https://www.proswimwear.es/?s=zone3+{kw_main}&post_type=product",
+                    f"https://www.proswimwear.es/catalogsearch/result/?q=zone3+{kw_main}"
+                ],
+                ("UK", "Start Fitness"): [
+                    f"https://startfitness.co.uk/search?q=zone3+{kw_main}+{gender_en}&type=product",
+                    f"https://startfitness.co.uk/search?q={code}&type=product"
+                ],
+                ("UK", "ProSwimwear"): [
+                    f"https://www.proswimwear.co.uk/?s=zone3+{kw_main}&post_type=product",
+                    f"https://www.proswimwear.co.uk/catalogsearch/result/?q=zone3+{kw_main}"
                 ]
             }
             for s_u in op_search_templates.get((country, operator), []):
@@ -1248,8 +1322,8 @@ def evaluate_page_info_candidates(page_info, row, source_prefix=""):
     currency_mismatch = False
 
     has_local_domain_currency = (
-        (country == "ES" and any(d in u_low for d in [".es/", ".nl/", "country=es", "currency=eur", "deporvillage.com/", "sportano.com/", "wetsuitoutlet.es/", "alltricks.es/"])) or
-        (country == "UK" and any(d in u_low for d in [".co.uk/", "country=uk", "currency=gbp", "sigmasports.com/", "sportsshoes.com/", "wetsuitoutlet.co.uk/"]))
+        (country == "ES" and any(d in u_low for d in [".es/", ".nl/", "country=es", "currency=eur", "deporvillage.com/", "sportano.com/", "wetsuitoutlet.es/", "alltricks.es/", "365rider.com/", "proswimwear.es/"])) or
+        (country == "UK" and any(d in u_low for d in [".co.uk/", "country=uk", "currency=gbp", "sigmasports.com/", "sportsshoes.com/", "wetsuitoutlet.co.uk/", "startfitness.co.uk/", "proswimwear.co.uk/"]))
     )
     m_curr = str(page_info.get("metaCurr", "")).upper().strip()
     if m_curr in ("€", "EUR"):
@@ -1634,6 +1708,9 @@ def get_canonical_url_candidates(url, country):
     elif country == "ES" and "deporvillage.es/" in u.lower():
         com_mirror = re.sub(r"https?://(?:www\.)?deporvillage\.es/", "https://www.deporvillage.com/", u, flags=re.I)
         return [u, com_mirror] if com_mirror != u else [u]
+    elif country == "ES" and "365rider.com/en/" in u.lower():
+        es_365 = re.sub(r"/en/", "/es/", u, count=1, flags=re.I)
+        return [es_365, u]
     return [u]
 
 async def extract_verified_pdp_price(page, row, force_zyte_only=False):
@@ -1786,7 +1863,8 @@ async def extract_verified_pdp_price(page, row, force_zyte_only=False):
                     const selectors = [
                         '#js-precio', '#productPrice', '[data-testid="product-price"]',
                         '.product-detail-price', '.pdp-price', '.product-page-price',
-                        '[data-product-price-with-tax]', '[data-price-type="finalPrice"]', '.price--withTax', '.price--main', '.product-price__price'
+                        '[data-product-price-with-tax]', '[data-price-type="finalPrice"]', '.price--withTax', '.price--main', '.product-price__price',
+                        '.current-price-value', '.current-price span[content]', '.summary p.price ins .woocommerce-Price-amount', '.summary p.price > .woocommerce-Price-amount'
                     ];
                     const domPrices = [];
                     selectors.forEach(sel => {
@@ -2011,6 +2089,7 @@ def save_all_state(tracking, history):
     for r in tracking:
         r.pop("_rediscovered_today", None)
         r.pop("_last_scan_code", None)
+        r["tier"] = "SECONDARY" if is_secondary_operator(r.get("country"), r.get("operator")) else "SHORTLIST"
 
     enforce_history_hygiene(history)
     history.sort(key=lambda x: (str(x.get("timestamp", "")), str(x.get("run_slot", "")), x.get("country", ""), x.get("operator", ""), x.get("code", "")))
@@ -2153,7 +2232,7 @@ async def main():
     domain_blocks = {}
     CIRCUIT_BREAKER_LIMIT = 1 if ZYTE_API_KEY else 2
 
-    print(f"Starting Zone3 RetentionGuard v11.4 (Europe/Madrid 07:30/19:30 CET + Next.js + Opció C) ({now_iso}) | Opció C (<=65% Nou) | Baseline T-1 ({prev_scan_date}): {len(t_minus_1_keys)} lectures | Zyte: {'ENABLED' if ZYTE_API_KEY else 'PLAYWRIGHT_ONLY'}")
+    print(f"Starting Zone3 RetentionGuard v12.0 (13 Shortlist + 4 Secondary | Europe/Madrid + Opció C) ({now_iso}) | Opció C (<=65% Nou) | Baseline T-1 ({prev_scan_date}): {len(t_minus_1_keys)} lectures | Zyte: {'ENABLED' if ZYTE_API_KEY else 'PLAYWRIGHT_ONLY'}")
 
     async with async_playwright() as p:
         browser = await p.chromium.launch(
@@ -2184,8 +2263,11 @@ async def main():
         circuit_skipped = 0
         broken_row_ids = set()
 
-        # PHASE 1: Primary PDP Price Verification
-        for row in tracking:
+        # PHASE 1: Primary PDP Price Verification (Shortlist always prioritized before Secondary)
+        phase1_order = sorted(tracking, key=lambda r: 1 if is_secondary_operator(r.get("country"), r.get("operator")) else 0)
+        for row in phase1_order:
+            if is_time_budget_exceeded(margin_sec=180) and is_secondary_operator(row.get("country"), row.get("operator")):
+                break
             row["is_from"] = False
             url = row.get("url", "").strip()
             if not url:
@@ -2270,7 +2352,7 @@ async def main():
             and not is_generic_category_url(r.get("url", ""))
             and r.get("retention_status") not in ("REVIEW_DEEP_DISCOUNT", "QUARANTINED_EX_RENTAL")
         ]
-        lost_rows.sort(key=lambda r: (0 if (r["country"], r["operator"], r["code"]) in t_minus_1_keys else 1, r["id"]))
+        lost_rows.sort(key=lambda r: (1 if is_secondary_operator(r["country"], r["operator"]) else 0, 0 if (r["country"], r["operator"], r["code"]) in t_minus_1_keys else 1, r["id"]))
 
         if lost_rows:
             print(f"[RETENTION T vs T-1 RESCUE] {len(lost_rows)} VERIFIED PDPs unread in Phase 1 ({sum(1 for r in lost_rows if (r['country'], r['operator'], r['code']) in t_minus_1_keys)} from T-1). Running Dual-Channel Rescue...")
