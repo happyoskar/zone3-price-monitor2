@@ -24,8 +24,39 @@ from playwright.async_api import async_playwright
 ZYTE_API_KEY = os.environ.get("ZYTE_API_KEY", "").strip()
 START_MONOTONIC = time.monotonic()
 PHASE2_START_MONOTONIC = None
-PHASE2_BUDGET_SEC = 540       # 12-minute dedicated budget for Phase 2 Auto-Discovery (17 operator columns)
-MAX_TOTAL_RUNTIME_SEC = 2100  # 40-minute global safety cap inside 60-minute GitHub Actions workflow
+PHASE2_BUDGET_SEC = 1080      # 18-minute dedicated budget for 100% automatic Phase 2 Auto-Discovery (freed by Dual-Lane ES || UK)
+MAX_TOTAL_RUNTIME_SEC = 2280  # 38-minute global safety cap (leaves 7-min buffer inside 45-min GitHub Actions workflow)
+
+PERMANENT_EXCLUSIONS = {
+    "UK-DEP-WS21WADV101": "Exclosa fitxa Advance Plus (model diferent de WS21WADV101 Advance estàndard)",
+    "UK-STA-WS25MSRV101": "Exclòs permanentment per configuració d'usuari (liquidació Start Fitness fora d'abast)"
+}
+
+DOMAIN_LOCKS = {}
+DOMAIN_LAST_HIT = {}
+MIN_SAME_DOMAIN_GAP_SEC = 1.3
+
+def get_root_host(url):
+    try:
+        host = (urlparse(str(url or "")).netloc or "").lower()
+        return host[4:] if host.startswith("www.") else (host or "unknown")
+    except Exception:
+        return "unknown"
+
+async def throttled_domain_guard(url):
+    if not url:
+        return
+    host = get_root_host(url)
+    lock = DOMAIN_LOCKS.get(host)
+    if lock is None:
+        lock = asyncio.Lock()
+        DOMAIN_LOCKS[host] = lock
+    async with lock:
+        now_t = time.monotonic()
+        elapsed = now_t - DOMAIN_LAST_HIT.get(host, 0.0)
+        if elapsed < MIN_SAME_DOMAIN_GAP_SEC:
+            await asyncio.sleep(MIN_SAME_DOMAIN_GAP_SEC - elapsed)
+        DOMAIN_LAST_HIT[host] = time.monotonic()
 
 SECONDARY_OPERATORS = {
     ("ES", "365Rider"),
@@ -203,73 +234,34 @@ OPERATOR_CATALOG_URLS = {
     ],
     ("ES", "365Rider"): [
         "https://www.365rider.com/brand/6-zone3",
-        "https://www.365rider.com/es/brand/6-zone3",
+        "https://www.365rider.com/brand/6-zone3?page=2",
         "https://www.365rider.com/busqueda?controller=search&s=zone3+neopreno",
-        "https://www.365rider.com/jolisearch?s=zone3+neopreno"
+        "https://www.365rider.com/busqueda?controller=search&s=zone3"
     ],
     ("ES", "ProSwimwear"): [
         "https://www.proswimwear.es/product-category/brands/zone3/zone3-wetsuits/",
         "https://www.proswimwear.es/product-category/brands/zone3/zone3-wetsuits/page/2/",
-        "https://www.proswimwear.es/brands/zone3/zone3-wetsuits.html",
+        "https://www.proswimwear.es/product-category/brands/zone3/",
         "https://www.proswimwear.es/?s=zone3+neopreno&post_type=product",
-        "https://www.proswimwear.es/catalogsearch/result/?q=zone3+wetsuit"
+        "https://www.proswimwear.es/?s=zone3+wetsuit&post_type=product"
     ],
     ("UK", "Start Fitness"): [
         "https://startfitness.co.uk/collections/zone3",
-        "https://www.startfitness.co.uk/collections/zone3",
-        "https://startfitness.co.uk/search?q=zone3+wetsuit&type=product"
+        "https://startfitness.co.uk/collections/zone3?page=2",
+        "https://startfitness.co.uk/search?q=zone3+wetsuit&type=product",
+        "https://startfitness.co.uk/search?q=zone3&type=product"
     ],
     ("UK", "ProSwimwear"): [
         "https://www.proswimwear.co.uk/product-category/brands/zone3/zone3-wetsuits/",
         "https://www.proswimwear.co.uk/product-category/brands/zone3/zone3-wetsuits/page/2/",
-        "https://www.proswimwear.co.uk/brands/zone3/zone3-wetsuits.html",
-        "https://www.proswimwear.co.uk/?s=zone3+wetsuit&post_type=product",
-        "https://www.proswimwear.co.uk/catalogsearch/result/?q=zone3+wetsuit"
+        "https://www.proswimwear.co.uk/product-category/brands/zone3/",
+        "https://www.proswimwear.co.uk/?s=zone3+wetsuit&post_type=product"
     ]
 }
 
 # Candidate direct URLs & sequential ID probes for missing SKUs across operators
 DIRECT_CANDIDATE_PROBES = {
-    ("UK", "Start Fitness", "WS21MADV101"): [
-        "https://startfitness.co.uk/products/zone3-advance-mens-wetsuit-black-3",
-        "https://startfitness.co.uk/products/zone3-advance-mens-wetsuit-black-2",
-        "https://startfitness.co.uk/products/zone3-advance-mens-wetsuit-black-1",
-        "https://startfitness.co.uk/products/zone3-mens-advance-wetsuit-black"
-    ],
-    ("UK", "Start Fitness", "WS21WADV101"): [
-        "https://startfitness.co.uk/products/zone3-advance-womens-wetsuit-black-3",
-        "https://startfitness.co.uk/products/zone3-advance-womens-wetsuit-black-2",
-        "https://startfitness.co.uk/products/zone3-advance-womens-wetsuit-black-1",
-        "https://startfitness.co.uk/products/zone3-womens-advance-wetsuit-black"
-    ],
-    ("UK", "ProSwimwear", "WS21WAGI114"): [
-        "https://www.proswimwear.co.uk/product/zone3-women-s-agile-wetsuit/",
-        "https://www.proswimwear.co.uk/product/zone3-womens-agile-wetsuit/"
-    ],
-    ("ES", "ProSwimwear", "WS21WAGI114"): [
-        "https://www.proswimwear.es/product/zone3-women-s-agile-wetsuit/?wmc-currency=EUR",
-        "https://www.proswimwear.es/product/zone3-womens-agile-wetsuit/?wmc-currency=EUR"
-    ],
-    ("UK", "ProSwimwear", "WS24MVIS101"): [
-        "https://www.proswimwear.co.uk/product/zone3-men-s-vision-wetsuit/",
-        "https://www.proswimwear.co.uk/product/zone3-men-s-terraprene-vision-wetsuit/"
-    ],
-    ("UK", "ProSwimwear", "WS24WVIS101"): [
-        "https://www.proswimwear.co.uk/product/zone3-women-s-vision-wetsuit/",
-        "https://www.proswimwear.co.uk/product/zone3-women-s-terraprene-vision-wetsuit/"
-    ],
-    ("UK", "ProSwimwear", "WS25MASP101"): [
-        "https://www.proswimwear.co.uk/product/zone3-men-s-aspire-wetsuit/"
-    ],
-    ("UK", "ProSwimwear", "WS25WASP101"): [
-        "https://www.proswimwear.co.uk/product/zone3-women-s-aspire-wetsuit/"
-    ],
-    ("UK", "ProSwimwear", "WS22MVAN101"): [
-        "https://www.proswimwear.co.uk/product/zone3-men-s-vanquish-x-wetsuit/"
-    ],
-    ("UK", "ProSwimwear", "WS22WVAN101"): [
-        "https://www.proswimwear.co.uk/product/zone3-women-s-vanquish-x-wetsuit/"
-    ],
+
     ("ES", "Bike 24", "WS25WACTF101"): [
         "https://www.bike24.es/productos/1004855",
         "https://www.bike24.es/productos/1004859",
@@ -1054,6 +1046,7 @@ async def fetch_discovery_links(page, url, country, expected_dom, force_zyte=Fal
     used_zyte = force_zyte
     if not force_zyte:
         try:
+            await throttled_domain_guard(url)
             resp = await page.goto(url, wait_until="domcontentloaded", timeout=12000)
             if resp and resp.status == 200:
                 await page.wait_for_timeout(1000)
@@ -1082,7 +1075,7 @@ async def fetch_discovery_links(page, url, country, expected_dom, force_zyte=Fal
     return links, used_zyte
 
 async def discover_missing_pdps(page_es, page_uk, tracking, today_str, domain_blocks=None, broken_row_ids=None):
-    """Fast, time-bounded Deep Auto-Discovery engine with concurrent Zyte batching and self-healing for HTTP 404 URLs."""
+    """Dual-Lane (ES || UK) 100% Automatic Deep Auto-Discovery engine with per-domain throttling and Auto-Audit seal."""
     global PHASE2_START_MONOTONIC
     PHASE2_START_MONOTONIC = time.monotonic()
     COMPLETED_DISCOVERY_OPS.clear()
@@ -1090,13 +1083,14 @@ async def discover_missing_pdps(page_es, page_uk, tracking, today_str, domain_bl
     broken_row_ids = broken_row_ids or set()
     missing_by_op = {}
     for row in tracking:
-        if row.get("id") == "UK-DEP-WS21WADV101":
+        if row.get("id") in PERMANENT_EXCLUSIONS:
             continue
         st = row.get("status", "")
         if st in ("UNMAPPED", "NOT_LISTED", "PENDING_PDP") or not row.get("url") or row.get("id") in broken_row_ids:
+            # Skip already confirmed manual NOT_LISTED on Shortlist unless broken, but always audit UNMAPPED
+            if st == "NOT_LISTED" and not is_secondary_operator(row["country"], row["operator"]) and row.get("id") not in broken_row_ids:
+                continue
             missing_by_op.setdefault((row["country"], row["operator"]), []).append(row)
-
-    discovered_total = 0
 
     mapped_count_by_op = {}
     for r_all in tracking:
@@ -1111,223 +1105,237 @@ async def discover_missing_pdps(page_es, page_uk, tracking, today_str, domain_bl
             return (0, 0, op_key[0], op_key[1])
         is_sec = is_secondary_operator(op_key[0], op_key[1])
         mapped_cnt = mapped_count_by_op.get(op_key, 0)
-        # Prioritize newly added Secondary operators (or any operator with < 5 mapped PDPs) ahead of mature Shortlist gaps
         if is_sec or mapped_cnt < 5:
             return (1, mapped_cnt, op_key[0], op_key[1])
         return (2, len(op_rows), op_key[0], op_key[1])
 
-    ordered_op_groups = sorted(missing_by_op.items(), key=_op_discovery_priority)
-    PER_OP_DISCOVERY_CAP_SEC = 75
+    es_groups = sorted([(k, v) for k, v in missing_by_op.items() if k[0] == "ES"], key=_op_discovery_priority)
+    uk_groups = sorted([(k, v) for k, v in missing_by_op.items() if k[0] == "UK"], key=_op_discovery_priority)
 
-    for (country, operator), rows in ordered_op_groups:
-        if is_time_budget_exceeded(margin_sec=45):
-            print(f"[Time Budget] Stopping Auto-Discovery cleanly before ({country}, {operator}) to guarantee commit.")
-            break
-        op_disc_start = time.monotonic()
+    discovered_counter = {"count": 0}
 
-        cat_urls = OPERATOR_CATALOG_URLS.get((country, operator), [])
-        expected_dom = OPERATOR_DOMAIN_FILTER.get((country, operator), "")
-        page = page_uk if country == "UK" else page_es
-        dom_is_blocked = any(expected_dom in d and cnt >= 1 for d, cnt in domain_blocks.items())
-        collected_links = []
-
-        # 0. Direct candidate probes for priority missing SKUs
-        if dom_is_blocked and ZYTE_API_KEY:
-            all_probes = [u for r in rows for u in DIRECT_CANDIDATE_PROBES.get((country, operator, r["code"]), [])]
-            await prefetch_zyte_batch(page, all_probes, country)
-
-        for row in list(rows):
+    async def _discover_country_lane(lane_groups, page):
+        for (country, operator), rows in lane_groups:
             if is_time_budget_exceeded(margin_sec=45):
+                print(f"[Time Budget] Stopping Auto-Discovery cleanly before ({country}, {operator}) to guarantee commit.")
                 break
-            probe_urls = DIRECT_CANDIDATE_PROBES.get((country, operator, row["code"]), [])
-            for p_url in probe_urls:
-                if p_url == row.get('url') and row.get('id') in broken_row_ids:
-                    continue
-                try:
-                    page_title_h1 = ""
-                    if not dom_is_blocked:
-                        resp = await page.goto(p_url, wait_until="domcontentloaded", timeout=10000)
-                        if resp and resp.status == 200:
-                            await page.wait_for_timeout(800)
-                            page_title_h1 = await page.evaluate("() => (document.title || '') + ' | ' + Array.from(document.querySelectorAll('h1')).map(e => e.innerText).join(' ')")
-                    if (not page_title_h1 or "moment" in page_title_h1.lower()) and ZYTE_API_KEY:
-                        dom_is_blocked = True
-                        zinfo = await fetch_via_zyte(page, p_url, country)
-                        if zinfo:
-                            page_title_h1 = f"{zinfo.get('title', '')} | {zinfo.get('h1', '')}"
-                    if page_title_h1:
-                        id_ok, _ = validate_product_identity(page_title_h1, p_url, row["code"], row["model"])
-                        if id_ok:
-                            row["url"] = p_url
-                            row["status"] = "PENDING_URL"
-                            row["evidence"] = f"Auto-Discovery Probe ({today_str}): Fitxa PDP verificada a {operator} ({country})"
-                            discovered_total += 1
-                            rows.remove(row)
-                            break
-                except Exception:
-                    continue
+            op_disc_start = time.monotonic()
+            is_sec_op = is_secondary_operator(country, operator)
+            per_op_cap = 165 if is_sec_op else 75
 
-        if not rows or is_time_budget_exceeded(margin_sec=45):
-            continue
+            cat_urls = OPERATOR_CATALOG_URLS.get((country, operator), [])
+            expected_dom = OPERATOR_DOMAIN_FILTER.get((country, operator), "")
+            dom_is_blocked = any(expected_dom in d and cnt >= 1 for d, cnt in domain_blocks.items())
+            collected_links = []
 
-        # 1. Build deduplicated list of catalog + targeted search URLs for the missing models of this operator
-        op_discovery_urls = list(cat_urls)
-        for row in rows:
-            code = row["code"]
-            model_name = row["model"]
-            ean = MODEL_EANS.get(code, "")
-            kw_main = (MODEL_KEYWORDS.get(code) or [""])[0]
-            is_w = ("W" in code[4:6] or "women" in model_name.lower())
-            gender_en = "women" if is_w else "men"
-            gender_es = "mujer" if is_w else "hombre"
-            op_search_templates = {
-                ("ES", "Alltricks"): [
-                    f"https://www.alltricks.es/s?k=zone3+{kw_main}+{gender_es}",
-                    f"https://www.alltricks.es/s?k=zone3+{kw_main}"
-                ],
-                ("ES", "Wetsuit Outlet"): [
-                    f"https://www.wetsuitoutlet.es/es-es/search?q=zone3+{kw_main}",
-                    f"https://www.wetsuitoutlet.es/en-es/search?q=zone3+{kw_main}+{gender_en}"
-                ],
-                ("UK", "Wetsuit Outlet"): [
-                    f"https://www.wetsuitoutlet.co.uk/search?q=zone3+{kw_main}+{gender_en}",
-                    f"https://www.wetsuitoutlet.co.uk/search?q={code[:8]}"
-                ],
-                ("ES", "Sportano"): [
-                    f"https://sportano.com/en/search?q={code}",
-                    f"https://sportano.com/en/search?q=zone3+{kw_main}+{gender_en}"
-                ],
-                ("ES", "Deporvillage"): [
-                    f"https://www.deporvillage.com/catalogsearch/result/?q=zone3+{kw_main}",
-                    f"https://www.deporvillage.com/catalogsearch/result/?q={ean}"
-                ],
-                ("UK", "Deporvillage"): [
-                    f"https://www.deporvillage.co.uk/catalogsearch/result/?q=zone3+{kw_main}",
-                    f"https://www.deporvillage.co.uk/catalogsearch/result/?q={ean}"
-                ],
-                ("ES", "Bike 24"): [
-                    f"https://www.bike24.es/buscar?searchTerm=zone3+{kw_main}"
-                ],
-                ("ES", "Triathlon24"): [
-                    f"https://www.triathlon24.nl/search/zone3+{kw_main}/"
-                ],
-                ("UK", "Sigma"): [
-                    f"https://www.sigmasports.com/search?q=zone3+{kw_main}&sort=price-high-low"
-                ],
-                ("UK", "Sportshoes"): [
-                    f"https://www.sportsshoes.com/products/?q=zone3%20{kw_main}"
-                ],
-                ("ES", "365Rider"): [
-                    f"https://www.365rider.com/busqueda?controller=search&s=zone3+{kw_main}",
-                    f"https://www.365rider.com/busqueda?controller=search&s={code}"
-                ],
-                ("ES", "ProSwimwear"): [
-                    f"https://www.proswimwear.es/?s=zone3+{kw_main}&post_type=product",
-                    f"https://www.proswimwear.es/catalogsearch/result/?q=zone3+{kw_main}"
-                ],
-                ("UK", "Start Fitness"): [
-                    f"https://startfitness.co.uk/search?q=zone3+{kw_main}+{gender_en}&type=product",
-                    f"https://startfitness.co.uk/search?q={code}&type=product"
-                ],
-                ("UK", "ProSwimwear"): [
-                    f"https://www.proswimwear.co.uk/?s=zone3+{kw_main}&post_type=product",
-                    f"https://www.proswimwear.co.uk/catalogsearch/result/?q=zone3+{kw_main}"
-                ]
-            }
-            for s_u in op_search_templates.get((country, operator), []):
-                if s_u not in op_discovery_urls:
-                    op_discovery_urls.append(s_u)
+            # 0. Direct candidate probes (only for historic Shortlist SKUs if any)
+            if dom_is_blocked and ZYTE_API_KEY:
+                all_probes = [u for r in rows for u in DIRECT_CANDIDATE_PROBES.get((country, operator, r["code"]), [])]
+                await prefetch_zyte_batch(page, all_probes, country)
 
-        # If domain is blocked in Playwright, prefetch all discovery URLs for this operator concurrently via Zyte (6 at a time)!
-        if dom_is_blocked and ZYTE_API_KEY:
-            await prefetch_zyte_batch(page, op_discovery_urls, country, is_pdp=False)
-
-        for d_url in op_discovery_urls:
-            if is_time_budget_exceeded(margin_sec=45) or (time.monotonic() - op_disc_start) > PER_OP_DISCOVERY_CAP_SEC:
-                break
-            d_links, used_zyte = await fetch_discovery_links(page, d_url, country, expected_dom, force_zyte=dom_is_blocked)
-            if used_zyte and not dom_is_blocked:
-                dom_is_blocked = True
-                # Immediately prefetch remaining discovery URLs for this operator in parallel via Zyte
-                await prefetch_zyte_batch(page, op_discovery_urls, country, is_pdp=False)
-            collected_links.extend(d_links)
-
-        # Match collected links against remaining missing rows
-        inspected_candidates = {}
-        for row in rows:
-            if is_time_budget_exceeded(margin_sec=35) or (time.monotonic() - op_disc_start) > (PER_OP_DISCOVERY_CAP_SEC + 25):
-                break
-            code = row["code"]
-            model_name = row["model"]
-            found_url = None
-            partial_candidates = []
-
-            for link in collected_links:
-                href = link["href"].split("#")[0]
-                if not is_operator_pdp_url(href, expected_dom):
-                    continue
-                mkt_ok, _ = validate_market_url(href, country)
-                if not mkt_ok:
-                    continue
-                id_ok, _ = validate_product_identity(link["text"], href, code, model_name)
-                if id_ok:
-                    if "tradeinn.com" in href.lower() and "country=" not in href.lower():
-                        sep = "&" if "?" in href else "?"
-                        href = f"{href}{sep}country={'uk' if country == 'UK' else 'es'}"
-                    elif country == "ES" and "proswimwear.es" in href.lower() and "wmc-currency=" not in href.lower():
-                        sep = "&" if "?" in href else "?"
-                        href = f"{href}{sep}wmc-currency=EUR"
-                    found_url = href
+            for row in list(rows):
+                if is_time_budget_exceeded(margin_sec=45):
                     break
-                kws = MODEL_KEYWORDS.get(code, [])
-                comb_low = f"{link['text']} {href}".lower()
-                if kws and any(k in comb_low for k in kws) and href not in partial_candidates:
-                    partial_candidates.append(href)
-
-            # Inspect up to 2 partial candidate PDPs (where model keyword matched on the operator's domain, to verify H1/SKU inside the PDP)
-            if not found_url and partial_candidates:
-                if dom_is_blocked and ZYTE_API_KEY:
-                    await prefetch_zyte_batch(page, partial_candidates[:2], country)
-                for cand_href in partial_candidates[:2]:
-                    if cand_href not in inspected_candidates:
-                        p_title_h1 = ""
+                probe_urls = DIRECT_CANDIDATE_PROBES.get((country, operator, row["code"]), [])
+                for p_url in probe_urls:
+                    if p_url == row.get("url") and row.get("id") in broken_row_ids:
+                        continue
+                    try:
+                        page_title_h1 = ""
                         if not dom_is_blocked:
-                            try:
-                                r_c = await page.goto(cand_href, wait_until="domcontentloaded", timeout=10000)
-                                if r_c and r_c.status == 200:
-                                    await page.wait_for_timeout(700)
-                                    p_title_h1 = await page.evaluate("() => (document.title || '') + ' | ' + Array.from(document.querySelectorAll('h1')).map(e => e.innerText).join(' ')")
-                            except Exception:
-                                pass
-                        if (not p_title_h1 or "moment" in p_title_h1.lower()) and ZYTE_API_KEY:
+                            await throttled_domain_guard(p_url)
+                            resp = await page.goto(p_url, wait_until="domcontentloaded", timeout=10000)
+                            if resp and resp.status == 200:
+                                await page.wait_for_timeout(800)
+                                page_title_h1 = await page.evaluate("() => (document.title || '') + ' | ' + Array.from(document.querySelectorAll('h1')).map(e => e.innerText).join(' ')")
+                        if (not page_title_h1 or "moment" in page_title_h1.lower()) and ZYTE_API_KEY:
                             dom_is_blocked = True
-                            z_c = await fetch_via_zyte(page, cand_href, country)
-                            if z_c:
-                                p_title_h1 = f"{z_c.get('title', '')} | {z_c.get('h1', '')}"
-                        inspected_candidates[cand_href] = p_title_h1
-                    cand_h1 = inspected_candidates.get(cand_href, "")
-                    if cand_h1:
-                        id_ok, _ = validate_product_identity(cand_h1, cand_href, code, model_name)
-                        if id_ok:
-                            found_url = cand_href
-                            break
+                            zinfo = await fetch_via_zyte(page, p_url, country)
+                            if zinfo:
+                                page_title_h1 = f"{zinfo.get('title', '')} | {zinfo.get('h1', '')}"
+                        if page_title_h1:
+                            id_ok, _ = validate_product_identity(page_title_h1, p_url, row["code"], row["model"])
+                            if id_ok:
+                                row["url"] = p_url
+                                row["_rediscovered_today"] = True
+                                row["status"] = "PENDING_URL"
+                                row["evidence"] = f"Auto-Discovery Probe ({today_str}): Fitxa PDP verificada a {operator} ({country})"
+                                discovered_counter["count"] += 1
+                                rows.remove(row)
+                                break
+                    except Exception:
+                        continue
 
-            if found_url and found_url != row.get("url"):
-                row["url"] = found_url
-                row["_rediscovered_today"] = True
-                if row.get("status") != "VERIFIED":
-                    row["status"] = "PENDING_URL"
-                row["evidence"] = f"Auto-Discovery ({today_str}): Fitxa PDP localitzada per a {operator} ({country})"
-                discovered_total += 1
-            else:
-                if row.get("status") in ("UNMAPPED", "NOT_LISTED"):
-                    row["status"] = "UNMAPPED"
-                    row["evidence"] = f"Cerca automàtica a {operator} ({today_str}): cap fitxa PDP localitzada (no confirma absència comercial)"
+            if not rows or is_time_budget_exceeded(margin_sec=45):
+                continue
 
-        if not is_time_budget_exceeded(margin_sec=35) and len(collected_links) > 0:
-            COMPLETED_DISCOVERY_OPS.add((country, operator))
+            # 1. Build deduplicated list of catalog + targeted internal search URLs for missing models
+            op_discovery_urls = list(cat_urls)
+            for row in rows:
+                code = row["code"]
+                model_name = row["model"]
+                ean = MODEL_EANS.get(code, "")
+                kw_main = (MODEL_KEYWORDS.get(code) or [""])[0]
+                is_w = ("W" in code[4:6] or "women" in model_name.lower())
+                gender_en = "women" if is_w else "men"
+                gender_es = "mujer" if is_w else "hombre"
+                op_search_templates = {
+                    ("ES", "Alltricks"): [
+                        f"https://www.alltricks.es/s?k=zone3+{kw_main}+{gender_es}",
+                        f"https://www.alltricks.es/s?k=zone3+{kw_main}"
+                    ],
+                    ("ES", "Wetsuit Outlet"): [
+                        f"https://www.wetsuitoutlet.es/es-es/search?q=zone3+{kw_main}",
+                        f"https://www.wetsuitoutlet.es/en-es/search?q=zone3+{kw_main}+{gender_en}"
+                    ],
+                    ("UK", "Wetsuit Outlet"): [
+                        f"https://www.wetsuitoutlet.co.uk/search?q=zone3+{kw_main}+{gender_en}",
+                        f"https://www.wetsuitoutlet.co.uk/search?q={code[:8]}"
+                    ],
+                    ("ES", "Sportano"): [
+                        f"https://sportano.com/en/search?q={code}",
+                        f"https://sportano.com/en/search?q=zone3+{kw_main}+{gender_en}"
+                    ],
+                    ("ES", "Deporvillage"): [
+                        f"https://www.deporvillage.com/catalogsearch/result/?q=zone3+{kw_main}",
+                        f"https://www.deporvillage.com/catalogsearch/result/?q={ean}"
+                    ],
+                    ("UK", "Deporvillage"): [
+                        f"https://www.deporvillage.co.uk/catalogsearch/result/?q=zone3+{kw_main}",
+                        f"https://www.deporvillage.co.uk/catalogsearch/result/?q={ean}"
+                    ],
+                    ("ES", "Bike 24"): [
+                        f"https://www.bike24.es/buscar?searchTerm=zone3+{kw_main}"
+                    ],
+                    ("ES", "Triathlon24"): [
+                        f"https://www.triathlon24.nl/search/zone3+{kw_main}/"
+                    ],
+                    ("UK", "Sigma"): [
+                        f"https://www.sigmasports.com/search?q=zone3+{kw_main}&sort=price-high-low"
+                    ],
+                    ("UK", "Sportshoes"): [
+                        f"https://www.sportsshoes.com/products/?q=zone3%20{kw_main}"
+                    ],
+                    ("ES", "365Rider"): [
+                        f"https://www.365rider.com/busqueda?controller=search&s=zone3+{kw_main}",
+                        f"https://www.365rider.com/busqueda?controller=search&s={code}"
+                    ],
+                    ("ES", "ProSwimwear"): [
+                        f"https://www.proswimwear.es/?s=zone3+{kw_main}&post_type=product"
+                    ],
+                    ("UK", "Start Fitness"): [
+                        f"https://startfitness.co.uk/search?q=zone3+{kw_main}+{gender_en}&type=product",
+                        f"https://startfitness.co.uk/search?q=zone3+{kw_main}&type=product"
+                    ],
+                    ("UK", "ProSwimwear"): [
+                        f"https://www.proswimwear.co.uk/?s=zone3+{kw_main}&post_type=product"
+                    ]
+                }
+                for s_u in op_search_templates.get((country, operator), []):
+                    if s_u not in op_discovery_urls:
+                        op_discovery_urls.append(s_u)
 
-    return discovered_total
+            if dom_is_blocked and ZYTE_API_KEY:
+                await prefetch_zyte_batch(page, op_discovery_urls, country, is_pdp=False)
+
+            exhausted_all_urls = True
+            for d_url in op_discovery_urls:
+                if is_time_budget_exceeded(margin_sec=45) or (time.monotonic() - op_disc_start) > per_op_cap:
+                    exhausted_all_urls = False
+                    break
+                d_links, used_zyte = await fetch_discovery_links(page, d_url, country, expected_dom, force_zyte=dom_is_blocked)
+                if used_zyte and not dom_is_blocked:
+                    dom_is_blocked = True
+                    await prefetch_zyte_batch(page, op_discovery_urls, country, is_pdp=False)
+                collected_links.extend(d_links)
+
+            inspected_candidates = {}
+            exhausted_all_rows = True
+            for row in rows:
+                if is_time_budget_exceeded(margin_sec=35) or (time.monotonic() - op_disc_start) > (per_op_cap + 35):
+                    exhausted_all_rows = False
+                    break
+                code = row["code"]
+                model_name = row["model"]
+                found_url = None
+                partial_candidates = []
+
+                for link in collected_links:
+                    href = link["href"].split("#")[0]
+                    if not is_operator_pdp_url(href, expected_dom):
+                        continue
+                    mkt_ok, _ = validate_market_url(href, country)
+                    if not mkt_ok:
+                        continue
+                    id_ok, _ = validate_product_identity(link["text"], href, code, model_name)
+                    if id_ok:
+                        if "tradeinn.com" in href.lower() and "country=" not in href.lower():
+                            sep = "&" if "?" in href else "?"
+                            href = f"{href}{sep}country={'uk' if country == 'UK' else 'es'}"
+                        elif country == "ES" and "proswimwear.es" in href.lower() and "wmc-currency=" not in href.lower():
+                            sep = "&" if "?" in href else "?"
+                            href = f"{href}{sep}wmc-currency=EUR"
+                        found_url = href
+                        break
+                    kws = MODEL_KEYWORDS.get(code, [])
+                    comb_low = f"{link['text']} {href}".lower()
+                    if kws and any(k in comb_low for k in kws) and href not in partial_candidates:
+                        partial_candidates.append(href)
+
+                if not found_url and partial_candidates:
+                    if dom_is_blocked and ZYTE_API_KEY:
+                        await prefetch_zyte_batch(page, partial_candidates[:3], country)
+                    for cand_href in partial_candidates[:3]:
+                        if cand_href not in inspected_candidates:
+                            p_title_h1 = ""
+                            if not dom_is_blocked:
+                                try:
+                                    await throttled_domain_guard(cand_href)
+                                    r_c = await page.goto(cand_href, wait_until="domcontentloaded", timeout=10000)
+                                    if r_c and r_c.status == 200:
+                                        await page.wait_for_timeout(700)
+                                        p_title_h1 = await page.evaluate("() => (document.title || '') + ' | ' + Array.from(document.querySelectorAll('h1')).map(e => e.innerText).join(' ')")
+                                except Exception:
+                                    pass
+                            if (not p_title_h1 or "moment" in p_title_h1.lower()) and ZYTE_API_KEY:
+                                dom_is_blocked = True
+                                z_c = await fetch_via_zyte(page, cand_href, country)
+                                if z_c:
+                                    p_title_h1 = f"{z_c.get('title', '')} | {z_c.get('h1', '')}"
+                            inspected_candidates[cand_href] = p_title_h1
+                        cand_h1 = inspected_candidates.get(cand_href, "")
+                        if cand_h1:
+                            id_ok, _ = validate_product_identity(cand_h1, cand_href, code, model_name)
+                            if id_ok:
+                                if country == "ES" and "proswimwear.es" in cand_href.lower() and "wmc-currency=" not in cand_href.lower():
+                                    sep = "&" if "?" in cand_href else "?"
+                                    cand_href = f"{cand_href}{sep}wmc-currency=EUR"
+                                found_url = cand_href
+                                break
+
+                if found_url and found_url != row.get("url"):
+                    row["url"] = found_url
+                    row["_rediscovered_today"] = True
+                    if row.get("status") != "VERIFIED":
+                        row["status"] = "PENDING_URL"
+                    row["evidence"] = f"Auto-Discovery ({today_str}): Fitxa PDP localitzada per a {operator} ({country})"
+                    discovered_counter["count"] += 1
+                else:
+                    if row.get("status") in ("UNMAPPED", "NOT_LISTED"):
+                        row["status"] = "UNMAPPED"
+                        if exhausted_all_urls and len(collected_links) > 0:
+                            row["evidence"] = f"[Auto-Audit completat ({today_str})]: Catàleg i cercador de {operator} ({country}) verificats, model no comercialitzat actualment"
+                        else:
+                            row["evidence"] = f"Cerca automàtica a {operator} ({today_str}): pendent de completar escombrat de catàleg"
+
+            if exhausted_all_urls and exhausted_all_rows and len(collected_links) > 0:
+                COMPLETED_DISCOVERY_OPS.add((country, operator))
+
+    await asyncio.gather(
+        _discover_country_lane(es_groups, page_es),
+        _discover_country_lane(uk_groups, page_uk)
+    )
+    return discovered_counter["count"]
 
 def evaluate_page_info_candidates(page_info, row, source_prefix=""):
     url = row.get("url", "").strip()
@@ -2026,6 +2034,10 @@ def enforce_history_hygiene(history):
         if "advance-plus" in str(h.get("url", "")).lower() or (h.get("country") == "UK" and h.get("operator") == "Deporvillage" and h.get("code") == "WS21WADV101" and float(p_val) > 300):
             h["audit_status"] = "QUARANTINED_MODEL_MISMATCH"
             continue
+        if h.get("country") == "UK" and h.get("operator") == "Start Fitness" and h.get("code") == "WS25MSRV101":
+            h["audit_status"] = "QUARANTINED_EXCLUDED_MODEL"
+            h["quarantine_reason"] = PERMANENT_EXCLUSIONS["UK-STA-WS25MSRV101"]
+            continue
         if is_ex_rental_anomaly(h.get("country"), h.get("operator"), h.get("code"), p_val, h.get("pvp")):
             h["audit_status"] = "QUARANTINED_EX_RENTAL"
             h["quarantine_reason"] = h.get("quarantine_reason") or "Exclòs automàticament (Opció C v11.1): Preu Vanquish-X < £420 a My Triathlon UK correspon a variant Ex-Rental (lloguer/segona mà)."
@@ -2163,6 +2175,17 @@ def save_all_state(tracking, history):
         r.pop("_rediscovered_today", None)
         r.pop("_last_scan_code", None)
         r["tier"] = "SECONDARY" if is_secondary_operator(r.get("country"), r.get("operator")) else "SHORTLIST"
+        if r.get("id") in PERMANENT_EXCLUSIONS:
+            r["url"] = ""
+            r["status"] = "NOT_LISTED"
+            r["price"] = None
+            r["disc_imp"] = None
+            r["disc_pct"] = None
+            r["last_read"] = ""
+            r["out_of_stock"] = False
+            r["freshness"] = "NONE"
+            r["retention_status"] = "NONE"
+            r["evidence"] = PERMANENT_EXCLUSIONS[r["id"]]
 
     enforce_history_hygiene(history)
     history.sort(key=lambda x: (str(x.get("timestamp", "")), str(x.get("run_slot", "")), x.get("country", ""), x.get("operator", ""), x.get("code", "")))
@@ -2284,7 +2307,7 @@ async def main():
             }
 
     for row in tracking:
-        if row.get("id") == "UK-DEP-WS21WADV101":
+        if row.get("id") in PERMANENT_EXCLUSIONS:
             continue
         k = (row.get("country"), row.get("operator"), row.get("code"))
         best_h = latest_hist_by_key.get(k)
@@ -2305,7 +2328,7 @@ async def main():
     domain_blocks = {}
     CIRCUIT_BREAKER_LIMIT = 1 if ZYTE_API_KEY else 2
 
-    print(f"Starting Zone3 RetentionGuard v12.4 (13 Shortlist + 4 Secondary | Europe/Madrid + Opció C) ({now_iso}) | Opció C (<=65% Nou) | Baseline T-1 ({prev_scan_date}): {len(t_minus_1_keys)} lectures | Zyte: {'ENABLED' if ZYTE_API_KEY else 'PLAYWRIGHT_ONLY'}")
+    print(f"Starting Zone3 RetentionGuard v12.5 (Dual-Lane ES||UK + 100% Auto-Audit) (13 Shortlist + 4 Secondary | Europe/Madrid + Opció C) ({now_iso}) | Opció C (<=65% Nou) | Baseline T-1 ({prev_scan_date}): {len(t_minus_1_keys)} lectures | Zyte: {'ENABLED' if ZYTE_API_KEY else 'PLAYWRIGHT_ONLY'}")
 
     async with async_playwright() as p:
         browser = await p.chromium.launch(
@@ -2336,11 +2359,12 @@ async def main():
         circuit_skipped = 0
         broken_row_ids = set()
 
-        # PHASE 1: Primary PDP Price Verification (Shortlist always prioritized before Secondary)
-        phase1_order = sorted(tracking, key=lambda r: 1 if is_secondary_operator(r.get("country"), r.get("operator")) else 0)
-        for row in phase1_order:
-            if is_time_budget_exceeded(margin_sec=180) and is_secondary_operator(row.get("country"), row.get("operator")):
-                break
+        # PHASE 1: Dual-Lane Parallel Primary PDP Price Verification (ES || UK, Shortlist first in each lane)
+        stats = {"updated": 0, "zyte": 0, "quarantined": 0, "circuit": 0}
+
+        async def _process_p1_row(row, page):
+            if row.get("id") in PERMANENT_EXCLUSIONS:
+                return
             row["is_from"] = False
             url = row.get("url", "").strip()
             if not url:
@@ -2350,7 +2374,7 @@ async def main():
                 row["retention_status"] = "NONE"
                 if not row.get("evidence"):
                     row["evidence"] = "Cerca automàtica: cap fitxa PDP localitzada al catàleg de l'operador"
-                continue
+                return
 
             if is_generic_category_url(url):
                 row["status"] = "PENDING_PDP"
@@ -2360,20 +2384,19 @@ async def main():
                 row["disc_imp"] = None
                 row["disc_pct"] = None
                 row["evidence"] = "En quarantena: URL de categoria genèrica (cal URL de fitxa individual PDP)"
-                quarantined_count += 1
-                continue
+                stats["quarantined"] += 1
+                return
 
             dom = get_domain(url)
             playwright_blocked_for_dom = domain_blocks.get(dom, 0) >= CIRCUIT_BREAKER_LIMIT
 
             if playwright_blocked_for_dom and not ZYTE_API_KEY:
-                circuit_skipped += 1
+                stats["circuit"] += 1
                 row["_last_scan_code"] = "CIRCUIT_SKIPPED"
                 row["freshness"] = "HISTORICAL_PDP" if (row.get("status") == "VERIFIED" and row.get("last_read") != today_str) else row.get("freshness", "NONE")
                 row["evidence"] = f"Aturada preventiva (Circuit Breaker) a {dom} · Lectura del {row.get('last_read') or 'històric'}"
-                continue
+                return
 
-            page = page_uk if row["country"] == "UK" else page_es
             if playwright_blocked_for_dom and ZYTE_API_KEY:
                 rem_urls = []
                 for r in tracking:
@@ -2393,10 +2416,10 @@ async def main():
 
             if status_code == "VERIFIED" and min_price is not None and min_price > 0:
                 if "[Zyte]" in evidence_str:
-                    zyte_rescued_count += 1
+                    stats["zyte"] += 1
                     domain_blocks[dom] = domain_blocks.get(dom, 0) + 1
                 upsert_valid_history_entry(history, row, min_price, is_oos, evidence_str, today_str, run_slot, now_iso)
-                updated_count += 1
+                stats["updated"] += 1
             elif status_code in ("REVIEW_DEEP_DISCOUNT", "QUARANTINED_EX_RENTAL"):
                 upsert_non_valid_tray_entry(history, row, min_price, is_oos, status_code, evidence_str, today_str, run_slot, now_iso)
                 row["freshness"] = "LIVE_TODAY" if row.get("last_read") == today_str else "HISTORICAL_PDP"
@@ -2416,10 +2439,25 @@ async def main():
                     row["freshness"] = "NONE"
                     row["evidence"] = f"Revisat ({run_slot}): {evidence_str}"
 
-        # PHASE 1.5 (RetentionGuard T vs T-1 Dual-Channel Rescue Pass):
+        async def _run_p1_lane(lane_rows, page):
+            ordered = sorted(lane_rows, key=lambda r: 1 if is_secondary_operator(r.get("country"), r.get("operator")) else 0)
+            for row in ordered:
+                if is_time_budget_exceeded(margin_sec=180) and is_secondary_operator(row.get("country"), row.get("operator")):
+                    break
+                await _process_p1_row(row, page)
+
+        es_p1_rows = [r for r in tracking if r.get("country") == "ES"]
+        uk_p1_rows = [r for r in tracking if r.get("country") == "UK"]
+        await asyncio.gather(
+            _run_p1_lane(es_p1_rows, page_es),
+            _run_p1_lane(uk_p1_rows, page_uk)
+        )
+
+        # PHASE 1.5: Dual-Lane (ES || UK) RetentionGuard T vs T-1 Rescue Pass
         lost_rows = [
             r for r in tracking
-            if r.get("status") == "VERIFIED"
+            if r.get("id") not in PERMANENT_EXCLUSIONS
+            and r.get("status") == "VERIFIED"
             and r.get("last_read") != today_str
             and r.get("url")
             and not is_generic_category_url(r.get("url", ""))
@@ -2428,77 +2466,96 @@ async def main():
         lost_rows.sort(key=lambda r: (1 if is_secondary_operator(r["country"], r["operator"]) else 0, 0 if (r["country"], r["operator"], r["code"]) in t_minus_1_keys else 1, r["id"]))
 
         if lost_rows:
-            print(f"[RETENTION T vs T-1 RESCUE] {len(lost_rows)} VERIFIED PDPs unread in Phase 1 ({sum(1 for r in lost_rows if (r['country'], r['operator'], r['code']) in t_minus_1_keys)} from T-1). Running Dual-Channel Rescue...")
-            rescued_in_pass = 0
-            for r_lost in lost_rows:
-                if is_time_budget_exceeded(margin_sec=65):
-                    break
-                is_t1 = (r_lost["country"], r_lost["operator"], r_lost["code"]) in t_minus_1_keys
-                tag_t1 = "[T-1 PRIORITY]" if is_t1 else "[HIST]"
-                print(f"  -> {tag_t1} Rescuing {r_lost['id']} ({r_lost['operator']} {r_lost['country']}): {r_lost.get('evidence', '')[:90]}")
+            print(f"[RETENTION T vs T-1 RESCUE] {len(lost_rows)} VERIFIED PDPs unread in Phase 1 ({sum(1 for r in lost_rows if (r['country'], r['operator'], r['code']) in t_minus_1_keys)} from T-1). Running Dual-Lane Rescue...")
+            rescue_stats = {"rescued": 0}
 
-                for cand_u in get_canonical_url_candidates(r_lost["url"], r_lost["country"]):
-                    ZYTE_PAGE_CACHE.pop((r_lost["country"], cand_u), None)
+            async def _run_rescue_lane(lane_lost, page):
+                for r_lost in lane_lost:
+                    if is_time_budget_exceeded(margin_sec=65):
+                        break
+                    is_t1 = (r_lost["country"], r_lost["operator"], r_lost["code"]) in t_minus_1_keys
+                    tag_t1 = "[T-1 PRIORITY]" if is_t1 else "[HIST]"
+                    print(f"  -> {tag_t1} Rescuing {r_lost['id']} ({r_lost['operator']} {r_lost['country']}): {r_lost.get('evidence', '')[:90]}")
 
-                page = page_uk if r_lost["country"] == "UK" else page_es
-                r_price, r_oos, r_st, r_ev = None, False, "ERROR", ""
+                    for cand_u in get_canonical_url_candidates(r_lost["url"], r_lost["country"]):
+                        ZYTE_PAGE_CACHE.pop((r_lost["country"], cand_u), None)
 
-                # Channel A: Fresh uncached Zyte API across all canonical & mirror URLs
-                if ZYTE_API_KEY:
-                    r_price, r_oos, r_st, r_ev = await extract_verified_pdp_price(page, r_lost, force_zyte_only=True)
+                    r_price, r_oos, r_st, r_ev = None, False, "ERROR", ""
+                    if ZYTE_API_KEY:
+                        r_price, r_oos, r_st, r_ev = await extract_verified_pdp_price(page, r_lost, force_zyte_only=True)
 
-                # Channel B: Direct Playwright Stealth fallback (even when ZYTE_API_KEY is set, in case Zyte rendered incomplete DOM!)
-                if r_st not in ("VERIFIED", "REVIEW_DEEP_DISCOUNT", "QUARANTINED_EX_RENTAL"):
-                    await asyncio.sleep(0.8)
-                    pw_price, pw_oos, pw_st, pw_ev = await extract_verified_pdp_price(page, r_lost, force_zyte_only=False)
-                    if pw_st in ("VERIFIED", "REVIEW_DEEP_DISCOUNT", "QUARANTINED_EX_RENTAL") or not ZYTE_API_KEY:
-                        r_price, r_oos, r_st, r_ev = pw_price, pw_oos, pw_st, pw_ev
+                    if r_st not in ("VERIFIED", "REVIEW_DEEP_DISCOUNT", "QUARANTINED_EX_RENTAL"):
+                        await asyncio.sleep(0.8)
+                        pw_price, pw_oos, pw_st, pw_ev = await extract_verified_pdp_price(page, r_lost, force_zyte_only=False)
+                        if pw_st in ("VERIFIED", "REVIEW_DEEP_DISCOUNT", "QUARANTINED_EX_RENTAL") or not ZYTE_API_KEY:
+                            r_price, r_oos, r_st, r_ev = pw_price, pw_oos, pw_st, pw_ev
 
-                r_lost["_last_scan_code"] = r_st
+                    r_lost["_last_scan_code"] = r_st
 
-                if r_st == "VERIFIED" and r_price is not None and r_price > 0:
-                    rescued_in_pass += 1
-                    updated_count += 1
-                    if "[Zyte]" in r_ev:
-                        zyte_rescued_count += 1
-                    broken_row_ids.discard(r_lost["id"])
-                    upsert_valid_history_entry(history, r_lost, r_price, r_oos, f"[RetentionGuard Rescue] {r_ev}", today_str, run_slot, now_iso)
-                    print(f"     [RESCUED] {r_lost['id']} -> {r_price} {r_lost['currency']}")
-                elif r_st in ("REVIEW_DEEP_DISCOUNT", "QUARANTINED_EX_RENTAL"):
-                    broken_row_ids.discard(r_lost["id"])
-                    upsert_non_valid_tray_entry(history, r_lost, r_price, r_oos, r_st, r_ev, today_str, run_slot, now_iso)
-                    r_lost["retention_status"] = r_st
-                    r_lost["evidence"] = f"Lectura històrica ({r_lost.get('last_read', '')}) · [Rescue {run_slot}: {r_ev}]"
-                elif r_st in ("HTTP_ERROR", "IDENTITY_MISMATCH") or (r_st == "NO_VALID_PRICE" and is_t1):
-                    broken_row_ids.add(r_lost["id"])
-                elif r_st == "OUT_OF_STOCK":
-                    r_lost["out_of_stock"] = True
-                    r_lost["retention_status"] = "OOS_NO_PRICE"
-            print(f"[RETENTION RESCUE RESULT] Rescued {rescued_in_pass}/{len(lost_rows)} missed PDPs; {len(broken_row_ids)} broken URLs sent to Phase 2 catalog check.")
+                    if r_st == "VERIFIED" and r_price is not None and r_price > 0:
+                        rescue_stats["rescued"] += 1
+                        stats["updated"] += 1
+                        if "[Zyte]" in r_ev:
+                            stats["zyte"] += 1
+                        broken_row_ids.discard(r_lost["id"])
+                        upsert_valid_history_entry(history, r_lost, r_price, r_oos, f"[RetentionGuard Rescue] {r_ev}", today_str, run_slot, now_iso)
+                        print(f"     [RESCUED] {r_lost['id']} -> {r_price} {r_lost['currency']}")
+                    elif r_st in ("REVIEW_DEEP_DISCOUNT", "QUARANTINED_EX_RENTAL"):
+                        broken_row_ids.discard(r_lost["id"])
+                        upsert_non_valid_tray_entry(history, r_lost, r_price, r_oos, r_st, r_ev, today_str, run_slot, now_iso)
+                        r_lost["retention_status"] = r_st
+                        r_lost["evidence"] = f"Lectura històrica ({r_lost.get('last_read', '')}) · [Rescue {run_slot}: {r_ev}]"
+                    elif r_st in ("HTTP_ERROR", "IDENTITY_MISMATCH") or (r_st == "NO_VALID_PRICE" and is_t1):
+                        broken_row_ids.add(r_lost["id"])
+                    elif r_st == "OUT_OF_STOCK":
+                        r_lost["out_of_stock"] = True
+                        r_lost["retention_status"] = "OOS_NO_PRICE"
+
+            await asyncio.gather(
+                _run_rescue_lane([r for r in lost_rows if r["country"] == "ES"], page_es),
+                _run_rescue_lane([r for r in lost_rows if r["country"] == "UK"], page_uk)
+            )
+            print(f"[RETENTION RESCUE RESULT] Rescued {rescue_stats['rescued']}/{len(lost_rows)} missed PDPs; {len(broken_row_ids)} broken URLs sent to Phase 2 catalog check.")
 
         # Checkpoint Phase 1 + 1.5 before Phase 2
         save_all_state(tracking, history)
 
-        # PHASE 2: Auto-Discovery of remaining unmapped PDP URLs + catalog delisting verification for HTTP 404/redirected URLs
+        # PHASE 2: Dual-Lane 100% Automatic Discovery + Dual-Lane Immediate Price Verification
         discovered_count = await discover_missing_pdps(page_es, page_uk, tracking, today_str, domain_blocks=domain_blocks, broken_row_ids=broken_row_ids)
         if discovered_count > 0:
-            for row in tracking:
-                if (row.get("_rediscovered_today") or (row.get("status") == "PENDING_URL" and f"({today_str})" in str(row.get("evidence", "")))) and row.get("url"):
+            new_p2_rows = [
+                r for r in tracking
+                if r.get("id") not in PERMANENT_EXCLUSIONS
+                and (r.get("_rediscovered_today") or (r.get("status") == "PENDING_URL" and f"({today_str})" in str(r.get("evidence", ""))))
+                and r.get("url")
+            ]
+
+            async def _verify_p2_lane(lane_p2, page):
+                for row in lane_p2:
                     row.pop("_rediscovered_today", None)
                     dom = get_domain(row["url"])
-                    page = page_uk if row["country"] == "UK" else page_es
                     min_price, is_oos, status_code, evidence_str = await extract_verified_pdp_price(
                         page, row, force_zyte_only=(domain_blocks.get(dom, 0) >= CIRCUIT_BREAKER_LIMIT)
                     )
                     row["_last_scan_code"] = status_code
                     if status_code == "VERIFIED" and min_price is not None and min_price > 0:
                         if "[Zyte]" in evidence_str:
-                            zyte_rescued_count += 1
+                            stats["zyte"] += 1
                         upsert_valid_history_entry(history, row, min_price, is_oos, evidence_str, today_str, run_slot, now_iso)
-                        updated_count += 1
+                        stats["updated"] += 1
                     elif status_code in ("REVIEW_DEEP_DISCOUNT", "QUARANTINED_EX_RENTAL"):
                         upsert_non_valid_tray_entry(history, row, min_price, is_oos, status_code, evidence_str, today_str, run_slot, now_iso)
                         row["retention_status"] = status_code
+
+            await asyncio.gather(
+                _verify_p2_lane([r for r in new_p2_rows if r["country"] == "ES"], page_es),
+                _verify_p2_lane([r for r in new_p2_rows if r["country"] == "UK"], page_uk)
+            )
+
+        updated_count = stats["updated"]
+        zyte_rescued_count = stats["zyte"]
+        quarantined_count = stats["quarantined"]
+        circuit_skipped = stats["circuit"]
 
         await browser.close()
 
