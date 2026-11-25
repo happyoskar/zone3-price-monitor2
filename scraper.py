@@ -67,8 +67,8 @@ SECONDARY_OPERATORS = {
 
 def is_secondary_operator(country, operator):
     return (country, operator) in SECONDARY_OPERATORS
-MAX_CLEAN_NEW_DISC_PCT = 65.0          # Opció C: fins al 65.0% automàtic en fitxes 100% d'unitat nova
-CLEAN_NEW_MIN_RATIO = 0.35             # 1.0 - 0.65
+MAX_CLEAN_NEW_DISC_PCT = 50.0          # Opció C (v12.6): fins al 50.0% automàtic; tot descompte >50.0% va a Safata de Revisió
+CLEAN_NEW_MIN_RATIO = 0.50             # 1.0 - 0.50
 MIXED_EX_RENTAL_MIN_RATIO = 0.60       # Bloqueig estructural en fitxes amb selector mixt Ex-Rental (p. ex. < £420 a Vanquish-X)
 ZYTE_CONCURRENCY_SEM = None
 ZYTE_PAGE_CACHE = {}
@@ -133,7 +133,6 @@ OPERATOR_CATALOG_URLS = {
         "https://www.deporvillage.com/natacion-zone3",
         "https://www.deporvillage.com/catalogsearch/result/?q=zone3+neopreno",
         "https://www.deporvillage.com/catalogsearch/result/?q=zone3+ascend",
-        "https://www.deporvillage.com/catalogsearch/result/?q=zone3+glide",
         "https://www.deporvillage.com/catalogsearch/result/?q=zone3+sin+mangas",
         "https://www.deporvillage.com/catalogsearch/result/?q=zone3+sleeveless",
         "https://www.deporvillage.com/catalogsearch/result/?q=zone3+versa",
@@ -198,7 +197,6 @@ OPERATOR_CATALOG_URLS = {
         "https://www.deporvillage.co.uk/catalogsearch/result/?q=zone3+wetsuit",
         "https://www.deporvillage.co.uk/catalogsearch/result/?q=zone3+advance+women",
         "https://www.deporvillage.co.uk/catalogsearch/result/?q=zone3+ascend",
-        "https://www.deporvillage.co.uk/catalogsearch/result/?q=zone3+glide",
         "https://www.deporvillage.co.uk/catalogsearch/result/?q=zone3+sleeveless",
         "https://www.deporvillage.co.uk/catalogsearch/result/?q=zone3+versa",
         "https://www.deporvillage.co.uk/catalogsearch/result/?q=zone3+versa+women",
@@ -287,15 +285,11 @@ DIRECT_CANDIDATE_PROBES = {
     ("ES", "Deporvillage", "WS26MGLISL101"): [
         "https://www.deporvillage.com/traje-neopreno-zone3-ascend-sin-mangas",
         "https://www.deporvillage.com/traje-de-neopreno-zone3-ascend-sin-mangas",
-        "https://www.deporvillage.com/traje-neopreno-zone3-glide-sin-mangas",
-        "https://www.deporvillage.com/traje-de-neopreno-zone3-glide-sin-mangas",
         "https://www.deporvillage.com/traje-neopreno-zone3-ascend-sleeveless"
     ],
     ("ES", "Deporvillage", "WS26WGLISL101"): [
         "https://www.deporvillage.com/traje-neopreno-zone3-ascend-sin-mangas-mujer",
         "https://www.deporvillage.com/traje-de-neopreno-zone3-ascend-sin-mangas-mujer",
-        "https://www.deporvillage.com/traje-neopreno-zone3-glide-sin-mangas-mujer",
-        "https://www.deporvillage.com/traje-de-neopreno-zone3-glide-sin-mangas-mujer",
         "https://www.deporvillage.com/traje-neopreno-zone3-ascend-sleeveless-mujer"
     ],
     ("ES", "Deporvillage", "WS25WSRV101"): [
@@ -311,12 +305,10 @@ DIRECT_CANDIDATE_PROBES = {
 
     ("UK", "Deporvillage", "WS26MGLISL101"): [
         "https://www.deporvillage.co.uk/zone3-ascend-sleeveless-wetsuit-black-grey",
-        "https://www.deporvillage.co.uk/zone3-glide-sleeveless-wetsuit-black-grey",
         "https://www.deporvillage.co.uk/zone3-ascend-sleeveless-wetsuit"
     ],
     ("UK", "Deporvillage", "WS26WGLISL101"): [
         "https://www.deporvillage.co.uk/zone3-ascend-sleeveless-wetsuit-black-grey-women",
-        "https://www.deporvillage.co.uk/zone3-glide-sleeveless-wetsuit-black-grey-women",
         "https://www.deporvillage.co.uk/zone3-ascend-sleeveless-wetsuit-women"
     ],
     ("ES", "Wetsuit Outlet", "WS25WASP101"): [
@@ -467,8 +459,11 @@ def validate_product_identity(text_to_check, url, code, model_name):
     if any(used_tok in raw_combined or used_tok in combined for used_tok in USED_ITEM_TOKENS):
         return False, "Producte de 2a mà / Ex-Rental exclòs (només producte nou)"
 
-    if any(re.search(r"\b" + re.escape(bad) + r"\b", combined) for bad in ["goggles", "gafas", "gloves", "guantes", "socks", "calcetines", "buoy", "boya", "cap", "caps", "gorro", "trisuit", "kneeskin", "jammer", "parka", "jacket", "shorts", "pants", "backpack", "bag", "thermal", "térmico", "termico", "breaststroke", "aspect", "evolution", "kona-target", "swim skin", "swimskin", "robe"]):
-        return False, "Accessori o variant diferent (Thermal/Aspect/Evolution/Swimskin) exclosa"
+    if "deporvillage." in raw_combined and re.search(r"\bglide\b", combined):
+        return False, "Model Glide exclòs a Deporvillage (es monitoritza exclusivament Ascend)"
+
+    if any(re.search(r"\b" + re.escape(bad) + r"\b", combined) for bad in ["goggles", "gafas", "gloves", "guantes", "socks", "calcetines", "buoy", "boya", "cap", "caps", "gorro", "trisuit", "tritraje", "mono", "bañador", "banador", "chaleco", "camiseta", "culotte", "malla", "kneeskin", "jammer", "parka", "jacket", "shorts", "pants", "backpack", "bag", "thermal", "térmico", "termico", "breaststroke", "aspect", "evolution", "kona-target", "swim skin", "swimskin", "robe"]):
+        return False, "Accessori, mono o variant diferent (Mono/Bañador/Thermal/Aspect/Evolution) exclosa"
 
     if re.search(r"\b(?:201[5-9]|2020)\b", combined):
         return False, "Model de temporada antiga (2015-2020) exclòs"
@@ -681,7 +676,7 @@ def extract_nextjs_candidates_for_row(page_info, row):
                             continue
                         if k_low in NEXTJS_SALE_PRICE_KEYS or k_low in ("prices", "pricing", "priceinfo", "offer", "offers"):
                             p_num = _extract_numeric_price_from_obj(v)
-                            if p_num is not None and (pvp * 0.20) <= p_num <= (pvp * 1.20):
+                            if p_num is not None and (pvp * 0.30) <= p_num <= (pvp * 1.20):
                                 prio_k = 0 if k_low in ("finalprice", "saleprice", "specialprice", "discountedprice", "currentprice", "pricewithtax", "sellingprice") else 1
                                 node_prices.append((prio_k, p_num, k))
                     if node_prices:
@@ -717,13 +712,23 @@ def extract_nextjs_candidates_for_row(page_info, row):
         anchors.sort()
         windows = []
         for pos in anchors:
-            w_start = max(0, pos - 3500)
-            w_end = min(len(rsc_text), pos + 6500)
-            # Truncate window if a related/recommended products key starts inside it after the anchor
+            w_start = max(0, pos - 900)
+            w_end = min(len(rsc_text), pos + 1800)
+            # Truncate window before any related/carousel list or another product card's slug/url
+            head_slice = rsc_low[w_start:pos]
+            for m_prev_slug in re.finditer(r'"(?:slug|urlkey|canonicalurl)"\s*:\s*"([^"]+)"', head_slice):
+                s_val = m_prev_slug.group(1)
+                if url_slug and url_slug not in s_val and code.lower() not in s_val:
+                    w_start = w_start + m_prev_slug.end()
             tail_slice = rsc_low[pos:w_end]
-            m_rel = re.search(r'"(?:relatedproducts|recommendedproducts|similarproducts|crosssell|upsell|recommendations|alternatives)"\s*:', tail_slice)
+            m_rel = re.search(r'"(?:relatedproducts|recommendedproducts|similarproducts|crosssell|upsell|recommendations|alternatives|products|items)"\s*:', tail_slice)
             if m_rel:
                 w_end = pos + m_rel.start()
+            for m_next_slug in re.finditer(r'"(?:slug|urlkey|canonicalurl)"\s*:\s*"([^"]+)"', rsc_low[pos:w_end]):
+                s_val = m_next_slug.group(1)
+                if url_slug and url_slug not in s_val and code.lower() not in s_val and m_next_slug.start() > 40:
+                    w_end = pos + m_next_slug.start()
+                    break
             if windows and w_start <= windows[-1][1]:
                 windows[-1] = (windows[-1][0], max(windows[-1][1], w_end))
             else:
@@ -756,7 +761,7 @@ def extract_nextjs_candidates_for_row(page_info, row):
                     if "}" not in ctx_before and re.search(r'"[^"]*(?:old|orig|rrp|pvp|msrp|cross|strike|recommend|previous|was|withouttax|shipping)[^"]*"\s*:\s*\{\s*$', ctx_before):
                         continue
                     p_val = normalize_price(mp.group(2))
-                    if p_val is not None and (pvp * 0.20) <= p_val <= (pvp * 1.20):
+                    if p_val is not None and (pvp * 0.30) <= p_val <= (pvp * 1.20):
                         found_in_win.append((prio_p, p_val, mp.group(1)))
             if found_in_win:
                 found_in_win.sort(key=lambda x: (1 if (x[1] >= pvp * 0.995 and len(found_in_win) > 1) else 0, x[0], x[1]))
@@ -1034,7 +1039,7 @@ def is_operator_pdp_url(href, expected_dom):
     if "startfitness.co.uk" in h_low:
         return ("/products/" in h_low or ("zone3" in h_low and "/collections/" not in h_low)) and "/search" not in h_low and not h_low.rstrip("/").endswith("/zone3")
     if "proswimwear." in h_low:
-        return ("zone3" in h_low or "/product/" in h_low) and not any(x in h_low for x in ["catalogsearch", "product-category", "/brands/", "?s=", "/search", "zone3.html", "zone3-wetsuits", "/page/"])
+        return ("zone3" in h_low or "/product/" in h_low or "/producto/" in h_low) and not any(x in h_low for x in ["catalogsearch", "product-category", "/brands/", "?s=", "/search", "zone3.html", "zone3-wetsuits", "/page/"])
     return True
 
 async def fetch_discovery_links(page, url, country, expected_dom, force_zyte=False):
@@ -2175,6 +2180,26 @@ def save_all_state(tracking, history):
         r.pop("_rediscovered_today", None)
         r.pop("_last_scan_code", None)
         r["tier"] = "SECONDARY" if is_secondary_operator(r.get("country"), r.get("operator")) else "SHORTLIST"
+        if "deporvillage." in str(r.get("url", "")).lower() and "glide" in str(r.get("url", "")).lower():
+            r["url"] = ""
+            r["status"] = "UNMAPPED"
+            r["price"] = None
+            r["disc_imp"] = None
+            r["disc_pct"] = None
+            r["last_read"] = ""
+            r["out_of_stock"] = False
+            r["freshness"] = "NONE"
+            r["retention_status"] = "NONE"
+            r["evidence"] = "URL Glide descartada a Deporvillage (es monitoritza exclusivament Ascend)"
+        elif r.get("disc_pct") is not None and float(r.get("disc_pct")) > MAX_CLEAN_NEW_DISC_PCT:
+            r["price"] = None
+            r["disc_imp"] = None
+            r["disc_pct"] = None
+            r["last_read"] = ""
+            r["out_of_stock"] = False
+            r["freshness"] = "NONE"
+            r["status"] = "PENDING_URL" if r.get("url") else "UNMAPPED"
+            r["retention_status"] = "REVIEW_DEEP_DISCOUNT"
         if r.get("id") in PERMANENT_EXCLUSIONS:
             r["url"] = ""
             r["status"] = "NOT_LISTED"
@@ -2309,6 +2334,25 @@ async def main():
     for row in tracking:
         if row.get("id") in PERMANENT_EXCLUSIONS:
             continue
+        if "deporvillage." in str(row.get("url", "")).lower() and "glide" in str(row.get("url", "")).lower():
+            row["url"] = ""
+            row["status"] = "UNMAPPED"
+            row["price"] = None
+            row["disc_imp"] = None
+            row["disc_pct"] = None
+            row["last_read"] = ""
+            row["out_of_stock"] = False
+            row["freshness"] = "NONE"
+            row["retention_status"] = "NONE"
+        elif row.get("disc_pct") is not None and float(row.get("disc_pct")) > MAX_CLEAN_NEW_DISC_PCT:
+            row["price"] = None
+            row["disc_imp"] = None
+            row["disc_pct"] = None
+            row["last_read"] = ""
+            row["out_of_stock"] = False
+            row["freshness"] = "NONE"
+            row["status"] = "PENDING_URL" if row.get("url") else "UNMAPPED"
+            row["retention_status"] = "REVIEW_DEEP_DISCOUNT"
         k = (row.get("country"), row.get("operator"), row.get("code"))
         best_h = latest_hist_by_key.get(k)
         if best_h and row.get("url") and not is_generic_category_url(row.get("url", "")):
@@ -2328,7 +2372,7 @@ async def main():
     domain_blocks = {}
     CIRCUIT_BREAKER_LIMIT = 1 if ZYTE_API_KEY else 2
 
-    print(f"Starting Zone3 RetentionGuard v12.5 (Dual-Lane ES||UK + 100% Auto-Audit) (13 Shortlist + 4 Secondary | Europe/Madrid + Opció C) ({now_iso}) | Opció C (<=65% Nou) | Baseline T-1 ({prev_scan_date}): {len(t_minus_1_keys)} lectures | Zyte: {'ENABLED' if ZYTE_API_KEY else 'PLAYWRIGHT_ONLY'}")
+    print(f"Starting Zone3 RetentionGuard v12.6 (Dual-Lane ES||UK + Sostre <=50% Verificat) ({now_iso}) | Opció C (<=50% Automàtic, >50% Safata Revisió) | Baseline T-1 ({prev_scan_date}): {len(t_minus_1_keys)} lectures | Zyte: {'ENABLED' if ZYTE_API_KEY else 'PLAYWRIGHT_ONLY'}")
 
     async with async_playwright() as p:
         browser = await p.chromium.launch(
