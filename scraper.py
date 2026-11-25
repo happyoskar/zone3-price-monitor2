@@ -24,8 +24,8 @@ from playwright.async_api import async_playwright
 ZYTE_API_KEY = os.environ.get("ZYTE_API_KEY", "").strip()
 START_MONOTONIC = time.monotonic()
 PHASE2_START_MONOTONIC = None
-PHASE2_BUDGET_SEC = 720       # 12-minute dedicated budget for Phase 2 Auto-Discovery (17 operator columns)
-MAX_TOTAL_RUNTIME_SEC = 2400  # 40-minute global safety cap inside 60-minute GitHub Actions workflow
+PHASE2_BUDGET_SEC = 540       # 12-minute dedicated budget for Phase 2 Auto-Discovery (17 operator columns)
+MAX_TOTAL_RUNTIME_SEC = 2100  # 40-minute global safety cap inside 60-minute GitHub Actions workflow
 
 SECONDARY_OPERATORS = {
     ("ES", "365Rider"),
@@ -230,6 +230,46 @@ OPERATOR_CATALOG_URLS = {
 
 # Candidate direct URLs & sequential ID probes for missing SKUs across operators
 DIRECT_CANDIDATE_PROBES = {
+    ("UK", "Start Fitness", "WS21MADV101"): [
+        "https://startfitness.co.uk/products/zone3-advance-mens-wetsuit-black-3",
+        "https://startfitness.co.uk/products/zone3-advance-mens-wetsuit-black-2",
+        "https://startfitness.co.uk/products/zone3-advance-mens-wetsuit-black-1",
+        "https://startfitness.co.uk/products/zone3-mens-advance-wetsuit-black"
+    ],
+    ("UK", "Start Fitness", "WS21WADV101"): [
+        "https://startfitness.co.uk/products/zone3-advance-womens-wetsuit-black-3",
+        "https://startfitness.co.uk/products/zone3-advance-womens-wetsuit-black-2",
+        "https://startfitness.co.uk/products/zone3-advance-womens-wetsuit-black-1",
+        "https://startfitness.co.uk/products/zone3-womens-advance-wetsuit-black"
+    ],
+    ("UK", "ProSwimwear", "WS21WAGI114"): [
+        "https://www.proswimwear.co.uk/product/zone3-women-s-agile-wetsuit/",
+        "https://www.proswimwear.co.uk/product/zone3-womens-agile-wetsuit/"
+    ],
+    ("ES", "ProSwimwear", "WS21WAGI114"): [
+        "https://www.proswimwear.es/product/zone3-women-s-agile-wetsuit/?wmc-currency=EUR",
+        "https://www.proswimwear.es/product/zone3-womens-agile-wetsuit/?wmc-currency=EUR"
+    ],
+    ("UK", "ProSwimwear", "WS24MVIS101"): [
+        "https://www.proswimwear.co.uk/product/zone3-men-s-vision-wetsuit/",
+        "https://www.proswimwear.co.uk/product/zone3-men-s-terraprene-vision-wetsuit/"
+    ],
+    ("UK", "ProSwimwear", "WS24WVIS101"): [
+        "https://www.proswimwear.co.uk/product/zone3-women-s-vision-wetsuit/",
+        "https://www.proswimwear.co.uk/product/zone3-women-s-terraprene-vision-wetsuit/"
+    ],
+    ("UK", "ProSwimwear", "WS25MASP101"): [
+        "https://www.proswimwear.co.uk/product/zone3-men-s-aspire-wetsuit/"
+    ],
+    ("UK", "ProSwimwear", "WS25WASP101"): [
+        "https://www.proswimwear.co.uk/product/zone3-women-s-aspire-wetsuit/"
+    ],
+    ("UK", "ProSwimwear", "WS22MVAN101"): [
+        "https://www.proswimwear.co.uk/product/zone3-men-s-vanquish-x-wetsuit/"
+    ],
+    ("UK", "ProSwimwear", "WS22WVAN101"): [
+        "https://www.proswimwear.co.uk/product/zone3-women-s-vanquish-x-wetsuit/"
+    ],
     ("ES", "Bike 24", "WS25WACTF101"): [
         "https://www.bike24.es/productos/1004855",
         "https://www.bike24.es/productos/1004859",
@@ -344,8 +384,8 @@ MODEL_KEYWORDS = {
     "WS24WVIS101": ["vision"],
     "WS21MADV101": ["advance", "advence"],
     "WS21WADV101": ["advance", "advence"],
-    "WS21MAGI116": ["agile"],
-    "WS21WAGI114": ["agile"],
+    "WS21MAGI116": ["agile", "ágil", "agil"],
+    "WS21WAGI114": ["agile", "ágil", "agil"],
     "WS26MGLISL101": ["ascend", "glide"],
     "WS26WGLISL101": ["ascend", "glide"],
     "WS25MACTF101": ["active-flex", "active flex", "activeflex"],
@@ -435,8 +475,8 @@ def validate_product_identity(text_to_check, url, code, model_name):
     if any(used_tok in raw_combined or used_tok in combined for used_tok in USED_ITEM_TOKENS):
         return False, "Producte de 2a mà / Ex-Rental exclòs (només producte nou)"
 
-    if any(re.search(r"\b" + re.escape(bad) + r"\b", combined) for bad in ["goggles", "gafas", "gloves", "guantes", "socks", "calcetines", "buoy", "boya", "cap", "caps", "gorro", "trisuit", "kneeskin", "jammer", "parka", "jacket", "shorts", "pants", "backpack", "bag"]):
-        return False, "Accessori exclòs (no és un neoprè)"
+    if any(re.search(r"\b" + re.escape(bad) + r"\b", combined) for bad in ["goggles", "gafas", "gloves", "guantes", "socks", "calcetines", "buoy", "boya", "cap", "caps", "gorro", "trisuit", "kneeskin", "jammer", "parka", "jacket", "shorts", "pants", "backpack", "bag", "thermal", "térmico", "termico", "breaststroke", "aspect", "evolution", "kona-target", "swim skin", "swimskin", "robe"]):
+        return False, "Accessori o variant diferent (Thermal/Aspect/Evolution/Swimskin) exclosa"
 
     if re.search(r"\b(?:201[5-9]|2020)\b", combined):
         return False, "Model de temporada antiga (2015-2020) exclòs"
@@ -764,7 +804,7 @@ def parse_html_fast_stdlib(html_str, base_url, zprod=None):
         m_h1_raw = re.search(r"<h1[^>]*>", html_str, flags=re.I)
         h1_raw_idx = m_h1_raw.start() if m_h1_raw else 0
         m_raw_cut = re.search(
-            r'(?:id=["\'](?:tab-related|tab-similar|related-products)["\']|data-list-name=["\'][^"\']*(?:Related|Viewed|Similar)[^"\']*["\']|class=["\'][^"\']*(?:productCarousel|related-products|similar-products|cross-sell|upsell)[^"\']*["\']|>\s*(?:Related Products|Customers Also Viewed|You May Also Need|More Like This|Similar Products|Productos relacionados|También te puede interesar)\s*<)',
+            r'(?:id=["\'](?:tab-related|tab-similar|related-products)["\']|data-list-name=["\'][^"\']*(?:Related|Viewed|Similar)[^"\']*["\']|class=["\'][^"\']*(?:productCarousel|related-products|similar-products|cross-sell|upsell|products-accessories|featured-products)[^"\']*["\']|>\s*(?:Related Products|Customers Also Viewed|You May Also Need|You may also like|Completa tu compra|More Like This|Similar Products|Productos relacionados|También te puede interesar)\s*<)',
             html_str[h1_raw_idx:],
             flags=re.I
         )
@@ -823,13 +863,21 @@ def parse_html_fast_stdlib(html_str, base_url, zprod=None):
             txt_dt = re.sub(r"<[^>]+>", " ", m_dt.group(1)).strip()
             if txt_dt and len(txt_dt) < 35:
                 dom_prices.append({"selector": "[data-testid=product-price]", "text": txt_dt, "attrCurr": meta_curr})
-        for m_cls in re.finditer(r'class=["\'][^"\']*(?:product-detail-price|pdp-price|product-page-price|price--main|price--withTax|product-price__price|now-price|price-now|current-price-value)[^"\']*["\'][^>]*>(.*?)</(?:span|div|p|strong)>', main_html, flags=re.I | re.S):
+        for m_cls in re.finditer(r'class=["\'][^"\']*(?:product-detail-price|pdp-price|product-page-price|price--main|price--withTax|product-price__price|now-price|price-now|current-price-value|price-item--sale|product__price)[^"\']*["\'][^>]*>(.*?)</(?:span|div|p|strong)>', main_html, flags=re.I | re.S):
             ctx_prev = main_html[max(0, m_cls.start() - 450):m_cls.start()].lower()
             if any(ut in ctx_prev for ut in used_ctx_tokens):
                 continue
             txt_cls = re.sub(r"<[^>]+>", " ", m_cls.group(1)).strip()
             if txt_cls and len(txt_cls) < 40:
                 dom_prices.append({"selector": ".pdp-price", "text": txt_cls, "attrCurr": meta_curr})
+        for m_woo in re.finditer(r'<p[^>]+class=["\'][^"\']*\bprice\b[^"\']*["\'][^>]*>(.*?)</p>', main_html, flags=re.I | re.S):
+            woo_inner = m_woo.group(1)
+            m_ins = re.search(r'<ins[^>]*>(.*?)</ins>', woo_inner, flags=re.I | re.S)
+            target_woo = m_ins.group(1) if m_ins else re.sub(r'<del[^>]*>.*?</del>', ' ', woo_inner, flags=re.I | re.S)
+            txt_woo = re.sub(r'<[^>]+>', ' ', target_woo)
+            txt_woo = re.sub(r'\s+', ' ', txt_woo).strip()
+            if txt_woo and len(txt_woo) < 45:
+                dom_prices.append({"selector": "p.price", "text": txt_woo, "attrCurr": meta_curr})
 
         # Extract links including title, aria-label, inner img alt, surrounding card text (for empty stretched-link overlays),
         # DuckDuckGo uddg= redirect unwrapping, and JSON/hydration product URLs (Alltricks, Wetsuit Outlet, Sportano, Sigma, etc.)
@@ -1050,14 +1098,32 @@ async def discover_missing_pdps(page_es, page_uk, tracking, today_str, domain_bl
 
     discovered_total = 0
 
-    ordered_op_groups = sorted(
-        missing_by_op.items(),
-        key=lambda kv: (1 if is_secondary_operator(kv[0][0], kv[0][1]) else 0, kv[0][0], kv[0][1])
-    )
+    mapped_count_by_op = {}
+    for r_all in tracking:
+        if r_all.get("url") and not is_generic_category_url(r_all.get("url", "")):
+            ok_k = (r_all["country"], r_all["operator"])
+            mapped_count_by_op[ok_k] = mapped_count_by_op.get(ok_k, 0) + 1
+
+    def _op_discovery_priority(kv):
+        op_key, op_rows = kv
+        has_broken = any(r.get("id") in broken_row_ids for r in op_rows)
+        if has_broken:
+            return (0, 0, op_key[0], op_key[1])
+        is_sec = is_secondary_operator(op_key[0], op_key[1])
+        mapped_cnt = mapped_count_by_op.get(op_key, 0)
+        # Prioritize newly added Secondary operators (or any operator with < 5 mapped PDPs) ahead of mature Shortlist gaps
+        if is_sec or mapped_cnt < 5:
+            return (1, mapped_cnt, op_key[0], op_key[1])
+        return (2, len(op_rows), op_key[0], op_key[1])
+
+    ordered_op_groups = sorted(missing_by_op.items(), key=_op_discovery_priority)
+    PER_OP_DISCOVERY_CAP_SEC = 75
+
     for (country, operator), rows in ordered_op_groups:
         if is_time_budget_exceeded(margin_sec=45):
             print(f"[Time Budget] Stopping Auto-Discovery cleanly before ({country}, {operator}) to guarantee commit.")
             break
+        op_disc_start = time.monotonic()
 
         cat_urls = OPERATOR_CATALOG_URLS.get((country, operator), [])
         expected_dom = OPERATOR_DOMAIN_FILTER.get((country, operator), "")
@@ -1177,7 +1243,7 @@ async def discover_missing_pdps(page_es, page_uk, tracking, today_str, domain_bl
             await prefetch_zyte_batch(page, op_discovery_urls, country, is_pdp=False)
 
         for d_url in op_discovery_urls:
-            if is_time_budget_exceeded(margin_sec=45):
+            if is_time_budget_exceeded(margin_sec=45) or (time.monotonic() - op_disc_start) > PER_OP_DISCOVERY_CAP_SEC:
                 break
             d_links, used_zyte = await fetch_discovery_links(page, d_url, country, expected_dom, force_zyte=dom_is_blocked)
             if used_zyte and not dom_is_blocked:
@@ -1189,7 +1255,7 @@ async def discover_missing_pdps(page_es, page_uk, tracking, today_str, domain_bl
         # Match collected links against remaining missing rows
         inspected_candidates = {}
         for row in rows:
-            if is_time_budget_exceeded(margin_sec=35):
+            if is_time_budget_exceeded(margin_sec=35) or (time.monotonic() - op_disc_start) > (PER_OP_DISCOVERY_CAP_SEC + 25):
                 break
             code = row["code"]
             model_name = row["model"]
@@ -1208,6 +1274,9 @@ async def discover_missing_pdps(page_es, page_uk, tracking, today_str, domain_bl
                     if "tradeinn.com" in href.lower() and "country=" not in href.lower():
                         sep = "&" if "?" in href else "?"
                         href = f"{href}{sep}country={'uk' if country == 'UK' else 'es'}"
+                    elif country == "ES" and "proswimwear.es" in href.lower() and "wmc-currency=" not in href.lower():
+                        sep = "&" if "?" in href else "?"
+                        href = f"{href}{sep}wmc-currency=EUR"
                     found_url = href
                     break
                 kws = MODEL_KEYWORDS.get(code, [])
@@ -1709,8 +1778,12 @@ def get_canonical_url_candidates(url, country):
         com_mirror = re.sub(r"https?://(?:www\.)?deporvillage\.es/", "https://www.deporvillage.com/", u, flags=re.I)
         return [u, com_mirror] if com_mirror != u else [u]
     elif country == "ES" and "365rider.com/en/" in u.lower():
-        es_365 = re.sub(r"/en/", "/es/", u, count=1, flags=re.I)
+        es_365 = re.sub(r"/en/", "/", u, count=1, flags=re.I)
         return [es_365, u]
+    elif country == "ES" and "proswimwear.es/" in u.lower() and "wmc-currency=eur" not in u.lower():
+        sep = "&" if "?" in u else "?"
+        u_eur = f"{u}{sep}wmc-currency=EUR"
+        return [u_eur, u]
     return [u]
 
 async def extract_verified_pdp_price(page, row, force_zyte_only=False):
@@ -1864,7 +1937,7 @@ async def extract_verified_pdp_price(page, row, force_zyte_only=False):
                         '#js-precio', '#productPrice', '[data-testid="product-price"]',
                         '.product-detail-price', '.pdp-price', '.product-page-price',
                         '[data-product-price-with-tax]', '[data-price-type="finalPrice"]', '.price--withTax', '.price--main', '.product-price__price',
-                        '.current-price-value', '.current-price span[content]', '.summary p.price ins .woocommerce-Price-amount', '.summary p.price > .woocommerce-Price-amount'
+                        '.current-price-value', '.current-price span[content]', '.price__sale .price-item--sale', '.price-item--sale', '.summary p.price ins .woocommerce-Price-amount', '.summary p.price > .woocommerce-Price-amount', 'p.price ins .woocommerce-Price-amount', 'p.price > .woocommerce-Price-amount'
                     ];
                     const domPrices = [];
                     selectors.forEach(sel => {
@@ -2232,7 +2305,7 @@ async def main():
     domain_blocks = {}
     CIRCUIT_BREAKER_LIMIT = 1 if ZYTE_API_KEY else 2
 
-    print(f"Starting Zone3 RetentionGuard v12.0 (13 Shortlist + 4 Secondary | Europe/Madrid + Opció C) ({now_iso}) | Opció C (<=65% Nou) | Baseline T-1 ({prev_scan_date}): {len(t_minus_1_keys)} lectures | Zyte: {'ENABLED' if ZYTE_API_KEY else 'PLAYWRIGHT_ONLY'}")
+    print(f"Starting Zone3 RetentionGuard v12.4 (13 Shortlist + 4 Secondary | Europe/Madrid + Opció C) ({now_iso}) | Opció C (<=65% Nou) | Baseline T-1 ({prev_scan_date}): {len(t_minus_1_keys)} lectures | Zyte: {'ENABLED' if ZYTE_API_KEY else 'PLAYWRIGHT_ONLY'}")
 
     async with async_playwright() as p:
         browser = await p.chromium.launch(
