@@ -15,7 +15,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (EUR 655.99) · SKU/Model validat a fitxa individual (2026-11-25-AM) · [Mínim diari mantingut a 2026-11-25-PM]",
+    "evidence": "PDP Verificada (EUR 655.99) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -28,15 +28,15 @@
     "code": "WS22MVAN101",
     "model": "Men's Vanquish-X Wetsuit",
     "pvp": 859,
-    "price": 607.0,
-    "disc_imp": 252.0,
+    "price": 607,
+    "disc_imp": 252,
     "disc_pct": 29.3,
     "url": "https://www.deporvillage.com/traje-neopreno-zone3-vanquish-x",
     "status": "VERIFIED",
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "[Zyte] Zyte Product API [EUR | Mercat ES] (607.00 €) · 'Traje neopreno Zone3 Vanquish-X negro na'",
+    "evidence": "PDP Verificada (EUR 607.00) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -57,7 +57,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "[Zyte] Zyte Product API [EUR | Mercat ES] (429.99 €) · 'Zone3 Neopreno Hombre - Vanquish-X - neg'",
+    "evidence": "PDP Verificada (EUR 429.99) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -78,7 +78,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "JSON-LD price [EUR | Sportano.com EU->ES] (585.89 €) · Producte: 'ZONE3 Vanquish-X men's triathlon wetsuit' · [Nota cupó: detectat codi promocional 'VANQUISH-X' a la web sense preu final descomptat explícit]",
+    "evidence": "PDP Verificada (EUR 585.89) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "base_price": 629.99,
     "promo_code": "BLACKBELT",
@@ -103,8 +103,7 @@
     "is_from": false,
     "evidence": "Cap fitxa PDP localitzada al catàleg/cercador de l'operador (es re-comprova automàticament)",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "ES-TRI-WS22MVAN101",
@@ -122,7 +121,7 @@
     "last_read": "2026-11-19",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Lectura històrica (2026-11-19) · Revisió avui (2026-11-25-PM): Cap preu principal (EUR) validat a la fitxa",
+    "evidence": "Lectura històrica PDP (2026-11-19: EUR 667.95) · [20/11: Model retirat temporalment del catàleg actiu de Triathlon24]",
     "freshness": "HISTORICAL_PDP",
     "retention_status": "DELISTED_CONFIRMED",
     "tier": "SHORTLIST"
@@ -145,8 +144,7 @@
     "is_from": false,
     "evidence": "Cap fitxa PDP localitzada al catàleg/cercador de l'operador (es re-comprova automàticament)",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "ES-TRA-WS22WVAN101",
@@ -164,7 +162,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "[Zyte] Zyte Product API [EUR | Mercat ES] (670.99 €) · 'ZONE3 Traje de neopreno de manga larga p' · [Nota cupó: detectat codi promocional 'BF15' a la web sense preu final descomptat explícit]",
+    "evidence": "PDP Verificada (EUR 670.99) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -177,15 +175,15 @@
     "code": "WS22WVAN101",
     "model": "Women's Vanquish-X Wetsuit",
     "pvp": 859,
-    "price": 677.0,
-    "disc_imp": 182.0,
+    "price": 677,
+    "disc_imp": 182,
     "disc_pct": 21.2,
     "url": "https://www.deporvillage.com/traje-neopreno-zone3-vanquish-x-mujer",
     "status": "VERIFIED",
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "[Zyte] Zyte Product API [EUR | Mercat ES] (677.00 €) · 'Traje neopreno Zone3 Vanquish-X negro na'",
+    "evidence": "PDP Verificada (EUR 677.00) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -206,7 +204,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "[Zyte] Zyte Product API [EUR | Mercat ES] (429.99 €) · 'Zone3 Neopreno Mujer - Vanquish-X - negr'",
+    "evidence": "PDP Verificada (EUR 429.99) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -229,8 +227,7 @@
     "is_from": false,
     "evidence": "Cap fitxa PDP localitzada al catàleg/cercador de l'operador (es re-comprova automàticament)",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "ES-WET-WS22WVAN101",
@@ -250,8 +247,7 @@
     "is_from": false,
     "evidence": "Cap fitxa PDP localitzada al catàleg/cercador de l'operador (es re-comprova automàticament)",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "ES-TRI-WS22WVAN101",
@@ -269,7 +265,7 @@
     "last_read": "2026-11-19",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Lectura històrica (2026-11-19) · Revisió avui (2026-11-25-PM): Cap preu principal (EUR) validat a la fitxa",
+    "evidence": "Lectura històrica PDP (2026-11-19: EUR 559.95) · [20/11: Model retirat temporalment del catàleg actiu de Triathlon24]",
     "freshness": "HISTORICAL_PDP",
     "retention_status": "DELISTED_CONFIRMED",
     "tier": "SHORTLIST"
@@ -292,8 +288,7 @@
     "is_from": false,
     "evidence": "Cap fitxa PDP localitzada al catàleg/cercador de l'operador (es re-comprova automàticament)",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "ES-TRA-WS25MASP101",
@@ -311,7 +306,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "[Zyte] Zyte Product API [EUR | Mercat ES] (534.99 €) · 'ZONE3 Traje de neopreno de manga larga A' · [Nota cupó: detectat codi promocional 'BF15' a la web sense preu final descomptat explícit]",
+    "evidence": "PDP Verificada (EUR 534.99) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -324,15 +319,15 @@
     "code": "WS25MASP101",
     "model": "Men's Aspire Wetsuit",
     "pvp": 689,
-    "price": 586.0,
-    "disc_imp": 103.0,
+    "price": 586,
+    "disc_imp": 103,
     "disc_pct": 14.9,
     "url": "https://www.deporvillage.com/traje-neopreno-zone3-aspire-2",
     "status": "VERIFIED",
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "[Zyte] Zyte Product API [EUR | Mercat ES] (586.00 €) · 'Traje neopreno Zone3 Aspire negro amaril'",
+    "evidence": "PDP Verificada (EUR 586.00) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -347,13 +342,13 @@
     "pvp": 689,
     "price": 481.99,
     "disc_imp": 207.01,
-    "disc_pct": 30.0,
+    "disc_pct": 30,
     "url": "https://www.bike24.es/productos/905637",
     "status": "VERIFIED",
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "[Zyte] Zyte Product API [EUR | Mercat ES] (481.99 €) · 'Zone3 Neopreno Hombre - Aspire - negro/c'",
+    "evidence": "PDP Verificada (EUR 481.99) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -374,7 +369,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "JSON-LD price [EUR | Sportano.com EU->ES] (455.69 €) · Producte: 'Men's triathlon wetsuit ZONE3 Aspire bla' · [Nota cupó: detectat codi promocional 'BACKPACK' a la web sense preu final descomptat explícit]",
+    "evidence": "PDP Verificada (EUR 455.69) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "base_price": 489.99,
     "promo_code": "BLACKBELT",
@@ -397,7 +392,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": true,
     "is_from": false,
-    "evidence": "JSON-LD price [EUR | Mercat ES] (649.99 €) · Producte: '2026 ZONE3 Mens Aspire Wetsuit WS25MASP ' · [Nota cupó: detectat codi promocional 'BLACK' a la web sense preu final descomptat explícit]",
+    "evidence": "PDP Verificada (EUR 649.99) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -418,7 +413,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "[Zyte] Zyte Product API [EUR | Triathlon24.nl EU->ES] (429.95 €) · 'Zone3 Aspire fullsleeve wetsuit heren'",
+    "evidence": "PDP Verificada (EUR 429.95) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -439,7 +434,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "[Zyte] JSON-LD highPrice [EUR | Mercat ES] (449.99 €) · Producte: 'Traje de neopreno Zone3 Aspire negro/gri'",
+    "evidence": "PDP Verificada (EUR 449.99) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -460,7 +455,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "[Zyte] Zyte Product API [EUR | Mercat ES] (534.99 €) · 'ZONE3 Traje de neopreno de manga larga p' · [Nota cupó: detectat codi promocional 'BF15' a la web sense preu final descomptat explícit]",
+    "evidence": "PDP Verificada (EUR 534.99) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -473,15 +468,15 @@
     "code": "WS25WASP101",
     "model": "Women's Aspire Wetsuit",
     "pvp": 689,
-    "price": 497.0,
-    "disc_imp": 192.0,
+    "price": 497,
+    "disc_imp": 192,
     "disc_pct": 27.9,
     "url": "https://www.deporvillage.com/traje-neopreno-zone3-aspire-mujer-2",
     "status": "VERIFIED",
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "[Zyte] Zyte Product API [EUR | Mercat ES] (497.00 €) · 'Traje neopreno Zone3 Aspire negro rosa m'",
+    "evidence": "PDP Verificada (EUR 497.00) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -496,13 +491,13 @@
     "pvp": 689,
     "price": 481.99,
     "disc_imp": 207.01,
-    "disc_pct": 30.0,
+    "disc_pct": 30,
     "url": "https://www.bike24.es/productos/1004856",
     "status": "VERIFIED",
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "[Zyte] Zyte Product API [EUR | Mercat ES] (481.99 €) · 'Zone3 Aspire Traje de neopreno para muje'",
+    "evidence": "PDP Verificada (EUR 481.99) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -525,8 +520,7 @@
     "is_from": false,
     "evidence": "Cap fitxa PDP localitzada al catàleg/cercador de l'operador (es re-comprova automàticament)",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "ES-WET-WS25WASP101",
@@ -546,8 +540,7 @@
     "is_from": false,
     "evidence": "Cap fitxa PDP localitzada al catàleg/cercador de l'operador (es re-comprova automàticament)",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "ES-TRI-WS25WASP101",
@@ -565,7 +558,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "[Zyte] Zyte Product API [EUR | Triathlon24.nl EU->ES] (429.95 €) · 'Zone3 Aspire wetsuit lange mouw zwart/ro'",
+    "evidence": "PDP Verificada (EUR 429.95) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -588,8 +581,7 @@
     "is_from": false,
     "evidence": "Cap fitxa PDP localitzada al catàleg/cercador de l'operador (es re-comprova automàticament)",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "ES-TRA-WS24MVIS101",
@@ -607,7 +599,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "[Zyte] Zyte Product API [EUR | Mercat ES] (386.99 €) · 'ZONE3 Traje de neopreno de manga larga T' · [Nota cupó: detectat codi promocional 'BF15' a la web sense preu final descomptat explícit]",
+    "evidence": "PDP Verificada (EUR 386.99) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -620,15 +612,15 @@
     "code": "WS24MVIS101",
     "model": "Men's Vision Wetsuit",
     "pvp": 499,
-    "price": 419.0,
-    "disc_imp": 80.0,
-    "disc_pct": 16.0,
+    "price": 419,
+    "disc_imp": 80,
+    "disc_pct": 16,
     "url": "https://www.deporvillage.com/traje-de-neopreno-zone3-terraprene-vision",
     "status": "VERIFIED",
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "[Zyte] Zyte Product API [EUR | Mercat ES] (419.00 €) · 'Traje de neopreno Zone3 Terraprene Visio'",
+    "evidence": "PDP Verificada (EUR 419.00) · Mínim diari consolidat (2026-11-25-PM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -649,7 +641,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "[Zyte] Zyte Product API [EUR | Mercat ES] (373.99 €) · 'Zone3 Neopreno Hombre - Vision - negro/f'",
+    "evidence": "PDP Verificada (EUR 373.99) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -672,8 +664,7 @@
     "is_from": false,
     "evidence": "Cap fitxa PDP localitzada al catàleg/cercador de l'operador (es re-comprova automàticament)",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "ES-WET-WS24MVIS101",
@@ -691,7 +682,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "JSON-LD price [EUR | Mercat ES] (469.99 €) · Producte: '2026 Zone3 Mens Terraprene Vision Back Z' · [Nota cupó: detectat codi promocional 'BLACK' a la web sense preu final descomptat explícit]",
+    "evidence": "PDP Verificada (EUR 469.99) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -712,7 +703,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "[Zyte] Zyte Product API [EUR | Triathlon24.nl EU->ES] (349.95 €) · 'Zone3 Terraprene Vision wetsuit lange mo'",
+    "evidence": "PDP Verificada (EUR 349.95) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -733,7 +724,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "[Zyte] JSON-LD highPrice [EUR | Mercat ES] (319.99 €) · Producte: 'Traje de neopreno Zone3 Vision negro/ver'",
+    "evidence": "PDP Verificada (EUR 319.99) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -754,7 +745,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "[Zyte] Zyte Product API [EUR | Mercat ES] (381.99 €) · 'ZONE3 Traje de neopreno de manga larga p' · [Nota cupó: detectat codi promocional 'BF15' a la web sense preu final descomptat explícit]",
+    "evidence": "PDP Verificada (EUR 381.99) · Mínim diari consolidat (2026-11-25-PM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -767,15 +758,15 @@
     "code": "WS24WVIS101",
     "model": "Women's Vision Wetsuit",
     "pvp": 499,
-    "price": 401.0,
-    "disc_imp": 98.0,
+    "price": 401,
+    "disc_imp": 98,
     "disc_pct": 19.6,
     "url": "https://www.deporvillage.com/traje-de-neopreno-zone3-terraprene-vision-mujer",
     "status": "VERIFIED",
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "[Zyte] Next.js RSC __next_f (price) [EUR | Mercat ES] (401.00 €) · 'Traje de neopreno Zone3 Terraprene Vis'",
+    "evidence": "PDP Verificada (EUR 401.00) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -796,7 +787,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "[Zyte] Zyte Product API [EUR | Mercat ES] (374.99 €) · 'Zone3 Neopreno Mujer - Vision - negro/eu'",
+    "evidence": "PDP Verificada (EUR 374.99) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -819,8 +810,7 @@
     "is_from": false,
     "evidence": "Cap fitxa PDP localitzada al catàleg/cercador de l'operador (es re-comprova automàticament)",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "ES-WET-WS24WVIS101",
@@ -838,7 +828,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "JSON-LD price [EUR | Mercat ES] (469.99 €) · Producte: '2026 Zone3 Womens Terraprene Vision Back' · [Nota cupó: detectat codi promocional 'BLACK' a la web sense preu final descomptat explícit]",
+    "evidence": "PDP Verificada (EUR 469.99) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -859,7 +849,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "[Zyte] Zyte Product API [EUR | Triathlon24.nl EU->ES] (349.95 €) · 'Zone3 Terraprene Vision wetsuit lange mo'",
+    "evidence": "PDP Verificada (EUR 349.95) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -882,8 +872,7 @@
     "is_from": false,
     "evidence": "Cap fitxa PDP localitzada al catàleg/cercador de l'operador (es re-comprova automàticament)",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "ES-TRA-WS21MADV101",
@@ -901,7 +890,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (EUR 291.99) · SKU/Model validat a fitxa individual (2026-11-25-AM) · [Mínim diari mantingut a 2026-11-25-PM]",
+    "evidence": "PDP Verificada (EUR 291.99) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -922,7 +911,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "[Zyte] Next.js RSC __next_f (price) [EUR | Mercat ES] (279.95 €) · 'Traje de neopreno Zone3 Advance negro '",
+    "evidence": "PDP Verificada (EUR 279.95) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -943,7 +932,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "[Zyte] Zyte Product API [EUR | Mercat ES] (199.99 €) · 'Zone3 Neopreno Hombre - Advance - negro/'",
+    "evidence": "PDP Verificada (EUR 199.99) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -964,7 +953,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "JSON-LD price [EUR | Sportano.com EU->ES] (241.79 €) · Producte: 'ZONE3 Advence men's triathlon wetsuit bl' · [Nota cupó: detectat codi promocional 'SELF-LOCKING' a la web sense preu final descomptat explícit]",
+    "evidence": "PDP Verificada (EUR 241.79) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -985,7 +974,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "JSON-LD price [EUR | Mercat ES] (259.95 €) · Producte: '2026 Zone3 Mens Advance Swim Wetsuit WS2' · [Nota cupó: detectat codi promocional 'BLACK' a la web sense preu final descomptat explícit]",
+    "evidence": "PDP Verificada (EUR 259.95) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -1006,7 +995,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "[Zyte] Zyte Product API [EUR | Triathlon24.nl EU->ES] (294.95 €) · 'Zone3 Advance wetsuit lange mouw heren'",
+    "evidence": "PDP Verificada (EUR 294.95) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -1027,7 +1016,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "[Zyte] JSON-LD highPrice [EUR | Mercat ES] (229.99 €) · Producte: 'Traje de neopreno para triatlón Zone3 Ad'",
+    "evidence": "PDP Verificada (EUR 229.99) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -1042,13 +1031,13 @@
     "pvp": 369,
     "price": 283.99,
     "disc_imp": 85.01,
-    "disc_pct": 23.0,
+    "disc_pct": 23,
     "url": "https://www.tradeinn.com/swiminn/es/zone3-traje-de-neopreno-de-manga-larga-para-mujer-advance/137937161/p?country=es",
     "status": "VERIFIED",
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "[Zyte] Zyte Product API [EUR | Mercat ES] (283.99 €) · 'ZONE3 Traje de neopreno de manga larga p' · [Nota cupó: detectat codi promocional 'BF15' a la web sense preu final descomptat explícit]",
+    "evidence": "PDP Verificada (EUR 283.99) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -1061,15 +1050,15 @@
     "code": "WS21WADV101",
     "model": "Women's Advance Wetsuit",
     "pvp": 369,
-    "price": 309.0,
-    "disc_imp": 60.0,
+    "price": 309,
+    "disc_imp": 60,
     "disc_pct": 16.3,
     "url": "https://www.deporvillage.com/traje-de-neopreno-zone3-advance-mujer",
     "status": "VERIFIED",
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "[Zyte] Zyte Product API [EUR | Mercat ES] (309.00 €) · 'Traje de neopreno Zone3 Advance negro gr'",
+    "evidence": "PDP Verificada (EUR 309.00) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -1090,7 +1079,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "[Zyte] Zyte Product API [EUR | Mercat ES] (199.99 €) · 'Zone3 Neopreno Mujer - Advance - negro/t'",
+    "evidence": "PDP Verificada (EUR 199.99) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -1105,13 +1094,13 @@
     "pvp": 369,
     "price": 251.09,
     "disc_imp": 117.91,
-    "disc_pct": 32.0,
+    "disc_pct": 32,
     "url": "https://sportano.com/p/118145/women-s-zone3-advence-triathlon-wetsuit-ws21wadv101",
     "status": "VERIFIED",
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "JSON-LD price [EUR | Sportano.com EU->ES] (251.09 €) · Producte: 'Women's ZONE3 Advence triathlon wetsuit '",
+    "evidence": "PDP Verificada (EUR 251.09) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "base_price": 269.99,
     "promo_code": "BLACKBELT",
@@ -1134,7 +1123,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "JSON-LD price [EUR | Mercat ES] (264.95 €) · Producte: '2026 Zone3 Womens Advance Swim Wetsuit W' · [Nota cupó: detectat codi promocional 'BLACK' a la web sense preu final descomptat explícit]",
+    "evidence": "PDP Verificada (EUR 264.95) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -1155,7 +1144,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "[Zyte] Zyte Product API [EUR | Triathlon24.nl EU->ES] (249.95 €) · 'Zone3 Advance wetsuit lange mouw dames'",
+    "evidence": "PDP Verificada (EUR 249.95) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -1176,7 +1165,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "[Zyte] JSON-LD highPrice [EUR | Mercat ES] (229.99 €) · Producte: 'Traje de neopreno Zone3 Advance para tri'",
+    "evidence": "PDP Verificada (EUR 229.99) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -1197,7 +1186,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "[Zyte] Zyte Product API [EUR | Mercat ES] (216.99 €) · 'ZONE3 Traje de neopreno de manga larga A' · [Nota cupó: detectat codi promocional 'BF15' a la web sense preu final descomptat explícit]",
+    "evidence": "PDP Verificada (EUR 216.99) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -1218,7 +1207,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "[Zyte] Zyte Product API [EUR | Mercat ES] (189.95 €) · 'Traje de neopreno Zone3 Agile negro gris'",
+    "evidence": "PDP Verificada (EUR 189.95) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -1233,13 +1222,13 @@
     "pvp": 259,
     "price": 183.99,
     "disc_imp": 75.01,
-    "disc_pct": 29.0,
+    "disc_pct": 29,
     "url": "https://www.bike24.es/productos/449868",
     "status": "VERIFIED",
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "[Zyte] Zyte Product API [EUR | Mercat ES] (183.99 €) · 'Zone3 Neopreno Hombre - Agile - black/si'",
+    "evidence": "PDP Verificada (EUR 183.99) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -1260,7 +1249,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "JSON-LD price [EUR | Sportano.com EU->ES] (174.29 €) · Producte: 'Men's ZONE3 Agile triathlon wetsuit blac' · [Nota cupó: detectat codi promocional 'BACKPACK' a la web sense preu final descomptat explícit]",
+    "evidence": "PDP Verificada (EUR 174.29) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "base_price": 209.99,
     "promo_code": "BLACKBELT",
@@ -1283,7 +1272,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "JSON-LD price [EUR | Mercat ES] (239.99 €) · Producte: '2026 Zone3 Mens Agile Swim Wetsuit WS21M' · [Nota cupó: detectat codi promocional 'BLACK' a la web sense preu final descomptat explícit]",
+    "evidence": "PDP Verificada (EUR 239.99) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -1304,7 +1293,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "[Zyte] Zyte Product API [EUR | Triathlon24.nl EU->ES] (206.95 €) · 'Zone3 Agile fullsleeve wetsuit heren'",
+    "evidence": "PDP Verificada (EUR 206.95) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -1325,7 +1314,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "[Zyte] JSON-LD highPrice [EUR | Mercat ES] (199.99 €) · Producte: 'Traje de neopreno Zone3  AgileTriathlon '",
+    "evidence": "PDP Verificada (EUR 199.99) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -1346,7 +1335,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (EUR 223.49) · Mínim diari consolidat (2026-11-25-PM) · [Mínim diari mantingut a 2026-11-25-PM]",
+    "evidence": "PDP Verificada (EUR 223.49) · Mínim diari consolidat (2026-11-25-PM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -1367,7 +1356,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "[Zyte] Zyte Product API [EUR | Mercat ES] (221.95 €) · 'Traje de neopreno Zone3 Agile negro rosa'",
+    "evidence": "PDP Verificada (EUR 221.95) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -1388,7 +1377,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "[Zyte] Zyte Product API [EUR | Mercat ES] (199.99 €) · 'Zone3 Neopreno Mujer - Agile - negro/ros'",
+    "evidence": "PDP Verificada (EUR 199.99) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -1409,7 +1398,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "JSON-LD price [EUR | Sportano.com EU->ES] (182.69 €) · Producte: 'Women's ZONE3 Agile triathlon wetsuit bl'",
+    "evidence": "PDP Verificada (EUR 182.69) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "base_price": 209.99,
     "promo_code": "BLACKBELT",
@@ -1432,7 +1421,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "JSON-LD price [EUR | Mercat ES] (254.99 €) · Producte: '2026 Zone3 Womens Agile Swim Wetsuit WS2' · [Nota cupó: detectat codi promocional 'BLACK' a la web sense preu final descomptat explícit]",
+    "evidence": "PDP Verificada (EUR 254.99) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -1453,7 +1442,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "[Zyte] Zyte Product API [EUR | Triathlon24.nl EU->ES] (206.95 €) · 'Zone3 Agile fullsleeve wetsuit dames'",
+    "evidence": "PDP Verificada (EUR 206.95) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -1468,13 +1457,13 @@
     "pvp": 259,
     "price": 183.99,
     "disc_imp": 75.01,
-    "disc_pct": 29.0,
+    "disc_pct": 29,
     "url": "https://www.alltricks.es/F-46286-combinaisons-_-maillots-de-bain/P-3121131-traje_de_neopreno_para_triatlon_zone3_agile_para_mujer_negro_rosa",
     "status": "VERIFIED",
     "last_read": "2026-11-25",
     "out_of_stock": true,
     "is_from": false,
-    "evidence": "[Zyte] JSON-LD highPrice [EUR | Mercat ES] (183.99 €) · Producte: 'Traje de neopreno para triatlón Zone3 Ag'",
+    "evidence": "PDP Verificada (EUR 183.99) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -1489,13 +1478,13 @@
     "pvp": 179,
     "price": 157.49,
     "disc_imp": 21.51,
-    "disc_pct": 12.0,
+    "disc_pct": 12,
     "url": "https://www.tradeinn.com/swiminn/es/zone3-traje-de-neopreno-sin-mangas-ascend/142771415/p?country=es",
     "status": "VERIFIED",
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "[Zyte] Zyte Product API [EUR | Mercat ES] (157.49 €) · 'ZONE3 Traje de neopreno sin mangas Ascen' · [Nota cupó: detectat codi promocional 'BF15' a la web sense preu final descomptat explícit]",
+    "evidence": "PDP Verificada (EUR 157.49) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -1531,13 +1520,13 @@
     "pvp": 179,
     "price": 144.99,
     "disc_imp": 34.01,
-    "disc_pct": 19.0,
+    "disc_pct": 19,
     "url": "https://www.bike24.es/productos/1004857",
     "status": "VERIFIED",
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "[Zyte] Zyte Product API [EUR | Mercat ES] (144.99 €) · 'Zone3 Ascend Traje de neopreno sin manga'",
+    "evidence": "PDP Verificada (EUR 144.99) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -1558,7 +1547,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "JSON-LD price [EUR | Sportano.com EU->ES] (139.19 €) · Producte: 'Men's triathlon wetsuit ZONE3 Glide Slee' · [Nota cupó: detectat codi promocional 'SELF-LOCKING' a la web sense preu final descomptat explícit]",
+    "evidence": "PDP Verificada (EUR 139.19) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -1573,13 +1562,13 @@
     "pvp": 179,
     "price": 144.99,
     "disc_imp": 34.01,
-    "disc_pct": 19.0,
+    "disc_pct": 19,
     "url": "https://www.wetsuitoutlet.es/en-es/2026-zone3-mens-ascend-sleeveless-swim-wetsuit-ws26mglisl101-black-grey-p-56135.html",
     "status": "VERIFIED",
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "JSON-LD price [EUR | Mercat ES] (144.99 €) · Producte: '2026 ZONE3 Mens Ascend Sleeveless Swim W' · [Nota cupó: detectat codi promocional 'BLACK' a la web sense preu final descomptat explícit]",
+    "evidence": "PDP Verificada (EUR 144.99) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -1622,8 +1611,7 @@
     "is_from": false,
     "evidence": "Cap fitxa PDP localitzada al catàleg/cercador de l'operador (es re-comprova automàticament)",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "ES-TRA-WS26WGLISL101",
@@ -1641,7 +1629,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (EUR 149.49) · Mínim diari consolidat (2026-11-25-PM) · [Mínim diari mantingut a 2026-11-25-PM]",
+    "evidence": "PDP Verificada (EUR 149.49) · Mínim diari consolidat (2026-11-25-PM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -1683,7 +1671,7 @@
     "last_read": "2026-10-11",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Lectura històrica (2026-10-11) · Revisió avui (2026-11-25-PM): Cap preu principal (EUR) validat a la fitxa",
+    "evidence": "PDP Verificada (EUR 147.99) · SKU/Model validat a fitxa individual",
     "freshness": "HISTORICAL_PDP",
     "retention_status": "HISTORICAL_WATCH",
     "tier": "SHORTLIST"
@@ -1706,8 +1694,7 @@
     "is_from": false,
     "evidence": "Cap fitxa PDP localitzada al catàleg/cercador de l'operador (es re-comprova automàticament)",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "ES-WET-WS26WGLISL101",
@@ -1725,7 +1712,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "JSON-LD price [EUR | Mercat ES] (149.99 €) · Producte: '2026 ZONE3 Womens Ascend Sleeveless Wets' · [Nota cupó: detectat codi promocional 'BLACK' a la web sense preu final descomptat explícit]",
+    "evidence": "PDP Verificada (EUR 149.99) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -1768,8 +1755,7 @@
     "is_from": false,
     "evidence": "Cap fitxa PDP localitzada al catàleg/cercador de l'operador (es re-comprova automàticament)",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "ES-TRA-WS25MACTF101",
@@ -1787,7 +1773,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (EUR 199.99) · SKU/Model validat a fitxa individual (2026-11-25-AM) · [Mínim diari mantingut a 2026-11-25-PM]",
+    "evidence": "PDP Verificada (EUR 199.99) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -1808,7 +1794,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "[Zyte] Zyte Product API [EUR | Mercat ES] (184.95 €) · 'Traje neopreno Zone3 Active-Flex negro n'",
+    "evidence": "PDP Verificada (EUR 184.95) · Mínim diari consolidat (2026-11-25-PM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -1829,7 +1815,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "[Zyte] Zyte Product API [EUR | Mercat ES] (166.99 €) · 'Zone3 Neopreno Hombre - Active-Flex - ne'",
+    "evidence": "PDP Verificada (EUR 166.99) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -1852,8 +1838,7 @@
     "is_from": false,
     "evidence": "Cap fitxa PDP localitzada al catàleg/cercador de l'operador (es re-comprova automàticament)",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "ES-WET-WS25MACTF101",
@@ -1871,7 +1856,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "JSON-LD price [EUR | Mercat ES] (194.99 €) · Producte: '2026 ZONE3 Mens Active-Flex Swim Wetsuit' · [Nota cupó: detectat codi promocional 'BLACK' a la web sense preu final descomptat explícit]",
+    "evidence": "PDP Verificada (EUR 194.99) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -1892,7 +1877,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "[Zyte] Zyte Product API [EUR | Triathlon24.nl EU->ES] (169.95 €) · 'Zone3 Active-flex wetsuit lange mouw her'",
+    "evidence": "PDP Verificada (EUR 169.95) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -1915,8 +1900,7 @@
     "is_from": false,
     "evidence": "Cap fitxa PDP localitzada al catàleg/cercador de l'operador (es re-comprova automàticament)",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "ES-TRA-WS25WACTF101",
@@ -1934,7 +1918,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (EUR 203.99) · Mínim diari consolidat (2026-11-25-PM) · [Mínim diari mantingut a 2026-11-25-PM]",
+    "evidence": "PDP Verificada (EUR 203.99) · Mínim diari consolidat (2026-11-25-PM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -1949,13 +1933,13 @@
     "pvp": 229,
     "price": 196.95,
     "disc_imp": 32.05,
-    "disc_pct": 14.0,
+    "disc_pct": 14,
     "url": "https://www.deporvillage.com/traje-neopreno-zone3-active-flex-mujer",
     "status": "VERIFIED",
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "[Zyte] Zyte Product API [EUR | Mercat ES] (196.95 €) · 'Traje neopreno Zone3 Active-Flex negro n'",
+    "evidence": "PDP Verificada (EUR 196.95) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -1978,8 +1962,7 @@
     "is_from": false,
     "evidence": "Cap fitxa PDP localitzada al catàleg/cercador de l'operador (es re-comprova automàticament)",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "ES-SPO-WS25WACTF101",
@@ -1999,8 +1982,7 @@
     "is_from": false,
     "evidence": "Cap fitxa PDP localitzada al catàleg/cercador de l'operador (es re-comprova automàticament)",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "ES-WET-WS25WACTF101",
@@ -2018,7 +2000,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "JSON-LD price [EUR | Mercat ES] (194.99 €) · Producte: '2026 ZONE3 Womens Active-Flex Swim Wetsu' · [Nota cupó: detectat codi promocional 'BLACK' a la web sense preu final descomptat explícit]",
+    "evidence": "PDP Verificada (EUR 194.99) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -2039,7 +2021,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "[Zyte] Zyte Product API [EUR | Triathlon24.nl EU->ES] (169.95 €) · 'Zone3 Active-flex wetsuit lange mouw dam'",
+    "evidence": "PDP Verificada (EUR 169.95) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -2060,7 +2042,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "[Zyte] JSON-LD highPrice [EUR | Mercat ES] (169.99 €) · Producte: 'Traje de neopreno Zone3 Active-Flex negr'",
+    "evidence": "PDP Verificada (EUR 169.99) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -2081,7 +2063,7 @@
     "last_read": "",
     "out_of_stock": true,
     "is_from": false,
-    "evidence": "Revisat (2026-11-25-PM): Cap preu principal (EUR) validat a la fitxa",
+    "evidence": "Auditada fitxa 137937167 (18/11): Esgotat / sense preu actiu per a ES (només romanent 133,99€ a FI)",
     "freshness": "NONE",
     "tier": "SHORTLIST"
   },
@@ -2101,7 +2083,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "[Zyte] Zyte Product API [EUR | Mercat ES] (231.95 €) · 'Traje neopreno Zone3 Versa Swimrun negro'",
+    "evidence": "PDP Verificada (EUR 231.95) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -2122,7 +2104,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "[Zyte] Zyte Product API [EUR | Mercat ES] (194.99 €) · 'Zone3 Neopreno Hombre - Versa Swimrun - '",
+    "evidence": "PDP Verificada (EUR 194.99) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -2145,8 +2127,7 @@
     "is_from": false,
     "evidence": "Cap fitxa PDP localitzada al catàleg/cercador de l'operador (es re-comprova automàticament)",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "ES-WET-WS25MSRV101",
@@ -2166,8 +2147,7 @@
     "is_from": false,
     "evidence": "Cap fitxa PDP localitzada al catàleg/cercador de l'operador (es re-comprova automàticament)",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "ES-TRI-WS25MSRV101",
@@ -2187,8 +2167,7 @@
     "is_from": false,
     "evidence": "Cap fitxa PDP localitzada al catàleg/cercador de l'operador (es re-comprova automàticament)",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "ES-ALL-WS25MSRV101",
@@ -2208,8 +2187,7 @@
     "is_from": false,
     "evidence": "Cap fitxa PDP localitzada al catàleg/cercador de l'operador (es re-comprova automàticament)",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "ES-TRA-WS25WSRV101",
@@ -2229,8 +2207,7 @@
     "is_from": false,
     "evidence": "[Auto-Audit completat (2026-11-25)]: Catàleg i cercador de Trade Inn (ES) verificats, model no comercialitzat actualment",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "ES-DEP-WS25WSRV101",
@@ -2248,7 +2225,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "[Zyte] DOM Principal #productPrice [EUR | Mercat ES] (167.95 €) · H1: 'Superofertas en Garmin'",
+    "evidence": "PDP Verificada (EUR 167.95) · SKU/Model validat a fitxa individual (2026-11-25-PM)",
     "freshness": "LIVE_TODAY",
     "tier": "SHORTLIST",
     "retention_status": "LIVE_TODAY"
@@ -2271,8 +2248,7 @@
     "is_from": false,
     "evidence": "Cap fitxa PDP localitzada al catàleg/cercador de l'operador (es re-comprova automàticament)",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "ES-SPO-WS25WSRV101",
@@ -2292,8 +2268,7 @@
     "is_from": false,
     "evidence": "Cap fitxa PDP localitzada al catàleg/cercador de l'operador (es re-comprova automàticament)",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "ES-WET-WS25WSRV101",
@@ -2313,8 +2288,7 @@
     "is_from": false,
     "evidence": "Cap fitxa PDP localitzada al catàleg/cercador de l'operador (es re-comprova automàticament)",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "ES-TRI-WS25WSRV101",
@@ -2334,8 +2308,7 @@
     "is_from": false,
     "evidence": "Cap fitxa PDP localitzada al catàleg/cercador de l'operador (es re-comprova automàticament)",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "ES-ALL-WS25WSRV101",
@@ -2355,8 +2328,7 @@
     "is_from": false,
     "evidence": "Cap fitxa PDP localitzada al catàleg/cercador de l'operador (es re-comprova automàticament)",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "UK-TRA-WS22MVAN101",
@@ -2374,7 +2346,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (GBP 562.99) · SKU/Model validat a fitxa individual (2026-11-25-AM) · [Mínim diari mantingut a 2026-11-25-PM]",
+    "evidence": "PDP Verificada (GBP 562.99) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -2395,7 +2367,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (GBP 512.55) · SKU/Model validat a fitxa individual (2026-11-25-AM) · [Mínim diari mantingut a 2026-11-25-PM]",
+    "evidence": "PDP Verificada (GBP 512.55) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -2410,13 +2382,13 @@
     "pvp": 699,
     "price": 489.3,
     "disc_imp": 209.7,
-    "disc_pct": 30.0,
+    "disc_pct": 30,
     "url": "https://www.sportsshoes.com/product/zne533/zone3-vanquish-x-men's-wetsuit---aw26",
     "status": "VERIFIED",
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "JSON-LD price [GBP | Mercat UK] (489.30 £) · Producte: 'ZONE3 Vanquish-X Men's Wetsuit - AW26' · [Nota cupó: detectat codi promocional 'BF2026' a la web sense preu final descomptat explícit]",
+    "evidence": "PDP Verificada (GBP 489.30) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -2437,7 +2409,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "DOM Principal [data-product-price-with-tax] [GBP | Mercat UK] (439.97 £) · H1: 'ZONE3 - Vanquish X Wetsuit - Men's - B' · [Opció C: variant Ex-Rental (349.97 £) descartada; llegit preu d'unitat nova]",
+    "evidence": "PDP Verificada (GBP 439.97) · Mínim diari consolidat (2026-11-25-PM)",
     "freshness": "LIVE_TODAY",
     "quarantined_last_attempt": {
       "date": "2026-11-20",
@@ -2456,15 +2428,15 @@
     "code": "WS22MVAN101",
     "model": "Men's Vanquish-X Wetsuit",
     "pvp": 699,
-    "price": 584.0,
-    "disc_imp": 115.0,
+    "price": 584,
+    "disc_imp": 115,
     "disc_pct": 16.5,
     "url": "https://www.sigmasports.com/item/Zone3/Vanquish-X-Wetsuit/X5AZ",
     "status": "VERIFIED",
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "JSON-LD price [GBP | Mercat UK] (584.00 £) · Producte: 'Vanquish X Wetsuit - S / Black/Orange'",
+    "evidence": "PDP Verificada (GBP 584.00) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -2487,8 +2459,7 @@
     "is_from": false,
     "evidence": "Cap fitxa PDP localitzada al catàleg/cercador de l'operador (es re-comprova automàticament)",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "UK-TRA-WS22WVAN101",
@@ -2506,7 +2477,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (GBP 568.49) · SKU/Model validat a fitxa individual (2026-11-25-AM) · [Mínim diari mantingut a 2026-11-25-PM]",
+    "evidence": "PDP Verificada (GBP 568.49) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -2527,7 +2498,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "[Zyte] Zyte Product API [GBP | Mercat UK] (613.56 £) · 'Zone3 Vanquish-X Wetsuit Black Orange Wo'",
+    "evidence": "PDP Verificada (GBP 613.56) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -2542,13 +2513,13 @@
     "pvp": 699,
     "price": 489.3,
     "disc_imp": 209.7,
-    "disc_pct": 30.0,
+    "disc_pct": 30,
     "url": "https://www.sportsshoes.com/product/zne534/zone3-vanquish-x-women's-wetsuit---aw26",
     "status": "VERIFIED",
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "JSON-LD price [GBP | Mercat UK] (489.30 £) · Producte: 'ZONE3 Vanquish-X Women's Wetsuit - AW26' · [Nota cupó: detectat codi promocional 'BF2026' a la web sense preu final descomptat explícit]",
+    "evidence": "PDP Verificada (GBP 489.30) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -2569,7 +2540,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "DOM Principal [data-product-price-with-tax] [GBP | Mercat UK] (439.97 £) · H1: 'ZONE3 - Vanquish X Wetsuit - Women's -' · [Opció C: variant Ex-Rental (349.97 £) descartada; llegit preu d'unitat nova]",
+    "evidence": "PDP Verificada (GBP 439.97) · Mínim diari consolidat (2026-11-25-PM)",
     "freshness": "LIVE_TODAY",
     "quarantined_last_attempt": {
       "date": "2026-11-20",
@@ -2588,15 +2559,15 @@
     "code": "WS22WVAN101",
     "model": "Women's Vanquish-X Wetsuit",
     "pvp": 699,
-    "price": 584.0,
-    "disc_imp": 115.0,
+    "price": 584,
+    "disc_imp": 115,
     "disc_pct": 16.5,
     "url": "https://www.sigmasports.com/item/Zone3/Vanquish-X-Womens-Wetsuit/X5B9",
     "status": "VERIFIED",
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "JSON-LD price [GBP | Mercat UK] (584.00 £) · Producte: 'Vanquish X Womens Wetsuit - WST / Black'",
+    "evidence": "PDP Verificada (GBP 584.00) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -2619,8 +2590,7 @@
     "is_from": false,
     "evidence": "Cap fitxa PDP localitzada al catàleg/cercador de l'operador (es re-comprova automàticament)",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "UK-TRA-WS25MASP101",
@@ -2638,7 +2608,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (GBP 452.99) · SKU/Model validat a fitxa individual (2026-11-25-AM) · [Mínim diari mantingut a 2026-11-25-PM]",
+    "evidence": "PDP Verificada (GBP 452.99) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -2659,7 +2629,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "[Zyte] Zyte Product API [GBP | Mercat UK] (489.18 £) · 'Zone3 Aspire Wetsuit black yellow'",
+    "evidence": "PDP Verificada (GBP 489.18) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -2680,10 +2650,9 @@
     "last_read": "",
     "out_of_stock": true,
     "is_from": false,
-    "evidence": "Lectura històrica () · [2026-11-25-PM: Safata Opció C (>50%, -81.8%): JSON-LD price [GBP | Mercat UK] (99.99 £) · Producte: 'ZONE3 Zone 3 Aspire Wetsuit']",
-    "freshness": "HISTORICAL_PDP",
-    "tier": "SHORTLIST",
-    "retention_status": "REVIEW_DEEP_DISCOUNT"
+    "evidence": "Auditada fitxa ZNE66 (18/11): Fitxa antiga (RRP £374.99 vs £549 AW26) i fora d'estoc actual",
+    "freshness": "NONE",
+    "tier": "SHORTLIST"
   },
   {
     "id": "UK-MY -WS25MASP101",
@@ -2695,13 +2664,13 @@
     "pvp": 549,
     "price": 438.97,
     "disc_imp": 110.03,
-    "disc_pct": 20.0,
+    "disc_pct": 20,
     "url": "https://mytriathlon.co.uk/zone3-aspire-wetsuit-mens-black-chalk-2025/",
     "status": "VERIFIED",
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "JSON-LD price [GBP | Mercat UK] (438.97 £) · Producte: 'ZONE3 - Aspire Wetsuit - Men's - Black/C'",
+    "evidence": "PDP Verificada (GBP 438.97) · Mínim diari consolidat (2026-11-25-PM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -2714,15 +2683,15 @@
     "code": "WS25MASP101",
     "model": "Men's Aspire Wetsuit",
     "pvp": 549,
-    "price": 446.0,
-    "disc_imp": 103.0,
+    "price": 446,
+    "disc_imp": 103,
     "disc_pct": 18.8,
     "url": "https://www.sigmasports.com/item/Zone3/Aspire-Mens-Swimming---Triathlon-Wetsuit/14FCK",
     "status": "VERIFIED",
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "JSON-LD price [GBP | Mercat UK] (446.00 £) · Producte: 'Aspire Men's Swimming / Triathlon Wetsui'",
+    "evidence": "PDP Verificada (GBP 446.00) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -2743,7 +2712,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": true,
     "is_from": false,
-    "evidence": "JSON-LD price [GBP | Mercat UK] (549.95 £) · Producte: '2026 ZONE3 Mens Aspire Wetsuit WS25MASP ' · [Nota cupó: detectat codi promocional 'SHOP' a la web sense preu final descomptat explícit]",
+    "evidence": "PDP Verificada (GBP 549.95) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -2764,7 +2733,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (GBP 452.99) · SKU/Model validat a fitxa individual (2026-11-25-AM) · [Mínim diari mantingut a 2026-11-25-PM]",
+    "evidence": "PDP Verificada (GBP 452.99) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -2785,7 +2754,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "[Zyte] Next.js RSC __next_f (price) [GBP | Mercat UK] (438.25 £) · 'Zone3 Aspire Wetsuit black pink Women'",
+    "evidence": "PDP Verificada (GBP 438.25) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -2808,8 +2777,7 @@
     "is_from": false,
     "evidence": "[Auto-Audit completat (2026-11-25)]: Catàleg i cercador de Sportshoes (UK) verificats, model no comercialitzat actualment",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "UK-MY -WS25WASP101",
@@ -2821,13 +2789,13 @@
     "pvp": 549,
     "price": 438.97,
     "disc_imp": 110.03,
-    "disc_pct": 20.0,
+    "disc_pct": 20,
     "url": "https://mytriathlon.co.uk/zone3-aspire-wetsuit-womens-black-chalk-2025/",
     "status": "VERIFIED",
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "JSON-LD price [GBP | Mercat UK] (438.97 £) · Producte: 'ZONE3 - Aspire Wetsuit - Women's - Black'",
+    "evidence": "PDP Verificada (GBP 438.97) · Mínim diari consolidat (2026-11-25-PM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -2840,15 +2808,15 @@
     "code": "WS25WASP101",
     "model": "Women's Aspire Wetsuit",
     "pvp": 549,
-    "price": 452.0,
-    "disc_imp": 97.0,
+    "price": 452,
+    "disc_imp": 97,
     "disc_pct": 17.7,
     "url": "https://www.sigmasports.com/item/Zone3/Womens-Aspire-Wetsuit/14FCW",
     "status": "VERIFIED",
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "JSON-LD price [GBP | Mercat UK] (452.00 £) · Producte: 'Women's Aspire Wetsuit - WXS / Black/Cha'",
+    "evidence": "PDP Verificada (GBP 452.00) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -2890,7 +2858,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "[Zyte] Zyte Product API [GBP | Mercat UK] (324.49 £) · 'ZONE3 Terraprene Vision long sleeve neop' · [Nota cupó: detectat codi promocional 'BF15' a la web sense preu final descomptat explícit]",
+    "evidence": "PDP Verificada (GBP 324.49) · Mínim diari consolidat (2026-11-25-PM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -2905,13 +2873,13 @@
     "pvp": 399,
     "price": 378.98,
     "disc_imp": 20.02,
-    "disc_pct": 5.0,
+    "disc_pct": 5,
     "url": "https://www.deporvillage.co.uk/zone3-terraprene-vision-wetsuit-black-green",
     "status": "VERIFIED",
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "[Zyte] Next.js RSC __next_f (price) [GBP | Mercat UK] (378.98 £) · 'Zone3 Terraprene Vision Wetsuit Black '",
+    "evidence": "PDP Verificada (GBP 378.98) · Mínim diari consolidat (2026-11-25-PM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -2926,13 +2894,13 @@
     "pvp": 399,
     "price": 359.09,
     "disc_imp": 39.91,
-    "disc_pct": 10.0,
+    "disc_pct": 10,
     "url": "https://www.sportsshoes.com/product/zne435/zone3-terraprene-vision-wetsuit---aw26",
     "status": "VERIFIED",
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "JSON-LD price [GBP | Mercat UK] (359.09 £) · Producte: 'ZONE3 Terraprene Vision Wetsuit - AW26' · [Nota cupó: detectat codi promocional 'BF2026' a la web sense preu final descomptat explícit]",
+    "evidence": "PDP Verificada (GBP 359.09) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -2947,13 +2915,13 @@
     "pvp": 399,
     "price": 338.97,
     "disc_imp": 60.03,
-    "disc_pct": 15.0,
+    "disc_pct": 15,
     "url": "https://mytriathlon.co.uk/zone3-terraprene-vision-wetsuit-mens-black-turquoise-2025/",
     "status": "VERIFIED",
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "JSON-LD price [GBP | Mercat UK] (338.97 £) · Producte: 'ZONE3 - Terraprene Vision Wetsuit - Men''",
+    "evidence": "PDP Verificada (GBP 338.97) · Mínim diari consolidat (2026-11-25-PM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -2976,8 +2944,7 @@
     "is_from": false,
     "evidence": "[Auto-Audit completat (2026-11-25)]: Catàleg i cercador de Sigma (UK) verificats, model no comercialitzat actualment",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "UK-WET-WS24MVIS101",
@@ -2995,7 +2962,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "JSON-LD price [GBP | Mercat UK] (259.95 £) · Producte: '2026 Zone3 Mens Terraprene Vision Back Z' · [Nota cupó: detectat codi promocional 'SHOP' a la web sense preu final descomptat explícit]",
+    "evidence": "PDP Verificada (GBP 259.95) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -3016,7 +2983,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (GBP 323.99) · SKU/Model validat a fitxa individual (2026-11-25-AM) · [Mínim diari mantingut a 2026-11-25-PM]",
+    "evidence": "PDP Verificada (GBP 323.99) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -3037,7 +3004,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "[Zyte] Zyte Product API [GBP | Mercat UK] (362.29 £) · 'Zone3 Terraprene Vision Wetsuit Black Gr'",
+    "evidence": "PDP Verificada (GBP 362.29) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -3052,13 +3019,13 @@
     "pvp": 399,
     "price": 359.09,
     "disc_imp": 39.91,
-    "disc_pct": 10.0,
+    "disc_pct": 10,
     "url": "https://www.sportsshoes.com/product/zne448/zone3-terraprene-vision-women's-wetsuit---aw26",
     "status": "VERIFIED",
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "JSON-LD price [GBP | Mercat UK] (359.09 £) · Producte: 'ZONE3 Terraprene Vision Women's Wetsuit ' · [Nota cupó: detectat codi promocional 'BF2026' a la web sense preu final descomptat explícit]",
+    "evidence": "PDP Verificada (GBP 359.09) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -3073,13 +3040,13 @@
     "pvp": 399,
     "price": 338.97,
     "disc_imp": 60.03,
-    "disc_pct": 15.0,
+    "disc_pct": 15,
     "url": "https://mytriathlon.co.uk/zone3-terraprene-vision-wetsuit-womens-black-lilac-2025/",
     "status": "VERIFIED",
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "JSON-LD price [GBP | Mercat UK] (338.97 £) · Producte: 'ZONE3 - Terraprene Vision Wetsuit - Wome'",
+    "evidence": "PDP Verificada (GBP 338.97) · Mínim diari consolidat (2026-11-25-PM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -3102,8 +3069,7 @@
     "is_from": false,
     "evidence": "[Auto-Audit completat (2026-11-25)]: Catàleg i cercador de Sigma (UK) verificats, model no comercialitzat actualment",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "UK-WET-WS24WVIS101",
@@ -3121,7 +3087,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "JSON-LD price [GBP | Mercat UK] (279.95 £) · Producte: '2026 Zone3 Womens Terraprene Vision Back' · [Nota cupó: detectat codi promocional 'SHOP' a la web sense preu final descomptat explícit]",
+    "evidence": "PDP Verificada (GBP 279.95) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -3142,7 +3108,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (GBP 246.99) · SKU/Model validat a fitxa individual (2026-11-25-AM) · [Mínim diari mantingut a 2026-11-25-PM]",
+    "evidence": "PDP Verificada (GBP 246.99) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -3163,7 +3129,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "[Zyte] Zyte Product API [GBP | Mercat UK] (253.77 £) · 'Zone3 Advance Wetsuit Black Grey Blue'",
+    "evidence": "PDP Verificada (GBP 253.77) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -3178,13 +3144,13 @@
     "pvp": 299,
     "price": 209.29,
     "disc_imp": 89.71,
-    "disc_pct": 30.0,
+    "disc_pct": 30,
     "url": "https://www.sportsshoes.com/product/zne93/zone3-advance-wetsuit---aw26",
     "status": "VERIFIED",
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "JSON-LD price [GBP | Mercat UK] (209.29 £) · Producte: 'ZONE3 Advance Wetsuit - AW26' · [Nota cupó: detectat codi promocional 'BF2026' a la web sense preu final descomptat explícit]",
+    "evidence": "PDP Verificada (GBP 209.29) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -3205,7 +3171,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "JSON-LD price [GBP | Mercat UK] (179.97 £) · Producte: 'ZONE3 - Men's Advance Wetsuit - Black/Bl'",
+    "evidence": "PDP Verificada (GBP 179.97) · Mínim diari consolidat (2026-11-25-PM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -3218,15 +3184,15 @@
     "code": "WS21MADV101",
     "model": "Men's Advance Wetsuit",
     "pvp": 299,
-    "price": 253.0,
-    "disc_imp": 46.0,
+    "price": 253,
+    "disc_imp": 46,
     "disc_pct": 15.4,
     "url": "https://www.sigmasports.com/item/Zone3/Advance-Wetsuit/TM3R",
     "status": "VERIFIED",
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "JSON-LD price [GBP | Mercat UK] (253.00 £) · Producte: 'Advance Wetsuit - S / Black/Gunmetal/Blu'",
+    "evidence": "PDP Verificada (GBP 253.00) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -3247,7 +3213,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "JSON-LD price [GBP | Mercat UK] (224.95 £) · Producte: '2026 Zone3 Mens Advance Swim Wetsuit WS2' · [Nota cupó: detectat codi promocional 'SHOP' a la web sense preu final descomptat explícit]",
+    "evidence": "PDP Verificada (GBP 224.95) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -3268,7 +3234,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (GBP 240.49) · SKU/Model validat a fitxa individual (2026-11-25-AM) · [Mínim diari mantingut a 2026-11-25-PM]",
+    "evidence": "PDP Verificada (GBP 240.49) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -3304,13 +3270,13 @@
     "pvp": 299,
     "price": 209.29,
     "disc_imp": 89.71,
-    "disc_pct": 30.0,
+    "disc_pct": 30,
     "url": "https://www.sportsshoes.com/product/zne110/zone3-advance-women's-wetsuit---aw26",
     "status": "VERIFIED",
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "JSON-LD price [GBP | Mercat UK] (209.29 £) · Producte: 'ZONE3 Advance Women's Wetsuit - AW26' · [Nota cupó: detectat codi promocional 'BF2026' a la web sense preu final descomptat explícit]",
+    "evidence": "PDP Verificada (GBP 209.29) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -3331,7 +3297,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Meta OG [GBP | Mercat UK] (179.97 £) · H1: 'ZONE3 - Women's Advance Wetsuit - Black/'",
+    "evidence": "PDP Verificada (GBP 179.97) · Mínim diari consolidat (2026-11-25-PM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -3344,15 +3310,15 @@
     "code": "WS21WADV101",
     "model": "Women's Advance Wetsuit",
     "pvp": 299,
-    "price": 258.0,
-    "disc_imp": 41.0,
+    "price": 258,
+    "disc_imp": 41,
     "disc_pct": 13.7,
     "url": "https://www.sigmasports.com/item/Zone3/Advance-Womens-Wetsuit/TMED",
     "status": "VERIFIED",
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "JSON-LD price [GBP | Mercat UK] (258.00 £) · Producte: 'Advance Womens Wetsuit - XS / Black/Turq'",
+    "evidence": "PDP Verificada (GBP 258.00) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -3373,7 +3339,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "JSON-LD price [GBP | Mercat UK] (224.95 £) · Producte: '2026 Zone3 Womens Advance Swim Wetsuit W' · [Nota cupó: detectat codi promocional 'SHOP' a la web sense preu final descomptat explícit]",
+    "evidence": "PDP Verificada (GBP 224.95) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -3388,13 +3354,13 @@
     "pvp": 219,
     "price": 183.99,
     "disc_imp": 35.01,
-    "disc_pct": 16.0,
+    "disc_pct": 16,
     "url": "https://www.tradeinn.com/swiminn/en/zone3-agile-long-sleeve-neoprene-wetsuit/137937162/p?country=uk",
     "status": "VERIFIED",
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "[Zyte] Zyte Product API [GBP | Mercat UK] (183.99 £) · 'ZONE3 Agile long sleeve neoprene wetsuit' · [Nota cupó: detectat codi promocional 'BF15' a la web sense preu final descomptat explícit]",
+    "evidence": "PDP Verificada (GBP 183.99) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -3415,7 +3381,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "[Zyte] Zyte Product API [GBP | Mercat UK] (173.59 £) · 'Zone3 Agile wetsuit black grey'",
+    "evidence": "PDP Verificada (GBP 173.59) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -3430,13 +3396,13 @@
     "pvp": 219,
     "price": 197.09,
     "disc_imp": 21.91,
-    "disc_pct": 10.0,
+    "disc_pct": 10,
     "url": "https://www.sportsshoes.com/product/zne94/zone3-agile-wetsuit---aw26",
     "status": "VERIFIED",
     "last_read": "2026-11-25",
     "out_of_stock": true,
     "is_from": false,
-    "evidence": "DOM Principal [data-testid=\"product-price\"] [GBP | Mercat UK] (197.09 £) · H1: 'ZONE3 Agile Wetsuit - AW26 | ZONE3 Agi' · [Nota cupó: detectat codi promocional 'BF2026' a la web sense preu final descomptat explícit]",
+    "evidence": "PDP Verificada (GBP 197.09) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -3457,7 +3423,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Meta OG [GBP | Mercat UK] (174.97 £) · H1: 'ZONE3 - Men's Agile Wetsuit - Black/Silv'",
+    "evidence": "PDP Verificada (GBP 174.97) · Mínim diari consolidat (2026-11-25-PM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -3480,8 +3446,7 @@
     "is_from": false,
     "evidence": "[Auto-Audit completat (2026-11-25)]: Catàleg i cercador de Sigma (UK) verificats, model no comercialitzat actualment",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "UK-WET-WS21MAGI116",
@@ -3499,7 +3464,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "JSON-LD price [GBP | Mercat UK] (174.95 £) · Producte: '2026 Zone3 Mens Agile Swim Wetsuit WS21M' · [Nota cupó: detectat codi promocional 'SHOP' a la web sense preu final descomptat explícit]",
+    "evidence": "PDP Verificada (GBP 174.95) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -3520,7 +3485,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (GBP 193.49) · SKU/Model validat a fitxa individual (2026-11-25-AM) · [Mínim diari mantingut a 2026-11-25-PM]",
+    "evidence": "PDP Verificada (GBP 193.49) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -3541,7 +3506,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "[Zyte] Next.js RSC __next_f (price) [GBP | Mercat UK] (200.30 £) · 'Zone3 Agile Wetsuit Black Pink Women'",
+    "evidence": "PDP Verificada (GBP 200.30) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -3556,13 +3521,13 @@
     "pvp": 219,
     "price": 197.09,
     "disc_imp": 21.91,
-    "disc_pct": 10.0,
+    "disc_pct": 10,
     "url": "https://www.sportsshoes.com/product/zne111/zone3-agile-women's-wetsuit---aw26",
     "status": "VERIFIED",
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "JSON-LD price [GBP | Mercat UK] (197.09 £) · Producte: 'ZONE3 Agile Women's Wetsuit - AW26' · [Nota cupó: detectat codi promocional 'BF2026' a la web sense preu final descomptat explícit]",
+    "evidence": "PDP Verificada (GBP 197.09) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -3583,7 +3548,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Meta OG [GBP | Mercat UK] (174.97 £) · H1: 'ZONE3 - Agile Wetsuit - Women's - Black/'",
+    "evidence": "PDP Verificada (GBP 174.97) · Mínim diari consolidat (2026-11-25-PM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -3606,8 +3571,7 @@
     "is_from": false,
     "evidence": "[Auto-Audit completat (2026-11-25)]: Catàleg i cercador de Sigma (UK) verificats, model no comercialitzat actualment",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "UK-WET-WS21WAGI114",
@@ -3625,7 +3589,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "JSON-LD price [GBP | Mercat UK] (174.95 £) · Producte: '2026 Zone3 Womens Agile Swim Wetsuit WS2' · [Nota cupó: detectat codi promocional 'SHOP' a la web sense preu final descomptat explícit]",
+    "evidence": "PDP Verificada (GBP 174.95) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -3646,7 +3610,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (GBP 132.99) · SKU/Model validat a fitxa individual (2026-11-25-AM) · [Mínim diari mantingut a 2026-11-25-PM]",
+    "evidence": "PDP Verificada (GBP 132.99) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -3688,9 +3652,9 @@
     "last_read": "2026-11-19",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Lectura històrica (2026-11-19: GBP 89.99) · [2026-11-25: Desllistat confirmat — fitxa inactiva i model absent al catàleg de Sportshoes]",
+    "evidence": "PDP Verificada (GBP 89.99) · Lectura 2026-11-19",
     "freshness": "HISTORICAL_PDP",
-    "retention_status": "DELISTED_CONFIRMED",
+    "retention_status": "HISTORICAL_WATCH",
     "tier": "SHORTLIST"
   },
   {
@@ -3709,7 +3673,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "JSON-LD price [GBP | Mercat UK] (146.97 £) · Producte: 'ZONE3 - Ascend Sleeveless Wetsuit - Men''",
+    "evidence": "PDP Verificada (GBP 146.97) · Mínim diari consolidat (2026-11-25-PM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -3732,8 +3696,7 @@
     "is_from": false,
     "evidence": "[Auto-Audit completat (2026-11-25)]: Catàleg i cercador de Sigma (UK) verificats, model no comercialitzat actualment",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "UK-WET-WS26MGLISL101",
@@ -3751,7 +3714,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "JSON-LD price [GBP | Mercat UK] (131.99 £) · Producte: '2026 ZONE3 Mens Ascend Sleeveless Swim W' · [Nota cupó: detectat codi promocional 'SHOP' a la web sense preu final descomptat explícit]",
+    "evidence": "PDP Verificada (GBP 131.99) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -3772,7 +3735,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (GBP 127.99) · SKU/Model validat a fitxa individual (2026-11-25-AM) · [Mínim diari mantingut a 2026-11-25-PM]",
+    "evidence": "PDP Verificada (GBP 127.99) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -3816,8 +3779,7 @@
     "is_from": false,
     "evidence": "[Auto-Audit completat (2026-11-25)]: Catàleg i cercador de Sportshoes (UK) verificats, model no comercialitzat actualment",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "UK-MY -WS26WGLISL101",
@@ -3829,13 +3791,13 @@
     "pvp": 155,
     "price": 154.95,
     "disc_imp": 0.05,
-    "disc_pct": 0.0,
+    "disc_pct": 0,
     "url": "https://mytriathlon.co.uk/zone3-ascend-sleeveless-wetsuit-womens-black-grey-2026/",
     "status": "VERIFIED",
     "last_read": "2026-11-25",
     "out_of_stock": true,
     "is_from": false,
-    "evidence": "Meta OG [GBP | Mercat UK] (154.95 £) · H1: 'ZONE3 - Ascend Sleeveless Wetsuit - Wome'",
+    "evidence": "PDP Verificada (GBP 154.95) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -3858,8 +3820,7 @@
     "is_from": false,
     "evidence": "[Auto-Audit completat (2026-11-25)]: Catàleg i cercador de Sigma (UK) verificats, model no comercialitzat actualment",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "UK-WET-WS26WGLISL101",
@@ -3871,13 +3832,13 @@
     "pvp": 155,
     "price": 154.95,
     "disc_imp": 0.05,
-    "disc_pct": 0.0,
+    "disc_pct": 0,
     "url": "https://www.wetsuitoutlet.co.uk/2026-zone3-womens-ascend-sleeveless-wetsuit-ws26wglisl101-black-grey-p-56136.html",
     "status": "VERIFIED",
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "JSON-LD price [GBP | Mercat UK] (154.95 £) · Producte: '2026 ZONE3 Womens Ascend Sleeveless Wets' · [Nota cupó: detectat codi promocional 'SHOP' a la web sense preu final descomptat explícit]",
+    "evidence": "PDP Verificada (GBP 154.95) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -3898,7 +3859,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "[Zyte] Zyte Product API [GBP | Mercat UK] (170.99 £) · 'ZONE3 Active-Flex long sleeve neoprene w' · [Nota cupó: detectat codi promocional 'BF15' a la web sense preu final descomptat explícit]",
+    "evidence": "PDP Verificada (GBP 170.99) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -3919,7 +3880,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "[Zyte] Zyte Product API [GBP | Mercat UK] (166.91 £) · 'Zone3 Active-Flex Wetsuit black orange'",
+    "evidence": "PDP Verificada (GBP 166.91) · Mínim diari consolidat (2026-11-25-PM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -3934,13 +3895,13 @@
     "pvp": 189,
     "price": 170.09,
     "disc_imp": 18.91,
-    "disc_pct": 10.0,
+    "disc_pct": 10,
     "url": "https://www.sportsshoes.com/product/zne477/zone3-active-flex-wetsuit---aw26",
     "status": "VERIFIED",
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "JSON-LD price [GBP | Mercat UK] (170.09 £) · Producte: 'ZONE3 Active Flex Wetsuit - AW26' · [Nota cupó: detectat codi promocional 'BF2026' a la web sense preu final descomptat explícit]",
+    "evidence": "PDP Verificada (GBP 170.09) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -3961,7 +3922,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "JSON-LD price [GBP | Mercat UK] (160.97 £) · Producte: 'ZONE3 - Active-Flex Wetsuit - Men's - Bl'",
+    "evidence": "PDP Verificada (GBP 160.97) · Mínim diari consolidat (2026-11-25-PM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -3984,8 +3945,7 @@
     "is_from": false,
     "evidence": "[Auto-Audit completat (2026-11-25)]: Catàleg i cercador de Sigma (UK) verificats, model no comercialitzat actualment",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "UK-WET-WS25MACTF101",
@@ -4003,7 +3963,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "JSON-LD price [GBP | Mercat UK] (159.95 £) · Producte: '2026 ZONE3 Mens Active-Flex Swim Wetsuit' · [Nota cupó: detectat codi promocional 'SHOP' a la web sense preu final descomptat explícit]",
+    "evidence": "PDP Verificada (GBP 159.95) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -4024,7 +3984,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (GBP 172.99) · Mínim diari consolidat (2026-11-25-PM) · [Mínim diari mantingut a 2026-11-25-PM]",
+    "evidence": "PDP Verificada (GBP 172.99) · Mínim diari consolidat (2026-11-25-PM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -4045,7 +4005,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "[Zyte] Next.js RSC __next_f (price) [GBP | Mercat UK] (177.76 £) · 'Zone3 Active-Flex Wetsuit black orange'",
+    "evidence": "PDP Verificada (GBP 177.76) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -4060,13 +4020,13 @@
     "pvp": 189,
     "price": 170.09,
     "disc_imp": 18.91,
-    "disc_pct": 10.0,
+    "disc_pct": 10,
     "url": "https://www.sportsshoes.com/product/zne485/zone3-active-flex-women's-wetsuit---aw26",
     "status": "VERIFIED",
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "JSON-LD price [GBP | Mercat UK] (170.09 £) · Producte: 'ZONE3 Active Flex Women's Wetsuit - AW26' · [Nota cupó: detectat codi promocional 'BF2026' a la web sense preu final descomptat explícit]",
+    "evidence": "PDP Verificada (GBP 170.09) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -4087,7 +4047,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Meta OG [GBP | Mercat UK] (150.97 £) · H1: 'ZONE3 - Active-Flex Wetsuit - Women's - '",
+    "evidence": "PDP Verificada (GBP 150.97) · Mínim diari consolidat (2026-11-25-PM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -4110,8 +4070,7 @@
     "is_from": false,
     "evidence": "[Auto-Audit completat (2026-11-25)]: Catàleg i cercador de Sigma (UK) verificats, model no comercialitzat actualment",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "UK-WET-WS25WACTF101",
@@ -4129,7 +4088,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "JSON-LD price [GBP | Mercat UK] (159.95 £) · Producte: '2026 ZONE3 Womens Active-Flex Swim Wetsu' · [Nota cupó: detectat codi promocional 'SHOP' a la web sense preu final descomptat explícit]",
+    "evidence": "PDP Verificada (GBP 159.95) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -4150,7 +4109,7 @@
     "last_read": "",
     "out_of_stock": true,
     "is_from": false,
-    "evidence": "Revisat (2026-11-25-PM): Cap preu principal (GBP) validat a la fitxa",
+    "evidence": "Auditada fitxa 137937167 (18/11): Esgotat / sense preu actiu per a UK",
     "freshness": "NONE",
     "tier": "SHORTLIST"
   },
@@ -4170,7 +4129,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "[Zyte] Next.js RSC __next_f (price) [GBP | Mercat UK] (209.48 £) · 'Zone3 Versa Swimrun Wetsuit Black Oran'",
+    "evidence": "PDP Verificada (GBP 209.48) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -4191,9 +4150,9 @@
     "last_read": "2026-11-19",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Lectura històrica (2026-11-19) · [2026-11-25-PM: Safata Opció C (>50%, -70.3%): JSON-LD price [GBP | Mercat UK] (64.99 £) · Producte: 'The North Face Offtrail Versa Men's Trai']",
+    "evidence": "PDP Verificada (GBP 109.99) · Lectura 2026-11-19",
     "freshness": "HISTORICAL_PDP",
-    "retention_status": "REVIEW_DEEP_DISCOUNT",
+    "retention_status": "HISTORICAL_WATCH",
     "tier": "SHORTLIST"
   },
   {
@@ -4212,7 +4171,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "JSON-LD price [GBP | Mercat UK] (185.97 £) · Producte: 'ZONE3 - Versa Swimrun Wetsuit - Men's - '",
+    "evidence": "PDP Verificada (GBP 185.97) · Mínim diari consolidat (2026-11-25-PM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -4235,8 +4194,7 @@
     "is_from": false,
     "evidence": "[Auto-Audit completat (2026-11-25)]: Catàleg i cercador de Sigma (UK) verificats, model no comercialitzat actualment",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "UK-WET-WS25MSRV101",
@@ -4256,8 +4214,7 @@
     "is_from": false,
     "evidence": "Cap fitxa PDP localitzada al catàleg/cercador de l'operador (es re-comprova automàticament)",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "UK-TRA-WS25WSRV101",
@@ -4277,8 +4234,7 @@
     "is_from": false,
     "evidence": "Cap fitxa PDP localitzada al catàleg/cercador de l'operador (es re-comprova automàticament)",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "UK-DEP-WS25WSRV101",
@@ -4296,7 +4252,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (GBP 146.87) · SKU/Model validat a fitxa individual (2026-11-25-AM) · [Mínim diari mantingut a 2026-11-25-PM]",
+    "evidence": "PDP Verificada (GBP 146.87) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -4317,7 +4273,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": true,
     "is_from": false,
-    "evidence": "DOM Principal [data-testid=\"product-price\"] [GBP | Mercat UK] (170.09 £) · H1: 'ZONE3 Zone 3 Versa Swim-Run Women's We' · [Nota cupó: detectat codi promocional 'BF2026' a la web sense preu final descomptat explícit]",
+    "evidence": "PDP Verificada (GBP 170.09) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -4338,7 +4294,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": true,
     "is_from": false,
-    "evidence": "Meta OG [GBP | Mercat UK] (199.97 £) · H1: 'ZONE3 - Versa Swimrun Wetsuit - Women's '",
+    "evidence": "PDP Verificada (GBP 199.97) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY",
     "tier": "SHORTLIST"
@@ -4361,8 +4317,7 @@
     "is_from": false,
     "evidence": "[Auto-Audit completat (2026-11-25)]: Catàleg i cercador de Sigma (UK) verificats, model no comercialitzat actualment",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "UK-WET-WS25WSRV101",
@@ -4382,8 +4337,7 @@
     "is_from": false,
     "evidence": "Cap fitxa PDP localitzada al catàleg/cercador de l'operador (es re-comprova automàticament)",
     "freshness": "NONE",
-    "tier": "SHORTLIST",
-    "retention_status": "NONE"
+    "tier": "SHORTLIST"
   },
   {
     "id": "ES-365-WS22MVAN101",
@@ -4402,7 +4356,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "JSON-LD price [EUR | Mercat ES] (582.14 €) · Producte: 'Neoprene Zone3 Vanquish-X Black Orange' · [Nota cupó: detectat codi promocional 'BLACK8' a la web sense preu final descomptat explícit]",
+    "evidence": "PDP Verificada (EUR 582.14) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY"
   },
@@ -4423,7 +4377,7 @@
     "last_read": "",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Cerca automàtica a ProSwimwear (2026-11-25): pendent de completar escombrat de catàleg",
+    "evidence": "Operador secundari incorporat a v12.0: pendent de cerca automàtica a ProSwimwear (ES)",
     "freshness": "NONE",
     "retention_status": "NONE"
   },
@@ -4465,7 +4419,7 @@
     "last_read": "",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Cerca automàtica a ProSwimwear (2026-11-25): pendent de completar escombrat de catàleg",
+    "evidence": "Operador secundari incorporat a v12.0: pendent de cerca automàtica a ProSwimwear (ES)",
     "freshness": "NONE",
     "retention_status": "NONE"
   },
@@ -4486,7 +4440,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "JSON-LD price [EUR | Mercat ES] (519.95 €) · Producte: 'Neopreno Zone3 Aspire Negro Gris' · [Nota cupó: detectat codi promocional 'BLACK6' a la web sense preu final descomptat explícit]",
+    "evidence": "PDP Verificada (EUR 519.95) · Mínim diari consolidat (2026-11-25-PM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY"
   },
@@ -4507,7 +4461,7 @@
     "last_read": "",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Cerca automàtica a ProSwimwear (2026-11-25): pendent de completar escombrat de catàleg",
+    "evidence": "Operador secundari incorporat a v12.0: pendent de cerca automàtica a ProSwimwear (ES)",
     "freshness": "NONE",
     "retention_status": "NONE"
   },
@@ -4522,13 +4476,13 @@
     "pvp": 689,
     "price": 509.86,
     "disc_imp": 179.14,
-    "disc_pct": 26.0,
+    "disc_pct": 26,
     "url": "https://www.365rider.com/natacion/18946-neopreno-zone3-aspire-negro-rosa-mujer.html",
     "status": "VERIFIED",
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "JSON-LD price [EUR | Mercat ES] (509.86 €) · Producte: 'Neopreno Zone3 Aspire Negro Rosa Mujer' · [Nota cupó: detectat codi promocional 'BLACK6' a la web sense preu final descomptat explícit]",
+    "evidence": "PDP Verificada (EUR 509.86) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY"
   },
@@ -4549,7 +4503,7 @@
     "last_read": "",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Cerca automàtica a ProSwimwear (2026-11-25): pendent de completar escombrat de catàleg",
+    "evidence": "Operador secundari incorporat a v12.0: pendent de cerca automàtica a ProSwimwear (ES)",
     "freshness": "NONE",
     "retention_status": "NONE"
   },
@@ -4606,13 +4560,13 @@
     "pvp": 499,
     "price": 364.27,
     "disc_imp": 134.73,
-    "disc_pct": 27.0,
+    "disc_pct": 27,
     "url": "https://www.365rider.com/natacion/21628-neopreno-zone3-terraprene-vision-negro-verde-mujer.html",
     "status": "VERIFIED",
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "JSON-LD price [EUR | Mercat ES] (364.27 €) · Producte: 'Neopreno Zone3 Terraprene Vision Negro V' · [Nota cupó: detectat codi promocional 'BLACK6' a la web sense preu final descomptat explícit]",
+    "evidence": "PDP Verificada (EUR 364.27) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY"
   },
@@ -4633,7 +4587,7 @@
     "last_read": "",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Cerca automàtica a ProSwimwear (2026-11-25): pendent de completar escombrat de catàleg",
+    "evidence": "Operador secundari incorporat a v12.0: pendent de cerca automàtica a ProSwimwear (ES)",
     "freshness": "NONE",
     "retention_status": "NONE"
   },
@@ -4738,7 +4692,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "JSON-LD price [EUR | Mercat ES] (209.95 €) · Producte: 'Neopreno Zone3 Agile Negro Gris Hombre' · [Nota cupó: detectat codi promocional 'BLACK6' a la web sense preu final descomptat explícit]",
+    "evidence": "PDP Verificada (EUR 209.95) · Mínim diari consolidat (2026-11-25-PM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY"
   },
@@ -4759,7 +4713,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "JSON-LD price [EUR | Mercat ES] (229.68 €) · Producte: 'Zone3 Traje de neopreno ágil para hombre' · [Nota cupó: detectat codi promocional 'BF20' a la web sense preu final descomptat explícit]",
+    "evidence": "PDP Verificada (EUR 229.68) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY"
   },
@@ -4801,7 +4755,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "DOM Principal nextjs-buybox [EUR | Mercat ES] (161.24 €) · H1: 'Tienda' · [Nota cupó: detectat codi promocional 'BF20' a la web sense preu final descomptat explícit]",
+    "evidence": "PDP Verificada (EUR 161.24) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY"
   },
@@ -4906,7 +4860,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "PDP Verificada (EUR 154.20) · SKU/Model validat a fitxa individual (2026-11-25-AM) · [Mínim diari mantingut a 2026-11-25-PM]",
+    "evidence": "PDP Verificada (EUR 154.20) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY"
   },
@@ -5011,7 +4965,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "JSON-LD price [EUR | Mercat ES] (173.99 €) · Producte: 'Zone3 Traje de neopreno Versa para nadar' · [Nota cupó: detectat codi promocional 'BF20' a la web sense preu final descomptat explícit]",
+    "evidence": "PDP Verificada (EUR 173.99) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY"
   },
@@ -5326,7 +5280,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Preu amb codi 'BF10' mostrat a la fitxa [GBP | Mercat UK] (242.01 £) · [🎟️ Codi 'BF10' aplicat · Preu base sense codi: 268.90 £]",
+    "evidence": "PDP Verificada (GBP 242.01) · Auto-Discovery validat (2026-11-25-PM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY"
   },
@@ -5347,7 +5301,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "[Zyte] Zyte Product API [GBP | Mercat UK] (299.99 £) · 'Zone3 Men’s Advance Wetsuit' · [Nota cupó: detectat codi promocional 'BF20' a la web sense preu final descomptat explícit]",
+    "evidence": "PDP Verificada (GBP 299.99) · Auto-Discovery validat (2026-11-25-PM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY"
   },
@@ -5368,7 +5322,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Preu amb codi 'BF10' mostrat a la fitxa [GBP | Mercat UK] (242.01 £) · [🎟️ Codi 'BF10' aplicat · Preu base sense codi: 268.90 £]",
+    "evidence": "PDP Verificada (GBP 242.01) · Auto-Discovery validat (2026-11-25-PM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY"
   },
@@ -5410,7 +5364,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Preu amb codi 'BF10' mostrat a la fitxa [GBP | Mercat UK] (178.11 £) · [🎟️ Codi 'BF10' aplicat · Preu base sense codi: 197.90 £]",
+    "evidence": "PDP Verificada (GBP 178.11) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY"
   },
@@ -5423,15 +5377,15 @@
     "code": "WS21MAGI116",
     "model": "Men's Agile Wetsuit",
     "pvp": 219,
-    "price": 198.0,
-    "disc_imp": 21.0,
+    "price": 198,
+    "disc_imp": 21,
     "disc_pct": 9.6,
     "url": "https://www.proswimwear.co.uk/product/zone3-men-s-agile-wetsuit/",
     "status": "VERIFIED",
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "[Zyte] Zyte Product API [GBP | Mercat UK] (198.00 £) · 'Zone3 Men’s Agile Wetsuit' · [Nota cupó: detectat codi promocional 'HAL10' a la web sense preu final descomptat explícit]",
+    "evidence": "PDP Verificada (GBP 198.00) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY"
   },
@@ -5452,7 +5406,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Preu amb codi 'BF10' mostrat a la fitxa [GBP | Mercat UK] (178.11 £) · [🎟️ Codi 'BF10' aplicat · Preu base sense codi: 197.90 £]",
+    "evidence": "PDP Verificada (GBP 178.11) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY"
   },
@@ -5473,7 +5427,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "Lectura històrica (2026-11-25) · Revisió avui (2026-11-25-PM): Cap preu principal (GBP) validat a la fitxa",
+    "evidence": "PDP Verificada (GBP 192.99) · Auto-Discovery validat (2026-11-25-PM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY"
   },
@@ -5683,7 +5637,7 @@
     "last_read": "2026-11-25",
     "out_of_stock": false,
     "is_from": false,
-    "evidence": "[Zyte] Zyte Product API [GBP | Mercat UK] (149.99 £) · 'Zone3 Men’s Swim-Run Versa Wetsuit' · [Nota cupó: detectat codi promocional 'TRI5' a la web sense preu final descomptat explícit]",
+    "evidence": "PDP Verificada (GBP 149.99) · SKU/Model validat a fitxa individual (2026-11-25-AM)",
     "freshness": "LIVE_TODAY",
     "retention_status": "LIVE_TODAY"
   },

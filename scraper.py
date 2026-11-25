@@ -67,7 +67,7 @@ SECONDARY_OPERATORS = {
 
 def is_secondary_operator(country, operator):
     return (country, operator) in SECONDARY_OPERATORS
-MAX_CLEAN_NEW_DISC_PCT = 50.0          # Opció C (v12.6): fins al 50.0% automàtic; tot descompte >50.0% va a Safata de Revisió
+MAX_CLEAN_NEW_DISC_PCT = 50.0          # Opció C (v12.7): fins al 50.0% automàtic; tot descompte >50.0% va a Safata de Revisió
 CLEAN_NEW_MIN_RATIO = 0.50             # 1.0 - 0.50
 MIXED_EX_RENTAL_MIN_RATIO = 0.60       # Bloqueig estructural en fitxes amb selector mixt Ex-Rental (p. ex. < £420 a Vanquish-X)
 ZYTE_CONCURRENCY_SEM = None
@@ -88,7 +88,21 @@ def is_ex_rental_anomaly(country, operator, code, price_val, pvp_val=None):
     p = float(price_val)
     if country == "UK" and operator == "My Triathlon" and code in ("WS22MVAN101", "WS22WVAN101") and p < 420.0:
         return True
+    if country == "ES" and operator == "Deporvillage" and code in ("WS26MGLISL101", "WS26WGLISL101") and p < 110.0:
+        return True
     return False
+
+def is_valid_deporvillage_wetsuit_pdp(url, country):
+    u_low = str(url or "").lower().strip()
+    if not u_low or ":" in u_low.split("://")[-1] or "%3a" in u_low:
+        return False
+    if any(x in u_low for x in ["catalogsearch", "natacion-zone3", "swimming-triathlon", "/trajes-", "/neoprenos-", "/monos-", "/banadores-", "/bañadores-", "/gafas-", "/gorros-", "/boyas-", "/calcetines-", "/guantes-", "/pantalon-", "/camiseta-", "/chaleco-", "/top-", "glide"]):
+        return False
+    if country == "ES":
+        return bool(re.search(r"deporvillage\.(?:com|es)/traje-(?:de-)?neopreno-zone3-", u_low))
+    if country == "UK":
+        return "deporvillage.co.uk/" in u_low and "zone3" in u_low and any(w in u_low for w in ("wetsuit", "swimrun", "shorty"))
+    return True
 
 def is_time_budget_exceeded(margin_sec=0):
     now_m = time.monotonic()
@@ -459,11 +473,15 @@ def validate_product_identity(text_to_check, url, code, model_name):
     if any(used_tok in raw_combined or used_tok in combined for used_tok in USED_ITEM_TOKENS):
         return False, "Producte de 2a mà / Ex-Rental exclòs (només producte nou)"
 
+    if "deporvillage." in url.lower():
+        inferred_c = "UK" if ".co.uk" in url.lower() else "ES"
+        if not is_valid_deporvillage_wetsuit_pdp(url, inferred_c):
+            return False, f"URL Deporvillage descartada (no correspon a una fitxa individual de neoprè: '{url[:65]}')"
     if "deporvillage." in raw_combined and re.search(r"\bglide\b", combined):
         return False, "Model Glide exclòs a Deporvillage (es monitoritza exclusivament Ascend)"
 
-    if any(re.search(r"\b" + re.escape(bad) + r"\b", combined) for bad in ["goggles", "gafas", "gloves", "guantes", "socks", "calcetines", "buoy", "boya", "cap", "caps", "gorro", "trisuit", "tritraje", "mono", "bañador", "banador", "chaleco", "camiseta", "culotte", "malla", "kneeskin", "jammer", "parka", "jacket", "shorts", "pants", "backpack", "bag", "thermal", "térmico", "termico", "breaststroke", "aspect", "evolution", "kona-target", "swim skin", "swimskin", "robe"]):
-        return False, "Accessori, mono o variant diferent (Mono/Bañador/Thermal/Aspect/Evolution) exclosa"
+    if any(re.search(r"\b" + re.escape(bad) + r"\b", combined) for bad in ["goggles", "gafas", "gloves", "guantes", "socks", "calcetines", "escarpines", "buoy", "boya", "boyas", "cap", "caps", "gorro", "gorra", "trisuit", "tritraje", "mono", "bañador", "banador", "chaleco", "vest", "camiseta", "top", "culotte", "malla", "pantalon", "pantalón", "short", "shorts", "kneeskin", "jammer", "parka", "jacket", "pants", "backpack", "bag", "mochila", "thermal", "térmico", "termico", "breaststroke", "aspect", "evolution", "kona-target", "swim skin", "swimskin", "robe"]):
+        return False, "Accessori, mono, top o variant diferent (Mono/Bañador/Top/Short/Thermal) exclosa"
 
     if re.search(r"\b(?:201[5-9]|2020)\b", combined):
         return False, "Model de temporada antiga (2015-2020) exclòs"
@@ -565,12 +583,11 @@ def extract_nextjs_hydration_raw(html_str):
     return next_data_str, rsc_joined
 
 def extract_nextjs_candidates_for_row(page_info, row):
-    """Safely extracts main-product sale prices & stock from Next.js (__NEXT_DATA__ and __next_f RSC) verifying SKU/slug/model identity."""
+    """Safely extracts main-product sale prices & stock from Next.js (__NEXT_DATA__ and __next_f RSC) with strict per-card isolation."""
     results = []
     code = row["code"]
     model_name = row["model"]
     url = row.get("url", "").strip()
-    expected_curr = row["currency"]
     pvp = float(row["pvp"])
     ean = MODEL_EANS.get(code, "")
     parsed_u = urlparse(url)
@@ -597,30 +614,58 @@ def extract_nextjs_candidates_for_row(page_info, row):
                         return sub_v
         return None
 
-    # 1. Walk structured __NEXT_DATA__ JSON
+    # 1. Walk structured __NEXT_DATA__ JSON with strict per-product-card boundary isolation (never inherit url_slug into carousel cards!)
     if next_data_str:
         try:
             nd_root = json.loads(next_data_str)
 
-            def _walk_nd(node, inherited_ident="", inherited_curr="", in_related=False, depth=0):
+            def _walk_nd(node, parent_exact_product=False, inherited_curr="", in_related=False, depth=0):
                 if depth > 22 or in_related:
                     return
                 if isinstance(node, list):
                     for elem in node[:80]:
-                        _walk_nd(elem, inherited_ident, inherited_curr, in_related, depth + 1)
+                        # Never propagate parent_exact_product across large product lists unless it is a size/variants list
+                        _walk_nd(elem, parent_exact_product and len(node) <= 20, inherited_curr, in_related, depth + 1)
                     return
                 if not isinstance(node, dict):
                     return
 
-                # Skip related / carousel / cross-sell branches
-                local_ident_parts = []
-                for id_k in ("name", "title", "productName", "sku", "reference", "ref", "mpn", "ean", "gtin", "gtin13", "slug", "url", "urlKey", "canonicalUrl"):
-                    v = node.get(id_k)
-                    if isinstance(v, str) and v.strip():
-                        local_ident_parts.append(v.strip())
-                local_ident = " ".join(local_ident_parts)
-                eff_ident = f"{inherited_ident} {local_ident}".strip()
-                eff_low = eff_ident.lower()
+                # Inspect this node's OWN URL/slug, SKU, and product name BEFORE inheriting anything!
+                own_urls = [
+                    str(node.get(uk) or "").strip().lower()
+                    for uk in ("slug", "url", "urlKey", "canonicalUrl", "href", "link", "pdpUrl", "productUrl")
+                    if isinstance(node.get(uk), str) and str(node.get(uk)).strip()
+                ]
+                # If this dict declares its own product URL/slug and it does NOT match our target url_slug, it is a DIFFERENT product card -> abort branch!
+                if url_slug and len(url_slug) >= 10 and own_urls:
+                    has_matching_own_url = any(url_slug in ou for ou in own_urls)
+                    has_other_product_url = any(
+                        ("/" in ou or "-" in ou) and len(ou) >= 10 and url_slug not in ou and not ou.endswith((".jpg", ".png", ".webp", ".svg"))
+                        for ou in own_urls
+                    )
+                    if has_other_product_url and not has_matching_own_url:
+                        return
+
+                own_names = [
+                    str(node.get(nk) or "").strip()
+                    for nk in ("name", "title", "productName")
+                    if isinstance(node.get(nk), str) and str(node.get(nk)).strip()
+                ]
+                own_skus = [
+                    str(node.get(sk) or "").strip()
+                    for sk in ("sku", "reference", "ref", "mpn", "ean", "gtin", "gtin13", "manufacturerSku")
+                    if isinstance(node.get(sk), str) and str(node.get(sk)).strip()
+                ]
+                local_ident = " ".join(own_names + own_skus + own_urls).strip()
+                local_low = local_ident.lower()
+
+                # If this dict has its OWN full product name (>12 chars, not a size label like 'M' or 'XL') and fails validate_product_identity -> abort branch!
+                if own_names and any(len(n) > 12 for n in own_names):
+                    kws = MODEL_KEYWORDS.get(code, [])
+                    if kws and any(kw in " ".join(own_names).lower() for kw in ("zone3", "neopreno", "wetsuit", "mono", "gafas", "gorro", "boya", "pantalon", "bañador", "trisuit", "camiseta", "chaleco", "glide", "vanquish", "aspire", "vision", "advance", "agile", "versa", "ascend")):
+                        ok_own_name, _ = validate_product_identity(" ".join(own_names + own_skus), own_urls[0] if own_urls else url, code, model_name)
+                        if not ok_own_name:
+                            return
 
                 local_curr = str(node.get("currency") or node.get("currencyCode") or node.get("priceCurrency") or inherited_curr or "").upper().strip()
                 if local_curr in ("€", "EUR"):
@@ -628,7 +673,6 @@ def extract_nextjs_candidates_for_row(page_info, row):
                 elif local_curr in ("£", "GBP"):
                     local_curr = "GBP"
 
-                # Check stock signals on this object
                 is_oos = False
                 has_instock = False
                 for st_k in ("inStock", "isAvailable", "available", "hasStock"):
@@ -649,34 +693,35 @@ def extract_nextjs_candidates_for_row(page_info, row):
                     elif node["stock"] > 0:
                         has_instock = True
 
-                # Verify this dict belongs to our target product (by exact SKU/EAN/slug or validated product identity)
-                has_exact_ref = (
-                    code.lower() in eff_low
-                    or (ean and ean in eff_low)
-                    or (url_slug and len(url_slug) >= 12 and url_slug in eff_low)
+                # Only mark as exact target product if THIS node (not root pageProps!) matches SKU/EAN, OR matches url_slug alongside a product/sku/name field, OR is a direct variant/price child of a verified product node
+                has_own_sku_match = (code.lower() in local_low) or (ean and ean in local_low)
+                has_own_slug_match = (
+                    url_slug and len(url_slug) >= 12
+                    and any(url_slug in ou for ou in own_urls)
+                    and bool(own_names or own_skus or any(pk in [k.lower() for k in node.keys()] for pk in ("price", "prices", "pricing", "finalprice", "saleprice", "variants", "sizes", "offers")))
                 )
-                id_valid = has_exact_ref
-                if not id_valid and local_ident:
+                is_verified_product_node = False
+                if has_own_sku_match or has_own_slug_match:
+                    is_verified_product_node = True
+                elif own_names:
                     kws = MODEL_KEYWORDS.get(code, [])
-                    if kws and any(kw in eff_low for kw in kws):
-                        ok_id, _ = validate_product_identity(eff_ident, url if has_exact_ref else "", code, model_name)
-                        if not ok_id:
-                            # Allow gender inheritance from canonical URL only when product name matches model keywords and doesn't contradict gender
-                            ok_with_u, _ = validate_product_identity(eff_ident, url, code, model_name)
-                            id_valid = ok_with_u
-                        else:
-                            id_valid = True
+                    if kws and any(kw in local_low for kw in kws):
+                        ok_id, _ = validate_product_identity(" ".join(own_names + own_skus), own_urls[0] if own_urls else url, code, model_name)
+                        is_verified_product_node = ok_id
+                elif parent_exact_product and not own_urls:
+                    # Direct child price/variant dict (e.g. `pricing: { finalPrice: 167.95 }` or size variant `{ size: "M", price: 167.95 }`)
+                    is_verified_product_node = True
 
-                if id_valid and not any(ut in eff_low for ut in USED_ITEM_TOKENS):
-                    # Extract best sale price on this node (preferring explicit sale/final keys over generic 'price' if 'price' equals RRP)
+                if is_verified_product_node and not any(ut in local_low for ut in USED_ITEM_TOKENS):
                     node_prices = []
                     for k, v in node.items():
                         k_low = k.lower()
                         if _is_forbidden_key(k_low):
                             continue
                         if k_low in NEXTJS_SALE_PRICE_KEYS or k_low in ("prices", "pricing", "priceinfo", "offer", "offers"):
+                            # Do not extract scalar from nested dict here if we will recurse into it cleanly, unless it's a direct price wrapper
                             p_num = _extract_numeric_price_from_obj(v)
-                            if p_num is not None and (pvp * 0.30) <= p_num <= (pvp * 1.20):
+                            if p_num is not None and (pvp * 0.50) <= p_num <= (pvp * 1.20) and not is_ex_rental_anomaly(row["country"], row["operator"], code, p_num, pvp):
                                 prio_k = 0 if k_low in ("finalprice", "saleprice", "specialprice", "discountedprice", "currentprice", "pricewithtax", "sellingprice") else 1
                                 node_prices.append((prio_k, p_num, k))
                     if node_prices:
@@ -693,40 +738,53 @@ def extract_nextjs_candidates_for_row(page_info, row):
 
                 for k, v in node.items():
                     k_low = k.lower()
-                    child_related = any(rk in k_low for rk in ("related", "recommend", "similar", "crosssell", "upsell", "alsobought", "carousel", "alternatives"))
-                    _walk_nd(v, eff_ident if (local_ident or has_exact_ref) else inherited_ident, local_curr, child_related, depth + 1)
+                    child_related = any(rk in k_low for rk in (
+                        "related", "recommend", "similar", "crosssell", "upsell", "alsobought",
+                        "carousel", "alternatives", "suggested", "complement", "featured",
+                        "otherproducts", "recentlyviewed", "slider", "banners", "widgets"
+                    ))
+                    # Only propagate parent_exact_product into variant/price/offer sub-branches, NEVER across generic page layout trees!
+                    propagate_exact = is_verified_product_node and k_low in (
+                        "variants", "sizes", "options", "items", "offers", "offer",
+                        "price", "prices", "pricing", "priceinfo", "product", "data", "attributes"
+                    )
+                    _walk_nd(v, propagate_exact, local_curr, child_related, depth + 1)
 
             _walk_nd(nd_root)
         except Exception:
             pass
 
-    # 2. Parse Next.js App Router RSC stream (self.__next_f.push) anchored around the target SKU / EAN / URL slug
-    if rsc_text:
+    # 2. Parse Next.js App Router RSC stream (self.__next_f.push) ONLY if __NEXT_DATA__ yielded no prices,
+    #    anchored strictly on exact JSON property `"slug":"<url_slug>"` or exact SKU/EAN (never breadcrumb/link URLs!)
+    if rsc_text and not results:
         rsc_low = rsc_text.lower()
         anchors = []
-        for token in filter(None, [f"z3-{code.lower()}", code.lower(), ean.lower() if ean else "", url_slug]):
-            if len(token) >= 8:
-                for m_anc in re.finditer(re.escape(token), rsc_low):
-                    anchors.append(m_anc.start())
-        # Deduplicate nearby anchor positions into windows around the main product payload
+        exact_patterns = [re.escape(f"z3-{code.lower()}"), re.escape(code.lower())]
+        if ean:
+            exact_patterns.append(re.escape(ean.lower()))
+        if url_slug and len(url_slug) >= 12:
+            exact_patterns.append(r'"(?:slug|urlkey)"\s*:\s*"[^"]*' + re.escape(url_slug) + r'"')
+        for pat_anc in exact_patterns:
+            for m_anc in re.finditer(pat_anc, rsc_low):
+                anchors.append(m_anc.start())
+
         anchors.sort()
         windows = []
         for pos in anchors:
-            w_start = max(0, pos - 900)
-            w_end = min(len(rsc_text), pos + 1800)
-            # Truncate window before any related/carousel list or another product card's slug/url
+            w_start = max(0, pos - 500)
+            w_end = min(len(rsc_text), pos + 1100)
             head_slice = rsc_low[w_start:pos]
-            for m_prev_slug in re.finditer(r'"(?:slug|urlkey|canonicalurl)"\s*:\s*"([^"]+)"', head_slice):
+            for m_prev_slug in re.finditer(r'"(?:slug|urlkey|canonicalurl|url|href)"\s*:\s*"([^"]+)"', head_slice):
                 s_val = m_prev_slug.group(1)
-                if url_slug and url_slug not in s_val and code.lower() not in s_val:
+                if url_slug and ("/" in s_val or "-" in s_val) and len(s_val) >= 10 and url_slug not in s_val and code.lower() not in s_val:
                     w_start = w_start + m_prev_slug.end()
             tail_slice = rsc_low[pos:w_end]
-            m_rel = re.search(r'"(?:relatedproducts|recommendedproducts|similarproducts|crosssell|upsell|recommendations|alternatives|products|items)"\s*:', tail_slice)
+            m_rel = re.search(r'"(?:relatedproducts|recommendedproducts|similarproducts|crosssell|upsell|recommendations|alternatives|suggestedproducts|products|items|widgets)"\s*:', tail_slice)
             if m_rel:
                 w_end = pos + m_rel.start()
-            for m_next_slug in re.finditer(r'"(?:slug|urlkey|canonicalurl)"\s*:\s*"([^"]+)"', rsc_low[pos:w_end]):
+            for m_next_slug in re.finditer(r'"(?:slug|urlkey|canonicalurl|url|href)"\s*:\s*"([^"]+)"', rsc_low[pos:w_end]):
                 s_val = m_next_slug.group(1)
-                if url_slug and url_slug not in s_val and code.lower() not in s_val and m_next_slug.start() > 40:
+                if url_slug and ("/" in s_val or "-" in s_val) and len(s_val) >= 10 and url_slug not in s_val and code.lower() not in s_val and m_next_slug.start() > 35:
                     w_end = pos + m_next_slug.start()
                     break
             if windows and w_start <= windows[-1][1]:
@@ -756,16 +814,15 @@ def extract_nextjs_candidates_for_row(page_info, row):
             found_in_win = []
             for prio_p, pat in rsc_price_patterns:
                 for mp in re.finditer(pat, win_txt, flags=re.I):
-                    # Ensure not inside an unclosed oldPrice/rrp wrapper object like `"oldPrice":{"price":859}`
                     ctx_before = win_txt[max(0, mp.start() - 45):mp.start()].lower()
                     if "}" not in ctx_before and re.search(r'"[^"]*(?:old|orig|rrp|pvp|msrp|cross|strike|recommend|previous|was|withouttax|shipping)[^"]*"\s*:\s*\{\s*$', ctx_before):
                         continue
                     p_val = normalize_price(mp.group(2))
-                    if p_val is not None and (pvp * 0.30) <= p_val <= (pvp * 1.20):
+                    if p_val is not None and (pvp * 0.50) <= p_val <= (pvp * 1.20) and not is_ex_rental_anomaly(row["country"], row["operator"], code, p_val, pvp):
                         found_in_win.append((prio_p, p_val, mp.group(1)))
             if found_in_win:
                 found_in_win.sort(key=lambda x: (1 if (x[1] >= pvp * 0.995 and len(found_in_win) > 1) else 0, x[0], x[1]))
-                for _, pv, pk in found_in_win[:3]:
+                for _, pv, pk in found_in_win[:2]:
                     results.append({
                         "price": pv,
                         "oos": win_oos,
@@ -801,7 +858,7 @@ def parse_html_fast_stdlib(html_str, base_url, zprod=None):
         m_h1_raw = re.search(r"<h1[^>]*>", html_str, flags=re.I)
         h1_raw_idx = m_h1_raw.start() if m_h1_raw else 0
         m_raw_cut = re.search(
-            r'(?:id=["\'](?:tab-related|tab-similar|related-products)["\']|data-list-name=["\'][^"\']*(?:Related|Viewed|Similar)[^"\']*["\']|class=["\'][^"\']*(?:productCarousel|related-products|similar-products|cross-sell|upsell|products-accessories|featured-products)[^"\']*["\']|>\s*(?:Related Products|Customers Also Viewed|You May Also Need|You may also like|Completa tu compra|More Like This|Similar Products|Productos relacionados|También te puede interesar)\s*<)',
+            r'(?:id=["\'](?:tab-related|tab-similar|related-products)["\']|data-testid=["\'][^"\']*(?:recommend|related|similar|carousel|cross-sell)[^"\']*["\']|data-list-name=["\'][^"\']*(?:Related|Viewed|Similar)[^"\']*["\']|class=["\'][^"\']*(?:productCarousel|related-products|similar-products|cross-sell|upsell|products-accessories|featured-products)[^"\']*["\']|>\s*(?:Related Products|Customers Also Viewed|You May Also Need|You may also like|Completa tu compra|Completa tu equipo|Productos similares|También te recomendamos|Vistos recientemente|More Like This|Similar Products|Productos relacionados|También te puede interesar)\s*<)',
             html_str[h1_raw_idx:],
             flags=re.I
         )
@@ -831,6 +888,8 @@ def parse_html_fast_stdlib(html_str, base_url, zprod=None):
 
         # Strip out related/recommended/carousel/footer/aside/strikeout/rrp/withoutTax blocks on truncated main HTML
         main_html = re.sub(r"<(script|style|noscript|aside|footer|nav|header|del|s)[^>]*>.*?</\1>", " ", truncated_raw_html, flags=re.I | re.S)
+        # Strip standalone <article> product cards (carousel/grid tiles never contain <h1> on a PDP)
+        main_html = re.sub(r"<article\b[^>]*>(?:(?!</article>|<h1\b).)*?</article>", " ", main_html, flags=re.I | re.S)
         main_html = re.sub(
             r'<(div|section|ul|span)[^>]+(?:class|id|data-testid)=["\'][^"\']*(?:related|recommend|productCarousel|related-carousel|related-slider|upsell|cross-sell|similar|also-bought|alternatives|old-price|price-old|rrp|non-sale|withoutTax|strike)[^"\']*["\'][^>]*>.*?</\1>',
             " ",
@@ -1029,7 +1088,8 @@ def is_operator_pdp_url(href, expected_dom):
     if "tradeinn.com" in h_low:
         return "/p" in h_low and "zone3" in h_low
     if "deporvillage." in h_low:
-        return "zone3" in h_low and not any(x in h_low for x in ["catalogsearch", "natacion-zone3", "swimming-triathlon"])
+        inf_c = "UK" if ".co.uk" in h_low else "ES"
+        return is_valid_deporvillage_wetsuit_pdp(href, inf_c)
     if "triathlon24.nl" in h_low:
         return "zone3-" in h_low
     if "mytriathlon.co.uk" in h_low:
@@ -1566,8 +1626,9 @@ def evaluate_page_info_candidates(page_info, row, source_prefix=""):
         except Exception:
             pass
 
-    # 1.5 Next.js Hydration State (__NEXT_DATA__ & App Router self.__next_f.push)
-    if not is_mixed_ex_rental_pdp and (page_info.get("nextDataJson") or page_info.get("nextRscText")):
+    # 1.5 Next.js Hydration State (__NEXT_DATA__ & App Router self.__next_f.push) — only used if structured JSON-LD yielded no valid candidates
+    has_clean_jsonld_cand = any(c[0] == 1 and "JSON-LD" in c[3] and (pvp * min_allowed_ratio) <= c[2] <= (pvp * 1.20) for c in candidates)
+    if not is_mixed_ex_rental_pdp and not has_clean_jsonld_cand and (page_info.get("nextDataJson") or page_info.get("nextRscText")):
         next_cands = extract_nextjs_candidates_for_row(page_info, row)
         for nc in next_cands:
             nc_curr = nc.get("currency") or m_curr or (expected_curr if has_local_domain_currency else "")
@@ -1931,9 +1992,11 @@ async def extract_verified_pdp_price(page, row, force_zyte_only=False):
                     // Only read head OG/product price or main-product itemprop=price outside forbidden/Ex-Rental cards
                     let metaPrice = (document.querySelector('head meta[property="product:price:amount"], head meta[property="og:price:amount"]') || {}).content || "";
                     if (!metaPrice) {
+                        const h1Main = document.querySelector('h1');
                         const ipEl = Array.from(document.querySelectorAll('meta[itemprop="price"], [itemprop="price"][content]')).find(el => {
                             if (el.closest(forbiddenContainers)) return false;
-                            const cardCtx = el.closest('article, li, .card, .productCarousel-slide, [class*="productCard"]');
+                            const cardCtx = el.closest('article, li[class*="product"], .card, .product-card, .productCarousel-slide, [class*="productCard"], [class*="ProductCard"], [data-testid*="card"], [data-testid*="product-card"]');
+                            if (cardCtx && (!h1Main || !cardCtx.contains(h1Main))) return false;
                             if (cardCtx && /ex-rental|ex rental|ex-demo|second-hand|refurbished|grade b|b-stock/i.test(cardCtx.innerText || '')) return false;
                             return true;
                         });
@@ -1957,7 +2020,9 @@ async def extract_verified_pdp_price(page, row, force_zyte_only=False):
                         document.querySelectorAll(sel).forEach(el => {
                             if (el.closest('del, s, .old-price, .price-old, .rrp, .price--rrp, .price--non-sale, .price--withoutTax, [data-product-price-without-tax], .strike')) return;
                             if (el.closest(forbiddenContainers)) return;
-                            const cardCtx = el.closest('article, li, .card, .productCarousel-slide, [class*="productCard"]');
+                            const h1Dom = document.querySelector('h1');
+                            const cardCtx = el.closest('article, li[class*="product"], .card, .product-card, .productCarousel-slide, [class*="productCard"], [class*="ProductCard"], [data-testid*="card"], [data-testid*="product-card"]');
+                            if (cardCtx && (!h1Dom || !cardCtx.contains(h1Dom))) return;
                             if (cardCtx && /ex-rental|ex rental|ex-demo|second-hand|refurbished|grade b|b-stock/i.test(cardCtx.innerText || '')) return;
                             const txt = (el.innerText || el.getAttribute("content") || el.getAttribute("data-price-amount") || "").trim();
                             const attrCurr = (el.getAttribute("data-currency") || el.getAttribute("currency") || "").trim();
@@ -2180,7 +2245,7 @@ def save_all_state(tracking, history):
         r.pop("_rediscovered_today", None)
         r.pop("_last_scan_code", None)
         r["tier"] = "SECONDARY" if is_secondary_operator(r.get("country"), r.get("operator")) else "SHORTLIST"
-        if "deporvillage." in str(r.get("url", "")).lower() and "glide" in str(r.get("url", "")).lower():
+        if "deporvillage." in str(r.get("url", "")).lower() and not is_valid_deporvillage_wetsuit_pdp(r.get("url", ""), r.get("country", "ES")):
             r["url"] = ""
             r["status"] = "UNMAPPED"
             r["price"] = None
@@ -2191,7 +2256,7 @@ def save_all_state(tracking, history):
             r["freshness"] = "NONE"
             r["retention_status"] = "NONE"
             r["evidence"] = "URL Glide descartada a Deporvillage (es monitoritza exclusivament Ascend)"
-        elif r.get("disc_pct") is not None and float(r.get("disc_pct")) > MAX_CLEAN_NEW_DISC_PCT:
+        elif (r.get("disc_pct") is not None and float(r.get("disc_pct")) > MAX_CLEAN_NEW_DISC_PCT) or is_ex_rental_anomaly(r.get("country"), r.get("operator"), r.get("code"), r.get("price"), r.get("pvp")):
             r["price"] = None
             r["disc_imp"] = None
             r["disc_pct"] = None
@@ -2334,7 +2399,7 @@ async def main():
     for row in tracking:
         if row.get("id") in PERMANENT_EXCLUSIONS:
             continue
-        if "deporvillage." in str(row.get("url", "")).lower() and "glide" in str(row.get("url", "")).lower():
+        if "deporvillage." in str(row.get("url", "")).lower() and not is_valid_deporvillage_wetsuit_pdp(row.get("url", ""), row.get("country", "ES")):
             row["url"] = ""
             row["status"] = "UNMAPPED"
             row["price"] = None
@@ -2344,7 +2409,7 @@ async def main():
             row["out_of_stock"] = False
             row["freshness"] = "NONE"
             row["retention_status"] = "NONE"
-        elif row.get("disc_pct") is not None and float(row.get("disc_pct")) > MAX_CLEAN_NEW_DISC_PCT:
+        elif (row.get("disc_pct") is not None and float(row.get("disc_pct")) > MAX_CLEAN_NEW_DISC_PCT) or is_ex_rental_anomaly(row.get("country"), row.get("operator"), row.get("code"), row.get("price"), row.get("pvp")):
             row["price"] = None
             row["disc_imp"] = None
             row["disc_pct"] = None
@@ -2372,7 +2437,7 @@ async def main():
     domain_blocks = {}
     CIRCUIT_BREAKER_LIMIT = 1 if ZYTE_API_KEY else 2
 
-    print(f"Starting Zone3 RetentionGuard v12.6 (Dual-Lane ES||UK + Sostre <=50% Verificat) ({now_iso}) | Opció C (<=50% Automàtic, >50% Safata Revisió) | Baseline T-1 ({prev_scan_date}): {len(t_minus_1_keys)} lectures | Zyte: {'ENABLED' if ZYTE_API_KEY else 'PLAYWRIGHT_ONLY'}")
+    print(f"Starting Zone3 RetentionGuard v12.7 (Dual-Lane ES||UK + Sostre <=50% Verificat) ({now_iso}) | Opció C (<=50% Automàtic, >50% Safata Revisió) | Baseline T-1 ({prev_scan_date}): {len(t_minus_1_keys)} lectures | Zyte: {'ENABLED' if ZYTE_API_KEY else 'PLAYWRIGHT_ONLY'}")
 
     async with async_playwright() as p:
         browser = await p.chromium.launch(
