@@ -68,7 +68,7 @@ SECONDARY_OPERATORS = {
 
 def is_secondary_operator(country, operator):
     return (country, operator) in SECONDARY_OPERATORS
-MAX_CLEAN_NEW_DISC_PCT = 50.0          # Opció C (v12.8): fins al 50.0% automàtic; tot descompte >50.0% va a Safata de Revisió
+MAX_CLEAN_NEW_DISC_PCT = 50.0          # Opció C (v12.9): fins al 50.0% automàtic; tot descompte >50.0% va a Safata de Revisió
 CLEAN_NEW_MIN_RATIO = 0.50             # 1.0 - 0.50
 MIXED_EX_RENTAL_MIN_RATIO = 0.60       # Bloqueig estructural en fitxes amb selector mixt Ex-Rental (p. ex. < £420 a Vanquish-X)
 ZYTE_CONCURRENCY_SEM = None
@@ -936,7 +936,7 @@ def parse_html_fast_stdlib(html_str, base_url, zprod=None):
             txt_cls = re.sub(r"<[^>]+>", " ", m_cls.group(1)).strip()
             if txt_cls and len(txt_cls) < 40:
                 dom_prices.append({"selector": ".pdp-price", "text": txt_cls, "attrCurr": meta_curr})
-        for m_woo in re.finditer(r'<p[^>]+class=["\'][^"\']*\bprice\b[^"\']*["\'][^>]*>(.*?)</p>', main_html, flags=re.I | re.S):
+        for m_woo in re.finditer(r'<(?:p|div|span)[^>]+class=["\'][^"\']*\b(?:price|woocommerce-variation-price)\b[^"\']*["\'][^>]*>(.*?)</(?:p|div|span)>', main_html, flags=re.I | re.S):
             woo_inner = m_woo.group(1)
             m_ins = re.search(r'<ins[^>]*>(.*?)</ins>', woo_inner, flags=re.I | re.S)
             target_woo = m_ins.group(1) if m_ins else re.sub(r'<del[^>]*>.*?</del>', ' ', woo_inner, flags=re.I | re.S)
@@ -1232,7 +1232,8 @@ async def discover_missing_pdps(page_es, page_uk, tracking, today_str, domain_bl
                 break
             op_disc_start = time.monotonic()
             is_sec_op = is_secondary_operator(country, operator)
-            per_op_cap = 165 if is_sec_op else 75
+            has_op_broken = any(r.get("id") in broken_row_ids for r in rows)
+            per_op_cap = 210 if has_op_broken else (165 if is_sec_op else 75)
 
             cat_urls = OPERATOR_CATALOG_URLS.get((country, operator), [])
             expected_dom = OPERATOR_DOMAIN_FILTER.get((country, operator), "")
@@ -1452,7 +1453,7 @@ async def discover_missing_pdps(page_es, page_uk, tracking, today_str, domain_bl
         _discover_country_lane(uk_groups, page_uk)
     )
 
-    # Automatic Cross-Market Twin Bridge for ProSwimwear (ES <-> UK share identical `/product/<slug>/` WooCommerce slugs)
+    # Automatic Cross-Market Twin Bridge for ProSwimwear (ES <-> UK share identical `/product/<slug>/` WooCommerce slugs; heals missing OR broken/stale twin URLs)
     pro_by_code = {}
     for r in tracking:
         if r.get("operator") == "ProSwimwear":
@@ -1463,24 +1464,28 @@ async def discover_missing_pdps(page_es, page_uk, tracking, today_str, domain_bl
         r_uk = pair.get("UK")
         r_es = pair.get("ES")
         if r_uk and r_es:
-            if r_uk.get("url") and not r_es.get("url") and "/product/" in r_uk["url"].lower():
-                slug_part = r_uk["url"].split("/product/", 1)[1].split("?")[0].strip("/")
-                twin_es = f"https://www.proswimwear.es/product/{slug_part}/?wmc-currency=EUR"
+            uk_u = str(r_uk.get("url") or "").strip()
+            es_u = str(r_es.get("url") or "").strip()
+            uk_slug = re.split(r"/product(?:o)?/", uk_u, flags=re.I)[1].split("?")[0].strip("/") if re.search(r"/product(?:o)?/", uk_u, flags=re.I) else ""
+            es_slug = re.split(r"/product(?:o)?/", es_u, flags=re.I)[1].split("?")[0].strip("/") if re.search(r"/product(?:o)?/", es_u, flags=re.I) else ""
+
+            if uk_slug and (not es_u or (r_uk.get("last_read") == today_str and r_es.get("last_read") != today_str and es_slug != uk_slug)):
+                twin_es = f"https://www.proswimwear.es/product/{uk_slug}/?wmc-currency=EUR"
                 r_es["url"] = twin_es
                 r_es["_rediscovered_today"] = True
                 if r_es.get("status") != "VERIFIED":
                     r_es["status"] = "PENDING_URL"
-                r_es["evidence"] = f"Auto-Discovery Twin Bridge ({today_str}): Fitxa bessona verificada des de ProSwimwear UK"
+                r_es["evidence"] = f"Auto-Discovery Twin Bridge ({today_str}): Fitxa bessona sincronitzada des de ProSwimwear UK"
                 discovered_counter["count"] += 1
-            elif r_es.get("url") and not r_uk.get("url") and "/product/" in r_es["url"].lower():
-                slug_part = r_es["url"].split("/product/", 1)[1].split("?")[0].strip("/")
-                twin_uk = f"https://www.proswimwear.co.uk/product/{slug_part}/"
-                r_uk["url"] = twin_uk
-                r_uk["_rediscovered_today"] = True
-                if r_uk.get("status") != "VERIFIED":
-                    r_uk["status"] = "PENDING_URL"
-                r_uk["evidence"] = f"Auto-Discovery Twin Bridge ({today_str}): Fitxa bessona verificada des de ProSwimwear ES"
-                discovered_counter["count"] += 1
+            elif es_slug and (not uk_u or (r_es.get("last_read") == today_str and r_uk.get("last_read") != today_str)):
+                twin_uk = f"https://www.proswimwear.co.uk/product/{es_slug}/?wmc-currency=GBP"
+                if twin_uk != uk_u or r_uk.get("id") in broken_row_ids or not uk_u:
+                    r_uk["url"] = twin_uk
+                    r_uk["_rediscovered_today"] = True
+                    if r_uk.get("status") != "VERIFIED":
+                        r_uk["status"] = "PENDING_URL"
+                    r_uk["evidence"] = f"Auto-Discovery Twin Bridge ({today_str}): Fitxa bessona sincronitzada des de ProSwimwear ES"
+                    discovered_counter["count"] += 1
 
     return discovered_counter["count"]
 
@@ -1960,6 +1965,10 @@ def get_canonical_url_candidates(url, country):
         sep = "&" if "?" in u else "?"
         u_eur = f"{u}{sep}wmc-currency=EUR"
         return [u_eur, u]
+    elif country == "UK" and "proswimwear.co.uk/" in u.lower() and "wmc-currency=gbp" not in u.lower():
+        sep = "&" if "?" in u else "?"
+        u_gbp = f"{u}{sep}wmc-currency=GBP"
+        return [u, u_gbp]
     return [u]
 
 async def extract_verified_pdp_price(page, row, force_zyte_only=False):
@@ -2554,7 +2563,7 @@ async def main():
     domain_blocks = {}
     CIRCUIT_BREAKER_LIMIT = 1 if ZYTE_API_KEY else 2
 
-    print(f"Starting Zone3 RetentionGuard v12.8 (Dual-Lane ES||UK + Sostre <=50% Verificat) ({now_iso}) | Opció C (<=50% Automàtic, >50% Safata Revisió) | Baseline T-1 ({prev_scan_date}): {len(t_minus_1_keys)} lectures | Zyte: {'ENABLED' if ZYTE_API_KEY else 'PLAYWRIGHT_ONLY'}")
+    print(f"Starting Zone3 RetentionGuard v12.9 (Dual-Lane ES||UK + Sostre <=50% Verificat) ({now_iso}) | Opció C (<=50% Automàtic, >50% Safata Revisió) | Baseline T-1 ({prev_scan_date}): {len(t_minus_1_keys)} lectures | Zyte: {'ENABLED' if ZYTE_API_KEY else 'PLAYWRIGHT_ONLY'}")
 
     async with async_playwright() as p:
         browser = await p.chromium.launch(
