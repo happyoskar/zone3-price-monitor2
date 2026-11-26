@@ -1,5 +1,6 @@
 import asyncio
 import base64
+import html as html_stdlib
 import json
 import os
 import re
@@ -67,7 +68,7 @@ SECONDARY_OPERATORS = {
 
 def is_secondary_operator(country, operator):
     return (country, operator) in SECONDARY_OPERATORS
-MAX_CLEAN_NEW_DISC_PCT = 50.0          # Opció C (v12.7): fins al 50.0% automàtic; tot descompte >50.0% va a Safata de Revisió
+MAX_CLEAN_NEW_DISC_PCT = 50.0          # Opció C (v12.8): fins al 50.0% automàtic; tot descompte >50.0% va a Safata de Revisió
 CLEAN_NEW_MIN_RATIO = 0.50             # 1.0 - 0.50
 MIXED_EX_RENTAL_MIN_RATIO = 0.60       # Bloqueig estructural en fitxes amb selector mixt Ex-Rental (p. ex. < £420 a Vanquish-X)
 ZYTE_CONCURRENCY_SEM = None
@@ -96,10 +97,10 @@ def is_valid_deporvillage_wetsuit_pdp(url, country):
     u_low = str(url or "").lower().strip()
     if not u_low or ":" in u_low.split("://")[-1] or "%3a" in u_low:
         return False
-    if any(x in u_low for x in ["catalogsearch", "natacion-zone3", "swimming-triathlon", "/trajes-", "/neoprenos-", "/monos-", "/banadores-", "/bañadores-", "/gafas-", "/gorros-", "/boyas-", "/calcetines-", "/guantes-", "/pantalon-", "/camiseta-", "/chaleco-", "/top-", "glide"]):
+    if any(x in u_low for x in ["catalogsearch", "natacion-zone3", "swimming-triathlon", "/trajes-", "/neoprenos-", "/monos-", "/mono-triatlon", "/mono-de-triatlon", "/banadores-", "/bañadores-", "/banador-", "/bañador-", "/gafas-", "/gorros-", "/gorro-", "/boyas-", "/boya-", "/calcetines-", "/guantes-", "/pantalon-", "/camiseta-", "/chaleco-", "/top-", "glide"]):
         return False
     if country == "ES":
-        return bool(re.search(r"deporvillage\.(?:com|es)/traje-(?:de-)?neopreno-zone3-", u_low))
+        return bool(re.search(r"deporvillage\.(?:com|es)/(?:(?:traje-(?:de-)?|shorty-)?)neopreno-zone3-", u_low)) or ("deporvillage." in u_low and "zone3" in u_low and "swimrun" in u_low)
     if country == "UK":
         return "deporvillage.co.uk/" in u_low and "zone3" in u_low and any(w in u_low for w in ("wetsuit", "swimrun", "shorty"))
     return True
@@ -247,19 +248,23 @@ OPERATOR_CATALOG_URLS = {
     ("ES", "365Rider"): [
         "https://www.365rider.com/brand/6-zone3",
         "https://www.365rider.com/brand/6-zone3?page=2",
-        "https://www.365rider.com/busqueda?controller=search&s=zone3+neopreno",
-        "https://www.365rider.com/busqueda?controller=search&s=zone3"
+        "https://www.365rider.com/brand/6-zone3?page=3",
+        "https://www.365rider.com/150-neoprenos-triatlon",
+        "https://www.365rider.com/busqueda?controller=search&s=neopreno+zone3",
+        "https://www.365rider.com/jolisearch?s=zone3"
     ],
     ("ES", "ProSwimwear"): [
         "https://www.proswimwear.es/product-category/brands/zone3/zone3-wetsuits/",
         "https://www.proswimwear.es/product-category/brands/zone3/zone3-wetsuits/page/2/",
         "https://www.proswimwear.es/product-category/brands/zone3/",
+        "https://www.proswimwear.es/product-category/brands/zone3/page/2/",
+        "https://www.proswimwear.es/product-category/brands/zone3/page/3/",
         "https://www.proswimwear.es/?s=zone3+neopreno&post_type=product",
-        "https://www.proswimwear.es/?s=zone3+wetsuit&post_type=product"
+        "https://www.proswimwear.es/?s=zone3&post_type=product"
     ],
     ("UK", "Start Fitness"): [
+        "https://startfitness.co.uk/collections/zone3/products.json?limit=250",
         "https://startfitness.co.uk/collections/zone3",
-        "https://startfitness.co.uk/collections/zone3?page=2",
         "https://startfitness.co.uk/search?q=zone3+wetsuit&type=product",
         "https://startfitness.co.uk/search?q=zone3&type=product"
     ],
@@ -267,7 +272,10 @@ OPERATOR_CATALOG_URLS = {
         "https://www.proswimwear.co.uk/product-category/brands/zone3/zone3-wetsuits/",
         "https://www.proswimwear.co.uk/product-category/brands/zone3/zone3-wetsuits/page/2/",
         "https://www.proswimwear.co.uk/product-category/brands/zone3/",
-        "https://www.proswimwear.co.uk/?s=zone3+wetsuit&post_type=product"
+        "https://www.proswimwear.co.uk/product-category/brands/zone3/page/2/",
+        "https://www.proswimwear.co.uk/product-category/brands/zone3/page/3/",
+        "https://www.proswimwear.co.uk/?s=zone3+wetsuit&post_type=product",
+        "https://www.proswimwear.co.uk/?s=zone3&post_type=product"
     ]
 }
 
@@ -308,7 +316,9 @@ DIRECT_CANDIDATE_PROBES = {
     ],
     ("ES", "Deporvillage", "WS25WSRV101"): [
         "https://www.deporvillage.com/traje-neopreno-zone3-versa-swimrun-mujer",
-        "https://www.deporvillage.com/traje-de-neopreno-zone3-versa-swimrun-mujer"
+        "https://www.deporvillage.com/traje-de-neopreno-zone3-versa-swimrun-mujer",
+        "https://www.deporvillage.com/neopreno-zone3-versa-swimrun-mujer",
+        "https://www.deporvillage.com/shorty-neopreno-zone3-versa-swimrun-mujer"
     ],
     ("UK", "Deporvillage", "WS21WADV101"): [
         "https://www.deporvillage.co.uk/zone3-advance-wetsuit-black-grey-blue-women",
@@ -376,12 +386,12 @@ OPERATOR_DOMAIN_FILTER = {
 MODEL_KEYWORDS = {
     "WS22MVAN101": ["vanquish"],
     "WS22WVAN101": ["vanquish"],
-    "WS25MASP101": ["aspire"],
-    "WS25WASP101": ["aspire"],
-    "WS24MVIS101": ["vision"],
-    "WS24WVIS101": ["vision"],
-    "WS21MADV101": ["advance", "advence"],
-    "WS21WADV101": ["advance", "advence"],
+    "WS25MASP101": ["aspire", "aspirar"],
+    "WS25WASP101": ["aspire", "aspirar"],
+    "WS24MVIS101": ["vision", "visión"],
+    "WS24WVIS101": ["vision", "visión"],
+    "WS21MADV101": ["advance", "advence", "avanzado", "avanzada"],
+    "WS21WADV101": ["advance", "advence", "avanzado", "avanzada"],
     "WS21MAGI116": ["agile", "ágil", "agil"],
     "WS21WAGI114": ["agile", "ágil", "agil"],
     "WS26MGLISL101": ["ascend", "glide"],
@@ -836,7 +846,7 @@ def extract_nextjs_candidates_for_row(page_info, row):
 def parse_html_fast_stdlib(html_str, base_url, zprod=None):
     """Instant (<5ms) pure-Python stdlib parser for Zyte HTML with full Next.js (__NEXT_DATA__ / __next_f) & bottom JSON-LD support."""
     if not html_str:
-        info = {"title": "", "h1": "", "ldNodes": [], "ldPrimaryCount": 0, "nextDataJson": "", "nextRscText": "", "metaCurr": "", "metaPrice": "", "domPrices": [], "bodyText": "", "links": [], "hasExRentalOption": False}
+        info = {"title": "", "h1": "", "ldNodes": [], "ldPrimaryCount": 0, "nextDataJson": "", "nextRscText": "", "wooVarPrices": [], "metaCurr": "", "metaPrice": "", "domPrices": [], "bodyText": "", "links": [], "hasExRentalOption": False}
     else:
         m_title = re.search(r"<title[^>]*>(.*?)</title>", html_str, flags=re.I | re.S)
         title = re.sub(r"\s+", " ", m_title.group(1)).strip() if m_title else ""
@@ -888,8 +898,8 @@ def parse_html_fast_stdlib(html_str, base_url, zprod=None):
 
         # Strip out related/recommended/carousel/footer/aside/strikeout/rrp/withoutTax blocks on truncated main HTML
         main_html = re.sub(r"<(script|style|noscript|aside|footer|nav|header|del|s)[^>]*>.*?</\1>", " ", truncated_raw_html, flags=re.I | re.S)
-        # Strip standalone <article> product cards (carousel/grid tiles never contain <h1> on a PDP)
-        main_html = re.sub(r"<article\b[^>]*>(?:(?!</article>|<h1\b).)*?</article>", " ", main_html, flags=re.I | re.S)
+        # Strip standalone <article> carousel/grid tiles (which contain an <a href> to another card and never have id="product-details" or <h1>)
+        main_html = re.sub(r"<article\b(?![^>]*product-details)[^>]*>(?:(?!</article>|<h1\b).)*?<a\b[^>]+href=(?:(?!</article>|<h1\b).)*?</article>", " ", main_html, flags=re.I | re.S)
         main_html = re.sub(
             r'<(div|section|ul|span)[^>]+(?:class|id|data-testid)=["\'][^"\']*(?:related|recommend|productCarousel|related-carousel|related-slider|upsell|cross-sell|similar|also-bought|alternatives|old-price|price-old|rrp|non-sale|withoutTax|strike)[^"\']*["\'][^>]*>.*?</\1>',
             " ",
@@ -934,6 +944,23 @@ def parse_html_fast_stdlib(html_str, base_url, zprod=None):
             txt_woo = re.sub(r'\s+', ' ', txt_woo).strip()
             if txt_woo and len(txt_woo) < 45:
                 dom_prices.append({"selector": "p.price", "text": txt_woo, "attrCurr": meta_curr})
+
+        woo_var_prices = []
+        m_wvar = re.search(r'data-product_variations=["\'](\[.*?\])["\']', truncated_raw_html, flags=re.I | re.S)
+        if m_wvar:
+            try:
+                wvars = json.loads(html_stdlib.unescape(m_wvar.group(1)))
+                if isinstance(wvars, list):
+                    for wv in wvars:
+                        if isinstance(wv, dict) and wv.get("display_price") is not None:
+                            wp = normalize_price(wv.get("display_price"))
+                            if wp and wp > 0:
+                                w_oos = not bool(wv.get("is_in_stock", True))
+                                w_attrs = wv.get("attributes") or {}
+                                w_sz = " ".join(str(v) for v in w_attrs.values() if v).strip()
+                                woo_var_prices.append({"price": wp, "oos": w_oos, "size": w_sz})
+            except Exception:
+                pass
 
         # Extract links including title, aria-label, inner img alt, surrounding card text (for empty stretched-link overlays),
         # DuckDuckGo uddg= redirect unwrapping, and JSON/hydration product URLs (Alltricks, Wetsuit Outlet, Sportano, Sigma, etc.)
@@ -1003,6 +1030,7 @@ def parse_html_fast_stdlib(html_str, base_url, zprod=None):
             "ldPrimaryCount": ld_primary_count,
             "nextDataJson": next_data_str,
             "nextRscText": next_rsc_txt,
+            "wooVarPrices": woo_var_prices,
             "metaCurr": meta_curr,
             "metaPrice": meta_price,
             "domPrices": dom_prices,
@@ -1103,12 +1131,30 @@ def is_operator_pdp_url(href, expected_dom):
     return True
 
 async def fetch_discovery_links(page, url, country, expected_dom, force_zyte=False):
-    """Fetches product links from a catalog/search URL with session caching and automatic Zyte soft-block rescue."""
+    """Fetches product links from a catalog/search URL (including Shopify products.json) with session caching and Zyte rescue."""
     cache_key = (country, url)
     if cache_key in DISCOVERY_LINKS_CACHE:
         return DISCOVERY_LINKS_CACHE[cache_key], force_zyte
     links = []
     used_zyte = force_zyte
+    if "products.json" in url.lower():
+        try:
+            req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT, "Accept": "application/json"})
+            raw_j = await asyncio.to_thread(lambda: urllib.request.urlopen(req, timeout=12).read().decode("utf-8", errors="ignore"))
+            j_obj = json.loads(raw_j)
+            parsed_u = urlparse(url)
+            origin = f"{parsed_u.scheme}://{parsed_u.netloc}"
+            for p_item in (j_obj.get("products") or []):
+                handle = str(p_item.get("handle") or "").strip()
+                title = str(p_item.get("title") or "").strip()
+                skus = " ".join(str(v.get("sku") or "") for v in (p_item.get("variants") or []) if isinstance(v, dict))
+                if handle:
+                    links.append({"href": f"{origin}/products/{handle}", "text": f"{title} {skus}".strip()})
+            if links:
+                DISCOVERY_LINKS_CACHE[cache_key] = links
+                return links, False
+        except Exception:
+            pass
     if not force_zyte:
         try:
             await throttled_domain_guard(url)
@@ -1282,18 +1328,23 @@ async def discover_missing_pdps(page_es, page_uk, tracking, today_str, domain_bl
                         f"https://www.sportsshoes.com/products/?q=zone3%20{kw_main}"
                     ],
                     ("ES", "365Rider"): [
+                        f"https://www.365rider.com/busqueda?controller=search&s={code}",
+                        f"https://www.365rider.com/busqueda?controller=search&s={ean}",
+                        f"https://www.365rider.com/busqueda?controller=search&s=neopreno+zone3+{kw_main}+{gender_es}",
                         f"https://www.365rider.com/busqueda?controller=search&s=zone3+{kw_main}",
-                        f"https://www.365rider.com/busqueda?controller=search&s={code}"
+                        f"https://www.365rider.com/jolisearch?s={code}"
                     ],
                     ("ES", "ProSwimwear"): [
-                        f"https://www.proswimwear.es/?s=zone3+{kw_main}&post_type=product"
+                        f"https://www.proswimwear.es/?s=zone3+{kw_main}&post_type=product",
+                        f"https://www.proswimwear.es/?s={code}&post_type=product"
                     ],
                     ("UK", "Start Fitness"): [
                         f"https://startfitness.co.uk/search?q=zone3+{kw_main}+{gender_en}&type=product",
                         f"https://startfitness.co.uk/search?q=zone3+{kw_main}&type=product"
                     ],
                     ("UK", "ProSwimwear"): [
-                        f"https://www.proswimwear.co.uk/?s=zone3+{kw_main}&post_type=product"
+                        f"https://www.proswimwear.co.uk/?s=zone3+{kw_main}&post_type=product",
+                        f"https://www.proswimwear.co.uk/?s={code}&post_type=product"
                     ]
                 }
                 for s_u in op_search_templates.get((country, operator), []):
@@ -1400,6 +1451,37 @@ async def discover_missing_pdps(page_es, page_uk, tracking, today_str, domain_bl
         _discover_country_lane(es_groups, page_es),
         _discover_country_lane(uk_groups, page_uk)
     )
+
+    # Automatic Cross-Market Twin Bridge for ProSwimwear (ES <-> UK share identical `/product/<slug>/` WooCommerce slugs)
+    pro_by_code = {}
+    for r in tracking:
+        if r.get("operator") == "ProSwimwear":
+            pro_by_code.setdefault(r["code"], {})[r["country"]] = r
+    for code_k, pair in pro_by_code.items():
+        if is_time_budget_exceeded(margin_sec=40):
+            break
+        r_uk = pair.get("UK")
+        r_es = pair.get("ES")
+        if r_uk and r_es:
+            if r_uk.get("url") and not r_es.get("url") and "/product/" in r_uk["url"].lower():
+                slug_part = r_uk["url"].split("/product/", 1)[1].split("?")[0].strip("/")
+                twin_es = f"https://www.proswimwear.es/product/{slug_part}/?wmc-currency=EUR"
+                r_es["url"] = twin_es
+                r_es["_rediscovered_today"] = True
+                if r_es.get("status") != "VERIFIED":
+                    r_es["status"] = "PENDING_URL"
+                r_es["evidence"] = f"Auto-Discovery Twin Bridge ({today_str}): Fitxa bessona verificada des de ProSwimwear UK"
+                discovered_counter["count"] += 1
+            elif r_es.get("url") and not r_uk.get("url") and "/product/" in r_es["url"].lower():
+                slug_part = r_es["url"].split("/product/", 1)[1].split("?")[0].strip("/")
+                twin_uk = f"https://www.proswimwear.co.uk/product/{slug_part}/"
+                r_uk["url"] = twin_uk
+                r_uk["_rediscovered_today"] = True
+                if r_uk.get("status") != "VERIFIED":
+                    r_uk["status"] = "PENDING_URL"
+                r_uk["evidence"] = f"Auto-Discovery Twin Bridge ({today_str}): Fitxa bessona verificada des de ProSwimwear ES"
+                discovered_counter["count"] += 1
+
     return discovered_counter["count"]
 
 def evaluate_page_info_candidates(page_info, row, source_prefix=""):
@@ -1649,6 +1731,26 @@ def evaluate_page_info_candidates(page_info, row, source_prefix=""):
                     nc_oos,
                     nc_val,
                     f"{source_prefix}{nc['source']} [{market_tag}] ({nc_val:.2f} {expected_sym}) · '{page_info.get('h1', '')[:38]}'"
+                )
+
+    # 1.8 WooCommerce Variable Product JSON (`data-product_variations` on ProSwimwear UK/ES)
+    if not is_mixed_ex_rental_pdp and page_info.get("wooVarPrices") and (m_curr == expected_curr or has_local_domain_currency):
+        for wv in page_info.get("wooVarPrices", []):
+            wv_val = normalize_price(wv.get("price"))
+            wv_oos = bool(wv.get("oos", False))
+            if wv_val is not None and wv_val > 0:
+                if wv_oos:
+                    detected_oos = True
+                    oos_variant_prices.append((wv_val, wv.get("size", "")))
+                else:
+                    detected_instock = True
+                    if (pvp * min_allowed_ratio) <= wv_val <= (pvp * 1.20):
+                        instock_variant_prices.append((wv_val, wv.get("size", "")))
+                register_candidate_or_tray(
+                    1,
+                    wv_oos,
+                    wv_val,
+                    f"{source_prefix}WooCommerce Variations [{market_tag}] ({wv_val:.2f} {expected_sym}) · H1: '{page_info.get('h1', '')[:38]}'"
                 )
 
     # 2. OpenGraph / Microdata (skipped if PDP mixes an Ex-Rental option inside the same page)
@@ -1995,8 +2097,8 @@ async def extract_verified_pdp_price(page, row, force_zyte_only=False):
                         const h1Main = document.querySelector('h1');
                         const ipEl = Array.from(document.querySelectorAll('meta[itemprop="price"], [itemprop="price"][content]')).find(el => {
                             if (el.closest(forbiddenContainers)) return false;
-                            const cardCtx = el.closest('article, li[class*="product"], .card, .product-card, .productCarousel-slide, [class*="productCard"], [class*="ProductCard"], [data-testid*="card"], [data-testid*="product-card"]');
-                            if (cardCtx && (!h1Main || !cardCtx.contains(h1Main))) return false;
+                            const cardCtx = el.closest('article:not(#product-details):not(.product-details), li[class*="product"], .card, .product-card, .productCarousel-slide, [class*="productCard"], [class*="ProductCard"], [data-testid*="card"], [data-testid*="product-card"]');
+                            if (cardCtx && (!h1Main || !cardCtx.contains(h1Main)) && cardCtx.querySelector('a[href]')) return false;
                             if (cardCtx && /ex-rental|ex rental|ex-demo|second-hand|refurbished|grade b|b-stock/i.test(cardCtx.innerText || '')) return false;
                             return true;
                         });
@@ -2021,8 +2123,8 @@ async def extract_verified_pdp_price(page, row, force_zyte_only=False):
                             if (el.closest('del, s, .old-price, .price-old, .rrp, .price--rrp, .price--non-sale, .price--withoutTax, [data-product-price-without-tax], .strike')) return;
                             if (el.closest(forbiddenContainers)) return;
                             const h1Dom = document.querySelector('h1');
-                            const cardCtx = el.closest('article, li[class*="product"], .card, .product-card, .productCarousel-slide, [class*="productCard"], [class*="ProductCard"], [data-testid*="card"], [data-testid*="product-card"]');
-                            if (cardCtx && (!h1Dom || !cardCtx.contains(h1Dom))) return;
+                            const cardCtx = el.closest('article:not(#product-details):not(.product-details), li[class*="product"], .card, .product-card, .productCarousel-slide, [class*="productCard"], [class*="ProductCard"], [data-testid*="card"], [data-testid*="product-card"]');
+                            if (cardCtx && (!h1Dom || !cardCtx.contains(h1Dom)) && cardCtx.querySelector('a[href]')) return;
                             if (cardCtx && /ex-rental|ex rental|ex-demo|second-hand|refurbished|grade b|b-stock/i.test(cardCtx.innerText || '')) return;
                             const txt = (el.innerText || el.getAttribute("content") || el.getAttribute("data-price-amount") || "").trim();
                             const attrCurr = (el.getAttribute("data-currency") || el.getAttribute("currency") || "").trim();
@@ -2055,8 +2157,23 @@ async def extract_verified_pdp_price(page, row, force_zyte_only=False):
                         }
                     }
 
+                    const wooVarPrices = [];
+                    const wf = document.querySelector('form.variations_form[data-product_variations], [data-product_variations]');
+                    if (wf) {
+                        try {
+                            const wvArr = JSON.parse(wf.getAttribute('data-product_variations') || '[]');
+                            if (Array.isArray(wvArr)) {
+                                wvArr.forEach(wv => {
+                                    if (wv && wv.display_price !== undefined && Number(wv.display_price) > 0) {
+                                        const attrs = wv.attributes ? Object.values(wv.attributes).filter(Boolean).join(' ') : '';
+                                        wooVarPrices.push({ price: Number(wv.display_price), oos: !Boolean(wv.is_in_stock), size: attrs });
+                                    }
+                                });
+                            }
+                        } catch (e) {}
+                    }
                     const bodyText = (document.body ? document.body.innerText : "").slice(0, 6000);
-                    return { title, h1, ldNodes, ldPrimaryCount: ldNodes.length, nextDataJson, nextRscText, metaCurr, metaPrice, domPrices, bodyText, hasExRentalOption };
+                    return { title, h1, ldNodes, ldPrimaryCount: ldNodes.length, nextDataJson, nextRscText, wooVarPrices, metaCurr, metaPrice, domPrices, bodyText, hasExRentalOption };
                 }""")
 
                 r_copy = dict(row)
@@ -2437,7 +2554,7 @@ async def main():
     domain_blocks = {}
     CIRCUIT_BREAKER_LIMIT = 1 if ZYTE_API_KEY else 2
 
-    print(f"Starting Zone3 RetentionGuard v12.7 (Dual-Lane ES||UK + Sostre <=50% Verificat) ({now_iso}) | Opció C (<=50% Automàtic, >50% Safata Revisió) | Baseline T-1 ({prev_scan_date}): {len(t_minus_1_keys)} lectures | Zyte: {'ENABLED' if ZYTE_API_KEY else 'PLAYWRIGHT_ONLY'}")
+    print(f"Starting Zone3 RetentionGuard v12.8 (Dual-Lane ES||UK + Sostre <=50% Verificat) ({now_iso}) | Opció C (<=50% Automàtic, >50% Safata Revisió) | Baseline T-1 ({prev_scan_date}): {len(t_minus_1_keys)} lectures | Zyte: {'ENABLED' if ZYTE_API_KEY else 'PLAYWRIGHT_ONLY'}")
 
     async with async_playwright() as p:
         browser = await p.chromium.launch(
