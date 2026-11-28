@@ -59295,12 +59295,14 @@
     "is_from": false,
     "url": "https://www.365rider.com/natacion/9513-neopreno-zone3-agile-negro-gris-hombre.html",
     "audit_status": "VALID",
-    "evidence": "JSON-LD price [EUR | Mercat ES] (209.95 €) · Producte: 'Neopreno Zone3 Agile Negro Gris Hombre' · [Nota cupó: detectat codi promocional 'BLACK8' a la web sense preu final descomptat explícit]"
+    "evidence": "JSON-LD price [EUR | Mercat ES] (209.95 €) · Producte: 'Neopreno Zone3 Agile Negro Gris Hombre' · [Nota cupó: detectat codi promocional 'BLACK8' a la web sense preu final descomptat explícit]",
+    "intraday_higher_price": 231.74,
+    "audit_note": "Mantingut preu mínim diari (209.95); lectura posterior a 2026-11-28-PM: 231.74"
   },
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "ES",
     "currency": "EUR",
     "operator": "365Rider",
@@ -59319,7 +59321,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "ES",
     "currency": "EUR",
     "operator": "365Rider",
@@ -59338,28 +59340,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
-    "country": "ES",
-    "currency": "EUR",
-    "operator": "365Rider",
-    "code": "WS25MACTF101",
-    "model": "Men's Active-Flex Wetsuit",
-    "pvp": 229,
-    "price": 185.95,
-    "disc_imp": 43.05,
-    "disc_pct": 18.8,
-    "out_of_stock": false,
-    "is_from": false,
-    "url": "https://www.365rider.com/natacion/18400-neopreno-zone3-active-flex-negro-naranja.html",
-    "audit_status": "VALID",
-    "evidence": "JSON-LD price [EUR | Mercat ES] (185.95 €) · Producte: 'Neopreno Zone3 Active Flex Negro Naranja' · [Nota cupó: detectat codi promocional 'BLACK8' a la web sense preu final descomptat explícit]",
-    "previous_price": 154.2,
-    "previous_date": "2026-11-27"
-  },
-  {
-    "timestamp": "2026-11-28",
-    "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "ES",
     "currency": "EUR",
     "operator": "365Rider",
@@ -59378,7 +59359,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "ES",
     "currency": "EUR",
     "operator": "365Rider",
@@ -59397,7 +59378,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "ES",
     "currency": "EUR",
     "operator": "Alltricks",
@@ -59416,7 +59397,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "ES",
     "currency": "EUR",
     "operator": "Alltricks",
@@ -59435,7 +59416,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "ES",
     "currency": "EUR",
     "operator": "Alltricks",
@@ -59454,7 +59435,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "ES",
     "currency": "EUR",
     "operator": "Alltricks",
@@ -59473,7 +59454,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "ES",
     "currency": "EUR",
     "operator": "Alltricks",
@@ -59494,7 +59475,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "ES",
     "currency": "EUR",
     "operator": "Alltricks",
@@ -59513,7 +59494,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "ES",
     "currency": "EUR",
     "operator": "Alltricks",
@@ -59532,7 +59513,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "ES",
     "currency": "EUR",
     "operator": "Bike 24",
@@ -59551,7 +59532,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "ES",
     "currency": "EUR",
     "operator": "Bike 24",
@@ -59570,7 +59551,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "ES",
     "currency": "EUR",
     "operator": "Bike 24",
@@ -59589,7 +59570,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "ES",
     "currency": "EUR",
     "operator": "Bike 24",
@@ -59627,7 +59608,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "ES",
     "currency": "EUR",
     "operator": "Bike 24",
@@ -59646,7 +59627,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "ES",
     "currency": "EUR",
     "operator": "Bike 24",
@@ -59665,7 +59646,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "ES",
     "currency": "EUR",
     "operator": "Bike 24",
@@ -59684,7 +59665,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "ES",
     "currency": "EUR",
     "operator": "Bike 24",
@@ -59703,7 +59684,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "ES",
     "currency": "EUR",
     "operator": "Bike 24",
@@ -59722,7 +59703,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "ES",
     "currency": "EUR",
     "operator": "Bike 24",
@@ -59741,7 +59722,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "ES",
     "currency": "EUR",
     "operator": "Bike 24",
@@ -59760,7 +59741,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "ES",
     "currency": "EUR",
     "operator": "Deporvillage",
@@ -59779,7 +59760,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "ES",
     "currency": "EUR",
     "operator": "Deporvillage",
@@ -59798,7 +59779,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "ES",
     "currency": "EUR",
     "operator": "Deporvillage",
@@ -59817,7 +59798,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "ES",
     "currency": "EUR",
     "operator": "Deporvillage",
@@ -59836,7 +59817,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "ES",
     "currency": "EUR",
     "operator": "Deporvillage",
@@ -59855,7 +59836,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "ES",
     "currency": "EUR",
     "operator": "Deporvillage",
@@ -59874,7 +59855,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "ES",
     "currency": "EUR",
     "operator": "Deporvillage",
@@ -59893,7 +59874,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "ES",
     "currency": "EUR",
     "operator": "Deporvillage",
@@ -59912,7 +59893,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "ES",
     "currency": "EUR",
     "operator": "Deporvillage",
@@ -59931,7 +59912,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "ES",
     "currency": "EUR",
     "operator": "Deporvillage",
@@ -59950,7 +59931,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "ES",
     "currency": "EUR",
     "operator": "Deporvillage",
@@ -59969,7 +59950,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "ES",
     "currency": "EUR",
     "operator": "Deporvillage",
@@ -59988,7 +59969,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "ES",
     "currency": "EUR",
     "operator": "Deporvillage",
@@ -60007,7 +59988,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "ES",
     "currency": "EUR",
     "operator": "Deporvillage",
@@ -60026,7 +60007,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "ES",
     "currency": "EUR",
     "operator": "ProSwimwear",
@@ -60045,7 +60026,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "ES",
     "currency": "EUR",
     "operator": "ProSwimwear",
@@ -60064,7 +60045,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "ES",
     "currency": "EUR",
     "operator": "ProSwimwear",
@@ -60085,7 +60066,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "ES",
     "currency": "EUR",
     "operator": "ProSwimwear",
@@ -60104,7 +60085,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "ES",
     "currency": "EUR",
     "operator": "Sportano",
@@ -60123,7 +60104,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "ES",
     "currency": "EUR",
     "operator": "Sportano",
@@ -60142,7 +60123,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "ES",
     "currency": "EUR",
     "operator": "Sportano",
@@ -60161,7 +60142,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "ES",
     "currency": "EUR",
     "operator": "Sportano",
@@ -60180,7 +60161,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "ES",
     "currency": "EUR",
     "operator": "Sportano",
@@ -60199,7 +60180,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "ES",
     "currency": "EUR",
     "operator": "Sportano",
@@ -60218,7 +60199,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "ES",
     "currency": "EUR",
     "operator": "Sportano",
@@ -60237,7 +60218,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "ES",
     "currency": "EUR",
     "operator": "Trade Inn",
@@ -60270,7 +60251,9 @@
     "is_from": false,
     "url": "https://www.tradeinn.com/swiminn/es/zone3-traje-de-neopreno-de-manga-larga-agile/137937162/p?country=es",
     "audit_status": "VALID",
-    "evidence": "[Zyte] Zyte Product API [EUR | Mercat ES] (216.99 €) · 'ZONE3 Traje de neopreno de manga larga A' · [Nota cupó: detectat codi promocional 'BF15' a la web sense preu final descomptat explícit]"
+    "evidence": "[Zyte] Zyte Product API [EUR | Mercat ES] (216.99 €) · 'ZONE3 Traje de neopreno de manga larga A' · [Nota cupó: detectat codi promocional 'BF15' a la web sense preu final descomptat explícit]",
+    "intraday_higher_price": 219.99,
+    "audit_note": "Mantingut preu mínim diari (216.99); lectura posterior a 2026-11-28-PM: 219.99"
   },
   {
     "timestamp": "2026-11-28",
@@ -60289,12 +60272,14 @@
     "is_from": false,
     "url": "https://www.tradeinn.com/swiminn/es/zone3-traje-de-neopreno-de-manga-larga-para-mujer-advance/137937161/p?country=es",
     "audit_status": "VALID",
-    "evidence": "[Zyte] Zyte Product API [EUR | Mercat ES] (283.99 €) · 'ZONE3 Traje de neopreno de manga larga p' · [Nota cupó: detectat codi promocional 'BF15' a la web sense preu final descomptat explícit]"
+    "evidence": "[Zyte] Zyte Product API [EUR | Mercat ES] (283.99 €) · 'ZONE3 Traje de neopreno de manga larga p' · [Nota cupó: detectat codi promocional 'BF15' a la web sense preu final descomptat explícit]",
+    "intraday_higher_price": 287.49,
+    "audit_note": "Mantingut preu mínim diari (283.99); lectura posterior a 2026-11-28-PM: 287.49"
   },
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "ES",
     "currency": "EUR",
     "operator": "Trade Inn",
@@ -60313,7 +60298,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "ES",
     "currency": "EUR",
     "operator": "Trade Inn",
@@ -60332,7 +60317,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "ES",
     "currency": "EUR",
     "operator": "Trade Inn",
@@ -60353,7 +60338,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "ES",
     "currency": "EUR",
     "operator": "Trade Inn",
@@ -60368,25 +60353,6 @@
     "url": "https://www.tradeinn.com/swiminn/es/zone3-traje-de-neopreno-de-manga-larga-terraprene-vision/140374093/p?country=es",
     "audit_status": "VALID",
     "evidence": "[Zyte] Zyte Product API [EUR | Mercat ES] (386.99 €) · 'ZONE3 Traje de neopreno de manga larga T' · [Nota cupó: detectat codi promocional 'BF15' a la web sense preu final descomptat explícit]"
-  },
-  {
-    "timestamp": "2026-11-28",
-    "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
-    "country": "ES",
-    "currency": "EUR",
-    "operator": "Trade Inn",
-    "code": "WS24WVIS101",
-    "model": "Women's Vision Wetsuit",
-    "pvp": 499,
-    "price": 386.99,
-    "disc_imp": 112.01,
-    "disc_pct": 22.4,
-    "out_of_stock": false,
-    "is_from": false,
-    "url": "https://www.tradeinn.com/swiminn/es/zone3-traje-de-neopreno-de-manga-larga-para-mujer-terraprene-vision/140374092/p?country=es",
-    "audit_status": "VALID",
-    "evidence": "[Zyte] Zyte Product API [EUR | Mercat ES] (386.99 €) · 'ZONE3 Traje de neopreno de manga larga p' · [Nota cupó: detectat codi promocional 'BF15' a la web sense preu final descomptat explícit]"
   },
   {
     "timestamp": "2026-11-28",
@@ -60416,27 +60382,6 @@
     "country": "ES",
     "currency": "EUR",
     "operator": "Trade Inn",
-    "code": "WS25MASP101",
-    "model": "Men's Aspire Wetsuit",
-    "pvp": 689,
-    "price": 541.49,
-    "disc_imp": 147.51,
-    "disc_pct": 21.4,
-    "out_of_stock": false,
-    "is_from": false,
-    "url": "https://www.tradeinn.com/swiminn/es/zone3-traje-de-neopreno-de-manga-larga-aspire/141564545/p?country=es",
-    "audit_status": "VALID",
-    "evidence": "[Zyte] Zyte Product API [EUR | Mercat ES] (541.49 €) · 'ZONE3 Traje de neopreno de manga larga A' · [Nota cupó: detectat codi promocional 'BF15' a la web sense preu final descomptat explícit]",
-    "previous_price": 534.99,
-    "previous_date": "2026-11-27"
-  },
-  {
-    "timestamp": "2026-11-28",
-    "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
-    "country": "ES",
-    "currency": "EUR",
-    "operator": "Trade Inn",
     "code": "WS25WACTF101",
     "model": "Women's Active-Flex Wetsuit",
     "pvp": 229,
@@ -60449,12 +60394,14 @@
     "audit_status": "VALID",
     "evidence": "[Zyte] Zyte Product API [EUR | Mercat ES] (203.99 €) · 'ZONE3 Traje de neopreno de manga larga p' · [Nota cupó: detectat codi promocional 'BF15' a la web sense preu final descomptat explícit]",
     "previous_price": 206.49,
-    "previous_date": "2026-11-27"
+    "previous_date": "2026-11-27",
+    "intraday_higher_price": 206.49,
+    "audit_note": "Mantingut preu mínim diari (203.99); lectura posterior a 2026-11-28-PM: 206.49"
   },
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "ES",
     "currency": "EUR",
     "operator": "Trade Inn",
@@ -60491,12 +60438,14 @@
     "audit_status": "VALID",
     "evidence": "[Zyte] Zyte Product API [EUR | Mercat ES] (157.49 €) · 'ZONE3 Traje de neopreno sin mangas Ascen' · [Nota cupó: detectat codi promocional 'BF15' a la web sense preu final descomptat explícit]",
     "previous_price": 155.99,
-    "previous_date": "2026-11-27"
+    "previous_date": "2026-11-27",
+    "intraday_higher_price": 158.99,
+    "audit_note": "Mantingut preu mínim diari (157.49); lectura posterior a 2026-11-28-PM: 158.99"
   },
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "ES",
     "currency": "EUR",
     "operator": "Trade Inn",
@@ -60517,7 +60466,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "ES",
     "currency": "EUR",
     "operator": "Triathlon24",
@@ -60536,7 +60485,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "ES",
     "currency": "EUR",
     "operator": "Triathlon24",
@@ -60555,7 +60504,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "ES",
     "currency": "EUR",
     "operator": "Triathlon24",
@@ -60574,7 +60523,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "ES",
     "currency": "EUR",
     "operator": "Triathlon24",
@@ -60593,7 +60542,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "ES",
     "currency": "EUR",
     "operator": "Triathlon24",
@@ -60612,7 +60561,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "ES",
     "currency": "EUR",
     "operator": "Triathlon24",
@@ -60631,7 +60580,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "ES",
     "currency": "EUR",
     "operator": "Triathlon24",
@@ -60650,7 +60599,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "ES",
     "currency": "EUR",
     "operator": "Triathlon24",
@@ -60669,7 +60618,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "ES",
     "currency": "EUR",
     "operator": "Triathlon24",
@@ -60688,7 +60637,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "ES",
     "currency": "EUR",
     "operator": "Triathlon24",
@@ -60707,7 +60656,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "ES",
     "currency": "EUR",
     "operator": "Wetsuit Outlet",
@@ -60726,7 +60675,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "ES",
     "currency": "EUR",
     "operator": "Wetsuit Outlet",
@@ -60745,7 +60694,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "ES",
     "currency": "EUR",
     "operator": "Wetsuit Outlet",
@@ -60764,7 +60713,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "ES",
     "currency": "EUR",
     "operator": "Wetsuit Outlet",
@@ -60783,7 +60732,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "ES",
     "currency": "EUR",
     "operator": "Wetsuit Outlet",
@@ -60802,7 +60751,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "ES",
     "currency": "EUR",
     "operator": "Wetsuit Outlet",
@@ -60821,7 +60770,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "ES",
     "currency": "EUR",
     "operator": "Wetsuit Outlet",
@@ -60840,7 +60789,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "ES",
     "currency": "EUR",
     "operator": "Wetsuit Outlet",
@@ -60859,7 +60808,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "ES",
     "currency": "EUR",
     "operator": "Wetsuit Outlet",
@@ -60878,7 +60827,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "ES",
     "currency": "EUR",
     "operator": "Wetsuit Outlet",
@@ -60897,7 +60846,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "ES",
     "currency": "EUR",
     "operator": "Wetsuit Outlet",
@@ -60916,7 +60865,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "UK",
     "currency": "GBP",
     "operator": "Deporvillage",
@@ -60935,7 +60884,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "UK",
     "currency": "GBP",
     "operator": "Deporvillage",
@@ -60954,7 +60903,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "UK",
     "currency": "GBP",
     "operator": "Deporvillage",
@@ -60973,7 +60922,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "UK",
     "currency": "GBP",
     "operator": "Deporvillage",
@@ -60992,7 +60941,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "UK",
     "currency": "GBP",
     "operator": "Deporvillage",
@@ -61011,7 +60960,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "UK",
     "currency": "GBP",
     "operator": "Deporvillage",
@@ -61030,7 +60979,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "UK",
     "currency": "GBP",
     "operator": "Deporvillage",
@@ -61049,7 +60998,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "UK",
     "currency": "GBP",
     "operator": "Deporvillage",
@@ -61068,7 +61017,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "UK",
     "currency": "GBP",
     "operator": "Deporvillage",
@@ -61087,7 +61036,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "UK",
     "currency": "GBP",
     "operator": "Deporvillage",
@@ -61106,7 +61055,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "UK",
     "currency": "GBP",
     "operator": "Deporvillage",
@@ -61125,7 +61074,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "UK",
     "currency": "GBP",
     "operator": "Deporvillage",
@@ -61144,7 +61093,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "UK",
     "currency": "GBP",
     "operator": "Deporvillage",
@@ -61163,7 +61112,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "UK",
     "currency": "GBP",
     "operator": "My Triathlon",
@@ -61182,7 +61131,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "UK",
     "currency": "GBP",
     "operator": "My Triathlon",
@@ -61201,7 +61150,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "UK",
     "currency": "GBP",
     "operator": "My Triathlon",
@@ -61220,7 +61169,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "UK",
     "currency": "GBP",
     "operator": "My Triathlon",
@@ -61239,7 +61188,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "UK",
     "currency": "GBP",
     "operator": "My Triathlon",
@@ -61258,7 +61207,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "UK",
     "currency": "GBP",
     "operator": "My Triathlon",
@@ -61277,7 +61226,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "UK",
     "currency": "GBP",
     "operator": "My Triathlon",
@@ -61296,7 +61245,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "UK",
     "currency": "GBP",
     "operator": "My Triathlon",
@@ -61315,7 +61264,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "UK",
     "currency": "GBP",
     "operator": "My Triathlon",
@@ -61334,7 +61283,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "UK",
     "currency": "GBP",
     "operator": "My Triathlon",
@@ -61353,7 +61302,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "UK",
     "currency": "GBP",
     "operator": "My Triathlon",
@@ -61372,7 +61321,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "UK",
     "currency": "GBP",
     "operator": "My Triathlon",
@@ -61391,7 +61340,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "UK",
     "currency": "GBP",
     "operator": "My Triathlon",
@@ -61410,7 +61359,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "UK",
     "currency": "GBP",
     "operator": "My Triathlon",
@@ -61429,7 +61378,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "UK",
     "currency": "GBP",
     "operator": "My Triathlon",
@@ -61448,7 +61397,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "UK",
     "currency": "GBP",
     "operator": "My Triathlon",
@@ -61467,7 +61416,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "UK",
     "currency": "GBP",
     "operator": "ProSwimwear",
@@ -61486,7 +61435,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "UK",
     "currency": "GBP",
     "operator": "ProSwimwear",
@@ -61505,7 +61454,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "UK",
     "currency": "GBP",
     "operator": "ProSwimwear",
@@ -61524,7 +61473,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "UK",
     "currency": "GBP",
     "operator": "Sigma",
@@ -61543,7 +61492,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "UK",
     "currency": "GBP",
     "operator": "Sigma",
@@ -61562,7 +61511,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "UK",
     "currency": "GBP",
     "operator": "Sigma",
@@ -61581,7 +61530,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "UK",
     "currency": "GBP",
     "operator": "Sigma",
@@ -61600,7 +61549,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "UK",
     "currency": "GBP",
     "operator": "Sigma",
@@ -61619,7 +61568,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "UK",
     "currency": "GBP",
     "operator": "Sigma",
@@ -61638,7 +61587,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "UK",
     "currency": "GBP",
     "operator": "Sportshoes",
@@ -61657,7 +61606,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "UK",
     "currency": "GBP",
     "operator": "Sportshoes",
@@ -61676,7 +61625,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "UK",
     "currency": "GBP",
     "operator": "Sportshoes",
@@ -61695,7 +61644,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "UK",
     "currency": "GBP",
     "operator": "Sportshoes",
@@ -61714,7 +61663,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "UK",
     "currency": "GBP",
     "operator": "Sportshoes",
@@ -61733,7 +61682,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "UK",
     "currency": "GBP",
     "operator": "Sportshoes",
@@ -61752,7 +61701,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "UK",
     "currency": "GBP",
     "operator": "Sportshoes",
@@ -61771,7 +61720,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "UK",
     "currency": "GBP",
     "operator": "Sportshoes",
@@ -61790,7 +61739,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "UK",
     "currency": "GBP",
     "operator": "Sportshoes",
@@ -61809,7 +61758,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "UK",
     "currency": "GBP",
     "operator": "Sportshoes",
@@ -61828,7 +61777,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "UK",
     "currency": "GBP",
     "operator": "Sportshoes",
@@ -61847,7 +61796,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "UK",
     "currency": "GBP",
     "operator": "Start Fitness",
@@ -61866,7 +61815,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "UK",
     "currency": "GBP",
     "operator": "Start Fitness",
@@ -61885,7 +61834,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "UK",
     "currency": "GBP",
     "operator": "Start Fitness",
@@ -61904,7 +61853,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "UK",
     "currency": "GBP",
     "operator": "Start Fitness",
@@ -61923,7 +61872,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "UK",
     "currency": "GBP",
     "operator": "Trade Inn",
@@ -61944,7 +61893,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "UK",
     "currency": "GBP",
     "operator": "Trade Inn",
@@ -61979,12 +61928,14 @@
     "audit_status": "VALID",
     "evidence": "[Zyte] Zyte Product API [GBP | Mercat UK] (236.99 £) · 'ZONE3 Advance woman long sleeve neoprene' · [Nota cupó: detectat codi promocional 'BF15' a la web sense preu final descomptat explícit]",
     "previous_price": 239.99,
-    "previous_date": "2026-11-27"
+    "previous_date": "2026-11-27",
+    "intraday_higher_price": 239.99,
+    "audit_note": "Mantingut preu mínim diari (236.99); lectura posterior a 2026-11-28-PM: 239.99"
   },
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "UK",
     "currency": "GBP",
     "operator": "Trade Inn",
@@ -62003,7 +61954,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "UK",
     "currency": "GBP",
     "operator": "Trade Inn",
@@ -62036,12 +61987,14 @@
     "is_from": false,
     "url": "https://www.tradeinn.com/swiminn/en/zone3-vanquish-x-woman-long-sleeve-neoprene-wetsuit/138472237/p?country=uk",
     "audit_status": "VALID",
-    "evidence": "[Zyte] Zyte Product API [GBP | Mercat UK] (567.49 £) · 'ZONE3 Vanquish-X woman long sleeve neopr' · [Nota cupó: detectat codi promocional 'BF15' a la web sense preu final descomptat explícit]"
+    "evidence": "[Zyte] Zyte Product API [GBP | Mercat UK] (567.49 £) · 'ZONE3 Vanquish-X woman long sleeve neopr' · [Nota cupó: detectat codi promocional 'BF15' a la web sense preu final descomptat explícit]",
+    "intraday_higher_price": 574.49,
+    "audit_note": "Mantingut preu mínim diari (567.49); lectura posterior a 2026-11-28-PM: 574.49"
   },
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "UK",
     "currency": "GBP",
     "operator": "Trade Inn",
@@ -62060,7 +62013,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "UK",
     "currency": "GBP",
     "operator": "Trade Inn",
@@ -62079,7 +62032,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "UK",
     "currency": "GBP",
     "operator": "Trade Inn",
@@ -62114,12 +62067,14 @@
     "audit_status": "VALID",
     "evidence": "[Zyte] Zyte Product API [GBP | Mercat UK] (446.00 £) · 'ZONE3 Aspire long sleeve neoprene wetsui' · [Nota cupó: detectat codi promocional 'BF15' a la web sense preu final descomptat explícit]",
     "previous_price": 451.99,
-    "previous_date": "2026-11-27"
+    "previous_date": "2026-11-27",
+    "intraday_higher_price": 451.99,
+    "audit_note": "Mantingut preu mínim diari (446.00); lectura posterior a 2026-11-28-PM: 451.99"
   },
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "UK",
     "currency": "GBP",
     "operator": "Trade Inn",
@@ -62140,28 +62095,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
-    "country": "UK",
-    "currency": "GBP",
-    "operator": "Trade Inn",
-    "code": "WS25WASP101",
-    "model": "Women's Aspire Wetsuit",
-    "pvp": 549,
-    "price": 451.99,
-    "disc_imp": 97.01,
-    "disc_pct": 17.7,
-    "out_of_stock": false,
-    "is_from": false,
-    "url": "https://www.tradeinn.com/swiminn/en/zone3-aspire-woman-long-sleeve-neoprene-wetsuit/141564550/p?country=uk",
-    "audit_status": "VALID",
-    "evidence": "[Zyte] Zyte Product API [GBP | Mercat UK] (451.99 £) · 'ZONE3 Aspire woman long sleeve neoprene ' · [Nota cupó: detectat codi promocional 'BF15' a la web sense preu final descomptat explícit]",
-    "previous_price": 453.99,
-    "previous_date": "2026-11-27"
-  },
-  {
-    "timestamp": "2026-11-28",
-    "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "UK",
     "currency": "GBP",
     "operator": "Trade Inn",
@@ -62180,7 +62114,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "UK",
     "currency": "GBP",
     "operator": "Trade Inn",
@@ -62199,7 +62133,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "UK",
     "currency": "GBP",
     "operator": "Wetsuit Outlet",
@@ -62218,7 +62152,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "UK",
     "currency": "GBP",
     "operator": "Wetsuit Outlet",
@@ -62237,7 +62171,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "UK",
     "currency": "GBP",
     "operator": "Wetsuit Outlet",
@@ -62256,7 +62190,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "UK",
     "currency": "GBP",
     "operator": "Wetsuit Outlet",
@@ -62275,7 +62209,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "UK",
     "currency": "GBP",
     "operator": "Wetsuit Outlet",
@@ -62294,7 +62228,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "UK",
     "currency": "GBP",
     "operator": "Wetsuit Outlet",
@@ -62313,7 +62247,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "UK",
     "currency": "GBP",
     "operator": "Wetsuit Outlet",
@@ -62332,7 +62266,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "UK",
     "currency": "GBP",
     "operator": "Wetsuit Outlet",
@@ -62351,7 +62285,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "UK",
     "currency": "GBP",
     "operator": "Wetsuit Outlet",
@@ -62370,7 +62304,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "UK",
     "currency": "GBP",
     "operator": "Wetsuit Outlet",
@@ -62389,7 +62323,7 @@
   {
     "timestamp": "2026-11-28",
     "run_slot": "2026-11-28-AM",
-    "timestamp_iso": "2026-11-28T02:34:22+01:00",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
     "country": "UK",
     "currency": "GBP",
     "operator": "Wetsuit Outlet",
@@ -62404,5 +62338,95 @@
     "url": "https://www.wetsuitoutlet.co.uk/2026-zone3-womens-ascend-sleeveless-wetsuit-ws26wglisl101-black-grey-p-56136.html",
     "audit_status": "VALID",
     "evidence": "Preu amb codi 'EXTRA15' mostrat a la fitxa [GBP | Mercat UK] (131.71 £) · [🎟️ Codi 'EXTRA15' aplicat · Preu base sense codi: 154.95 £]"
+  },
+  {
+    "timestamp": "2026-11-28",
+    "run_slot": "2026-11-28-PM",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
+    "country": "ES",
+    "currency": "EUR",
+    "operator": "365Rider",
+    "code": "WS25MACTF101",
+    "model": "Men's Active-Flex Wetsuit",
+    "pvp": 229,
+    "price": 154.2,
+    "disc_imp": 74.8,
+    "disc_pct": 32.7,
+    "out_of_stock": false,
+    "is_from": false,
+    "url": "https://www.365rider.com/natacion/18400-neopreno-zone3-active-flex-negro-naranja.html",
+    "audit_status": "VALID",
+    "evidence": "DOM Principal .current-price-value [EUR | Mercat ES] (154.20 €) · H1: 'Neopreno Zone3 Active Flex Negro Naran' · [Nota cupó: detectat codi promocional 'BLACK8' a la web sense preu final descomptat explícit]",
+    "previous_price": 154.2,
+    "previous_date": "2026-11-27",
+    "intraday_higher_price": 185.95,
+    "audit_note": "Preu mínim diari actualitzat a 2026-11-28-PM (154.20 vs lectura prèvia d'avui 185.95)"
+  },
+  {
+    "timestamp": "2026-11-28",
+    "run_slot": "2026-11-28-PM",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
+    "country": "ES",
+    "currency": "EUR",
+    "operator": "Trade Inn",
+    "code": "WS24WVIS101",
+    "model": "Women's Vision Wetsuit",
+    "pvp": 499,
+    "price": 381.99,
+    "disc_imp": 117.01,
+    "disc_pct": 23.4,
+    "out_of_stock": false,
+    "is_from": false,
+    "url": "https://www.tradeinn.com/swiminn/es/zone3-traje-de-neopreno-de-manga-larga-para-mujer-terraprene-vision/140374092/p?country=es",
+    "audit_status": "VALID",
+    "evidence": "[Zyte] Zyte Product API [EUR | Mercat ES] (381.99 €) · 'ZONE3 Traje de neopreno de manga larga p' · [Nota cupó: detectat codi promocional 'BF15' a la web sense preu final descomptat explícit]",
+    "intraday_higher_price": 386.99,
+    "audit_note": "Preu mínim diari actualitzat a 2026-11-28-PM (381.99 vs lectura prèvia d'avui 386.99)"
+  },
+  {
+    "timestamp": "2026-11-28",
+    "run_slot": "2026-11-28-PM",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
+    "country": "ES",
+    "currency": "EUR",
+    "operator": "Trade Inn",
+    "code": "WS25MASP101",
+    "model": "Men's Aspire Wetsuit",
+    "pvp": 689,
+    "price": 534.99,
+    "disc_imp": 154.01,
+    "disc_pct": 22.4,
+    "out_of_stock": false,
+    "is_from": false,
+    "url": "https://www.tradeinn.com/swiminn/es/zone3-traje-de-neopreno-de-manga-larga-aspire/141564545/p?country=es",
+    "audit_status": "VALID",
+    "evidence": "[Zyte] Zyte Product API [EUR | Mercat ES] (534.99 €) · 'ZONE3 Traje de neopreno de manga larga A' · [Nota cupó: detectat codi promocional 'BF15' a la web sense preu final descomptat explícit]",
+    "previous_price": 534.99,
+    "previous_date": "2026-11-27",
+    "intraday_higher_price": 541.49,
+    "audit_note": "Preu mínim diari actualitzat a 2026-11-28-PM (534.99 vs lectura prèvia d'avui 541.49)"
+  },
+  {
+    "timestamp": "2026-11-28",
+    "run_slot": "2026-11-28-PM",
+    "timestamp_iso": "2026-11-28T16:46:07+01:00",
+    "country": "UK",
+    "currency": "GBP",
+    "operator": "Trade Inn",
+    "code": "WS25WASP101",
+    "model": "Women's Aspire Wetsuit",
+    "pvp": 549,
+    "price": 446.0,
+    "disc_imp": 103.0,
+    "disc_pct": 18.8,
+    "out_of_stock": false,
+    "is_from": false,
+    "url": "https://www.tradeinn.com/swiminn/en/zone3-aspire-woman-long-sleeve-neoprene-wetsuit/141564550/p?country=uk",
+    "audit_status": "VALID",
+    "evidence": "[Zyte] Zyte Product API [GBP | Mercat UK] (446.00 £) · 'ZONE3 Aspire woman long sleeve neoprene ' · [Nota cupó: detectat codi promocional 'BF15' a la web sense preu final descomptat explícit]",
+    "previous_price": 453.99,
+    "previous_date": "2026-11-27",
+    "intraday_higher_price": 451.99,
+    "audit_note": "Preu mínim diari actualitzat a 2026-11-28-PM (446.00 vs lectura prèvia d'avui 451.99)"
   }
 ]
